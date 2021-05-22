@@ -1,3 +1,5 @@
 Dies ist eine Testdatei
 
 Dies wurde als Text hinzugefügt um zu testen, ob man bearbeiten kann.
+
+Der Test war erfolgreich!
