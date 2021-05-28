@@ -4,17 +4,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.sqlite.*;
-
+/*
+sqlite-jdbc repository: https://github.com/xerial/sqlite-jdbc
+Oracle Tutorial for JDBC: https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html
+*/
 public class Sample
 {
   public static void main(String[] args)
   {
-    SQLiteConnection connection = null;
+    Connection connection = null;
     try
     {
       // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:../../data/sample.db");
+      connection = DriverManager.getConnection("jdbc:sqlite:data/production.db");
       Statement statement = connection.createStatement();
       statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
