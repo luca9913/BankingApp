@@ -18,6 +18,9 @@ public class GUI_Login extends JFrame {
     public GUI_Login() {
         initialize();
 
+        ImageIcon titleBarImage = new ImageIcon("C:\\Users\\aaron\\Desktop\\IntelliJ Workspace\\BankingApp\\src\\img\\Turing Bank Square (mini).png");
+        this.setIconImage(titleBarImage.getImage());
+
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
