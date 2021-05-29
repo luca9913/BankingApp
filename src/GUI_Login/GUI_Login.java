@@ -29,32 +29,8 @@ public class GUI_Login extends JFrame {
         setSize(400, 500);
         setResizable(false);
 
-
-
         add(panel1);
-        /*
-        add(loginButton);
-        add(passwordField1);
-        add(loginButton);
-        add(exitButton);
 
-         */
     }
 
-
-/*
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    GUI_Login window = new GUI_Login();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
- */
 }
