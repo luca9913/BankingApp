@@ -31,4 +31,11 @@ public class Customer extends Person{
 
     }
 
+    //Ändern des eigenen Datensatzes
+    private void changeMyData(String name, String preName, int zip, String address){
+        this.name = name;
+        this.preName = preName;
+        this.zip = zip;
+        this.address = address;
+    }
 }

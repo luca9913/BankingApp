@@ -31,4 +31,12 @@ public class Banker extends Person{
 
     }
 
+    //Ändern des Datensatzes einer Person
+    private void changePerson(String id, String name, String preName, Date birthDate, int zip, String address){
+        this.name = name;
+        this.preName = preName;
+        this.zip = zip;
+        this.address = address;
+    }
+
 }
