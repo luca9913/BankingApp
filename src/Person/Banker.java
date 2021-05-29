@@ -19,14 +19,14 @@ public class Banker extends Person{
 
     }
 
-    //Funktion, um die aktuellen Kontostände anzuzeigen
-    //Offene Frage: Alle Kontostände oder nur der Kontostand eines Kontos
-    private void showFinances(int accID){
+    //Funktion, um die negativen Salden eines Kunden anzuzeigen
+    //Offene Frage: Alle Negativen Salden oder nur die negativen Salden eines Kunden
+    private void showBalance(int customerID){
 
     }
 
     //Zeigt Kontobewegungen (z.B. letzte Überweisungen)
-    //Offene Frage: Alle Kontobewegungen oder nur die Kontobewegungen eines Kontos
+    //Offene Frage: Bewegungen aller Konten oder nur die Kontobewegungen eines Kunden / Kontos?
     private void showAccMovement(int accID){
 
     }
