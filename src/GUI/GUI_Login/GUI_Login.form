@@ -184,7 +184,7 @@
           <background color="-16767685"/>
           <enabled value="true"/>
           <font size="10" style="1"/>
-          <foreground color="-3538944"/>
+          <foreground color="-5308416"/>
           <text value="1 Failed Passcode Attempt "/>
         </properties>
       </component>
