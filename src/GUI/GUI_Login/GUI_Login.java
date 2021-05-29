@@ -1,4 +1,4 @@
-package GUI_Login;
+package GUI.GUI_Login;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

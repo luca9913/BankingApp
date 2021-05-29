@@ -1,4 +1,4 @@
-package GUI_Login;
+package GUI.GUI_Login;
 
 public class GUI_Main {
 
