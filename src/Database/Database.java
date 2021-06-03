@@ -25,24 +25,12 @@ abstract class Database {
             ResultSetMetaData rsmeta = rs.getMetaData();
             int columns = rsmeta.getColumnCount();
             String[] result = new String[columns];
-            for (int i = 1; i <= columns; i++) { //Möglichkeit finden Zeilen & Spalten auszulesen
-                result[i-1]= rs.getString(i);
+            for (int i = 1; i <= columns; i++) {
+                    result[i-1] = rs.getString(i);
             }
             return result;
         }catch(SQLException e){
             System.err.println("Fehler beim Übertragen eines ResultSets in einen StringArray.");
-            System.err.print("Fehlermeldung: ");
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    String[] getTables(){
-        try{
-            ResultSet rs = state.executeQuery("SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%'");
-            return rsToStringArray(rs);
-        }catch(SQLException e){
-            System.err.println("Fehler beim Auslesen der Tabellen:");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
             return null;
@@ -192,10 +180,10 @@ class DatabaseTest{
         auth.executeCustomQuery("UPDATE user SET customer_id = 485 WHERE user_id = 1");
 
         ProdBase prod = ProdBase.initialize(); //Stammdatenbank initialisieren
-        String[] prodtables = prod.getTables(); //Tabellen abfragen
-        for(int i = 0; i < prodtables.length; i++){ //Tabellennamen ausgeben
-            System.out.println("Tabelle " + (i+1) + ": " + prodtables[i]);
-        }
         prod.insertAccount("Girokonto", 200, 9999.99, 1, 3);
+        String[] accdata = prod.getAccountData(1);
+        for(int i = 0; i <= accdata.length-1; i++){
+            System.out.println(accdata[i]);
+        }
     }
 }
