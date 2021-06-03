@@ -2,6 +2,9 @@ package Database;
 
 import java.sql.*;
 import java.nio.file.*;
+import java.util.AbstractMap;
+
+//TODO: add class or implement ResultMaps (to store ResultSets in Maps with keys and String-Arrays or alike)
 
 abstract class Database {
     final String DRIVER = "jdbc:sqlite:";
@@ -9,7 +12,7 @@ abstract class Database {
     static Connection conn;
     static Statement state;
 
-    boolean executeCustomQuery(String sql){
+    boolean executeCustomQuery(String sql){ //TODO: option for returning Results
         try {
             return state.execute(sql); //Gibt true zurück, wenn die Abfrage Ergebnisse liefert. Gibt false zurück, wenn es sich um ein UPDATE handelte oder keine Werte zurückkamen.
         }catch(SQLException e){
@@ -146,7 +149,6 @@ class ProdBase extends Database{
             return null;
         }
     }
-
     //Weitere Abfragen hinzufügen (für jede Tabelle)
 
     boolean insertAccount(String type, int dispo, double transferlimit, int oid, int bid){
