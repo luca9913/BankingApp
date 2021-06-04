@@ -3,26 +3,35 @@ package Database;
 import java.sql.*;
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.apache.commons.lang3.ArrayUtils;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-//TODO: add class or implement ResultMaps (to store ResultSets in Maps with keys and String-Arrays or alike)
+//(TODO: change ArrayList<String[]> to ArrayList<Object[]> to store Integer and other Objects)
 
 abstract class Database {
     final String DRIVER = "jdbc:sqlite:";
     final String FOLDER = "src/data/";
     static Connection conn;
     static Statement state;
-    ArrayList<String[]> result; //result[columnname][rowvalues]
+    ResultSet result;
 
-    boolean executeCustomQuery(String sql){ //TODO: option for returning Results
+    ArrayList<String[]> executeCustomQuery(String sql){ //TODO: option for returning Results
         try {
-            return state.execute(sql); //Gibt true zurück, wenn die Abfrage Ergebnisse liefert. Gibt false zurück, wenn es sich um ein UPDATE handelte oder keine Werte zurückkamen.
+            if(Pattern.compile(Pattern.quote("select"), Pattern.CASE_INSENSITIVE).matcher(sql).find()){
+                result = state.executeQuery(sql);
+                return rsToArrayList(result);
+            }else{
+                String mrows = Integer.toString(state.executeUpdate(sql));
+                ArrayList<String[]> update_result= new ArrayList<String[]>(1);
+                update_result.add(new String[]{mrows});
+                return update_result;
+            }
         }catch(SQLException e){
             System.err.println("Beim Ausführen der Abfrage ist ein Fehler aufgetreten.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
@@ -49,7 +58,11 @@ abstract class Database {
                     result.add(ArrayUtils.clone(result_row));
                 }
             }
-            return result;
+            if(result.size() == 1){
+                return null; //if the result list only contains one array with the column names, return null
+            }else {
+                return result; //else return the result list
+            }
         }catch(SQLException e){
             System.err.println("Fehler beim Übertragen eines ResultSets in einen StringArray.");
             System.err.print("Fehlermeldung: ");
@@ -89,18 +102,33 @@ class AuthBase extends Database{
         }
     }
 
+    //retrieving functions
+
     ArrayList<String[]> getAuthSet(int uid){
         try {
-            ResultSet rs = state.executeQuery("SELECT * FROM user WHERE user_id = " + uid);
-            result = rsToArrayList(rs);
-            return result;
+            result = state.executeQuery("SELECT * FROM user WHERE user_id = " + uid);
+            return rsToArrayList(result);
         }catch(SQLException e){
-            System.err.println("Fehler beim Ausführen des SQL-Statements.");
+            System.err.println("Fehler beim Auslesen der Authentifizierungs-Daten");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
             return null;
         }
     }
+
+    String getHash(int uid){
+        try{
+            ResultSet rs = state.executeQuery("SELECT pw_hash FROM user WHERE user_id =" + uid);
+            return rs.getString(1); //possible because there's only one column specified in the SQL-Statement (pw_hash) and the uid is unique in the table user
+        }catch(SQLException e){
+            System.err.println("Fehler beim Auslesen des Passwort-Hashes.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //inserting function
 
     boolean insertUser(String pw, int id, String function){
         try {
@@ -197,13 +225,7 @@ class DatabaseTest{
     public static void main(String[] args){
         AuthBase auth = AuthBase.initialize(); //Datenbank initialisieren
         System.out.println(auth.path.toString()); //Pfad ausgeben
-        AuthBase test = AuthBase.initialize(); //Private Konstruktor demonstrieren
-        ArrayList<String[]> result = auth.getAuthSet(1);
-        System.out.println("Es wurde " + result.size() + " Zeilen gefunden.");
-        String[] row = result.get(0);
-        System.out.println("Die Tabelle hat " + row.length + " Spalten.");
-        for(int i = 0; i < row.length; i++){
-            System.out.println("Spalte" + (i+1) + ": " + row[i]);
-        }
+        ArrayList<String[]> result = auth.executeCustomQuery("SELECT * from user");
+        System.out.println(result.get(1)[2]);
     }
 }
