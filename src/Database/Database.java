@@ -2,7 +2,9 @@ package Database;
 
 import java.sql.*;
 import java.nio.file.*;
-import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import org.apache.commons.lang3.ArrayUtils;
 
 //TODO: add class or implement ResultMaps (to store ResultSets in Maps with keys and String-Arrays or alike)
 
@@ -11,6 +13,7 @@ abstract class Database {
     final String FOLDER = "src/data/";
     static Connection conn;
     static Statement state;
+    ArrayList<String[]> result; //result[columnname][rowvalues]
 
     boolean executeCustomQuery(String sql){ //TODO: option for returning Results
         try {
@@ -23,13 +26,28 @@ abstract class Database {
         }
     }
 
-    String[] rsToStringArray(ResultSet rs){
+    ArrayList<String[]> rsToArrayList(ResultSet rs){
         try {
-            ResultSetMetaData rsmeta = rs.getMetaData();
-            int columns = rsmeta.getColumnCount();
-            String[] result = new String[columns];
-            for (int i = 1; i <= columns; i++) {
-                    result[i-1] = rs.getString(i);
+            //initialize all needed variables and Collections
+            ResultSetMetaData rsmeta = rs.getMetaData(); //Get Metadata from the ResultSet
+            int columns = rsmeta.getColumnCount(); //Get the column count for the for-loop
+            String[] result_row = new String[columns]; //initialize the Array to hold the result of every column for each row
+            ArrayList<String[]>result = new ArrayList<String[]>(); //initialize ArrayList which holds the String Arrays for each row
+
+            for(int i = 1; i <= columns; i++){
+                result_row[i-1] = rsmeta.getColumnName(i);
+            }
+            result.add(ArrayUtils.clone(result_row));
+            while(rs.next()) { //while there are results left in the Set, fill the result_row Array with the column values
+                for (int i = 1; i <= columns; i++) {
+                    result_row[i-1] = rs.getString(i);
+                }
+                if(result.size() <= 10) {
+                    result.add(ArrayUtils.clone(result_row));
+                }else{
+                    result.ensureCapacity(result.size() + 1);
+                    result.add(ArrayUtils.clone(result_row));
+                }
             }
             return result;
         }catch(SQLException e){
@@ -71,10 +89,11 @@ class AuthBase extends Database{
         }
     }
 
-    String[] getAuthSet(int uid){
+    ArrayList<String[]> getAuthSet(int uid){
         try {
             ResultSet rs = state.executeQuery("SELECT * FROM user WHERE user_id = " + uid);
-            return rsToStringArray(rs);
+            result = rsToArrayList(rs);
+            return result;
         }catch(SQLException e){
             System.err.println("Fehler beim Ausführen des SQL-Statements.");
             System.err.print("Fehlermeldung: ");
@@ -138,10 +157,10 @@ class ProdBase extends Database{
         }
     }
 
-    String[] getAccountData(int accid){
+    ArrayList<String[]> getAccountData(int accid){
         try {
             ResultSet rs = state.executeQuery("SELECT * FROM account WHERE account_id = " + accid);
-            return rsToStringArray(rs);
+            return rsToArrayList(rs);
         }catch(SQLException e){
             System.err.println("Fehler beim Ausführen des SQL-Statements.");
             System.err.print("Fehlermeldung: ");
@@ -179,13 +198,12 @@ class DatabaseTest{
         AuthBase auth = AuthBase.initialize(); //Datenbank initialisieren
         System.out.println(auth.path.toString()); //Pfad ausgeben
         AuthBase test = AuthBase.initialize(); //Private Konstruktor demonstrieren
-        auth.executeCustomQuery("UPDATE user SET customer_id = 485 WHERE user_id = 1");
-
-        ProdBase prod = ProdBase.initialize(); //Stammdatenbank initialisieren
-        prod.insertAccount("Girokonto", 200, 9999.99, 1, 3);
-        String[] accdata = prod.getAccountData(1);
-        for(int i = 0; i <= accdata.length-1; i++){
-            System.out.println(accdata[i]);
+        ArrayList<String[]> result = auth.getAuthSet(1);
+        System.out.println("Es wurde " + result.size() + " Zeilen gefunden.");
+        String[] row = result.get(0);
+        System.out.println("Die Tabelle hat " + row.length + " Spalten.");
+        for(int i = 0; i < row.length; i++){
+            System.out.println("Spalte" + (i+1) + ": " + row[i]);
         }
     }
 }
