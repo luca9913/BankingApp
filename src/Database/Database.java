@@ -21,9 +21,9 @@ public abstract class Database {
                 result = state.executeQuery(sql);
                 return rsToArrayList(result);
             }else{
-                String mrows = Integer.toString(state.executeUpdate(sql));
+                int mrows = state.executeUpdate(sql);
                 ArrayList<Object[]> update_result= new ArrayList<>(1);
-                update_result.add(new String[]{mrows});
+                update_result.add(new Integer[]{mrows});
                 return update_result;
             }
         }catch(SQLException e){
@@ -59,7 +59,10 @@ public abstract class Database {
             }
             if(result.size() == 1){
                 return null; //if the result list only contains one array with the column names, return null
-            }else {
+            }else if(result.size() < 10) {
+                result.trimToSize();
+                return result;
+            }else{
                 return result; //else return the result list
             }
         }catch(SQLException e){
@@ -71,12 +74,10 @@ public abstract class Database {
     }
 }
 
-
-
-
 class DatabaseTest{
 
     public static void main(String[] args){
         AuthBase auth = AuthBase.initialize(); //Datenbank initialisieren
+        auth.updateHash(2, "start1235".hashCode());
     }
 }

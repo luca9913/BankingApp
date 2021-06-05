@@ -11,12 +11,11 @@ public class Login {
 
     //hashed das Passwort
     private String hashen(String password){
-
         return pwHash;
     }
 
     //readDatabase vergleicht die Eingabe mit der Datenbank und gibt mit "1" zurück ob ein passender Tupel gefunden wurde.
-    private boolean readDatabase(String userID, String pwHash){
+    /*private boolean readDatabase(String userID, String pwHash){
         private int user_ID;
         // (SELECT user_id FROM user WHERE pw_HASH == pwHash && user_ID == userID)
         if(user_ID != 0)
@@ -25,7 +24,7 @@ public class Login {
             valid = false;
 
         return valid;
-    }
+    }*/
 
     //sendToGUI
     private void sendToGUI(boolean valid, int UserID){

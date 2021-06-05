@@ -1,5 +1,10 @@
 package Person;
 
+import Konto.Depot;
+import Konto.Festgeldkonto;
+import Konto.Girokonto;
+import Konto.Kreditkarte;
+
 import java.util.Date;
 
 public class Customer extends Person{
@@ -9,33 +14,30 @@ public class Customer extends Person{
         super(id, name, preName, birthDate, zip, address);
     }
 
-    //Funktion, um alle Konten in der GUI zu aktualisieren
-    private void syncAccounts(){
-
-    }
-
-    //Funktion, um zu überweisen
-    private void transfer(int fromAcc, int toAcc, double sum){
-
-    }
-
-    //Funktion, um die aktuellen Kontostände anzuzeigen
-    //Offene Frage: Alle Kontostände oder nur der Kontostand eines Kontos
-    private void showFinances(int accID){
-
-    }
-
-    //Zeigt Kontobewegungen (z.B. letzte Überweisungen)
-    //Offene Frage: Alle Kontobewegungen oder nur die Kontobewegungen eines Kontos
-    private void showAccMovement(int accID){
-
-    }
 
     //Ändern des eigenen Datensatzes
-    private void changeMyData(String name, String preName, int zip, String address){
+    private void changeMyData(String name, String preName, Date birthDate, int zip, String address){
         this.name = name;
         this.preName = preName;
+        this.birthDate = birthDate;
         this.zip = zip;
         this.address = address;
+    }
+
+    private void createAcc(int choice){
+        switch(choice){
+            case 0:
+                Girokonto konto1 = new Girokonto();
+                break;
+            case 1:
+                Festgeldkonto konto2 = new Festgeldkonto();
+                break;
+            case 2:
+                Kreditkarte konto3 = new Kreditkarte();
+                break;
+            case 3:
+                Depot konto4 = new Depot();
+                break;
+        }
     }
 }
