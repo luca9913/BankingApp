@@ -16,7 +16,7 @@ public class GUI_Login extends JFrame {
     private JPanel panel1;
     private JLabel image;
     private JLabel failedAttempts;
-    private Login loginObjekt;
+    private Login loginObjekt; //Logininstantz mit der auf die Login-Datenbank zugegriffen werden kann
 
     public GUI_Login(Login loginObjekt) {
         this.loginObjekt = loginObjekt;
