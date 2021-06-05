@@ -1,30 +1,46 @@
 package Login;
 
+import Database.AuthBase;
+import Person.Banker;
+import Person.Person;
+import Person.Customer;
+
 public class Login {
 
     private String password;
-    private String pwHash;
+    private int pwHash;
     private int userID = 0;
     private boolean valid;
+    private AuthBase datenbank;
+    private Person user;
 
-    //Methode readFromGUI: liest userID und password aus GUI Eingabe
-
+    public Login(AuthBase datenbank, Person user)
+    {
+        this.user = user;
+        this.datenbank = datenbank;
+    }
     //hashed das Passwort
-    private String hashen(String password){
 
-        return pwHash;
+    private int hashen(String password){
+
+        return password.hashCode();
     }
 
-    //readDatabase vergleicht die Eingabe mit der Datenbank und gibt mit "1" zurück ob ein passender Tupel gefunden wurde.
-    private boolean readDatabase(String userID, String pwHash){
-        private int user_ID;
-        // (SELECT user_id FROM user WHERE pw_HASH == pwHash && user_ID == userID)
-        if(user_ID != 0)
-            valid = true;
-        else
-            valid = false;
-
-        return valid;
+    //readDatabase vergleicht die Eingabe mit der Datenbank und gibt mit "true" zurück ob ein passender Tupel gefunden wurde.
+    public boolean readDatabase(int userID, String password){
+        pwHash = hashen(password); //passwort zu hash umwandeln
+        if (pwHash == datenbank.getHash(userID)) //hash mit Datenbank abgleichen
+        {
+            if(userID < 1000)
+            {
+                user = new Banker(userID, datenbank.getIdentity(userID));
+            }else
+            {
+                user = new Customer(userID,datenbank.getIdentity(userID));
+            }
+            return true;
+        }
+        return false;
     }
 
     //sendToGUI

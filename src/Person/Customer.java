@@ -5,8 +5,8 @@ import java.util.Date;
 public class Customer extends Person{
 
     //Konstruktor
-    public Customer(String id, String name, String preName, Date birthDate, int zip, String address){
-        super(id, name, preName, birthDate, zip, address);
+    public Customer(int uid,int id){
+        super(uid,id);
     }
 
     //Funktion, um alle Konten in der GUI zu aktualisieren

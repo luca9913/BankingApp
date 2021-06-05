@@ -2,7 +2,7 @@ package GUI.GUI_Banker;
 
 import javax.swing.*;
 
-public class GUI_Banker {
+public class GUI_Banker extends JFrame{
 
     private JTabbedPane tabbedPane1;
     private JPanel panel1;
