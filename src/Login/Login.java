@@ -12,6 +12,7 @@ public class Login {
     //Methode readFromGUI: liest userID und password aus GUI Eingabe
 
     //hashed das Passwort
+
     private int hashen(String password){
 
         return password.hashCode();
