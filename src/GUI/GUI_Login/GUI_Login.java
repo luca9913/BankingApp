@@ -1,6 +1,8 @@
 package GUI.GUI_Login;
 
 import Login.Login;
+import Person.Banker;
+import Person.Customer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class GUI_Login extends JFrame {
+
+    private int attempts = 0;
     private JTextField LOGINNAMETextField;
     private JPasswordField passwordField1;
     private JButton exitButton;
@@ -54,9 +58,10 @@ public class GUI_Login extends JFrame {
     private void loginPressed(String uid, String password) {
         if(loginObjekt.readDatabase(Integer.parseInt(uid), password))
         {
-
+            System.exit(0);
         }else { // wenn eingabe fehlerhaft
-            failedAttempt(6);
+            attempts++;
+            failedAttempt(attempts);
         }
     }
 

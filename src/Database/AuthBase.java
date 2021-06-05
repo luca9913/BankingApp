@@ -28,7 +28,7 @@ public class AuthBase extends Database {
         }
     } //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
 
-    static AuthBase initialize(){
+    public static AuthBase initialize(){
         if(path.toString().isEmpty()){
             AuthBase auth = new AuthBase();
             return auth;
@@ -52,10 +52,10 @@ public class AuthBase extends Database {
         }
     }
 
-    String getHash(int uid){
+     public int getHash(int uid){
         try{
             ResultSet rs = state.executeQuery("SELECT pw_hash FROM user WHERE user_id =" + uid);
-            return rs.getString(1); //possible because there's only one column specified in the SQL-Statement (pw_hash) and the uid is unique in the table user
+            return rs.getInt(1); //possible because there's only one column specified in the SQL-Statement (pw_hash) and the uid is unique in the table user
         }catch(SQLException e){
             System.err.println("Fehler beim Auslesen des Passwort-Hashes.");
             System.err.print("Fehlermeldung: ");
@@ -64,7 +64,7 @@ public class AuthBase extends Database {
         }
     }
 
-    Integer getIdentity(int uid){
+    public Integer getIdentity(int uid){
         try{
             ResultSet rs = state.executeQuery("SELECT customer_id, banker_id FROM user WHERE user_id =" + uid);
             int id = rs.getInt("customer_id");

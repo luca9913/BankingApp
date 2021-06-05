@@ -27,7 +27,7 @@ public class ProdBase extends Database {
         }
     } //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
 
-    static ProdBase initialize(){
+    public static ProdBase initialize(){
         if(path.toString().isEmpty()){
             ProdBase prod = new ProdBase();
             return prod;
