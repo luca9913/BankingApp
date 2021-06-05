@@ -28,7 +28,7 @@ public class AuthBase extends Database {
         }
     } //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
 
-    static AuthBase initialize(){
+    public static AuthBase initialize(){
         if(path.toString().isEmpty()){
             AuthBase auth = new AuthBase();
             return auth;
@@ -39,8 +39,7 @@ public class AuthBase extends Database {
     }
 
     //retrieving functions
-
-    ArrayList<Object[]> getAuthSet(int uid){
+    public ArrayList<Object[]> getAuthSet(int uid){
         try {
             result = state.executeQuery("SELECT * FROM user WHERE user_id = " + uid);
             return rsToArrayList(result);
@@ -52,7 +51,7 @@ public class AuthBase extends Database {
         }
     }
 
-    String getHash(int uid){
+    public String getHash(int uid){
         try{
             ResultSet rs = state.executeQuery("SELECT pw_hash FROM user WHERE user_id =" + uid);
             return rs.getString(1); //possible because there's only one column specified in the SQL-Statement (pw_hash) and the uid is unique in the table user
@@ -64,7 +63,7 @@ public class AuthBase extends Database {
         }
     }
 
-    Integer getIdentity(int uid){
+    public Integer getIdentity(int uid){
         try{
             ResultSet rs = state.executeQuery("SELECT customer_id, banker_id FROM user WHERE user_id =" + uid);
             int id = rs.getInt("customer_id");
@@ -81,8 +80,7 @@ public class AuthBase extends Database {
     }
 
     //inserting function
-
-    boolean insertUser(String pw, int id, String function){
+    public boolean insertUser(String pw, int id, String function){
         try {
             int hash = pw.hashCode();
 
@@ -101,6 +99,40 @@ public class AuthBase extends Database {
             return true;
         }catch(SQLException e){
             System.err.println("Fehler beim Einfügen des neuen Benutzers in die Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //updating function
+    public boolean updateHash(int uid, int new_hash){
+        try{
+            int rows = state.executeUpdate("UPDATE user SET pw_hash =" + new_hash + " WHERE user_id =" + uid);
+            if(rows == 0){
+                throw new SQLException("UserID nicht vorhanden.");
+            }else {
+                return true;
+            }
+        }catch(SQLException e){
+            System.err.println("Fehler beim Ändern des Passwortes in der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //deleting function
+    public boolean deleteUser(int uid){
+        try{
+            int rows = state.executeUpdate("DELETE FROM user WHERE user_id =" + uid);
+            if(rows == 0){
+                throw new SQLException("UserID nicht vorhanden.");
+            }else{
+                return true;
+            }
+        }catch(SQLException e){
+            System.err.println("Fehler beim Ändern des Passwortes in der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
             return false;
