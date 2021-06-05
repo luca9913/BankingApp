@@ -2,6 +2,6 @@ package GUI.GUI_Banker;
 
 import javax.swing.*;
 
-public class GUI_Banker {
+public class GUI_Banker extends JFrame{
 
 }
