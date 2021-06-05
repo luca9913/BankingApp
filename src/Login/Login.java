@@ -14,7 +14,7 @@ public class Login {
     private AuthBase datenbank;
     private Person user;
 
-    public Login(AuthBase datenbank, Person user)//Methode readFromGUI: liest userID und password aus GUI Eingabe
+    public Login(AuthBase datenbank, Person user)
     {
         this.user = user;
         this.datenbank = datenbank;
@@ -26,7 +26,7 @@ public class Login {
         return password.hashCode();
     }
 
-    //readDatabase vergleicht die Eingabe mit der Datenbank und gibt mit "1" zurück ob ein passender Tupel gefunden wurde.
+    //readDatabase vergleicht die Eingabe mit der Datenbank und gibt mit "true" zurück ob ein passender Tupel gefunden wurde.
     public boolean readDatabase(int userID, String password){
         pwHash = hashen(password); //passwort zu hash umwandeln
         if (pwHash == datenbank.getHash(userID)) //hash mit Datenbank abgleichen
