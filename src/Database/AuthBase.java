@@ -11,15 +11,12 @@ import java.util.ArrayList;
 public class AuthBase extends Database {
 
     static Path path = Paths.get("");
-    PreparedStatement insertbanker, insertcustomer;
 
     private AuthBase(){
         path = Paths.get(FOLDER + "auth.db");
         try{
             conn = DriverManager.getConnection(DRIVER + path);
             state = conn.createStatement();
-            insertbanker = conn.prepareStatement("INSERT INTO user(pw_hash, banker_id) VALUES (?,?)");
-            insertcustomer = conn.prepareStatement("INSERT INTO user(pw_hash, customer_id) VALUES (?,?)");
         }catch(SQLException e){
             System.err.println("Beim Initialisieren der Authentifizierungsdatenbank ist folgender Fehler aufgetreten: ");
             e.printStackTrace();
@@ -39,7 +36,6 @@ public class AuthBase extends Database {
     }
 
     //retrieving functions
-
     ArrayList<Object[]> getAuthSet(int uid){
         try {
             result = state.executeQuery("SELECT * FROM user WHERE user_id = " + uid);
@@ -60,7 +56,7 @@ public class AuthBase extends Database {
             System.err.println("Fehler beim Auslesen des Passwort-Hashes.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
-            return null;
+            return 0;
         }
     }
 
@@ -81,24 +77,25 @@ public class AuthBase extends Database {
     }
 
     //inserting function
-
     boolean insertUser(String pw, int id, String function){
         try {
             int hash = pw.hashCode();
+            int rows = 0;
 
             switch(function){
                 case "banker":
-                    insertbanker.setInt(1, hash);
-                    insertbanker.setInt(2, id);
-                    insertbanker.execute();
+                    rows = state.executeUpdate("INSERT INTO user(pw_hash, banker_id) VALUES(" + hash + "," + id +")");
                     break;
                 case "customer":
-                    insertcustomer.setInt(1, hash);
-                    insertcustomer.setInt(2, id);
-                    insertcustomer.execute();
+                    rows = state.executeUpdate("INSERT INTO user(pw_hash, customer_id) VALUES(" + hash + "," + id +")");
                     break;
             }
-            return true;
+
+            if(rows == 0){
+                throw new SQLException();
+            }else {
+                return true;
+            }
         }catch(SQLException e){
             System.err.println("Fehler beim Einfügen des neuen Benutzers in die Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -106,4 +103,6 @@ public class AuthBase extends Database {
             return false;
         }
     }
+
+    //deleting function
 }

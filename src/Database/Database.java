@@ -39,7 +39,7 @@ public abstract class Database {
             //initialize all needed variables and Collections
             ResultSetMetaData rsmeta = rs.getMetaData(); //Get Metadata from the ResultSet
             int columns = rsmeta.getColumnCount(); //Get the column count for the for-loop
-            String[] result_row = new String[columns]; //initialize the Array to hold the result of every column for each row
+            Object[] result_row = new Object[columns]; //initialize the Array to hold the result of every column for each row
             ArrayList<Object[]>result = new ArrayList<>(); //initialize ArrayList which holds the String Arrays for each row
 
             for(int i = 1; i <= columns; i++){
@@ -48,7 +48,11 @@ public abstract class Database {
             result.add(ArrayUtils.clone(result_row)); //Index 0 always holds a String-Array with column names
             while(rs.next()) { //while there are results left in the Set, fill the result_row Array with the column values
                 for (int i = 1; i <= columns; i++) {
-                    result_row[i-1] = rs.getString(i);
+                    switch(rsmeta.getColumnTypeName(i)){
+                        case "INTEGER": result_row[i-1] = rs.getInt(i);
+                        case "REAL": result_row[i-1] = rs.getFloat(i);
+                        default: result_row[i-1] = rs.getString(i);
+                    }
                 }
                 if(result.size() <= 10) {
                     result.add(ArrayUtils.clone(result_row));
@@ -77,7 +81,7 @@ public abstract class Database {
 class DatabaseTest{
 
     public static void main(String[] args){
-        ProdBase prod = ProdBase.initialize();
-        System.out.println(prod.getAllAccounts(6).get(2)[1]);
+        AuthBase auth = AuthBase.initialize();
+        auth.getAuthSet(1);
     }
 }
