@@ -1,6 +1,6 @@
 package Login;
 
-import data.*;
+import Database.AuthBase;
 
 public class Login {
 
@@ -8,8 +8,9 @@ public class Login {
     private int pwHash;
     private int userID = 0;
     private boolean valid;
+    AuthBase datenbankb;
 
-    //Methode readFromGUI: liest userID und password aus GUI Eingabe
+    public Login(AuthBase datenbank)//Methode readFromGUI: liest userID und password aus GUI Eingabe
 
     //hashed das Passwort
 
