@@ -1,6 +1,10 @@
 package GUI.GUI_Customer;
 
+import Login.Login;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUI_Customer extends JFrame {
     private JTabbedPane tabbedPaneMain;
@@ -23,4 +27,22 @@ public class GUI_Customer extends JFrame {
     private JTextField txtAmountTo;
     private JTextField txtUsageTo;
     private JLabel image;
+
+
+    public GUI_Customer() {
+
+        initialize();
+
+        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
+        this.setIconImage(titleBarImage.getImage());
+
+    }
+
+    private void initialize() {
+        setTitle("Turing Banking App");
+        setSize(400, 500);
+        setResizable(false);
+
+    }
+
 }
