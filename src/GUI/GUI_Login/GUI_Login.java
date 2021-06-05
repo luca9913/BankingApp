@@ -1,5 +1,7 @@
 package GUI.GUI_Login;
 
+import Login.Login;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,8 +16,10 @@ public class GUI_Login extends JFrame {
     private JPanel panel1;
     private JLabel image;
     private JLabel failedAttempts;
+    private Login loginObjekt;
 
-    public GUI_Login() {
+    public GUI_Login(Login loginObjekt) {
+        this.loginObjekt = loginObjekt;
         initialize();
 
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
@@ -48,7 +52,7 @@ public class GUI_Login extends JFrame {
 
 
     private void loginPressed() {
-        // Abgleich mit der Datenbank in Login Klase???
+        // Abgleich mit der Datenbank in Login Klasse???
 
         // Wenn Eingabe fehlerhaft
         failedAttempt(6);
