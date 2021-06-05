@@ -22,4 +22,5 @@ public class GUI_Customer extends JFrame {
     private JTextField txtIbanTo;
     private JTextField txtAmountTo;
     private JTextField txtUsageTo;
+    private JLabel image;
 }
