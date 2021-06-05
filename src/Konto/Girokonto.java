@@ -6,14 +6,10 @@ public class Girokonto {
         kontostand = 0;
     };
 
-    //Funktion, um alle Konten in der GUI zu aktualisieren
-    private void syncAccounts(){
-
-    }
-
     //Funktion, um zu überweisen
-    private void transfer(int toAcc, double sum){
-
+    private void transfer(Girokonto toAcc, double sum){
+        toAcc.kontostand += sum;
+        kontostand -= sum;
     }
 
     //Funktion um einzuzahlen
@@ -24,6 +20,11 @@ public class Girokonto {
     //Funktion um auszuzahlen
     private void payout(double sum){
         kontostand -= sum;
+    }
+
+    //Funktion, um alle Konten in der GUI zu aktualisieren
+    private void syncAccounts(){
+
     }
 
     //Funktion, um die aktuellen Kontostände anzuzeigen
