@@ -5,8 +5,8 @@ import java.util.Date;
 public class Banker extends Person{
 
     //Konstruktor
-    public Banker(String id, String name, String preName, Date birthDate, int zip, String address){
-        super(id, name, preName, birthDate, zip, address);
+    public Banker(int uid,int id){
+        super(uid, id);
     }
 
     //Funktion, um alle Konten in der GUI zu aktualisieren

@@ -1,6 +1,9 @@
 package GUI.GUI_Login;
 
 import Login.Login;
+import Person.Banker;
+import Person.Customer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class GUI_Login extends JFrame {
+
+    private int attempts = 0;
     private JTextField LOGINNAMETextField;
     private JPasswordField passwordField1;
     private JButton exitButton;
@@ -15,7 +20,7 @@ public class GUI_Login extends JFrame {
     private JPanel panel1;
     private JLabel image;
     private JLabel failedAttempts;
-    private Login loginObjekt;
+    private Login loginObjekt; //Logininstantz mit der auf die Login-Datenbank zugegriffen werden kann
 
     public GUI_Login(Login loginObjekt) {
         this.loginObjekt = loginObjekt;
@@ -34,7 +39,7 @@ public class GUI_Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loginPressed();
+                loginPressed(LOGINNAMETextField.getText(), passwordField1.getPassword().toString());
             }
         });
     }
@@ -50,11 +55,14 @@ public class GUI_Login extends JFrame {
     }
 
 
-    private void loginPressed() {
-        // Abgleich mit der Datenbank in Login Klasse???
-
-        // Wenn Eingabe fehlerhaft
-        failedAttempt(6);
+    private void loginPressed(String uid, String password) {
+        if(loginObjekt.readDatabase(Integer.parseInt(uid), password))
+        {
+            System.exit(0);
+        }else { // wenn eingabe fehlerhaft
+            attempts++;
+            failedAttempt(attempts);
+        }
     }
 
     private void failedAttempt(int numberOfFailedAttempts) {
