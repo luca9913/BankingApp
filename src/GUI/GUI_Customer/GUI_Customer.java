@@ -7,12 +7,19 @@ public class GUI_Customer extends JFrame {
     private JPanel Hauptpanel;
     private JPanel JPanelLinks;
     private JPanel JPanelRechts;
-    private JList list1;
+    private JList listAccounts;
     private JTextField txtSearch;
-    private JTable table1;
+    private JTable tableTurnover;
     private JButton aktualisierenButton;
     private JTextField txtAccNr;
     private JTextField txtTurnoverNr;
     private JTextField txtAmount;
     private JTextField txtUsage;
+    private JButton button1;
+    private JList listAccFrom;
+    private JButton btnTransfer;
+    private JTextField txtNameTo;
+    private JTextField txtIbanTo;
+    private JTextField txtAmountTo;
+    private JTextField txtUsageTo;
 }
