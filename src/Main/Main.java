@@ -11,9 +11,13 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args) {
-        Login loginObjekt = new Login();
+        /*Login loginObjekt = new Login();
         GUI_Login newView = new GUI_Login(loginObjekt);
         newView.setVisible(true);
+        */
 
+        //Test
+        GUI_Customer customerObject = new GUI_Customer();
+        customerObject.setVisible(true);
     }
 }
