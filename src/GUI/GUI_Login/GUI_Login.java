@@ -35,7 +35,7 @@ public class GUI_Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loginPressed();
+                loginPressed(LOGINNAMETextField.getText(), passwordField1.getPassword().toString());
             }
         });
     }
@@ -51,11 +51,13 @@ public class GUI_Login extends JFrame {
     }
 
 
-    private void loginPressed() {
-        // Abgleich mit der Datenbank in Login Klasse???
+    private void loginPressed(String uid, String password) {
+        if(loginObjekt.readDatabase(Integer.parseInt(uid), password))
+        {
 
-        // Wenn Eingabe fehlerhaft
-        failedAttempt(6);
+        }else { // wenn eingabe fehlerhaft
+            failedAttempt(6);
+        }
     }
 
     private void failedAttempt(int numberOfFailedAttempts) {
