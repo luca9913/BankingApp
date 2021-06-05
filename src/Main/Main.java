@@ -1,3 +1,5 @@
+package Main;
+
 import GUI.GUI_Login.GUI_Login;
 import GUI.GUI_Banker.GUI_Banker;
 import GUI.GUI_Customer.GUI_Customer;
