@@ -45,7 +45,7 @@ public abstract class Database {
             for(int i = 1; i <= columns; i++){
                 result_row[i-1] = rsmeta.getColumnName(i);
             }
-            result.add(ArrayUtils.clone(result_row));
+            result.add(ArrayUtils.clone(result_row)); //Index 0 always holds a String-Array with column names
             while(rs.next()) { //while there are results left in the Set, fill the result_row Array with the column values
                 for (int i = 1; i <= columns; i++) {
                     result_row[i-1] = rs.getString(i);
@@ -57,7 +57,7 @@ public abstract class Database {
                     result.add(ArrayUtils.clone(result_row));
                 }
             }
-            if(result.size() == 1){
+            if(result.size() == 1) {
                 return null; //if the result list only contains one array with the column names, return null
             }else if(result.size() < 10) {
                 result.trimToSize();
@@ -77,7 +77,7 @@ public abstract class Database {
 class DatabaseTest{
 
     public static void main(String[] args){
-        AuthBase auth = AuthBase.initialize(); //Datenbank initialisieren
-        auth.updateHash(2, "start1235".hashCode());
+        ProdBase prod = ProdBase.initialize();
+        System.out.println(prod.getAllAccounts(6).get(2)[1]);
     }
 }

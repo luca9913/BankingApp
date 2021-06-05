@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class ProdBase extends Database {
 
     static Path path = Paths.get("");
-    PreparedStatement insertaccount, insertbanker, insertcustomer, insertrelease, inserttransfer;
+    PreparedStatement insertaccount;
+
 
     private ProdBase(){
         this.path = Paths.get(FOLDER + "production.db");
@@ -37,10 +38,13 @@ public class ProdBase extends Database {
         }
     }
 
-    ArrayList<Object[]> getAccountData(int accid){
+    //retrieving function
+    Object[] getData(int id, String table){
         try {
-            ResultSet rs = state.executeQuery("SELECT * FROM account WHERE account_id = " + accid);
-            return rsToArrayList(rs);
+            String idname = table.concat("_id");
+            PreparedStatement getData = conn.prepareStatement("SELECT * FROM " + table + " WHERE " + idname + " = " + id);
+            result = getData.executeQuery();
+            return rsToArrayList(result).get(1);
         }catch(SQLException e){
             System.err.println("Fehler beim Ausführen des SQL-Statements.");
             System.err.print("Fehlermeldung: ");
@@ -48,8 +52,30 @@ public class ProdBase extends Database {
             return null;
         }
     }
+
+    ArrayList<Object[]> getAllAccounts(int id){
+        try{
+            if(id >= 1000) {
+                result = state.executeQuery("SELECT * FROM account WHERE owner = " + id);
+                return rsToArrayList(result);
+            }else if(id <= 1000){
+                result = state.executeQuery("SELECT * FROM account WHERE banker_id =" + id);
+                return rsToArrayList(result);
+            }else{
+                throw new SQLException("Falsche Angabe für Parameter 'role'");
+            }
+        }catch(SQLException e){
+            System.err.println("Fehler beim Ausführen des SQL-Statements.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     //Weitere Abfragen hinzufügen (für jede Tabelle)
 
+
+    //inserting functions
     boolean insertAccount(String type, int dispo, double transferlimit, int oid, int bid){
         try {
             insertaccount.setString(1, type);
