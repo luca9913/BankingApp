@@ -34,6 +34,13 @@ public class GUI_Customer extends JFrame {
     private JTextField txtZip;
     private JTextField txtCity;
     private JTextField txtAddress;
+    private JButton kontoAuflösenButton;
+    private JButton neuesKontoErstellenButton;
+    private JButton aktualisierenButton2;
+    private JButton disporahmenÄndernButton;
+    private JButton überweisungsrahmenÄndernButton;
+    private JTextField textField1;
+    private JTextField textField2;
 
 
     public GUI_Customer() {
