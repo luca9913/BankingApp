@@ -371,7 +371,9 @@
                             <preferred-size width="150" height="-1"/>
                           </grid>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
                       </component>
                       <component id="51437" class="javax.swing.JTextField" binding="txtTurnoverNr">
                         <constraints>
@@ -379,7 +381,9 @@
                             <preferred-size width="150" height="-1"/>
                           </grid>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
                       </component>
                       <component id="b9650" class="javax.swing.JTextField" binding="txtAmount">
                         <constraints>
@@ -387,7 +391,9 @@
                             <preferred-size width="150" height="-1"/>
                           </grid>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
                       </component>
                       <component id="4b4c9" class="javax.swing.JTextField" binding="txtUsage">
                         <constraints>
@@ -395,7 +401,9 @@
                             <preferred-size width="150" height="-1"/>
                           </grid>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <editable value="false"/>
+                        </properties>
                       </component>
                       <component id="5ba43" class="javax.swing.JLabel">
                         <constraints>
