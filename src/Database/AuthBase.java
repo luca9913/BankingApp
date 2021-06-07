@@ -122,7 +122,7 @@ public class AuthBase extends Database {
     }
 
     //updating function
-    public boolean updatePW(int id, String pw){ //returns boolean because every id only has one account
+    public boolean updateHash(int id, String pw){ //returns boolean because every id only has one account
         try{
             int hash = pw.hashCode();
             int rows = state.executeUpdate("UPDATE user SET pw_hash ='" + hash + "'WHERE user_id ='" + id + "' OR customer_id ='" + id + "' OR banker_id ='" + id +"';");

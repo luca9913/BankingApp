@@ -2,12 +2,12 @@ package Konto;
 
 import Person.*;
 
-abstract class Konto{
-    private String type;
-    private double balance;
-    private double dispo;
-    private double transfer_limit;
-    private Person owner;
-    private Person banker;
+public abstract class Konto{
+    public String type;
+    public double balance;
+    public double dispo;
+    public double transferlimit;
+    public Person owner;
+    public Person banker;
 
 }

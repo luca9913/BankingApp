@@ -5,6 +5,7 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import org.apache.commons.lang3.ArrayUtils;
 import java.util.regex.Pattern;
+import Person.*;
 
 //(TODO: change ArrayList<String[]> to ArrayList<Object[]> to store Integer and other Objects)
 
@@ -81,7 +82,7 @@ public abstract class Database {
 class DatabaseTest{
 
     public static void main(String[] args){
-        AuthBase auth = AuthBase.initialize();
-        auth.getAuthSet(1);
+        Banker test = new Banker(1, 2);
+        System.out.println(test.getClass());
     }
 }

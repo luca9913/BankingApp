@@ -1,19 +1,19 @@
 package Person;
 
 import Database.ProdBase;
-
 import java.util.Date;
 
 public abstract class Person {
 
     //Variablen
     protected int uid;
-    protected int id;
-    protected String name;
-    protected String preName;
-    protected Date birthDate;
-    protected int zip;
-    protected String address;
+    public int id;
+    public String name;
+    public String preName;
+    public Date birthDate;
+    public int zip;
+    public String city;
+    public String address;
     protected ProdBase datenbank;
 
     //Konstruktor
