@@ -27,6 +27,13 @@ public class GUI_Customer extends JFrame {
     private JTextField txtAmountTo;
     private JTextField txtUsageTo;
     private JLabel image;
+    private JTextField txtName;
+    private JButton persönlicheDatenÄndernButton;
+    private JButton aktualisierenButton1;
+    private JTextField txtPrename;
+    private JTextField txtZip;
+    private JTextField txtCity;
+    private JTextField txtAddress;
 
 
     public GUI_Customer() {
