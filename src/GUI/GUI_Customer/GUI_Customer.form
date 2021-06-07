@@ -223,6 +223,8 @@
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
+                          <background color="-16749235"/>
+                          <foreground color="-1"/>
                           <text value="Aktualisieren"/>
                         </properties>
                       </component>
@@ -246,6 +248,8 @@
                           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
+                          <background color="-16767685"/>
+                          <foreground color="-1"/>
                           <text value="Button"/>
                         </properties>
                       </component>
@@ -638,6 +642,8 @@
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-16767685"/>
+                      <foreground color="-1"/>
                       <text value="Überweisen"/>
                     </properties>
                   </component>
@@ -768,6 +774,8 @@
                       <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-5308416"/>
+                      <foreground color="-1"/>
                       <text value="Konto auflösen"/>
                     </properties>
                   </component>
@@ -776,6 +784,8 @@
                       <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-16767685"/>
+                      <foreground color="-1"/>
                       <text value="Neues Konto erstellen"/>
                     </properties>
                   </component>
@@ -789,6 +799,8 @@
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-16749235"/>
+                      <foreground color="-1"/>
                       <text value="Aktualisieren"/>
                     </properties>
                   </component>
@@ -815,6 +827,8 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
+                          <background color="-16767685"/>
+                          <foreground color="-1"/>
                           <text value="Disporahmen ändern"/>
                         </properties>
                       </component>
@@ -841,6 +855,8 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
+                          <background color="-16767685"/>
+                          <foreground color="-1"/>
                           <text value="Überweisungsrahmen ändern"/>
                         </properties>
                       </component>
@@ -1066,6 +1082,8 @@
                       <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-16767685"/>
+                      <foreground color="-1"/>
                       <text value="Persönliche Daten ändern"/>
                     </properties>
                   </component>
@@ -1074,6 +1092,8 @@
                       <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-16749235"/>
+                      <foreground color="-1"/>
                       <text value="Aktualisieren"/>
                     </properties>
                   </component>
