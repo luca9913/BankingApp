@@ -82,7 +82,10 @@ public abstract class Database {
 class DatabaseTest{
 
     public static void main(String[] args){
-        Banker test = new Banker(1, 2);
-        System.out.println(test.getClass());
+        String[][] strings= {
+                {"test", "one", "two", "three"},
+                {"this", "is", "how", "we", "do", "it"}
+        };
+        System.out.println(strings[1].length);
     }
 }

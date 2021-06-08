@@ -105,14 +105,14 @@ public class ProdBase extends Database {
     int insertPerson(Person person){
         try {
             if(person.getClass().toString().contains("Banker")){
-                return state.executeUpdate("INSERT INTO banker(banker_id, name, prename, birthdate, zip, city, address) " +
-                        "VALUES(" + person.getUid() + "," + person.name + "," + person.preName + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + ")");
+                return state.executeUpdate("INSERT INTO banker(prename, name, birthdate, zip, city, address) " +
+                        "VALUES(" + person.preName + "," + person.name + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + ")");
             }else{
-                return state.executeUpdate("INSERT INTO customer(customer_id, name, prename, birthdate, zip, city, address) " +
-                        "VALUES(" + person.getUid() + "," + person.name + "," + person.preName + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + ")");
+                return state.executeUpdate("INSERT INTO customer(prename, name, birthdate, zip, city, address) " +
+                        "VALUES(" + person.preName + "," + person.name + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + ")");
             }
         }catch(SQLException e){
-            System.err.println("Fehler beim Einfügen der neuen Benutzer in die Datenbank.");
+            System.err.println("Fehler beim Einfügen des neuen Benutzers in die Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
             return 0;
@@ -120,23 +120,75 @@ public class ProdBase extends Database {
     }
 
     int createRequest(String description, int accid, int customer, int banker){
-        return 0;
+        try{
+            return state.executeUpdate("INSERT INTO requests(description, account_id, customer_id, banker_id) " +
+                    "VALUES(" + description + "," + accid + "," + customer + "," + banker + ");");
+        }catch(SQLException e){
+            System.err.println("Fehler beim erstellen der Anfrage in der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     int insertTransfer(double amount, int sender, int receiver){
-        return 0;
+        try{
+            return state.executeUpdate("INSERT INTO transfer(amount, sender, receiver) " +
+                    "VALUES(" + amount + "," + sender + "," + receiver + ");");
+        }catch(SQLException e){
+            System.err.println("Fehler beim übertragen der Überweisung in die Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     //Aktualisierungen hinzufügen
-    int updatePerson(){
-        return 0;
+    int updatePerson(Person person){
+        try {
+            if (person.id < 1000) {
+                return state.executeUpdate("UPDATE banker SET prename ='" + person.name + "', name ='" + person.preName + "', birthdate ='" + person.birthDate + "', zip ='" + person.zip + "', city ='" + person.city + "', address ='" + person.address + "' WHERE banker_id = " + person.id);
+            } else {
+                return state.executeUpdate("UPDATE customer SET prename ='" + person.name + "', name ='" + person.preName + "', birthdate ='" + person.birthDate + "', zip ='" + person.zip + "', city ='" + person.city + "', address ='" + person.address + "' WHERE customer_id = " + person.id);
+            }
+        }catch(SQLException e){
+            System.err.println("Fehler beim Aktualisieren der Kundendaten in der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return 0;
+        }
     }
 
-    int updateAccount(){
-        return 0;
+    int updateBalance(int id, double balance){
+        try {
+            return state.executeUpdate("UPDATE account SET balance ='" + balance + "' WHERE account_id = " + id);
+        }catch(SQLException e){
+            System.err.println("Fehler beim Aktualisieren des Kontostandes in der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return 0;
+        }
     }
 
-    int approveRequest(int order_id){
-        return 0;
+    int updateAccountData(Konto account){
+        try {
+            return state.executeUpdate("UPDATE account SET dispo ='" + account.dispo + "', transfer_limit ='" + account.transferlimit + "', owner ='" + account.owner + "', banker_id ='" + account.banker + "' WHERE account_id = " + account.id);
+        }catch(SQLException e){
+            System.err.println("Fehler beim Aktualisieren des Kontodaten in der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    int approveRequest(int request_id){
+        try {
+            return state.executeUpdate("UPDATE requests SET status = 1 WHERE request_id = " + request_id);
+        }catch(SQLException e){
+            System.err.println("Fehler beim Aktualisieren des Anfrage-Status in der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return 0;
+        }
     }
 }
