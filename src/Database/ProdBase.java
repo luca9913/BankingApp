@@ -38,7 +38,7 @@ public class ProdBase extends Database {
     }
 
     //retrieving function
-    Object[] getData(int id, String table){
+    public Object[] getData(int id, String table){
         try {
             String idname = table.concat("_id");
             return rsToArrayList(state.executeQuery("SELECT * FROM " + table + " WHERE " + idname + " = " + id)).get(1);
@@ -50,7 +50,7 @@ public class ProdBase extends Database {
         }
     }
 
-    ArrayList<Object[]> getAllAccounts(int id){
+    public ArrayList<Object[]> getAllAccounts(int id){
         try{
             if(id >= 1000) {
                 return rsToArrayList(state.executeQuery("SELECT * FROM account WHERE owner = " + id));
@@ -67,7 +67,7 @@ public class ProdBase extends Database {
 
     ArrayList<Object[]> getAllRequests(int id){
         try{
-            return rsToArrayList(state.executeQuery("SELECT * FROM requests WHERE customer_id ='" + id + "' OR banker_id ='" + id +"'"));
+            return rsToArrayList(state.executeQuery("SELECT * FROM requests WHERE account_id ='" + id + "' OR customer_id ='" + id +"'"));
         }catch(SQLException e){
             System.err.println("Fehler beim Auslesen der Aufträge.");
             System.err.print("Fehlermeldung: ");
@@ -119,10 +119,10 @@ public class ProdBase extends Database {
         }
     }
 
-    int createRequest(String description, int accid, int customer, int banker){
+    int createRequest(String key, double value, int accid, int customer, int banker){
         try{
-            return state.executeUpdate("INSERT INTO requests(description, account_id, customer_id, banker_id) " +
-                    "VALUES(" + description + "," + accid + "," + customer + "," + banker + ");");
+            return state.executeUpdate("INSERT INTO requests(key, value, account_id, customer_id, banker_id) " +
+                    "VALUES(" + key + "," + value + "," + accid + "," + customer + "," + banker + ");");
         }catch(SQLException e){
             System.err.println("Fehler beim erstellen der Anfrage in der Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -183,7 +183,7 @@ public class ProdBase extends Database {
 
     int approveRequest(int request_id){
         try {
-            return state.executeUpdate("UPDATE requests SET status = 1 WHERE request_id = " + request_id);
+            return state.executeUpdate("UPDATE requests SET value = 1 WHERE request_id = " + request_id);
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Anfrage-Status in der Datenbank.");
             System.err.print("Fehlermeldung: ");
