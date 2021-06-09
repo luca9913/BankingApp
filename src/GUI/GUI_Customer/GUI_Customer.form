@@ -189,7 +189,7 @@
                             <properties/>
                             <border type="none"/>
                             <children>
-                              <component id="595f4" class="javax.swing.JList" binding="listAccounts">
+                              <component id="595f4" class="javax.swing.JList" binding="listAccounts1">
                                 <constraints/>
                                 <properties>
                                   <model/>
@@ -266,7 +266,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <scrollpane id="1400e">
+                          <scrollpane id="1400e" binding="tblTransfers">
                             <constraints>
                               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -523,7 +523,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <component id="a862c" class="javax.swing.JList" binding="listAccFrom">
+                          <component id="a862c" class="javax.swing.JList" binding="listAccounts2">
                             <constraints/>
                             <properties/>
                           </component>
@@ -736,7 +736,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="13cf4" class="javax.swing.JList">
+                      <component id="13cf4" class="javax.swing.JList" binding="listAccounts3">
                         <constraints/>
                         <properties>
                           <model/>
@@ -822,7 +822,7 @@
                           <text value="Disporahmen ändern"/>
                         </properties>
                       </component>
-                      <component id="5f988" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+                      <component id="5f988" class="javax.swing.JTextField" binding="txtDispo">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -850,7 +850,7 @@
                           <text value="Überweisungsrahmen ändern"/>
                         </properties>
                       </component>
-                      <component id="5159c" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+                      <component id="5159c" class="javax.swing.JTextField" binding="txtTransferLimit">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>

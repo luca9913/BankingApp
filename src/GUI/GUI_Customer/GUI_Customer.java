@@ -9,7 +9,7 @@ public class GUI_Customer extends JFrame {
     private JPanel Hauptpanel;
     private JPanel JPanelLinks;
     private JPanel JPanelRechts;
-    private JList listAccounts;
+    private JList listAccounts1;
     private JTextField txtSearch;
     private JTable tableTurnover;
     private JButton btnRefresh1;
@@ -17,7 +17,7 @@ public class GUI_Customer extends JFrame {
     private JTextField txtTurnoverNr;
     private JTextField txtAmount;
     private JTextField txtUsage;
-    private JList listAccFrom;
+    private JList listAccounts2;
     private JButton btnTransfer;
     private JTextField txtNameTo;
     private JTextField txtIbanTo;
@@ -36,9 +36,11 @@ public class GUI_Customer extends JFrame {
     private JButton btnRefresh2;
     private JButton btnDispoNew;
     private JButton btnChangeTransferLimit;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTextField txtTransferLimit;
+    private JTextField txtDispo;
     private JButton btnSave;
+    private JList listAccounts3;
+    private JScrollPane tblTransfers;
 
 
     public GUI_Customer() {
