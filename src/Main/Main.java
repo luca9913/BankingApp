@@ -14,11 +14,10 @@ public class Main {
     public static void main(String[] args) {
         Person user = null;
         AuthBase authBase = AuthBase.initialize();
+        ProdBase prodBase = ProdBase.initialize();
         Login loginObjekt = new Login(authBase, user);
         GUI_Login newView = new GUI_Login(loginObjekt);
         newView.setVisible(true);
-        ProdBase prodBase = ProdBase.initialize();
-        user.update(prodBase);
 
         if(user.getUid() < 1000)
         {

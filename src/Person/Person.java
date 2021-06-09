@@ -21,6 +21,7 @@ public abstract class Person {
         this.uid = uid;
         this.id = id;
     }
+
     public void update(ProdBase datenbank){
         this.datenbank = datenbank;
     }
