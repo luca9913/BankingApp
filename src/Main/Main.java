@@ -12,7 +12,11 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args) {
-        Person user = null;
+
+        GUI_Customer wneView = new GUI_Customer();
+        wneView.setVisible(true);
+
+        /*Person user = null;
         AuthBase authBase = AuthBase.initialize();
         ProdBase prodBase = ProdBase.initialize();
         Login loginObjekt = new Login(authBase, user);
@@ -27,6 +31,6 @@ public class Main {
         {
             GUI_Customer wneView = new GUI_Customer();
             wneView.setVisible(true);
-        }
+        }*/
     }
 }

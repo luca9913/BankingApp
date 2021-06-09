@@ -8,8 +8,8 @@ public class Girokonto extends Konto{
 
     //Funktion, um zu überweisen
     private void transfer(Girokonto toAcc, double sum){
-        toAcc.balance += sum;
-        balance -= sum;
+        //toAcc.kontostand += sum;
+        //kontostand -= sum;
     }
 
     //Funktion um einzuzahlen
