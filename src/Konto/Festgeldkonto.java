@@ -12,7 +12,7 @@ public class Festgeldkonto extends Konto{
 
     //Funktion, um einzuzahlen
     private void deposit(double sum){
-        kontostand += sum;
+        //kontostand += sum;
     }
 
     //Funktion, um die aktuellen Kontostände anzuzeigen
