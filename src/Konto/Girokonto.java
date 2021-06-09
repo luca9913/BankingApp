@@ -1,26 +1,28 @@
 package Konto;
 
+import Database.ProdBase;
+import Person.Banker;
+import Person.Customer;
+
 public class Girokonto extends Konto{
     double balance;
-    public Girokonto(){
-        balance = 0;
-    };
 
-    //Funktion, um zu überweisen
+    public Girokonto(ProdBase database, String type, int id, Banker banker, Customer owner) {
+        super(database, type, id, banker, owner);
+    }
+
+
+    /*Funktion, um zu überweisen
     private void transfer(Girokonto toAcc, double sum){
         toAcc.kontostand += sum;
         kontostand -= sum;
-    }
+    }*/
 
     //Funktion um einzuzahlen
-    private void zahlungsEingang(double sum){
-        balance += sum;
-    }
+
 
     //Funktion um auszuzahlen
-    private void zahlungsAusgang(double sum){
-        balance -= sum;
-    }
+
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
     private void syncAccounts(){
