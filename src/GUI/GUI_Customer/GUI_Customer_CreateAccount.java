@@ -33,6 +33,8 @@ public class GUI_Customer_CreateAccount extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                System.exit(0);
+
             }
         });
     }

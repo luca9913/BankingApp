@@ -34,6 +34,8 @@ public class GUI_Customer_DeleteAccount extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                System.exit(0);
+
             }
         });
     }
