@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class GUI_Banker extends JFrame{
 
+    private JPanel mainPanel;
     private JTextField txtNewCustomerName;
     private JTextField txtNewCustomerSurname;
     private JTextField txtNewCustomerBirth;
@@ -34,12 +35,29 @@ public class GUI_Banker extends JFrame{
     private JTable tblAccountApproval;
     private JButton btnDeclineAccount;
     private JButton btnApproveAccount;
-    private JTable table3;
+    private JTable tblDispoAccounts;
     private JButton btnSaveCustomerData;
     private JLabel lblSupervisingCustomers;
     private JLabel lblAccountApprovalOrders;
     private JLabel lblDispoOverwritingAccounts;
     private JLabel lblWelcome;
+    private JTabbedPane tabbedPane1;
 
+    private int bankerID;
+
+    // Mark: -
+    public GUI_Banker() {
+        this.bankerID = bankerID;
+        initialize();
+    }
+
+
+    private void initialize() {
+        setTitle("Turing Banking App");
+        setSize(400, 500);
+        setResizable(false);
+
+        add(mainPanel);
+    }
 
 }

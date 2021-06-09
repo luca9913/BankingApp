@@ -12,11 +12,10 @@ public class Login {
     private int userID = 0;
     private boolean valid;
     private AuthBase datenbank;
-    private Person user;
+    private Person user = null;
 
-    public Login(AuthBase datenbank, Person user)
+    public Login(AuthBase datenbank)
     {
-        this.user = user;
         this.datenbank = datenbank;
     }
     //hashed das Passwort
