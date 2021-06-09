@@ -133,7 +133,7 @@ public class GUI_Customer extends JFrame {
 
     private void initialize() {
         setTitle("Turing Banking App");
-        setSize(400, 500);
+        setSize(600, 450);
         setResizable(false);
 
     }
