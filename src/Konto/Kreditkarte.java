@@ -1,6 +1,6 @@
 package Konto;
 
-public class Kreditkarte {
+public class Kreditkarte extends Konto{
     double debit;
     public Kreditkarte(){
         debit = 0;

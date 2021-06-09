@@ -1,6 +1,6 @@
 package Konto;
 
-public class Girokonto {
+public class Girokonto extends Konto{
     double kontostand;
     public Girokonto(){
         kontostand = 0;

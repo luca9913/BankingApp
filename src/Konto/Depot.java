@@ -1,4 +1,4 @@
 package Konto;
 
-public class Depot {
+public class Depot extends Konto{
 }

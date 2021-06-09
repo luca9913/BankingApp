@@ -1,6 +1,6 @@
 package Konto;
 
-public class Festgeldkonto {
+public class Festgeldkonto extends Konto{
     double kontostand;
     public Festgeldkonto(){
         kontostand = 0;
