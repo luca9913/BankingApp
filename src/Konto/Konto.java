@@ -11,4 +11,23 @@ public abstract class Konto{
     public Person owner;
     public Person banker;
 
+
+    public void aendern(){
+
+    }
+    public void aufloesen(){
+
+    }
+    public void zahlungsEingang(){
+
+    }
+    public void zahlungsAusgang(){
+
+    }
+    public void ueberweisung(){
+
+    }
+    public void anzeigenDispo(){
+
+    }
 }

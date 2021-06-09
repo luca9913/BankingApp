@@ -1,9 +1,8 @@
 package Konto;
 
 public class Festgeldkonto extends Konto{
-    double kontostand;
     public Festgeldkonto(){
-        kontostand = 0;
+        balance = 0;
     };
 
     //Funktion, um alle Konten in der GUI zu aktualisieren

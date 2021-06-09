@@ -1,9 +1,9 @@
 package Konto;
 
 public class Girokonto extends Konto{
-    double kontostand;
+    double balance;
     public Girokonto(){
-        kontostand = 0;
+        balance = 0;
     };
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
@@ -17,13 +17,13 @@ public class Girokonto extends Konto{
     }
 
     //Funktion um einzuzahlen
-    private void deposit(double sum){
-        kontostand += sum;
+    private void zahlungsEingang(double sum){
+        balance += sum;
     }
 
     //Funktion um auszuzahlen
-    private void payout(double sum){
-        kontostand -= sum;
+    private void zahlungsAusgang(double sum){
+        balance -= sum;
     }
 
     //Funktion, um die aktuellen Kontostände anzuzeigen
