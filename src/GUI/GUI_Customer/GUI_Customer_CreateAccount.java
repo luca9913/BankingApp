@@ -16,9 +16,11 @@ public class GUI_Customer_CreateAccount extends JFrame{
         this.setIconImage(titleBarImage.getImage());
 
         add(PanelCreate);
-        setTitle("Turing Banking App");
-        setSize(550, 385);
+        setLocationRelativeTo(null);
+        setTitle("Konto erstellen");
+        setSize(350, 270);
         setResizable(false);
+        toFront();
 
         //Action für den Button "Konto erstellen"
         kontoAnlegenButton.addActionListener(new ActionListener() {
