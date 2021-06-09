@@ -45,10 +45,13 @@ public class GUI_Customer extends JFrame {
 
     public GUI_Customer() {
 
-        initialize();
-
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
+
+        add(Hauptpanel);
+        setTitle("Turing Banking App");
+        setSize(550, 385);
+        setResizable(false);
 
         //Action für den Button "Aktualisieren im Tab Finanzübersicht"
         btnRefresh1.addActionListener(new ActionListener() {
@@ -79,6 +82,9 @@ public class GUI_Customer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                GUI_Customer_CreateAccount newView = new GUI_Customer_CreateAccount();
+                newView.setVisible(true);
+
             }
         });
 
@@ -86,6 +92,9 @@ public class GUI_Customer extends JFrame {
         btnNewAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                GUI_Customer_DeleteAccount newView = new GUI_Customer_DeleteAccount();
+                newView.setVisible(true);
 
             }
         });
@@ -129,13 +138,6 @@ public class GUI_Customer extends JFrame {
 
             }
         });
-    }
-
-    private void initialize() {
-        setTitle("Turing Banking App");
-        setSize(600, 450);
-        setResizable(false);
-
     }
 
 }
