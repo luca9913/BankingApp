@@ -119,7 +119,7 @@ public class ProdBase extends Database {
         }
     }
 
-    int createRequest(String key, double value, int accid, int customer, int banker){
+    public int createRequest(String key, double value, int accid, int customer, int banker){
         try{
             return state.executeUpdate("INSERT INTO requests(key, value, account_id, customer_id, banker_id) " +
                     "VALUES(" + key + "," + value + "," + accid + "," + customer + "," + banker + ");");

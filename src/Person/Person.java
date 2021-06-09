@@ -29,4 +29,8 @@ public abstract class Person {
     public int getUid() {
         return uid;
     }
+
+    public int getId() {
+        return id;
+    }
 }

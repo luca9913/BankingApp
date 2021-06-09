@@ -45,8 +45,8 @@ public class Konto{
         this.type = type;
     }
 
-    public void aendern(){
-
+    public void aendern(String key, double value){
+        database.createRequest(key,value, owner.getId(), banker.getId(), owner.getUid());
     }
     public void aufloesen(Konto zielkonto){
         if(balance < 0)
