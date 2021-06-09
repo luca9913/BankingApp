@@ -9,13 +9,17 @@ public class GUI_Customer_DeleteAccount extends JFrame{
     private JList listAccountToReceive;
     private JButton btnRemoveAccount;
     private JButton btnCancel;
+    private JPanel PanelDelete;
 
     public GUI_Customer_DeleteAccount() {
 
-        initialize();
-
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
+
+        add(PanelDelete);
+        setTitle("Turing Banking App");
+        setSize(550, 385);
+        setResizable(false);
 
         //Action für den Button "Konto löschen"
         btnRemoveAccount.addActionListener(new ActionListener() {
@@ -34,10 +38,4 @@ public class GUI_Customer_DeleteAccount extends JFrame{
         });
     }
 
-    private void initialize() {
-        setTitle("Turing Banking App");
-        setSize(250, 250);
-        setResizable(false);
-
-    }
 }
