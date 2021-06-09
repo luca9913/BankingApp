@@ -36,7 +36,7 @@ public class AuthBase extends Database {
     }
 
     //retrieving functions
-    ArrayList<Object[]> getAuthSet(int uid){
+    public ArrayList<Object[]> getAuthSet(int uid){
         try {
             result = state.executeQuery("SELECT * FROM user WHERE user_id = " + uid);
             return rsToArrayList(result);
@@ -77,7 +77,7 @@ public class AuthBase extends Database {
     }
 
     //inserting function
-    boolean insertUser(String pw, int id, String function){
+    public boolean insertUser(String pw, int id, String function){
         try {
             int hash = pw.hashCode();
             int rows = 0;
@@ -105,4 +105,37 @@ public class AuthBase extends Database {
     }
 
     //deleting function
+    public boolean deleteUser(int id){ //returns boolean because every id only has one account
+        try{
+            int rows = state.executeUpdate("DELETE FROM user WHERE user_id ='" + id + "' OR customer_id ='" + id + "' OR banker_id ='" + id +"';");
+            if(rows == 0){
+                throw new SQLException("Kein User zur angegebenen ID gefunden.");
+            }else{
+                return true;
+            }
+        }catch(SQLException e){
+            System.err.println("Fehler beim Löschen eines Benutzers in der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //updating function
+    public boolean updateHash(int id, String pw){ //returns boolean because every id only has one account
+        try{
+            int hash = pw.hashCode();
+            int rows = state.executeUpdate("UPDATE user SET pw_hash ='" + hash + "'WHERE user_id ='" + id + "' OR customer_id ='" + id + "' OR banker_id ='" + id +"';");
+            if(rows == 0){
+                throw new SQLException("Kein User zur angegebenen ID gefunden.");
+            }else{
+                return true;
+            }
+        }catch(SQLException e){
+            System.err.println("Fehler beim Setzen des neuen Benutzer-Passwortes in der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
