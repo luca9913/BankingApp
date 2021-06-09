@@ -17,11 +17,13 @@ public class GUI_Customer_DeleteAccount extends JFrame{
         this.setIconImage(titleBarImage.getImage());
 
         add(PanelDelete);
-        setTitle("Turing Banking App");
-        setSize(550, 385);
+        setLocationRelativeTo(null);
+        setTitle("Konto auflösen");
+        setSize(450, 270);
         setResizable(false);
+        toFront();
 
-        //Action für den Button "Konto löschen"
+        //Action für den Button "Konto auflösen"
         btnRemoveAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
