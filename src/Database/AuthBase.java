@@ -11,15 +11,12 @@ import java.util.ArrayList;
 public class AuthBase extends Database {
 
     static Path path = Paths.get("");
-    PreparedStatement insertbanker, insertcustomer;
 
     private AuthBase(){
         path = Paths.get(FOLDER + "auth.db");
         try{
             conn = DriverManager.getConnection(DRIVER + path);
             state = conn.createStatement();
-            insertbanker = conn.prepareStatement("INSERT INTO user(pw_hash, banker_id) VALUES (?,?)");
-            insertcustomer = conn.prepareStatement("INSERT INTO user(pw_hash, customer_id) VALUES (?,?)");
         }catch(SQLException e){
             System.err.println("Beim Initialisieren der Authentifizierungsdatenbank ist folgender Fehler aufgetreten: ");
             e.printStackTrace();
@@ -51,15 +48,15 @@ public class AuthBase extends Database {
         }
     }
 
-    public String getHash(int uid){
+     public int getHash(int uid){
         try{
             ResultSet rs = state.executeQuery("SELECT pw_hash FROM user WHERE user_id =" + uid);
-            return rs.getString(1); //possible because there's only one column specified in the SQL-Statement (pw_hash) and the uid is unique in the table user
+            return rs.getInt(1); //possible because there's only one column specified in the SQL-Statement (pw_hash) and the uid is unique in the table user
         }catch(SQLException e){
             System.err.println("Fehler beim Auslesen des Passwort-Hashes.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
-            return null;
+            return 0;
         }
     }
 
@@ -83,20 +80,22 @@ public class AuthBase extends Database {
     public boolean insertUser(String pw, int id, String function){
         try {
             int hash = pw.hashCode();
+            int rows = 0;
 
             switch(function){
                 case "banker":
-                    insertbanker.setInt(1, hash);
-                    insertbanker.setInt(2, id);
-                    insertbanker.execute();
+                    rows = state.executeUpdate("INSERT INTO user(pw_hash, banker_id) VALUES(" + hash + "," + id +")");
                     break;
                 case "customer":
-                    insertcustomer.setInt(1, hash);
-                    insertcustomer.setInt(2, id);
-                    insertcustomer.execute();
+                    rows = state.executeUpdate("INSERT INTO user(pw_hash, customer_id) VALUES(" + hash + "," + id +")");
                     break;
             }
-            return true;
+
+            if(rows == 0){
+                throw new SQLException();
+            }else {
+                return true;
+            }
         }catch(SQLException e){
             System.err.println("Fehler beim Einfügen des neuen Benutzers in die Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -105,34 +104,35 @@ public class AuthBase extends Database {
         }
     }
 
-    //updating function
-    public boolean updateHash(int uid, int new_hash){
+    //deleting function
+    public boolean deleteUser(int id){ //returns boolean because every id only has one account
         try{
-            int rows = state.executeUpdate("UPDATE user SET pw_hash =" + new_hash + " WHERE user_id =" + uid);
+            int rows = state.executeUpdate("DELETE FROM user WHERE user_id ='" + id + "' OR customer_id ='" + id + "' OR banker_id ='" + id +"';");
             if(rows == 0){
-                throw new SQLException("UserID nicht vorhanden.");
-            }else {
+                throw new SQLException("Kein User zur angegebenen ID gefunden.");
+            }else{
                 return true;
             }
         }catch(SQLException e){
-            System.err.println("Fehler beim Ändern des Passwortes in der Datenbank.");
+            System.err.println("Fehler beim Löschen eines Benutzers in der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
             return false;
         }
     }
 
-    //deleting function
-    public boolean deleteUser(int uid){
+    //updating function
+    public boolean updateHash(int id, String pw){ //returns boolean because every id only has one account
         try{
-            int rows = state.executeUpdate("DELETE FROM user WHERE user_id =" + uid);
+            int hash = pw.hashCode();
+            int rows = state.executeUpdate("UPDATE user SET pw_hash ='" + hash + "'WHERE user_id ='" + id + "' OR customer_id ='" + id + "' OR banker_id ='" + id +"';");
             if(rows == 0){
-                throw new SQLException("UserID nicht vorhanden.");
+                throw new SQLException("Kein User zur angegebenen ID gefunden.");
             }else{
                 return true;
             }
         }catch(SQLException e){
-            System.err.println("Fehler beim Ändern des Passwortes in der Datenbank.");
+            System.err.println("Fehler beim Setzen des neuen Benutzer-Passwortes in der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
             return false;

@@ -22,26 +22,5 @@
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/src/data/sample.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="BankingApp" uuid="d1a68f98-c017-492e-b547-7b784796a8e5">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\thekn\IdeaProjects\BankingApp\docs\Diagramme\UML Diagramm\(1)\BankingApp.vpp</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="auth" uuid="094fd7e6-77e5-45b0-b6ab-397919480c5a">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\thekn\IdeaProjects\BankingApp\out\production\BankingApp(new)\data\auth.db</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="production [2]" uuid="b3394b32-7b76-42a4-9c43-4e8e3e876b80">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\thekn\IdeaProjects\BankingApp\out\production\BankingApp(new)\data\production.db</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
   </component>
 </project>

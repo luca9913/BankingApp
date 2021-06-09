@@ -5,6 +5,7 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import org.apache.commons.lang3.ArrayUtils;
 import java.util.regex.Pattern;
+import Person.*;
 
 //(TODO: change ArrayList<String[]> to ArrayList<Object[]> to store Integer and other Objects)
 
@@ -39,16 +40,20 @@ public abstract class Database {
             //initialize all needed variables and Collections
             ResultSetMetaData rsmeta = rs.getMetaData(); //Get Metadata from the ResultSet
             int columns = rsmeta.getColumnCount(); //Get the column count for the for-loop
-            String[] result_row = new String[columns]; //initialize the Array to hold the result of every column for each row
+            Object[] result_row = new Object[columns]; //initialize the Array to hold the result of every column for each row
             ArrayList<Object[]>result = new ArrayList<>(); //initialize ArrayList which holds the String Arrays for each row
 
             for(int i = 1; i <= columns; i++){
                 result_row[i-1] = rsmeta.getColumnName(i);
             }
-            result.add(ArrayUtils.clone(result_row));
+            result.add(ArrayUtils.clone(result_row)); //Index 0 always holds a String-Array with column names
             while(rs.next()) { //while there are results left in the Set, fill the result_row Array with the column values
                 for (int i = 1; i <= columns; i++) {
-                    result_row[i-1] = rs.getString(i);
+                    switch(rsmeta.getColumnTypeName(i)){
+                        case "INTEGER": result_row[i-1] = rs.getInt(i);
+                        case "REAL": result_row[i-1] = rs.getFloat(i);
+                        default: result_row[i-1] = rs.getString(i);
+                    }
                 }
                 if(result.size() <= 10) {
                     result.add(ArrayUtils.clone(result_row));
@@ -57,7 +62,7 @@ public abstract class Database {
                     result.add(ArrayUtils.clone(result_row));
                 }
             }
-            if(result.size() == 1){
+            if(result.size() == 1) {
                 return null; //if the result list only contains one array with the column names, return null
             }else if(result.size() < 10) {
                 result.trimToSize();
@@ -77,7 +82,10 @@ public abstract class Database {
 class DatabaseTest{
 
     public static void main(String[] args){
-        AuthBase auth = AuthBase.initialize(); //Datenbank initialisieren
-        auth.updateHash(2, "start1235".hashCode());
+        String[][] strings= {
+                {"test", "one", "two", "three"},
+                {"this", "is", "how", "we", "do", "it"}
+        };
+        System.out.println(strings[1].length);
     }
 }

@@ -1,19 +1,47 @@
 package GUI.GUI_Customer;
 
 import Login.Login;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
-public class GUI_Customer extends JFrame{
-    private JPanel panel1;
-    private JTabbedPane tabbedPane1;
-    private JList list1;
-    private JTable table1;
+public class GUI_Customer extends JFrame {
+    private JTabbedPane tabbedPaneMain;
+    private JPanel Hauptpanel;
+    private JPanel JPanelLinks;
+    private JPanel JPanelRechts;
+    private JList listAccounts;
+    private JTextField txtSearch;
+    private JTable tableTurnover;
     private JButton aktualisierenButton;
+    private JTextField txtAccNr;
+    private JTextField txtTurnoverNr;
+    private JTextField txtAmount;
+    private JTextField txtUsage;
+    private JButton button1;
+    private JList listAccFrom;
+    private JButton btnTransfer;
+    private JTextField txtNameTo;
+    private JTextField txtIbanTo;
+    private JTextField txtAmountTo;
+    private JTextField txtUsageTo;
+    private JLabel image;
+    private JTextField txtName;
+    private JButton persönlicheDatenÄndernButton;
+    private JButton aktualisierenButton1;
+    private JTextField txtPrename;
+    private JTextField txtZip;
+    private JTextField txtCity;
+    private JTextField txtAddress;
+    private JButton kontoAuflösenButton;
+    private JButton neuesKontoErstellenButton;
+    private JButton aktualisierenButton2;
+    private JButton disporahmenÄndernButton;
+    private JButton überweisungsrahmenÄndernButton;
     private JTextField textField1;
+    private JTextField textField2;
+
 
     public GUI_Customer() {
 
@@ -26,10 +54,9 @@ public class GUI_Customer extends JFrame{
 
     private void initialize() {
         setTitle("Turing Banking App");
-        setSize(1000, 700);
+        setSize(400, 500);
         setResizable(false);
 
-        add(panel1);
     }
 
 }
