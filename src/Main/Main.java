@@ -12,12 +12,13 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args) {
-        Person user = null;
+        Person user;
         AuthBase authBase = AuthBase.initialize();
-        Login loginObjekt = new Login(authBase, user);
+        Login loginObjekt = new Login(authBase);
         GUI_Login newView = new GUI_Login(loginObjekt);
         newView.setVisible(true);
         ProdBase prodBase = ProdBase.initialize();
+        /*
         user.update(prodBase);
 
         if(user.getUid() < 1000)
@@ -29,5 +30,7 @@ public class Main {
             GUI_Customer wneView = new GUI_Customer();
             wneView.setVisible(true);
         }
+
+        */
     }
 }
