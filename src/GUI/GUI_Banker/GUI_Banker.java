@@ -42,6 +42,7 @@ public class GUI_Banker extends JFrame{
     private JLabel lblDispoOverwritingAccounts;
     private JLabel lblWelcome;
     private JTabbedPane tabbedPane1;
+    private JLabel lblAccountBalance;
 
     private int bankerID;
 
