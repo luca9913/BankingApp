@@ -2,10 +2,7 @@ package Database;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import Konto.Konto;
 import Person.Person;
@@ -13,6 +10,12 @@ import Person.Person;
 public class ProdBase extends Database {
 
     static Path path = Paths.get("");
+    /**Datenbank-Verbindung aus dem Paket java.sql
+     * @link java.sql.Connection */
+    static Connection conn;
+    /**Datenbank-Statement zur Ausführung von Abfragen
+     * @link java.sql.Statement*/
+    static Statement state;
 
     private ProdBase(){
         this.path = Paths.get(FOLDER + "production.db");
@@ -119,7 +122,7 @@ public class ProdBase extends Database {
         }
     }
 
-    int createRequest(String key, double value, int accid, int customer, int banker){
+    public int createRequest(String key, double value, int accid, int customer, int banker){
         try{
             return state.executeUpdate("INSERT INTO requests(key, value, account_id, customer_id, banker_id) " +
                     "VALUES(" + key + "," + value + "," + accid + "," + customer + "," + banker + ");");

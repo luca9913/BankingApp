@@ -119,11 +119,12 @@
                   <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <actionCommand value="Konto auflösen"/>
                   <background color="-5308416"/>
                   <enabled value="true"/>
                   <foreground color="-1"/>
                   <hideActionText value="false"/>
-                  <text value="Konto löschen"/>
+                  <text value="Konto auflösen"/>
                 </properties>
               </component>
               <vspacer id="e1eac">

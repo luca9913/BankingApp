@@ -2,21 +2,24 @@ package Database;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class AuthBase extends Database {
 
     static Path path = Paths.get("");
+    /**Datenbank-Verbindung aus dem Paket java.sql
+     * @link java.sql.Connection */
+    static Connection conn;
+    /**Datenbank-Statement zur Ausführung von Abfragen
+     * @link java.sql.Statement*/
+    static Statement state;
 
     private AuthBase(){
         path = Paths.get(FOLDER + "auth.db");
         try{
-            conn = DriverManager.getConnection(DRIVER + path);
-            state = conn.createStatement();
+            this.conn = DriverManager.getConnection(DRIVER + path);
+            this.state = conn.createStatement();
         }catch(SQLException e){
             System.err.println("Beim Initialisieren der Authentifizierungsdatenbank ist folgender Fehler aufgetreten: ");
             e.printStackTrace();
@@ -51,6 +54,10 @@ public class AuthBase extends Database {
      public int getHash(int uid){
         try{
             ResultSet rs = state.executeQuery("SELECT pw_hash FROM user WHERE user_id =" + uid);
+            if(rs.isClosed()){
+                System.err.println("Falsche UserID, no such user.");
+                return 0;
+            }
             return rs.getInt(1); //possible because there's only one column specified in the SQL-Statement (pw_hash) and the uid is unique in the table user
         }catch(SQLException e){
             System.err.println("Fehler beim Auslesen des Passwort-Hashes.");

@@ -49,6 +49,7 @@ public class GUI_Customer extends JFrame {
         this.setIconImage(titleBarImage.getImage());
 
         add(Hauptpanel);
+        setLocationRelativeTo(null);
         setTitle("Turing Banking App");
         setSize(550, 385);
         setResizable(false);
@@ -82,7 +83,7 @@ public class GUI_Customer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                GUI_Customer_CreateAccount newView = new GUI_Customer_CreateAccount();
+                GUI_Customer_DeleteAccount newView = new GUI_Customer_DeleteAccount();
                 newView.setVisible(true);
 
             }
@@ -93,7 +94,7 @@ public class GUI_Customer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                GUI_Customer_DeleteAccount newView = new GUI_Customer_DeleteAccount();
+                GUI_Customer_CreateAccount newView = new GUI_Customer_CreateAccount();
                 newView.setVisible(true);
 
             }
