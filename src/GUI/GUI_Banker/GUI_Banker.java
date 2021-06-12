@@ -1,6 +1,8 @@
 package GUI.GUI_Banker;
 
 import javax.swing.*;
+import Administration.Administration;
+import Database.ProdBase;
 
 public class GUI_Banker extends JFrame{
 
@@ -45,10 +47,12 @@ public class GUI_Banker extends JFrame{
     private JLabel lblAccountBalance;
 
     private int bankerID;
+    private Administration admin;
 
     // Mark: -
-    public GUI_Banker() {
+    public GUI_Banker(ProdBase data) {
         this.bankerID = bankerID;
+        this.admin = new Administration(bankerID, data);
         initialize();
     }
 

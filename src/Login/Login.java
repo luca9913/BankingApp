@@ -1,6 +1,6 @@
 package Login;
 
-import Database.AuthBase;
+import Database.*;
 import GUI.GUI_Banker.GUI_Banker;
 import GUI.GUI_Customer.GUI_Customer;
 import GUI.GUI_Login.GUI_Login;
@@ -13,10 +13,11 @@ import javax.swing.*;
 public class Login {
 
     private String password;
-    private int pwHash;
+    private String pwHash;
     private int userID = 0;
     private boolean valid;
     private AuthBase authDatabase;
+    private ProdBase data;
     private Person user = null;
 
     public Login(AuthBase authDatabase)
@@ -32,17 +33,15 @@ public class Login {
     //databaseComparison vergleicht die Eingabe mit der Datenbank und gibt mit "true" zurück ob ein passender Tupel gefunden wurde.
     public boolean databaseComparison(int userID, String password) {
 
-        pwHash = hashen(password); //passwort zu hash umwandeln
-
         //hash mit Datenbank abgleichen
-        if (pwHash == authDatabase.getHash(userID)) {
+        if (pwHash.equals(authDatabase.getHash(userID))) {
             System.out.println("Login erfolgreich!");
             if(userID < 1000) {
                 System.out.println("Login-ID (" + userID + ") unter 1000 - Banker Login - Banker GUI öffnen");
                 // TODO: User-Parameter an GUI_Banker / GUI_Customer muss noch übergeben werden
                 // user = new Banker(userID, datenbank.getIdentity(userID));
 
-                GUI_Banker newBankerView = new GUI_Banker();
+                GUI_Banker newBankerView = new GUI_Banker(data);
                 newBankerView.setVisible(true);
 
             } else {
