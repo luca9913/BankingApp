@@ -13,8 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        GUI_Customer wneView = new GUI_Customer();
-        wneView.setVisible(true);
+        GUI_Customer newCustomerFrame = new GUI_Customer();
+        newCustomerFrame.setVisible(true);
 
         /*Person user = null;
         AuthBase authBase = AuthBase.initialize();

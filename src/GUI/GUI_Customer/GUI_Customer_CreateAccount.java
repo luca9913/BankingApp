@@ -1,5 +1,6 @@
 package GUI.GUI_Customer;
 
+import GUI.HelpMethodsCustomer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,12 +11,15 @@ public class GUI_Customer_CreateAccount extends JFrame{
     private JButton abbrechenButton;
     private JButton kontoAnlegenButton;
 
+
+
     public GUI_Customer_CreateAccount() {
 
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
 
         add(PanelCreate);
+        pack();
         setLocationRelativeTo(null);
         setTitle("Konto erstellen");
         setSize(350, 270);
@@ -35,7 +39,7 @@ public class GUI_Customer_CreateAccount extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                System.exit(0);
+                HelpMethodsCustomer.closeCreate();
 
             }
         });

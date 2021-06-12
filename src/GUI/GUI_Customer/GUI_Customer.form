@@ -819,7 +819,7 @@
                         <properties>
                           <background color="-16767685"/>
                           <foreground color="-1"/>
-                          <text value="Disporahmen ändern"/>
+                          <text value="Dispo- / Kreditrahmen ändern"/>
                         </properties>
                       </component>
                       <component id="5f988" class="javax.swing.JTextField" binding="txtDispo">
