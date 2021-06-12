@@ -19,6 +19,8 @@ public class Main {
         GUI_Login wneView = new GUI_Login(log);
         wneView.setVisible(true);
 
+
+
         /*Person user = null;
         ProdBase prodBase = ProdBase.initialize();
         Login loginObjekt = new Login(authBase, user);

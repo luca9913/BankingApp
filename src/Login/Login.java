@@ -23,10 +23,9 @@ public class Login {
     {
         this.authDatabase = authDatabase;
     }
+
     //hashed das Passwort
-
     private int hashen(String password){
-
         return password.hashCode();
     }
 
@@ -37,20 +36,22 @@ public class Login {
 
         //hash mit Datenbank abgleichen
         if (pwHash == authDatabase.getHash(userID)) {
+            System.out.println("Login erfolgreich!");
             if(userID < 1000) {
-
+                System.out.println("Login-ID (" + userID + ") unter 1000 - Banker Login - Banker GUI öffnen");
                 // TODO: User-Parameter an GUI_Banker / GUI_Customer muss noch übergeben werden
                 // user = new Banker(userID, datenbank.getIdentity(userID));
 
                 GUI_Banker newBankerView = new GUI_Banker();
                 newBankerView.setVisible(true);
-            } else {
-                // user = new Customer(userID,datenbank.getIdentity(userID));
 
+            } else {
+                System.out.println("Login-ID (" + userID + ") über 1000 - Customer Login - Customer GUI öffnen");
+
+                // user = new Customer(userID,datenbank.getIdentity(userID));
                 GUI_Customer newCustomerView = new GUI_Customer();
                 newCustomerView.setVisible(true);
             }
-
             return true;
         }
         return false;

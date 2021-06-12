@@ -24,15 +24,10 @@ public class GUI_Login extends JFrame {
     private JLabel failedAttempts;
 
     private Login loginReference; //Login-Instanz mit der auf die Login-Datenbank zugegriffen werden kann
-    private Main mainReference;
 
     public GUI_Login(Login loginReference) {
         this.loginReference = loginReference;
         initialize();
-
-        // Title Bar Icon
-        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
-        this.setIconImage(titleBarImage.getImage());
 
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -44,18 +39,17 @@ public class GUI_Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("BN: " + LOGINNAMETextField.getText());
-                System.out.println("PW: " + passwordField1.getPassword().toString());
-
-
-                // TODO: Eingabe überprüfen! LOGINNAME darf nur Zahlen enthalten, sonst Fehler in Z.71 -> Integer.parseInt(userID);
-                loginPressed(LOGINNAMETextField.getText(), passwordField1.getPassword().toString());
+                loginPressed();
             }
         });
     }
 
 
     private void initialize() {
+        // Title Bar Icon
+        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
+        this.setIconImage(titleBarImage.getImage());
+
         failedAttempts.setVisible(false);
         setTitle("Turing Banking App");
         setSize(400, 500);
@@ -65,20 +59,41 @@ public class GUI_Login extends JFrame {
     }
 
 
-    private void loginPressed(String userID, String password) {
+    private void loginPressed() {
         System.out.println("Login Pressed");
 
-        if(loginReference.databaseComparison(Integer.parseInt(userID), password)) {
+        // Überprüft, ob sich der String in einen Integer umwandeln lässt
+        int userID;
+        try {
+            userID = Integer.parseInt(LOGINNAMETextField.getText());
+        } catch(NumberFormatException e) {
+            System.out.println("Fehlerhafte Login-ID");
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Die Login-ID darf ausschließlich aus Zahlen bestehen und hat in der Regel nicht mehr als 8 Stellen.", "Ungültige Login-ID!", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // Konvertiert char[] in StringBuilder
+        StringBuilder passwordStringBuilder = new StringBuilder();
+        for(char chars: passwordField1.getPassword()) {
+            passwordStringBuilder.append(chars);
+        }
+
+        // Compare data with authbase
+        if(loginReference.databaseComparison(userID, passwordStringBuilder.toString())) {
             // Passwort und Nutzername stimmen überein
+            System.out.println("Login-ID und Benutzername stimmen überein - Login Fenster schließen");
+
+            //TODO: setVisible(false) benötigt Arbeitsspeicher - bessere Methode implementieren
             this.setVisible(false);
         } else {
             // Fehlerhafte Eingabe -> Erhöhe Fehlversuche
+            System.out.println("Login-ID und Benutzername stimmen nicht überein - Failed Attempts anzeigen/erhöhen");
             attempts++;
             failedAttempt(attempts);
         }
-
-
     }
+
 
     private void failedAttempt(int numberOfFailedAttempts) {
         if (numberOfFailedAttempts != 0) {
