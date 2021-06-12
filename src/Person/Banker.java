@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Database.ProdBase;
 import Konto.Konto;
 
-public class Banker extends Person{
+public class Banker extends Person {
 
     ProdBase data;
     ArrayList<Object[]> allaccounts, allcustomers, filteredaccounts, filteredtransfers;

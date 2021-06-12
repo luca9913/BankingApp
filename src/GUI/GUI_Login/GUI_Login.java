@@ -9,9 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Random;
 
-public class GUI_Login extends JFrame {
+public class GUI_Login extends JFrame implements KeyListener {
 
     private int attempts = 0;
 
@@ -55,12 +57,21 @@ public class GUI_Login extends JFrame {
         setSize(400, 500);
         setResizable(false);
 
+        LOGINNAMETextField.addKeyListener(this);
+        passwordField1.addKeyListener(this);
         add(panel1);
     }
 
 
     private void loginPressed() {
         System.out.println("Login Pressed");
+
+        //Überprüft, ob userID vorhanden ist
+        if (LOGINNAMETextField.getText().length() == 0) {
+            System.out.println("Keine Login-ID eingegeben");
+            JOptionPane.showMessageDialog(null, "Bitte geben Sie eine Login-ID ein.", "Login-ID Feld leer!", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
         // Überprüft, ob sich der String in einen Integer umwandeln lässt
         int userID;
@@ -77,6 +88,13 @@ public class GUI_Login extends JFrame {
         StringBuilder passwordStringBuilder = new StringBuilder();
         for(char chars: passwordField1.getPassword()) {
             passwordStringBuilder.append(chars);
+        }
+
+        // Überprüft, ob Passwort vorhanden ist
+        if (passwordStringBuilder.length() == 0) {
+            System.out.println("Kein Passwort eingegeben");
+            JOptionPane.showMessageDialog(null, "Bitte geben Sie ein Passwort ein.", "Passwortfeld leer!", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
 
         // Compare data with authbase
@@ -96,6 +114,7 @@ public class GUI_Login extends JFrame {
 
 
     private void failedAttempt(int numberOfFailedAttempts) {
+        // TODO: Falls genug Zeit -> Timeout programmieren nach 3 Fehlversuchen
         if (numberOfFailedAttempts != 0) {
             failedAttempts.setVisible(true);
             if (numberOfFailedAttempts == 1) {
@@ -106,4 +125,21 @@ public class GUI_Login extends JFrame {
         }
     }
 
+
+    // Methoden müssen vorhanden sein, da KeyListener diese verlangt
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+            System.out.println("ENTER-Pressed");
+            loginPressed();
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
 }
