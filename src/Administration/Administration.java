@@ -81,7 +81,6 @@ public class Administration{
             tmp[2] = tr[1].toString();
             transfers.add(tmp);
         }
-
         return transfers;
     }
 }
