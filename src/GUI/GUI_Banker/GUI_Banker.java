@@ -52,16 +52,70 @@ public class GUI_Banker extends JFrame{
     // Mark: -
     public GUI_Banker(ProdBase data) {
         this.bankerID = bankerID;
-        this.admin = new Administration(bankerID, data);
+        //this.admin = new Administration(bankerID, data);
         initialize();
     }
 
 
     private void initialize() {
-        setTitle("Turing Banking App");
-        setSize(400, 500);
-        setResizable(false);
+        // Title Bar Icon
+        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
+        this.setIconImage(titleBarImage.getImage());
 
+
+        setTitle("Turing Banking App");
+        setSize(800, 600);
+        setResizable(true);
+
+        // Initialisiert Startseite-Tab
+        // TODO: Namen des Bankers einfügen
+        lblWelcome.setText("Herzlich Willkommen ");
+        // TODO: Aktuell betreuende Kunden einfügen
+        lblAccountApprovalOrders.setText("Aktuell betreuende Kunden: ");
+        // TODO: Kontofreigabeaufträge einfügen
+        lblSupervisingCustomers.setText("Kontofreigabeaufträge: ");
+        // TODO: Dispoüberschreitende Konten einfügen
+        lblDispoOverwritingAccounts.setText("Dispoüberschreitende Konten: ");
+
+
+        // Initialisiert Kontenfreigabe-Tab
+        // TODO: Tabelle mit Konten füllen
+        btnApproveAccount.setEnabled(false);
+        btnDeclineAccount.setEnabled(false);
+
+        // Initialisiert Dispokonten-Tab
+        // TODO: Tabelle mit Konten im Dispo füllen
+
+        // Initialisiert Kundenübersicht-Tab
+        // Initialisiert Kundenübersicht - Finanzübersicht
+        listAccountOverview.setEnabled(false);
+        btnRefreshAccount.setEnabled(false);
+        btnBlockAccount.setEnabled(false);
+        btnDeleteAccount.setEnabled(false);
+        txtSearchTurnover.setEnabled(false);
+
+        // Initialisiere Kundenübersicht - Dispo
+        txtCurrentDispo.setEnabled(false);
+        btnApproveDispo.setEnabled(false);
+
+        // Initialisiere Kundenübersicht - Benutzerdaten
+        txtCustomerID.setEnabled(false);
+        txtCustomerName.setEnabled(false);
+        txtCustomerSurname.setEnabled(false);
+        txtCustomerBirth.setEnabled(false);
+        txtCustomerAdress.setEnabled(false);
+        txtCustomerZIP.setEnabled(false);
+        txtCustomerCity.setEnabled(false);
+        btnSaveCustomerData.setEnabled(false);
+
+        //Inititalisiere NeuerKunde-Tab
+        btnCreateNewCustomer.setEnabled(false);
+
+
+
+
+
+        // Panel hinzufügen
         add(mainPanel);
     }
 

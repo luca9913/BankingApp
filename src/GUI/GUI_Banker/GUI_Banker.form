@@ -288,6 +288,7 @@
                                 </constraints>
                                 <properties>
                                   <background color="-16767685"/>
+                                  <enabled value="true"/>
                                   <foreground color="-1"/>
                                   <text value="Konten aktualisieren"/>
                                 </properties>
@@ -404,7 +405,9 @@
                                         <preferred-size width="150" height="-1"/>
                                       </grid>
                                     </constraints>
-                                    <properties/>
+                                    <properties>
+                                      <editable value="false"/>
+                                    </properties>
                                   </component>
                                   <component id="a2cb1" class="javax.swing.JTextField" binding="txtTurnoverNr">
                                     <constraints>
@@ -412,7 +415,9 @@
                                         <preferred-size width="150" height="-1"/>
                                       </grid>
                                     </constraints>
-                                    <properties/>
+                                    <properties>
+                                      <editable value="false"/>
+                                    </properties>
                                   </component>
                                   <component id="b778f" class="javax.swing.JTextField" binding="txtTurnoverAmount">
                                     <constraints>
@@ -420,7 +425,9 @@
                                         <preferred-size width="150" height="-1"/>
                                       </grid>
                                     </constraints>
-                                    <properties/>
+                                    <properties>
+                                      <editable value="false"/>
+                                    </properties>
                                   </component>
                                   <component id="74351" class="javax.swing.JTextField" binding="txtTurnoverPurpose">
                                     <constraints>
@@ -428,7 +435,9 @@
                                         <preferred-size width="150" height="-1"/>
                                       </grid>
                                     </constraints>
-                                    <properties/>
+                                    <properties>
+                                      <editable value="false"/>
+                                    </properties>
                                   </component>
                                 </children>
                               </grid>
@@ -468,7 +477,7 @@
                                 </constraints>
                                 <properties>
                                   <font size="16" style="1"/>
-                                  <text value="33.000€"/>
+                                  <text value="Gesamtbilanz"/>
                                 </properties>
                               </component>
                             </children>

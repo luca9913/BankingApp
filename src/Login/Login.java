@@ -33,8 +33,10 @@ public class Login {
     //databaseComparison vergleicht die Eingabe mit der Datenbank und gibt mit "true" zurück ob ein passender Tupel gefunden wurde.
     public boolean databaseComparison(int userID, String password) {
 
+        int pwHash = hashen(password);
+
         //hash mit Datenbank abgleichen
-        if (pwHash.equals(authDatabase.getHash(userID))) {
+        if (pwHash == authDatabase.getHash(userID)) {
             System.out.println("Login erfolgreich!");
             if(userID < 1000) {
                 System.out.println("Login-ID (" + userID + ") unter 1000 - Banker Login - Banker GUI öffnen");

@@ -2,7 +2,7 @@ package Person;
 
 import java.util.Date;
 
-public class Banker extends Person{
+public class Banker extends Person {
 
     //Konstruktor
     public Banker(int uid,int id){
