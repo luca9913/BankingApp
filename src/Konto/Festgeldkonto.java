@@ -1,9 +1,14 @@
 package Konto;
 
+import Database.ProdBase;
+import Person.Banker;
+import Person.Customer;
+
 public class Festgeldkonto extends Konto{
-    public Festgeldkonto(){
-        balance = 0;
-    };
+
+    public Festgeldkonto(ProdBase database, String type, int id, Banker banker, Customer owner) {
+        super(database, type, id, banker, owner);
+    }
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
     private void syncAccounts(){
@@ -11,9 +16,9 @@ public class Festgeldkonto extends Konto{
     }
 
     //Funktion, um einzuzahlen
-    private void deposit(double sum){
-        //kontostand += sum;
-    }
+    /*private void deposit(double sum){
+        kontostand += sum;
+    }*/
 
     //Funktion, um die aktuellen Kontostände anzuzeigen
     //Offene Frage: Alle Kontostände oder nur der Kontostand eines Kontos

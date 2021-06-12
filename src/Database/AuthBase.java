@@ -2,21 +2,28 @@ package Database;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class AuthBase extends Database {
 
     static Path path = Paths.get("");
+    /**Datenbank-Verbindung aus dem Paket java.sql
+     * @link java.sql.Connection */
+    Connection conn;
+    /**Datenbank-Statement zur Ausführung von Abfragen
+     * @link java.sql.Statement*/
+    Statement state;
+    /**Speicherung der Rückgabe einer Datenbank-Abfrage
+     * @link java.sql.ResultSet*/
+    ResultSet result;
 
     private AuthBase(){
         path = Paths.get(FOLDER + "auth.db");
         try{
-            conn = DriverManager.getConnection(DRIVER + path);
-            state = conn.createStatement();
+            this.conn = DriverManager.getConnection(DRIVER + path);
+            this.state = conn.createStatement();
         }catch(SQLException e){
             System.err.println("Beim Initialisieren der Authentifizierungsdatenbank ist folgender Fehler aufgetreten: ");
             e.printStackTrace();
@@ -31,6 +38,29 @@ public class AuthBase extends Database {
             return auth;
         }else{
             System.err.println("Authentifizierungs-Datenbank wurde bereits erstellt. Es ist nur eine Instanz erlaubt!");
+            return null;
+        }
+    }
+
+    ArrayList<Object[]> executeCustomQuery(String sql){
+        try {
+            //searches for the 'SELECT' string in the statement
+            if(Pattern.compile(Pattern.quote("select"), Pattern.CASE_INSENSITIVE).matcher(sql).find()){
+                //if the statement is a SELECT statement
+                result = state.executeQuery(sql); //save the result into the ResultList
+                return rsToArrayList(result); //return the ArrayList containing Objects for each selected row
+            }else{
+                //if the statement doesn't contain the 'SELECT' string
+                int mrows = state.executeUpdate(sql); //save the number of affected rows in a variable
+                ArrayList<Object[]> update_result= new ArrayList<>(1); //initialize a new ArrayList with one element
+                update_result.add(new Integer[]{mrows}); //add the number of rows as an Integer-Array with 1 entry to the ArrayList
+                return update_result; //return the ArrayList containing the number of affected rows
+            }
+        }catch(SQLException e){ //catch an SQL-Exception
+            //print a custom error message and the Exception stacktrace to the error log
+            System.err.println("Beim Ausführen der Abfrage ist ein Fehler aufgetreten.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
             return null;
         }
     }
@@ -51,6 +81,10 @@ public class AuthBase extends Database {
      public int getHash(int uid){
         try{
             ResultSet rs = state.executeQuery("SELECT pw_hash FROM user WHERE user_id =" + uid);
+            if(rs.isClosed()){
+                System.err.println("Falsche UserID, no such user.");
+                return 0;
+            }
             return rs.getInt(1); //possible because there's only one column specified in the SQL-Statement (pw_hash) and the uid is unique in the table user
         }catch(SQLException e){
             System.err.println("Fehler beim Auslesen des Passwort-Hashes.");
