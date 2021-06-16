@@ -132,7 +132,7 @@ public class ProdBase extends Database {
      */
     public ArrayList<Object[]> getAllRequests(int id){
         try{
-            return rsToArrayList(state.executeQuery("SELECT * FROM requests WHERE customer_id ='" + id + "' OR customer_id ='" + id +"'"));
+            return rsToArrayList(state.executeQuery("SELECT * FROM requests WHERE customer_id ='" + id + "' OR banker_id ='" + id +"'"));
         }catch(SQLException e){
             System.err.println("Fehler beim Auslesen der Aufträge.");
             System.err.print("Fehlermeldung: ");
@@ -167,12 +167,8 @@ public class ProdBase extends Database {
     public boolean insertAccount(Konto account){
         try {
             //return number of inserted rows
-            if(state.executeUpdate("INSERT INTO account(type, balance, dispo, transfer_limit, owner, banker_id) " +
-                    "VALUES(" + account.type + "," + account.dispo + "," + account.balance + "," + account.transferlimit + "," + account.owner.getUid() + "," + account.banker.getUid() + ");") >= 1){
-                return true;
-            }else{
-                return false;
-            }
+            return returnFunction(state.executeUpdate("INSERT INTO account(type, balance, dispo, transfer_limit, owner, banker_id) " +
+                    "VALUES(" + account.type + "," + account.dispo + "," + account.balance + "," + account.transferlimit + "," + account.owner.getUid() + "," + account.banker.getUid() + ");"));
         }catch(SQLException e){
             System.err.println("Fehler beim Einfügen der neuen Benutzer in die Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -196,12 +192,7 @@ public class ProdBase extends Database {
                 rows = state.executeUpdate("INSERT INTO customer(prename, name, birthdate, zip, city, address) " +
                         "VALUES(" + person.preName + "," + person.name + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + ")");
             }
-
-            if(rows >= 1){
-                return true;
-            }else{
-                return false;
-            }
+            return returnFunction(rows);
         }catch(SQLException e){
             System.err.println("Fehler beim Einfügen des neuen Benutzers in die Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -221,12 +212,8 @@ public class ProdBase extends Database {
      */
     public boolean createRequest(String key, double value, int accid, int customer, int banker){
         try{
-            if(state.executeUpdate("INSERT INTO requests(customer_id, account_id, banker_id, key, value) " +
-                    "VALUES(" + customer + "," + accid + "," + "," + banker + key + "," + value + ");") >= 1){
-                return true;
-            }else{
-                return false;
-            }
+            return returnFunction(state.executeUpdate("INSERT INTO requests(customer_id, account_id, banker_id, key, value) " +
+                    "VALUES(" + customer + "," + accid + "," + "," + banker + key + "," + value + ");"));
         }catch(SQLException e){
             System.err.println("Fehler beim erstellen der Anfrage in der Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -244,12 +231,8 @@ public class ProdBase extends Database {
      */
     public boolean insertTransfer(double amount, int sender, int receiver){
         try{
-            if(state.executeUpdate("INSERT INTO transfer(amount, sender, receiver) " +
-                    "VALUES(" + amount + "," + sender + "," + receiver + ");") >= 1){
-                return true;
-            }else{
-                return false;
-            }
+            return returnFunction(state.executeUpdate("INSERT INTO transfer(amount, sender, receiver) " +
+                    "VALUES(" + amount + "," + sender + "," + receiver + ");"));
         }catch(SQLException e){
             System.err.println("Fehler beim übertragen der Überweisung in die Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -259,39 +242,49 @@ public class ProdBase extends Database {
     }
 
     //updating functions
-    public int updatePerson(Person person){
+    /**Aktualisiert die Daten einer Person (Banker oder Kunde) in der entsprechenden Tabelle der Datenbank production.db.
+     * @param person Objekt der Klasse Banker oder Customer, das die Daten enthält
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
+    public boolean updatePerson(Person person){
         try {
             if (person.id < 1000) {
-                return state.executeUpdate("UPDATE banker SET prename ='" + person.name + "', name ='" + person.preName + "', birthdate ='" + person.birthDate + "', zip ='" + person.zip + "', city ='" + person.city + "', address ='" + person.address + "' WHERE banker_id = " + person.id);
+                return returnFunction(state.executeUpdate("UPDATE banker SET prename ='" + person.name + "', name ='" + person.preName + "', birthdate ='" + person.birthDate + "', zip ='" + person.zip + "', city ='" + person.city + "', address ='" + person.address + "' WHERE banker_id = " + person.id));
             } else {
-                return state.executeUpdate("UPDATE customer SET prename ='" + person.name + "', name ='" + person.preName + "', birthdate ='" + person.birthDate + "', zip ='" + person.zip + "', city ='" + person.city + "', address ='" + person.address + "' WHERE customer_id = " + person.id);
+                return returnFunction(state.executeUpdate("UPDATE customer SET prename ='" + person.name + "', name ='" + person.preName + "', birthdate ='" + person.birthDate + "', zip ='" + person.zip + "', city ='" + person.city + "', address ='" + person.address + "' WHERE customer_id = " + person.id));
             }
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren der Kundendaten in der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
-    public int updateBalance(int id, double balance){
+    /**Verändert den Kontostand eines Kontos.
+     * @param id Konto-ID
+     * @param balance neuer Kontostand
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
+    public boolean updateBalance(int id, double balance){
         try {
-            return state.executeUpdate("UPDATE account SET balance ='" + balance + "' WHERE account_id = " + id);
+            return returnFunction(state.executeUpdate("UPDATE account SET balance ='" + balance + "' WHERE account_id = " + id));
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Kontostandes in der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
+    /**(Ent-)sperrt ein Konto.
+     * @param accid Konto-ID
+     * @param status Kontostatus - 0: offen, 1: gesperrt
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
     public boolean updateAccountBlockage(int accid, int status){
         try{
-            if(state.executeUpdate("UPDATE account SET locked =" + status) >= 1){
-                return true;
-            }else{
-                return false;
-            }
+            return returnFunction(state.executeUpdate("UPDATE account SET locked =" + status));
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Kontostatus in der Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -300,29 +293,43 @@ public class ProdBase extends Database {
         }
     }
 
-   public int updateAccountData(Konto account){
+    /**Aktualisiert alle Daten eines Kontos entsprechend der Felder eines Konto-Objektes.
+     * @param account Konto-Objekt, das die Daten enthält
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
+   public boolean updateAccountData(Konto account){
         try {
-            return state.executeUpdate("UPDATE account SET dispo ='" + account.dispo + "', transfer_limit ='" + account.transferlimit + "', owner ='" + account.owner + "', banker_id ='" + account.banker + "', locked ='" + account.locked + "' WHERE account_id = " + account.id);
+            return returnFunction(state.executeUpdate("UPDATE account SET dispo ='" + account.dispo + "', transfer_limit ='" + account.transferlimit + "', owner ='" + account.owner + "', banker_id ='" + account.banker + "', locked ='" + account.locked + "' WHERE account_id = " + account.id));
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Kontodaten in der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
-    public int approveRequest(int request_id){
+    /**Aktualisiert den Status eines Freigabe-Auftrages.
+     * @param request_id Kennnummer des Freigabe-Auftrages
+     * @param status neuer Status - 1: Genehmigt, -1: Abgelehnt
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
+    public boolean updateRequest(int request_id, int status){
         try {
-            return state.executeUpdate("UPDATE requests SET key = 1 WHERE request_id = " + request_id);
+            return returnFunction(state.executeUpdate("UPDATE requests SET status = " + status + " WHERE request_id = " + request_id));
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Anfrage-Status in der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
     //deleting functions
+
+    /**
+     * @param id
+     * @return
+     */
     public boolean deletePerson(int id){
         try{
             int rows;
@@ -331,12 +338,7 @@ public class ProdBase extends Database {
             }else{
                 rows = state.executeUpdate("DELETE FROM customer WHERE customer_id =" + id);
             }
-
-            if(rows >= 1){
-                return true;
-            }else{
-                return false;
-            }
+            return returnFunction(rows);
         }catch(SQLException e){
             System.err.println("Fehler beim Löschen der Person aus der Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -347,15 +349,20 @@ public class ProdBase extends Database {
 
     public boolean deleteAccount(int id){
         try{
-            if(state.executeUpdate("DELETE FROM account WHERE account_id =" + id) >= 1){
-                return true;
-            }else{
-                return false;
-            }
+            return returnFunction(state.executeUpdate("DELETE FROM account WHERE account_id =" + id));
         }catch(SQLException e){
             System.err.println("Fehler beim Löschen des Kontos aus der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
+            return false;
+        }
+    }
+
+    //helping functions
+    boolean returnFunction(int rows){
+        if(rows >= 1){
+            return true;
+        }else{
             return false;
         }
     }

@@ -45,6 +45,7 @@ public class GUI_Banker extends JFrame{
     private JLabel lblWelcome;
     private JTabbedPane tabbedPane1;
     private JLabel lblAccountBalance;
+    //TODO: Felder für Telefon und E-Mail hinzufügen
 
     private int bankerID;
     private Banker admin;

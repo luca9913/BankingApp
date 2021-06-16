@@ -8,17 +8,31 @@ import Konto.Konto;
 public class Banker extends Person {
 
     ProdBase data;
-    ArrayList<Object[]> allaccounts, allcustomers, filteredaccounts, filteredtransfers;
+    ArrayList<Object[]> allaccounts, filteredaccounts, dispoaccounts, allcustomers, filteredtransfers, relatedrequests;
 
     public Banker(int id, ProdBase data){
         super(id, id);
         this.data = data;
+        getAllRequests();
         getAllAccounts();
+        getDispoAccounts();
         createCustomerList();
+    }
+
+    public void getAllRequests(){
+        relatedrequests = data.getAllRequests(id);
     }
 
     public void getAllAccounts(){
         allaccounts = data.getAllAccounts(id);
+    }
+
+    public void getDispoAccounts(){
+        for(Object[] obj : allaccounts){
+            if((Integer)obj[2] < (Integer)obj[3]){ //if balance (index 2) is lower than the allowed dispo (index 3)
+                dispoaccounts.add(obj);
+            }
+        }
     }
 
     void createCustomerList(){
@@ -93,7 +107,46 @@ public class Banker extends Person {
     }
 
     public boolean deleteAccount(int selectedAccount){
-        return true;
+        int id;
+        if(filteredaccounts.isEmpty()){
+            id = (Integer)allaccounts.get(selectedAccount)[0];
+        }else{
+            id = (Integer)filteredaccounts.get(selectedAccount)[0];
+        }
+
+        return data.deleteAccount(id);
+    }
+
+    public String[] getUserData(int selectedUser){
+        int id = (Integer)allcustomers.get(selectedUser)[0];
+        String[] userdata = new String[9];
+        int i = 0;
+
+        for(Object obj : data.getData(id, "customer").get(1)){
+            if(obj == null){
+                userdata[i] = "null";
+            }else{
+                userdata[i] = obj.toString();
+            }
+            i++;
+        }
+        return userdata;
+    }
+
+    public boolean modifyRequest(int selected, int status){
+        /*possible actions:
+         * approve: 1, decline: -1, (pending: 0)
+         */
+        int id = (Integer) relatedrequests.get(selected)[0];
+        return data.updateRequest(id, status);
+    }
+
+    public boolean insertCustomer(String[] pdata){
+        //create new Customer-Object
+        Customer customer = new Customer(pdata);
+        //call data.insertPerson(Customer-Object)
+        return data.insertPerson(customer);
+
     }
 
 }
@@ -102,7 +155,9 @@ class BankerTest{
     public static void main(String[] args) {
         ProdBase data = ProdBase.initialize();
         Banker admin = new Banker(1, data);
-        admin.getAllTransfers(1);
-        System.out.println(admin.transferData(1, 3)[3]);
+        String[] test = admin.getUserData(0);
+        for(String str : test) {
+            System.out.println(str);
+        }
     }
 }
