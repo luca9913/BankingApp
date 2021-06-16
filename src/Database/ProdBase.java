@@ -132,7 +132,7 @@ public class ProdBase extends Database {
      */
     public ArrayList<Object[]> getAllRequests(int id){
         try{
-            return rsToArrayList(state.executeQuery("SELECT * FROM requests WHERE account_id ='" + id + "' OR customer_id ='" + id +"'"));
+            return rsToArrayList(state.executeQuery("SELECT * FROM requests WHERE customer_id ='" + id + "' OR customer_id ='" + id +"'"));
         }catch(SQLException e){
             System.err.println("Fehler beim Auslesen der Aufträge.");
             System.err.print("Fehlermeldung: ");
@@ -221,8 +221,8 @@ public class ProdBase extends Database {
      */
     public boolean createRequest(String key, double value, int accid, int customer, int banker){
         try{
-            if(state.executeUpdate("INSERT INTO requests(key, value, account_id, customer_id, banker_id) " +
-                    "VALUES(" + key + "," + value + "," + accid + "," + customer + "," + banker + ");") >= 1){
+            if(state.executeUpdate("INSERT INTO requests(customer_id, account_id, banker_id, key, value) " +
+                    "VALUES(" + customer + "," + accid + "," + "," + banker + key + "," + value + ");") >= 1){
                 return true;
             }else{
                 return false;
@@ -285,9 +285,24 @@ public class ProdBase extends Database {
         }
     }
 
+    public boolean updateAccountBlockage(int accid, int status){
+        try{
+            if(state.executeUpdate("UPDATE account SET locked =" + status) >= 1){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(SQLException e){
+            System.err.println("Fehler beim Aktualisieren des Kontostatus in der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
    public int updateAccountData(Konto account){
         try {
-            return state.executeUpdate("UPDATE account SET dispo ='" + account.dispo + "', transfer_limit ='" + account.transferlimit + "', owner ='" + account.owner + "', banker_id ='" + account.banker + "' WHERE account_id = " + account.id);
+            return state.executeUpdate("UPDATE account SET dispo ='" + account.dispo + "', transfer_limit ='" + account.transferlimit + "', owner ='" + account.owner + "', banker_id ='" + account.banker + "', locked ='" + account.locked + "' WHERE account_id = " + account.id);
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Kontodaten in der Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -298,7 +313,7 @@ public class ProdBase extends Database {
 
     public int approveRequest(int request_id){
         try {
-            return state.executeUpdate("UPDATE requests SET value = 1 WHERE request_id = " + request_id);
+            return state.executeUpdate("UPDATE requests SET key = 1 WHERE request_id = " + request_id);
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Anfrage-Status in der Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -308,7 +323,40 @@ public class ProdBase extends Database {
     }
 
     //deleting functions
-    public boolean deletePerson(){
-        return true;
+    public boolean deletePerson(int id){
+        try{
+            int rows;
+            if(id < 1000){
+                rows = state.executeUpdate("DELETE FROM banker WHERE banker_id =" + id);
+            }else{
+                rows = state.executeUpdate("DELETE FROM customer WHERE customer_id =" + id);
+            }
+
+            if(rows >= 1){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(SQLException e){
+            System.err.println("Fehler beim Löschen der Person aus der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteAccount(int id){
+        try{
+            if(state.executeUpdate("DELETE FROM account WHERE account_id =" + id) >= 1){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(SQLException e){
+            System.err.println("Fehler beim Löschen des Kontos aus der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return false;
+        }
     }
 }
