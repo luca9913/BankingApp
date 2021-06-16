@@ -15,7 +15,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        GUI_Customer_Connector.openCustomer();
+        //GUI_Customer_Connector.openCustomer();
+        GUI_Customer wneView = new GUI_Customer();
+        wneView.setVisible(true);
 
         /*AuthBase authBase = AuthBase.initialize();
         ProdBase prodBase = ProdBase.initialize();
