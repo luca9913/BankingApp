@@ -1,10 +1,12 @@
 package GUI.GUI_Customer;
 
-import GUI.HelpMethodsCustomer;
+import GUI.GUI_Customer_Connector;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+
 
 public class GUI_Customer extends JFrame {
     private JTabbedPane tabbedPaneMain;
@@ -44,7 +46,11 @@ public class GUI_Customer extends JFrame {
     private JList listAccounts3;
     private JScrollPane tblTransfers;
 
+
+
     public GUI_Customer() {
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
@@ -85,7 +91,7 @@ public class GUI_Customer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                HelpMethodsCustomer.openDelete();
+                GUI_Customer_Connector.openDelete();
 
             }
         });
@@ -95,7 +101,7 @@ public class GUI_Customer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                HelpMethodsCustomer.openCreate();
+                GUI_Customer_Connector.openCreate();
 
             }
         });
@@ -139,6 +145,7 @@ public class GUI_Customer extends JFrame {
 
             }
         });
+
     }
 
 }
