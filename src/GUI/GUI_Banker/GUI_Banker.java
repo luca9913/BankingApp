@@ -47,14 +47,15 @@ public class GUI_Banker extends JFrame{
     private JLabel lblAccountBalance;
     //TODO: Felder für Telefon und E-Mail hinzufügen
 
-    private int bankerID;
+    //private int bankerID;
     private Banker admin;
 
     // Mark: -
-    public GUI_Banker(ProdBase data) {
-        this.bankerID = bankerID;
-        this.admin = new Banker(bankerID, data);
+    public GUI_Banker(Banker banker) {
+        this.admin = banker;
         initialize();
+
+        System.out.println(admin.name);
     }
 
 

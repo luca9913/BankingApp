@@ -43,7 +43,7 @@ public class Login {
                 // TODO: User-Parameter an GUI_Banker muss noch übergeben werden
                 // user = new Banker(userID, datenbank.getIdentity(userID));
 
-                Banker banker = new Banker(userID, userID);
+                Banker banker = new Banker(userID, data);
                 GUI_Banker newBankerView = new GUI_Banker(banker);
                 newBankerView.setVisible(true);
 
