@@ -15,19 +15,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //GUI_Customer_Connector.openCustomer();
-        GUI_Customer wneView = new GUI_Customer();
-        wneView.setVisible(true);
+        GUI_Customer_Connector.openCustomer();
 
-        /*AuthBase authBase = AuthBase.initialize();
+        AuthBase authBase = AuthBase.initialize();
         ProdBase prodBase = ProdBase.initialize();
         Login log = new Login(authBase);
         GUI_Login wneView = new GUI_Login(log);
-        wneView.setVisible(true);*/
+        wneView.setVisible(true);
 
 
 
-        /*Person user = null;
+        Person user = null;
         ProdBase prodBase = ProdBase.initialize();
         Login loginObjekt = new Login(authBase, user);
         GUI_Login newView = new GUI_Login(loginObjekt);
@@ -41,6 +39,6 @@ public class Main {
         {
             GUI_Customer wneView = new GUI_Customer();
             wneView.setVisible(true);
-        }*/
+        }
     }
 }
