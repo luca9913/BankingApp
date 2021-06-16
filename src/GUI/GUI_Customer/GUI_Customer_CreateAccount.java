@@ -11,8 +11,6 @@ public class GUI_Customer_CreateAccount extends JFrame{
     private JButton abbrechenButton;
     private JButton kontoAnlegenButton;
 
-
-
     public GUI_Customer_CreateAccount() {
 
         setUndecorated(true);
