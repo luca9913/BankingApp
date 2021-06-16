@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.ArrayList;
 import Database.ProdBase;
 import Konto.Konto;
+import Person.Customer;
 
 public class Banker extends Person {
 
     ProdBase data;
     ArrayList<Object[]> allaccounts, filteredaccounts, dispoaccounts, allcustomers, filteredtransfers, relatedrequests;
+    //ArrayList<Konto> allaccounts, filteredaccounts, dispoaccounts;
+    //ArrayList<Customer> allcustomers;
 
     public Banker(int id, ProdBase data){
         super(id, id);
