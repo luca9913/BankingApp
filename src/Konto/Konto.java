@@ -9,6 +9,7 @@ public class Konto{
     public double balance = 0;
     public double dispo = -1000;
     public double transferlimit = 10000;
+    public int locked;
     public Customer owner;
     public Banker banker;
     protected ProdBase database;

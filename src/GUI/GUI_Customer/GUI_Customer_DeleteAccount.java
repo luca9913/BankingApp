@@ -1,5 +1,7 @@
 package GUI.GUI_Customer;
 
+import GUI.GUI_Customer_Connector;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,13 +15,17 @@ public class GUI_Customer_DeleteAccount extends JFrame{
 
     public GUI_Customer_DeleteAccount() {
 
+        setUndecorated(true);
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
 
         add(PanelDelete);
+        pack();
         setLocationRelativeTo(null);
         setTitle("Konto auflösen");
-        setSize(450, 270);
+        setSize(450, 350);
         setResizable(false);
         toFront();
 
@@ -36,7 +42,7 @@ public class GUI_Customer_DeleteAccount extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                System.exit(0);
+                GUI_Customer_Connector.closeDelete();
 
             }
         });
