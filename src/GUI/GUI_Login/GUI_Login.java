@@ -31,6 +31,8 @@ public class GUI_Login extends JFrame implements KeyListener {
         this.loginReference = loginReference;
         initialize();
 
+        setLocationRelativeTo(null);
+
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

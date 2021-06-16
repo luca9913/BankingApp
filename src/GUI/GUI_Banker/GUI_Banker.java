@@ -1,11 +1,10 @@
 package GUI.GUI_Banker;
 
 import javax.swing.*;
-import Administration.Administration;
-import Database.ProdBase;
 import Person.Banker;
+import Database.ProdBase;
 
-public class GUI_Banker extends JFrame {
+public class GUI_Banker extends JFrame{
 
     private JPanel mainPanel;
     private JTextField txtNewCustomerName;
@@ -46,12 +45,15 @@ public class GUI_Banker extends JFrame {
     private JLabel lblWelcome;
     private JTabbedPane tabbedPane1;
     private JLabel lblAccountBalance;
+    //TODO: Felder für Telefon und E-Mail hinzufügen
 
-    private Banker banker;
+    private int bankerID;
+    private Banker admin;
 
     // Mark: -
-    public GUI_Banker(Banker banker) {
-        this.banker = banker;
+    public GUI_Banker(ProdBase data) {
+        this.bankerID = bankerID;
+        this.admin = new Banker(bankerID, data);
         initialize();
     }
 

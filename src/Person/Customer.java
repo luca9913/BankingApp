@@ -1,5 +1,6 @@
 package Person;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 public class Customer extends Person{
@@ -7,6 +8,21 @@ public class Customer extends Person{
     //Konstruktor
     public Customer(int uid,int id){
         super(uid,id);
+    }
+
+    public Customer(String[] pdata){
+        if(pdata.length == 6) {
+            this.preName = pdata[0];
+            this.name = pdata[1];
+            this.birthDate = pdata[2];
+            this.address = pdata[3];
+            this.zip = Integer.parseInt(pdata[4]);
+            this.city = pdata[5];
+        }else if(pdata.length > 6){
+            System.err.println("Zu viele Daten angegeben.");
+        }else if(pdata.length < 6){
+            System.err.println("Zu wenige Daten angegeben.");
+        }
     }
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
