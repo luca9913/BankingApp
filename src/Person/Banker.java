@@ -20,6 +20,7 @@ public class Banker extends Person {
         getAllAccounts();
         getDispoAccounts();
         createCustomerList();
+        //TODO: Felder setzen
     }
 
     public void getAllRequests(){
@@ -31,8 +32,9 @@ public class Banker extends Person {
     }
 
     public void getDispoAccounts(){
-        for(Object[] obj : allaccounts){
-            if((Integer)obj[2] < (Integer)obj[3]){ //if balance (index 2) is lower than the allowed dispo (index 3)
+        for(int i = 1; i < allaccounts.size(); i++){
+            Object[] obj = allaccounts.get(i);
+            if((Double)(obj[2]) < (Double)obj[3]){ //if balance (index 2) is lower than the allowed dispo (index 3)
                 dispoaccounts.add(obj);
             }
         }

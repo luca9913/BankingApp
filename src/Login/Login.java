@@ -20,9 +20,9 @@ public class Login {
     private ProdBase data;
     private Person user = null;
 
-    public Login(AuthBase authDatabase)
-    {
+    public Login(AuthBase authDatabase) {
         this.authDatabase = authDatabase;
+        this.data = ProdBase.initialize();
     }
 
     //hashed das Passwort
