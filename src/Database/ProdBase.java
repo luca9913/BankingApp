@@ -242,6 +242,10 @@ public class ProdBase extends Database {
     }
 
     //updating functions
+    /**Aktualisiert die Daten einer Person (Banker oder Kunde) in der entsprechenden Tabelle der Datenbank production.db.
+     * @param person Objekt der Klasse Banker oder Customer, das die Daten enthält
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
     public boolean updatePerson(Person person){
         try {
             if (person.id < 1000) {
@@ -257,6 +261,11 @@ public class ProdBase extends Database {
         }
     }
 
+    /**Verändert den Kontostand eines Kontos.
+     * @param id Konto-ID
+     * @param balance neuer Kontostand
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
     public boolean updateBalance(int id, double balance){
         try {
             return returnFunction(state.executeUpdate("UPDATE account SET balance ='" + balance + "' WHERE account_id = " + id));
@@ -268,6 +277,11 @@ public class ProdBase extends Database {
         }
     }
 
+    /**(Ent-)sperrt ein Konto.
+     * @param accid Konto-ID
+     * @param status Kontostatus - 0: offen, 1: gesperrt
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
     public boolean updateAccountBlockage(int accid, int status){
         try{
             return returnFunction(state.executeUpdate("UPDATE account SET locked =" + status));
@@ -279,6 +293,10 @@ public class ProdBase extends Database {
         }
     }
 
+    /**Aktualisiert alle Daten eines Kontos entsprechend der Felder eines Konto-Objektes.
+     * @param account Konto-Objekt, das die Daten enthält
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
    public boolean updateAccountData(Konto account){
         try {
             return returnFunction(state.executeUpdate("UPDATE account SET dispo ='" + account.dispo + "', transfer_limit ='" + account.transferlimit + "', owner ='" + account.owner + "', banker_id ='" + account.banker + "', locked ='" + account.locked + "' WHERE account_id = " + account.id));
@@ -290,6 +308,11 @@ public class ProdBase extends Database {
         }
     }
 
+    /**Aktualisiert den Status eines Freigabe-Auftrages.
+     * @param request_id Kennnummer des Freigabe-Auftrages
+     * @param status neuer Status - 1: Genehmigt, -1: Abgelehnt
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
+     */
     public boolean updateRequest(int request_id, int status){
         try {
             return returnFunction(state.executeUpdate("UPDATE requests SET status = " + status + " WHERE request_id = " + request_id));
@@ -302,6 +325,11 @@ public class ProdBase extends Database {
     }
 
     //deleting functions
+
+    /**
+     * @param id
+     * @return
+     */
     public boolean deletePerson(int id){
         try{
             int rows;
