@@ -3,6 +3,10 @@ package GUI.GUI_Banker;
 import javax.swing.*;
 import Person.Banker;
 import Database.ProdBase;
+import javax.swing.ListSelectionModel;
+import javax.swing.JTable;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GUI_Banker extends JFrame{
 
@@ -55,7 +59,7 @@ public class GUI_Banker extends JFrame{
         this.admin = banker;
         initialize();
 
-        System.out.println(admin.name);
+        //System.out.println(admin.name);
     }
 
 
@@ -64,10 +68,12 @@ public class GUI_Banker extends JFrame{
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
 
-
         setTitle("Turing Banking App");
         setSize(800, 600);
         setResizable(true);
+
+        tblDispoAccounts.setCellSelectionEnabled(true);
+        tblDispoAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // Initialisiert Startseite-Tab
         // TODO: Namen des Bankers einfügen

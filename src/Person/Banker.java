@@ -13,10 +13,13 @@ public class Banker extends Person {
     public Banker(int id, ProdBase data){
         super(id, id);
         this.data = data;
+        /*
         getAllRequests();
         getAllAccounts();
         getDispoAccounts();
         createCustomerList();
+
+         */
     }
 
     public void getAllRequests(){
