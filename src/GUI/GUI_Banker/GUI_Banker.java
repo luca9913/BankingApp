@@ -3,8 +3,9 @@ package GUI.GUI_Banker;
 import javax.swing.*;
 import Administration.Administration;
 import Database.ProdBase;
+import Person.Banker;
 
-public class GUI_Banker extends JFrame{
+public class GUI_Banker extends JFrame {
 
     private JPanel mainPanel;
     private JTextField txtNewCustomerName;
@@ -46,13 +47,11 @@ public class GUI_Banker extends JFrame{
     private JTabbedPane tabbedPane1;
     private JLabel lblAccountBalance;
 
-    private int bankerID;
-    private Administration admin;
+    private Banker banker;
 
     // Mark: -
-    public GUI_Banker(ProdBase data) {
-        this.bankerID = bankerID;
-        //this.admin = new Administration(bankerID, data);
+    public GUI_Banker(Banker banker) {
+        this.banker = banker;
         initialize();
     }
 
