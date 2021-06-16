@@ -1,6 +1,5 @@
 package GUI.GUI_Customer;
 
-import GUI.HelpMethodsCustomer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
