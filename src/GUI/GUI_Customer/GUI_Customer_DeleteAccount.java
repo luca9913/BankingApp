@@ -15,7 +15,7 @@ public class GUI_Customer_DeleteAccount extends JFrame{
 
     public GUI_Customer_DeleteAccount() {
 
-        setUndecorated(true);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");

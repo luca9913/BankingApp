@@ -3,6 +3,7 @@ package Login;
 import Database.*;
 import GUI.GUI_Banker.GUI_Banker;
 import GUI.GUI_Customer.GUI_Customer;
+import GUI.GUI_Customer_Connector;
 import GUI.GUI_Login.GUI_Login;
 import Person.Banker;
 import Person.Person;
@@ -43,8 +44,8 @@ public class Login {
                 // TODO: User-Parameter an GUI_Banker / GUI_Customer muss noch übergeben werden
                 // user = new Banker(userID, datenbank.getIdentity(userID));
 
-                GUI_Banker newBankerView = new GUI_Banker(data);
-                newBankerView.setVisible(true);
+                //Öffnet die Customer-GUI über die Klasse GUI_Customer_Connector
+                GUI_Customer_Connector.openCustomer();
 
             } else {
                 System.out.println("Login-ID (" + userID + ") über 1000 - Customer Login - Customer GUI öffnen");

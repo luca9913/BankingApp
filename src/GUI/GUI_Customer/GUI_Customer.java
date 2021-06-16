@@ -92,6 +92,7 @@ public class GUI_Customer extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 GUI_Customer_Connector.openDelete();
+                setVisible(false);
 
             }
         });
@@ -102,6 +103,7 @@ public class GUI_Customer extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 GUI_Customer_Connector.openCreate();
+                setVisible(false);
 
             }
         });
