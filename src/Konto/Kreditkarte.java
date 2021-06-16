@@ -7,8 +7,8 @@ import Person.Customer;
 public class Kreditkarte extends Konto {
     double debit;
 
-    public Kreditkarte(ProdBase database, String type, int id, Banker banker, Customer owner) {
-        super(database, type, id, banker, owner);
+    public Kreditkarte(String type, int id, Banker banker, Customer owner) {
+        super(type, id, banker, owner);
     }
 
     //public Kreditkarte(){

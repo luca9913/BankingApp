@@ -42,8 +42,8 @@ public abstract class Database {
             while(rs.next()) { //while there are results left in the Set, fill the result_row Array with the column values
                 for (int i = 1; i <= columns; i++) {
                     switch(rsmeta.getColumnTypeName(i)){
-                        case "INTEGER": result_row[i-1] = rs.getInt(i); break;
-                        case "REAL": result_row[i-1] = rs.getFloat(i); break;
+                        case "INTEGER": result_row[i-1] = (rs.getInt(i)); break;
+                        case "REAL": result_row[i-1] = rs.getDouble(i); break;
                         default: result_row[i-1] = rs.getString(i); break;
                     }
                 }

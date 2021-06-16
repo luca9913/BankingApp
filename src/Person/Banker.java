@@ -4,22 +4,23 @@ import java.util.Date;
 import java.util.ArrayList;
 import Database.ProdBase;
 import Konto.Konto;
+import Person.Customer;
 
 public class Banker extends Person {
 
     ProdBase data;
     ArrayList<Object[]> allaccounts, filteredaccounts, dispoaccounts, allcustomers, filteredtransfers, relatedrequests;
+    //ArrayList<Konto> allaccounts, filteredaccounts, dispoaccounts;
+    //ArrayList<Customer> allcustomers;
 
     public Banker(int id, ProdBase data){
         super(id, id);
         this.data = data;
-        /*
         getAllRequests();
         getAllAccounts();
         getDispoAccounts();
         createCustomerList();
-
-         */
+        //TODO: Felder setzen
     }
 
     public void getAllRequests(){
@@ -31,8 +32,9 @@ public class Banker extends Person {
     }
 
     public void getDispoAccounts(){
-        for(Object[] obj : allaccounts){
-            if((Integer)obj[2] < (Integer)obj[3]){ //if balance (index 2) is lower than the allowed dispo (index 3)
+        for(int i = 1; i < allaccounts.size(); i++){
+            Object[] obj = allaccounts.get(i);
+            if((Double)(obj[2]) < (Double)obj[3]){ //if balance (index 2) is lower than the allowed dispo (index 3)
                 dispoaccounts.add(obj);
             }
         }

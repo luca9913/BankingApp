@@ -12,9 +12,8 @@ public class Konto{
     public int locked;
     public Customer owner;
     public Banker banker;
-    protected ProdBase database;
 
-    public Konto(ProdBase database, String type, int id, Banker banker, Customer owner)
+    public Konto(String type, int id, Banker banker, Customer owner)
     {
         if(banker == null || owner == null)
         {
@@ -23,11 +22,10 @@ public class Konto{
         this.banker = banker;
         this.owner = owner;
         this.id = id;
-        this.database = database;
         this.type = type;
     }
 
-    public Konto(ProdBase database, String type, double betrag, int id, Banker banker, Customer owner)
+    public Konto(String type, double betrag, int id, Banker banker, Customer owner)
     {
         if(banker == null || owner == null)
         {
@@ -42,13 +40,13 @@ public class Konto{
         this.banker = banker;
         this.owner = owner;
         this.id = id;
-        this.database = database;
         this.type = type;
     }
 
-    public void aendern(String key, double value){
+    /*public void aendern(String key, double value){
         database.createRequest(key,value, owner.getId(), banker.getId(), owner.getUid());
-    }
+    }*/
+
     public void aufloesen(Konto zielkonto){
         if(balance < 0)
         {
