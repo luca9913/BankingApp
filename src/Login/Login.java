@@ -7,7 +7,6 @@ import GUI.GUI_Login.GUI_Login;
 import Person.Banker;
 import Person.Person;
 import Person.Customer;
-
 import javax.swing.*;
 
 public class Login {
@@ -16,14 +15,8 @@ public class Login {
     private String pwHash;
     private int userID = 0;
     private boolean valid;
-    private AuthBase authDatabase;
-    private ProdBase data;
+    private AuthBase authDatabase = AuthBase.initialize();
     private Person user = null;
-
-    public Login(AuthBase authDatabase) {
-        this.authDatabase = authDatabase;
-        this.data = ProdBase.initialize();
-    }
 
     //hashed das Passwort
     private int hashen(String password){
@@ -34,16 +27,16 @@ public class Login {
     public boolean databaseComparison(int userID, String password) {
 
         int pwHash = hashen(password);
+        Object[] authSet = authDatabase.getAuthSet(userID).get(1);
 
         //hash mit Datenbank abgleichen
         if (pwHash == authDatabase.getHash(userID)) {
             System.out.println("Login erfolgreich!");
-            if(userID < 1000) {
-                System.out.println("Login-ID (" + userID + ") unter 1000 - Banker Login - Banker GUI öffnen");
+            if( (Integer)authSet[2] <= 0){
+                System.out.println("Customer-ID (" + userID + ") <= 0 - Banker Login - Banker GUI öffnen");
                 // TODO: User-Parameter an GUI_Banker muss noch übergeben werden
-                // user = new Banker(userID, datenbank.getIdentity(userID));
 
-                Banker banker = new Banker(userID, data);
+                Banker banker = new Banker((Integer)authSet[3]);
                 GUI_Banker newBankerView = new GUI_Banker(banker);
                 newBankerView.setVisible(true);
 
@@ -52,7 +45,7 @@ public class Login {
 
                 // TODO: User-Parameter an GUI_Customer muss noch übergeben werden
 
-                // user = new Customer(userID,datenbank.getIdentity(userID));
+                //Customer customer = new Customer((Integer)authSet[2]); Customer-Konstruktor anpassen
                 GUI_Customer newCustomerView = new GUI_Customer();
                 newCustomerView.setVisible(true);
             }

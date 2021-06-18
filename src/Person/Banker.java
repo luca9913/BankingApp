@@ -1,5 +1,6 @@
 package Person;
 
+import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.ArrayList;
 import Database.ProdBase;
@@ -8,19 +9,24 @@ import Person.Customer;
 
 public class Banker extends Person {
 
-    ProdBase data;
-    ArrayList<Object[]> allaccounts, filteredaccounts, dispoaccounts, allcustomers, filteredtransfers, relatedrequests;
+    public ArrayList<Object[]> allaccounts, filteredaccounts, allcustomers, filteredtransfers, relatedrequests;
+    public String[][] dispoaccounts;
     //ArrayList<Konto> allaccounts, filteredaccounts, dispoaccounts;
     //ArrayList<Customer> allcustomers;
 
-    public Banker(int id, ProdBase data){
-        super(id, id);
-        this.data = data;
+    public Banker(int id){
+        super(id);
+        Object[] pdata = data.getData(id, "banker").get(1);
+        this.preName = pdata[1].toString();
+        this.name = pdata[2].toString();
+        this.birthDate = pdata[3].toString();
+        this.zip = (Integer)pdata[4];
+        this.city = pdata[5].toString();
+        this.address = pdata[6].toString();
         getAllRequests();
         getAllAccounts();
         getDispoAccounts();
         createCustomerList();
-        //TODO: Felder setzen
     }
 
     public void getAllRequests(){
@@ -32,11 +38,19 @@ public class Banker extends Person {
     }
 
     public void getDispoAccounts(){
+        ArrayList<String[]> tmp = new ArrayList<>(allaccounts.size());
         for(int i = 1; i < allaccounts.size(); i++){
             Object[] obj = allaccounts.get(i);
+            Object[] owner = data.getData((Integer)obj[5], "customer").get(1);
             if((Double)(obj[2]) < (Double)obj[3]){ //if balance (index 2) is lower than the allowed dispo (index 3)
-                dispoaccounts.add(obj);
+                double over = (Double)obj[2] - (Double)obj[3];
+                tmp.add(new String[]{obj[0].toString(), owner[1].toString(), obj[3].toString(), String.valueOf(over)});
             }
+        }
+        tmp.trimToSize();
+        dispoaccounts = new String[tmp.size()][4];
+        for(int i = 0; i < tmp.size(); i++){
+            dispoaccounts[i] = tmp.get(i);
         }
     }
 
@@ -159,7 +173,7 @@ public class Banker extends Person {
 class BankerTest{
     public static void main(String[] args) {
         ProdBase data = ProdBase.initialize();
-        Banker admin = new Banker(1, data);
+        Banker admin = new Banker(1);
         String[] test = admin.getUserData(0);
         for(String str : test) {
             System.out.println(str);
