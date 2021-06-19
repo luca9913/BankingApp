@@ -29,6 +29,7 @@ public class GUI_Login extends JFrame implements KeyListener {
 
     public GUI_Login(Login loginReference) {
         this.loginReference = loginReference;
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         initialize();
 
         setLocationRelativeTo(null);

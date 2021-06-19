@@ -18,7 +18,7 @@ public class GUI_Customer extends JFrame {
     private JTable tableTurnover;
     private JButton btnRefresh1;
     private JTextField txtAccNr;
-    private JTextField txtTurnoverNr;
+    private JTextField txtReceiver;
     private JTextField txtAmount;
     private JTextField txtUsage;
     private JList listAccounts2;
@@ -92,6 +92,7 @@ public class GUI_Customer extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 GUI_Customer_Connector.openDelete();
+                //setEnabled(false);
 
             }
         });
@@ -102,6 +103,7 @@ public class GUI_Customer extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 GUI_Customer_Connector.openCreate();
+                //setEnabled(false);
 
             }
         });

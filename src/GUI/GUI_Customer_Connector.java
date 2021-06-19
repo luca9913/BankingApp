@@ -6,73 +6,100 @@ import GUI.GUI_Customer.GUI_Customer_DeleteAccount;
 
 import javax.swing.*;
 
+/**
+ * Die Klasse ist für die Steuerung (Öffnung, Schließung, etc.) für die drei GUIs der Customer zuständig.
+ */
 public class GUI_Customer_Connector extends JFrame {
 
-    //Objekterstellung der GUI
+    /**Statische Objekterstellung des Hauptfensters für den Customer.*/
     static GUI_Customer guiCustomer = new GUI_Customer();
-
-    //Objekterstellung der Nebengui´s
+    /**Statische Objekterstellung des Nebenfensters CreateAccount für den Customer.*/
     static GUI_Customer_CreateAccount guiCustomerCreateAccount = new GUI_Customer_CreateAccount();
+    /**Statische Objekterstellung des Nebenfensters DeleteAccount für den Customer.*/
     static GUI_Customer_DeleteAccount guiCustomerDeleteAccount = new GUI_Customer_DeleteAccount();
 
-    //Methode um das Fenster GUI_Customer_CreateAccount zu öffnen
+    /**Diese Methode dient dazu, das Fenster GUI_Customer zu öffnen.
+     * Die Methode ist statisch und liefert keinen Rückgabewert.
+     */
     public static void openCustomer(){
         guiCustomer.setVisible(true);
     }
 
-    //Methode um das Fenster GUI_Customer_DeleteAccount zu öffnen
+    /**Diese Methode dient dazu, das Fenster GUI_Customer zu schließen.
+     * Die Methode ist statisch und liefert keinen Rückgabewert.
+     */
     public static void closeCustomer(){
         System.exit(0);
     }
 
-    //Methode um das Fenster GUI_Customer_CreateAccount zu öffnen
+    /**Diese Methode dient dazu, das Fenster GUI_Customer_CreateAccount zu öffnen.
+     * Die Methode ist statisch und liefert keinen Rückgabewert.
+     */
     public static void openCreate(){
-        deactivateCustomerGUI();
         guiCustomerCreateAccount.setVisible(true);
         guiCustomerCreateAccount.toFront();
         guiCustomerCreateAccount.setAlwaysOnTop(true);
         guiCustomerCreateAccount.isFocused();
+        deactivateCustomerGUI();
     }
 
-    //Methode um das Fenster GUI_Customer_DeleteAccount zu öffnen
+    /**Diese Methode dient dazu, das Fenster GUI_Customer_DeleteAccount zu öffnen.
+     * Die Methode ist statisch und liefert keinen Rückgabewert.
+     */
     public static void openDelete(){
-        deactivateCustomerGUI();
         guiCustomerDeleteAccount.setVisible(true);
         guiCustomerDeleteAccount.toFront();
         guiCustomerDeleteAccount.setAlwaysOnTop(true);
         guiCustomerCreateAccount.isFocused();
+        deactivateCustomerGUI();
     }
 
+    /**Diese Methode dient dazu, das Fenster GUI_Customer_CreateAccount bei Betätigung des Buttons Abbrechen zu schließen.
+     * Die Methode ist statisch und liefert keinen Rückgabewert.
+     */
     //Methode um das Fenster GUI_Customer_CreateAccount mit Abbrechen zu schließen
     public static void closeCreate(){
         activateCustomerGUI();
         guiCustomerCreateAccount.dispose();
     }
 
-    //Methode um das Fenster GUI_Customer_DeleteAccount mit Abbrechen zu schließen
+    /**Diese Methode dient dazu, das Fenster GUI_Customer_DeleteAccount bei Betätigung des Buttons Abbrechen zu schließen.
+     * Die Methode ist statisch und liefert keinen Rückgabewert.
+     */
     public static void closeDelete(){
         activateCustomerGUI();
         guiCustomerDeleteAccount.dispose();
     }
 
+    /*
     //Methode um das Fenster GUI_Customer_CreateAccount mit X zu schließen
     public static int closeCreateX(){
+        guiCustomer.setEnabled(true);
         activateCustomerGUI();
         return HIDE_ON_CLOSE;
     }
 
     //Methode um das Fenster GUI_Customer_DeleteAccount mit X zu schließen
     public static int closeDeleteX(){
+        guiCustomer.setEnabled(true);
         activateCustomerGUI();
         return HIDE_ON_CLOSE;
     }
+    */
 
+    /**Diese Methode dient dazu, das Fenster GUI_Customer wieder zu aktivieren, bevor das Nebenfenster geschlossen wird.
+     * Die Methode ist statisch und liefert keinen Rückgabewert.
+     */
     private static void activateCustomerGUI(){
         guiCustomer.setEnabled(true);
         guiCustomer.setFocusable(true);
     }
+
+    /**Diese Methode dient dazu, das Fenster GUI_Customer wieder zu deaktivieren, wenn das Nebenfenster geöffnet wird.
+     * Die Methode ist statisch und liefert keinen Rückgabewert.
+     */
     private static void deactivateCustomerGUI(){
         guiCustomer.setEnabled(false);
-        guiCustomer.setFocusable(true);
+        guiCustomer.setFocusable(false);
     }
 }

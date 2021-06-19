@@ -3,6 +3,7 @@ package Login;
 import Database.*;
 import GUI.GUI_Banker.GUI_Banker;
 import GUI.GUI_Customer.GUI_Customer;
+import GUI.GUI_Customer_Connector;
 import GUI.GUI_Login.GUI_Login;
 import Person.Banker;
 import Person.Person;
@@ -46,8 +47,7 @@ public class Login {
                 // TODO: User-Parameter an GUI_Customer muss noch übergeben werden
 
                 //Customer customer = new Customer((Integer)authSet[2]); Customer-Konstruktor anpassen
-                GUI_Customer newCustomerView = new GUI_Customer();
-                newCustomerView.setVisible(true);
+                GUI_Customer_Connector.openCustomer();
             }
             return true;
         }
