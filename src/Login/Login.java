@@ -3,6 +3,7 @@ package Login;
 import Database.*;
 import GUI.GUI_Banker.GUI_Banker;
 import GUI.GUI_Customer.GUI_Customer;
+import GUI.GUI_Customer_Connector;
 import GUI.GUI_Login.GUI_Login;
 import Person.Banker;
 import Person.Person;
@@ -32,6 +33,7 @@ public class Login {
         //hash mit Datenbank abgleichen
         if (pwHash == authDatabase.getHash(userID)) {
             System.out.println("Login erfolgreich!");
+            System.out.println((Integer)authSet[2]);
             if( (Integer)authSet[2] <= 0){
                 System.out.println("Customer-ID (" + userID + ") <= 0 - Banker Login - Banker GUI öffnen");
                 // TODO: User-Parameter an GUI_Banker muss noch übergeben werden
@@ -44,9 +46,9 @@ public class Login {
 
                 // TODO: User-Parameter an GUI_Customer muss noch übergeben werden
 
-                //Customer customer = new Customer((Integer)authSet[2]); Customer-Konstruktor anpassen
-                GUI_Customer newCustomerView = new GUI_Customer();
-                newCustomerView.setVisible(true);
+                //Bitte die GUI_Customer über die Klasse GUI_Customer_Connector mit der Methode openCustomer aufrufen.
+                //Bitte vermeiden das Objekt der GUI hier zu erstellen und aufzurufen.
+                GUI_Customer_Connector.openCustomer();
             }
             return true;
         }

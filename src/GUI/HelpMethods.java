@@ -2,9 +2,17 @@ package GUI;
 
 import javax.swing.*;
 
+/**
+ * Die Klasse enthält einige hilfreiche Methoden für die GUI´s, zum Beispiel
+ * Methoden für die Wertüberprüfung bei Textfeldern.
+ */
 public class HelpMethods {
 
-    //Funktion um Textfelder auf reines Intvorkommen zu prüfen
+    /**
+     * Diese Methode prüft Textfelder auf reines Intvorkommen.
+     * @param txtField Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
+     * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
+     */
     private boolean onlyInt(String txtField){
         if(txtField.matches("[0-9]+") && txtField.length() > 2){
             return true;
@@ -15,12 +23,20 @@ public class HelpMethods {
         }
     }
 
-    //Funktion zum parsen von Integertextfeldern
+    /**
+     * Diese Methode wird zum parsen von Textfeldern zu Int benötigt.
+     * @param txtField Dieser Parameter enthält den Inhalt des zu parsenden Textfeldes.
+     * @return Es wird der geparste Int-Wert zurückgegeben.
+     */
     private int parseInt(String txtField){
        return Integer.parseInt(txtField);
     }
 
-    //Funktion um Textfelder auf korrekte Doubleeingabe zu prüfen
+    /**
+     * Diese Methode prüft Textfelder auf reines Doublevorkommen .
+     * @param txtField Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
+     * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
+     */
     private boolean onlyDouble(String txtField){
         try{
             Double proof = Double.parseDouble(txtField);
@@ -32,7 +48,11 @@ public class HelpMethods {
         }
     }
 
-    //Funktion zum parsen von Doubletextfeldern
+    /**
+     * Diese Methode wird zum parsen von Textfeldern zu Double benötigt.
+     * @param txtField Dieser Parameter enthält den Inhalt des zu parsenden Textfeldes.
+     * @return Es wird der geparste Double-Wert zurückgegeben.
+     */
     private double parseDouble(String txtField){
         return Double.parseDouble(txtField);
     }

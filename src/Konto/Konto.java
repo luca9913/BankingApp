@@ -2,8 +2,11 @@ package Konto;
 
 import Person.*;
 import Database.*;
+import Database.ProdBase;
 
-public class Konto{
+import java.util.ArrayList;
+
+public abstract class Konto{
     public int id; //KontoID
     public String type;
     public double balance = 0;
@@ -12,8 +15,9 @@ public class Konto{
     public int locked;
     public Customer owner;
     public Banker banker;
+    protected ProdBase database;
 
-    public Konto(String type, int id, Banker banker, Customer owner)
+    public Konto(ProdBase database, String type, int id, Banker banker, Customer owner)
     {
         if(banker == null || owner == null)
         {
@@ -22,10 +26,11 @@ public class Konto{
         this.banker = banker;
         this.owner = owner;
         this.id = id;
+        this.database = database;
         this.type = type;
     }
 
-    public Konto(String type, double betrag, int id, Banker banker, Customer owner)
+    public Konto(String type, double betrag, Banker banker, Customer owner)
     {
         if(banker == null || owner == null)
         {
@@ -40,8 +45,67 @@ public class Konto{
         this.banker = banker;
         this.owner = owner;
         this.id = id;
+        this.database = database;
         this.type = type;
     }
+
+    ProdBase data;
+
+    ArrayList<Object[]> transferList;
+
+    //gibt Liste aller Umsätze zurück
+    public ArrayList<Object[]> getAllTranfers(){
+       transferList = data.getAllTransfers(id);
+
+       return transferList;
+    }
+
+    //gibt Daten zu einem konkreten Umsatz zurück getData: 95
+    public Object[] getData(int selected){
+        int transferid = (Integer) transferList.get(selected)[0];
+
+        return data.getData(id, "transfer").get(1);
+    }
+
+    //gibt Empfängers / Senders eines Umsatzes zurück
+    public Object[] getDataName (int selected){
+        int transferid = (Integer) transferList.get(selected)[0];
+
+        for(Object[] transfer : transferList){
+            if(id == (Integer) transfer[2])
+                if(transferid == (Integer) transfer[0])
+                    return data.executeCustomQuery("SELECT CONCAT(prename, name) AS fullname FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
+            else
+                if(transferid == (Integer) transfer[0])
+                    return data.executeCustomQuery("SELECT CONCAT(prename, name) AS fullname FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
+        }
+        return null;
+    }
+
+    //aktualisiert die Balance anhand der Überweisungen
+    public void refreshBalance(){
+        for(Object[] transfer : transferList){
+            if(id == (Integer) transfer[2])
+                zahlungsAusgang((Integer)transfer[1]);
+            else
+                zahlungsEingang((Integer) transfer[1]);
+        }
+        data.updateBalance(id, balance);
+    }
+
+    //Überweisen auf ein anderes Konto TODO: usage und date muss noch in die insertTransfer() aufgenommen werden
+    /*public void transfer(int recieverid, double betrag, String usage, String date){
+        if(transferlimit < betrag)
+        {
+            throw new IllegalArgumentException("Transfer limit ueberschritten");
+        }else
+        {
+            //Transfer in die Datenbank schreiben
+            data.insertTransfer(betrag, id, recieverid, usage, date); //fehler weil insertTransfer noch nicht fertig
+        }
+    }*/
+
+
 
     /*public void aendern(String key, double value){
         database.createRequest(key,value, owner.getId(), banker.getId(), owner.getUid());
@@ -56,12 +120,14 @@ public class Konto{
             zielkonto.zahlungsEingang(zahlungsAusgang(balance));
         }
     }
+
     public double aufloesen() {
         if (balance < 0) {
             throw new IllegalStateException("Konto isch im Minus");
         }
         return balance;
     }
+
     //Funktion um einzuzahlen
     public void zahlungsEingang(double betrag){
         if(betrag <= 0)
@@ -70,6 +136,7 @@ public class Konto{
         }
         balance += betrag;
     }
+
     //Funktion um auszuzahlen
     public double zahlungsAusgang(double betrag){
         if(betrag <= 0)
@@ -86,15 +153,9 @@ public class Konto{
             return betrag;
         }
     }
-    public void ueberweisung(Konto zielkonto, double betrag){
-        if(transferlimit < betrag)
-        {
-            throw new IllegalArgumentException("Transfer limit ueberschritten");
-        }else
-        {
-            zielkonto.zahlungsEingang(betrag);
-        }
-    }
+
+
+
     public double anzeigenDispo(){
         return dispo;
     }
