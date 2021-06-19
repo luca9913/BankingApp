@@ -24,7 +24,9 @@ public class GUI_Customer_DeleteAccount extends JFrame{
 
         initialize();
 
-        //Action für den Button "Konto auflösen"
+        /**
+         * Die Action des Buttons "Konto auflösen" ist für das Löschen eines ausgewählten Kontos zuständig.
+         */
         btnRemoveAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,7 +34,9 @@ public class GUI_Customer_DeleteAccount extends JFrame{
             }
         });
 
-        //Action für den Button "Abbrechen"
+        /**
+         * Die Action des Buttons "Abbrechen" ist für das Schließen der GUI_Customer_DeleteAccount zuständig.
+         */
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

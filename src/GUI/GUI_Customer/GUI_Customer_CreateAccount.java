@@ -22,7 +22,9 @@ public class GUI_Customer_CreateAccount extends JFrame{
 
         initialize();
 
-        //Action für den Button "Konto erstellen"
+        /**
+         * Die Action des Buttons "Konto erstellen" ist für das Erstellen eines neuen Kontos zuständig.
+         */
         kontoAnlegenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,7 +32,9 @@ public class GUI_Customer_CreateAccount extends JFrame{
             }
         });
 
-        //Action für den Button "Abbrechen"
+        /**
+         * Die Action des Buttons "Abbrechen" ist für das Schließen der GUI_Customer_CreateAccount zuständig.
+         */
         abbrechenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
