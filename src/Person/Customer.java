@@ -8,18 +8,34 @@ import java.util.Date;
 public class Customer extends Person{
 
     //Konstruktor
-    public Customer(int uid,int id){
-        super(uid,id);
+    public Customer(int id){
+        super(id);
+        Object[] pdata = data.getData(id, "customer").get(1);
+        if(pdata.length == 6) {
+            this.preName = pdata[0].toString();
+            this.name = pdata[1].toString();
+            this.birthDate = pdata[2].toString();
+            this.address = pdata[3].toString();
+            this.zip = Integer.parseInt(pdata[4].toString());
+            this.city = pdata[5].toString();
+        }else if(pdata.length > 6){
+            System.err.println("Zu viele Daten angegeben.");
+        }else if(pdata.length < 6){
+            System.err.println("Zu wenige Daten angegeben.");
+        }
     }
 
     public Customer(String[] pdata){
-        if(pdata.length == 6) {
-            this.preName = pdata[0];
-            this.name = pdata[1];
-            this.birthDate = pdata[2];
-            this.address = pdata[3];
-            this.zip = Integer.parseInt(pdata[4]);
-            this.city = pdata[5];
+        super(0);
+        if(pdata.length == 8) {
+            this.preName = pdata[0].toString();
+            this.name = pdata[1].toString();
+            this.birthDate = pdata[2].toString();
+            this.address = pdata[3].toString();
+            this.zip = Integer.parseInt(pdata[4].toString());
+            this.city = pdata[5].toString();
+            this.email = pdata[6];
+            this.tel = pdata[7];
         }else if(pdata.length > 6){
             System.err.println("Zu viele Daten angegeben.");
         }else if(pdata.length < 6){

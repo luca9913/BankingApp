@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="550" height="541"/>
+      <xy x="20" y="20" width="548" height="541"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -119,7 +119,7 @@
           <grid id="33435" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <tabbedpane title="Kontenfreigabe"/>
+              <tabbedpane title="Freigaben"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -132,14 +132,6 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="1d5c3" class="javax.swing.JTable" binding="tblAccountApproval">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="50"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
                   <component id="5fba3" class="javax.swing.JButton" binding="btnDeclineAccount">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -160,47 +152,47 @@
                       <text value="Freigeben"/>
                     </properties>
                   </component>
+                  <scrollpane id="60afc">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="1d5c3" class="javax.swing.JTable" binding="tblAccountApproval">
+                        <constraints/>
+                        <properties>
+                          <gridColor color="-3354929"/>
+                          <inheritsPopupMenu value="false"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
                 </children>
               </grid>
-              <grid id="3bd5" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
+              <vspacer id="140b5">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
-              <grid id="80749" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
+              </vspacer>
+              <vspacer id="cc2a">
                 <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
-              <grid id="5dd8" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
+              </vspacer>
+              <hspacer id="55a9e">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
-              <grid id="8cb14" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
+              </hspacer>
+              <hspacer id="6ad5d">
                 <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
+              </hspacer>
             </children>
           </grid>
-          <grid id="1831" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="1831" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Dispokonten"/>
@@ -208,14 +200,40 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="a903" class="javax.swing.JTable" binding="tblDispoAccounts">
+              <scrollpane id="a4176">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="50"/>
-                  </grid>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-              </component>
+                <properties>
+                  <alignmentX value="0.5"/>
+                  <autoscrolls value="false"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="a903" class="javax.swing.JTable" binding="tblDispoAccounts">
+                    <constraints/>
+                    <properties>
+                      <alignmentX value="0.5"/>
+                      <alignmentY value="0.5"/>
+                      <autoResizeMode value="4"/>
+                      <autoscrolls value="false"/>
+                      <gridColor color="-3354929"/>
+                      <inheritsPopupMenu value="true"/>
+                      <rowMargin value="1"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <hspacer id="41cae">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="bc230">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
             </children>
           </grid>
           <grid id="62104" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

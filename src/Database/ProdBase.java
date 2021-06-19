@@ -168,7 +168,7 @@ public class ProdBase extends Database {
         try {
             //return number of inserted rows
             return returnFunction(state.executeUpdate("INSERT INTO account(type, balance, dispo, transfer_limit, owner, banker_id) " +
-                    "VALUES(" + account.type + "," + account.dispo + "," + account.balance + "," + account.transferlimit + "," + account.owner.getUid() + "," + account.banker.getUid() + ");"));
+                    "VALUES(" + account.type + "," + account.dispo + "," + account.balance + "," + account.transferlimit + "," + account.owner.id + "," + account.banker.id + ");"));
         }catch(SQLException e){
             System.err.println("Fehler beim Einfügen der neuen Benutzer in die Datenbank.");
             System.err.print("Fehlermeldung: ");
@@ -212,7 +212,7 @@ public class ProdBase extends Database {
      */
     public boolean createRequest(String key, double value, int accid, int customer, int banker){
         try{
-            return returnFunction(state.executeUpdate("INSERT INTO requests(customer_id, account_id, banker_id, key, value) " +
+            return returnFunction(state.executeUpdate("INSERT INTO requests(customer_id, account_id, banker_id, key, value_old) " +
                     "VALUES(" + customer + "," + accid + "," + "," + banker + key + "," + value + ");"));
         }catch(SQLException e){
             System.err.println("Fehler beim erstellen der Anfrage in der Datenbank.");

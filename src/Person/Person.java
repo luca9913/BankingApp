@@ -6,7 +6,6 @@ import java.util.Date;
 public abstract class Person {
 
     //Variablen
-    protected int uid;
     public int id;
     public String name;
     public String preName;
@@ -14,24 +13,17 @@ public abstract class Person {
     public int zip;
     public String city;
     public String address;
-    protected ProdBase datenbank;
+    public String email;
+    public String tel;
+    protected ProdBase data = ProdBase.initialize();
 
     //Konstruktor
-    Person(int uid,int id){
-        this.uid = uid;
+    Person(int id){
         this.id = id;
     }
 
-    Person(){
-
-    }
-
     public void update(ProdBase datenbank){
-        this.datenbank = datenbank;
-    }
-
-    public int getUid() {
-        return uid;
+        this.data = datenbank;
     }
 
     public int getId() {
