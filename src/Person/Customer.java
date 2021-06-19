@@ -89,7 +89,6 @@ public class Customer extends Person{
                     break;
             }
 
-            Konto tmp = new Konto();
             allaccounts2.add(tmp);
         }
     }

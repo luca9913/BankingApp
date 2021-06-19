@@ -74,10 +74,10 @@ public abstract class Konto{
         for(Object[] transfer : transferList){
             if(id == (Integer) transfer[2])
                 if(transferid == (Integer) transfer[0])
-                    return data.executeCustomQuery("SELECT CONCAT(prename, name) AS fullname FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
+                    return data.executeCustomQuery("SELECT prename, name FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
             else
                 if(transferid == (Integer) transfer[0])
-                    return data.executeCustomQuery("SELECT CONCAT(prename, name) AS fullname FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
+                    return data.executeCustomQuery("SELECT prename, name FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
         }
         return null;
     }
