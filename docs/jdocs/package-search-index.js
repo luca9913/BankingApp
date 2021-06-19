@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"Database"},{"l":"GUI"},{"l":"GUI.GUI_Banker"},{"l":"GUI.GUI_Customer"},{"l":"GUI.GUI_Login"},{"l":"Konto"},{"l":"Login"},{"l":"Main"},{"l":"Person"}];updateSearchResults();

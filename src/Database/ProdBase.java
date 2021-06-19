@@ -17,13 +17,13 @@ public class ProdBase extends Database {
     /**Pfad zur Datei, in der die Datenbank gespeichert ist.*/
     static Path path = Paths.get("");
     /**Datenbank-Verbindung aus dem Paket java.sql
-     * @link java.sql.Connection */
+     * Link:  java.sql.Connection */
     Connection conn;
     /**Datenbank-Statement zur Ausführung von Abfragen
-     * @link java.sql.Statement*/
+     * Link:  java.sql.Statement*/
     Statement state;
     /**Speicherung der Rückgabe einer Datenbank-Abfrage
-     * @link java.sql.ResultSet*/
+     * Link:  java.sql.ResultSet*/
     ResultSet result;
 
     /**
