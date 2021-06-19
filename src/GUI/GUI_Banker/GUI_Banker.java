@@ -5,10 +5,9 @@ import Person.Banker;
 import Database.ProdBase;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import javax.swing.table.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class GUI_Banker extends JFrame{
 
@@ -51,6 +50,12 @@ public class GUI_Banker extends JFrame{
     private JLabel lblWelcome;
     private JTabbedPane tabbedPane1;
     private JLabel lblAccountBalance;
+    private JLabel lblDispoAcc;
+    private JTextField txtEmail;
+    private JTextField txtPhone;
+    private JLabel lblEmail;
+    private JTextField textField1;
+    private JTextField textField2;
     //TODO: Felder für Telefon und E-Mail hinzufügen
 
     //private int bankerID;
@@ -62,33 +67,28 @@ public class GUI_Banker extends JFrame{
         initialize();
 
         //System.out.println(admin.name);
+        tblAccountApproval.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                tblAccountApprovalClicked();
+            }
+        });
+        btnDeclineAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateRequestStatus(-1);
+            }
+        });
+        btnApproveAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateRequestStatus(1);
+            }
+        });
     }
 
-
-    private void initialize() {
-        // Title Bar Icon
-        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
-        this.setIconImage(titleBarImage.getImage());
-
-        setTitle("Turing Banking App");
-        setSize(800, 600);
-        setResizable(true);
-
-        tblDispoAccounts.setCellSelectionEnabled(true);
-        tblDispoAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        // Initialisiert Startseite-Tab
-        // TODO: Namen des Bankers einfügen
-        lblWelcome.setText("Herzlich Willkommen ");
-        // TODO: Aktuell betreuende Kunden einfügen
-        lblAccountApprovalOrders.setText("Aktuell betreuende Kunden: " + admin.allcustomers.size());
-        // TODO: Kontofreigabeaufträge einfügen
-        lblSupervisingCustomers.setText("Freigabeaufträge: " + (admin.relatedrequests.size()-1));
-        // TODO: Dispoüberschreitende Konten einfügen
-        lblDispoOverwritingAccounts.setText("Dispoüberschreitende Konten: " + admin.dispoaccounts.length);
-
-
-        // Initialisiert Kontenfreigabe-Tab
+    private void updateApprovalTable(){
         // TODO: Tabelle mit Konten füllen
         String[] colnames = {"ID", "Name", "Art", "Alter Wert", "Neuer Wert"};
         TableModel requestdata = new AbstractTableModel() {
@@ -134,8 +134,39 @@ public class GUI_Banker extends JFrame{
             }
         };
         tblAccountApproval.setModel(requestdata);
+        for(int i = 0; i < 5; i++){
+            TableColumn col = tblAccountApproval.getColumnModel().getColumn(i);
+            col.setCellRenderer(new RequestRenderer());
+        }
         btnApproveAccount.setEnabled(false);
         btnDeclineAccount.setEnabled(false);
+    }
+
+    private void initialize() {
+        // Title Bar Icon
+        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
+        this.setIconImage(titleBarImage.getImage());
+
+        setTitle("Turing Banking App");
+        setSize(800, 600);
+        setResizable(true);
+
+        tblDispoAccounts.setCellSelectionEnabled(true);
+        tblDispoAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Initialisiert Startseite-Tab
+        // TODO: Namen des Bankers einfügen
+        lblWelcome.setText("Herzlich Willkommen ");
+        // TODO: Aktuell betreuende Kunden einfügen
+        lblAccountApprovalOrders.setText("Aktuell betreuende Kunden: " + admin.allcustomers.size());
+        // TODO: Kontofreigabeaufträge einfügen
+        lblSupervisingCustomers.setText("Freigabeaufträge: " + (admin.relatedrequests.size()-1));
+        // TODO: Dispoüberschreitende Konten einfügen
+        lblDispoOverwritingAccounts.setText("Dispoüberschreitende Konten: " + admin.dispoaccounts.length);
+
+
+        // Initialisiert Kontenfreigabe-Tab
+        updateApprovalTable();
 
         // Initialisiert Dispokonten-Tab
         // TODO: Tabelle mit Konten im Dispo füllen
@@ -189,6 +220,7 @@ public class GUI_Banker extends JFrame{
         txtSearchTurnover.setEnabled(false);
 
         // Initialisiere Kundenübersicht - Dispo
+        lblDispoAcc.setText("Wähle Konto");
         txtCurrentDispo.setEnabled(false);
         btnApproveDispo.setEnabled(false);
 
@@ -205,12 +237,42 @@ public class GUI_Banker extends JFrame{
         //Inititalisiere NeuerKunde-Tab
         btnCreateNewCustomer.setEnabled(false);
 
-
-
-
-
         // Panel hinzufügen
         add(mainPanel);
     }
 
+    private void tblAccountApprovalClicked(){
+        int row = tblAccountApproval.getSelectedRow();
+        Object[] request = admin.relatedrequests.get(row + 1);
+        if((Integer)request[1] == 0){
+            btnDeclineAccount.setEnabled(true);
+            btnApproveAccount.setEnabled(true);
+        }
+    }
+
+    private void updateRequestStatus(int newstatus){
+        int row = tblAccountApproval.getSelectedRow();
+        admin.modifyRequest(row + 1, newstatus);
+        admin.getAllRequests();
+        updateApprovalTable();
+    }
+
+    class RequestRenderer extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if((Integer)admin.relatedrequests.get(row+1)[1] == -1){
+                c.setBackground(new Color(175, 0 , 0));
+                c.setForeground(Color.white);
+            }else if((Integer)admin.relatedrequests.get(row+1)[1] == 1){
+                c.setBackground(new Color(0, 109, 77));
+                c.setForeground(Color.white);
+            }else{
+                c.setBackground(Color.white);
+                c.setForeground(Color.black);
+            }
+            return c;
+        }
+    }
 }

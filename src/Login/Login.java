@@ -35,7 +35,6 @@ public class Login {
             if( (Integer)authSet[2] <= 0){
                 System.out.println("Customer-ID (" + userID + ") <= 0 - Banker Login - Banker GUI öffnen");
                 // TODO: User-Parameter an GUI_Banker muss noch übergeben werden
-
                 Banker banker = new Banker((Integer)authSet[3]);
                 GUI_Banker newBankerView = new GUI_Banker(banker);
                 newBankerView.setVisible(true);

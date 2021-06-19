@@ -229,10 +229,10 @@ public class ProdBase extends Database {
      * @param receiver Konto-Nummer des Empfängers
      * @return 'true', wenn das Einfügen erfolgreich war. 'false', wenn nicht.
      */
-    public boolean insertTransfer(double amount, int sender, int receiver){
+    public boolean insertTransfer(double amount, int sender, int receiver, String usage, String date){
         try{
-            return returnFunction(state.executeUpdate("INSERT INTO transfer(amount, sender, receiver) " +
-                    "VALUES(" + amount + "," + sender + "," + receiver + ");"));
+            return returnFunction(state.executeUpdate("INSERT INTO transfer(amount, sender, receiver, usage, date) " +
+                    "VALUES(" + amount + "," + sender + "," + receiver + "," + usage + "," + date + ");"));
         }catch(SQLException e){
             System.err.println("Fehler beim übertragen der Überweisung in die Datenbank.");
             System.err.print("Fehlermeldung: ");
