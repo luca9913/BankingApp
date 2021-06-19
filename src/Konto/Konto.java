@@ -6,7 +6,7 @@ import Database.ProdBase;
 
 import java.util.ArrayList;
 
-public class Konto{
+public abstract class Konto{
     public int id; //KontoID
     public String type;
     public double balance = 0;
