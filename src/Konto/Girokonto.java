@@ -7,8 +7,8 @@ import Person.Customer;
 public class Girokonto extends Konto{
     double balance;
 
-    public Girokonto(ProdBase database, String type, int id, Banker banker, Customer owner) {
-        super(database, type, id, banker, owner);
+    public Girokonto(String type, int id, Banker banker, Customer owner) {
+        super(type, id, banker, owner);
     }
 
 

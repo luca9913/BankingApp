@@ -15,9 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AuthBase authBase = AuthBase.initialize();
-        ProdBase prodBase = ProdBase.initialize();
-        Login log = new Login(authBase);
+        Login log = new Login();
         GUI_Login wneView = new GUI_Login(log);
         wneView.setVisible(true);
 
