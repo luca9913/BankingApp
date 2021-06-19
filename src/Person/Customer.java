@@ -3,7 +3,7 @@ package Person;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import Database.ProdBase;
-import Konto.Konto;
+import Konto.*;
 
 import java.util.Date;
 
@@ -48,12 +48,53 @@ public class Customer extends Person{
     Konto konto;
     ProdBase data;
     ArrayList<Object[]> allAccounts;
+    public ArrayList<Konto> allaccounts2;
+
 
     //erstellt Liste mit Konten des Kunden und gibt diese zurück
     public ArrayList<Object[]> getAllAccounts(){
         allAccounts = data.getAllAccounts(id);
         return allAccounts;
     }
+
+    //initalisiert die Kontoobjekte
+    public void initialiseAccounts(){
+
+        for(Object[] arr : getAllAccounts()){
+            int accountid = (Integer) arr[0];
+            String type = (String) arr[1];
+            double balance = (Double) arr[2];
+            double dispo = (Double) arr[3];
+            double transferLimit = (Double) arr[4];
+            int ownerid = (Integer) arr[5];
+            int bankerid = (Integer) arr[6];
+            int locked = (Integer) arr[7];
+
+            switch(type){
+                case "Girokonto":
+                    Girokonto tmpGiro = new Girokonto();
+                    allaccounts2.add(tmpGiro);
+                    break;
+                case "Festgeldkonto":
+                    Festgeldkonto tmpFest = new Festgeldkonto();
+                    allaccounts2.add(tmpFest);
+                    break;
+                case "Depot":
+                    Depot tmpDepot = new Depot();
+                    allaccounts2.add(tmpDepot);
+                    break;
+                case "Kreditkarte":
+                    Kreditkarte tmpCredit = new Kreditkarte();
+                    allaccounts2.add(tmpCredit);
+                    break;
+            }
+
+            Konto tmp = new Konto();
+            allaccounts2.add(tmp);
+        }
+    }
+
+
 
     //Überweisen von ausgewähltem Konto auf ein anderes
     /*public void transfer(int selected, int recieverid, double betrag, String usage, String date){
