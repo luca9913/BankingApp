@@ -7,7 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-
+/**
+ * Die Klasse ist für die Hauptgui des Customers zuständig. Dort werden die Components
+ * und Actions verwaltet und weitere Optionen für die GUI festgelegt.
+ */
 public class GUI_Customer extends JFrame {
     private JTabbedPane tabbedPaneMain;
     private JPanel Hauptpanel;
@@ -47,14 +50,15 @@ public class GUI_Customer extends JFrame {
     private JScrollPane tblTransfers;
 
 
-
+    /**
+     * Die Methode ist für die Initialisierung der Haupt-GUI zuständig und enthält alle Actions und
+     * auch Optionen, wie das GUI initialisiert werden soll.
+     */
     public GUI_Customer() {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
-
         add(Hauptpanel);
         pack();
         setLocationRelativeTo(null);

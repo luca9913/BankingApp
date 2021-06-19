@@ -5,12 +5,20 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Die Klasse ist für das Nebengui des Customers zur Erstellung eines weiteren Kontos zuständig.
+ * Hier werden die Components und Actions verwaltet und weitere Optionen für die GUI festgelegt.
+ */
 public class GUI_Customer_CreateAccount extends JFrame{
     private JPanel PanelCreate;
     private JRadioButton girokontoRadioButton;
     private JButton abbrechenButton;
     private JButton kontoAnlegenButton;
 
+    /**
+     * Die Methode ist für die Initialisierung der Neben-GUI zuständig und enthält alle Actions und
+     * auch Optionen, wie das GUI initialisiert werden soll.
+     */
     public GUI_Customer_CreateAccount() {
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
