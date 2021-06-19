@@ -45,15 +45,13 @@ public class GUI_Customer_Connector extends JFrame {
 
     //Methode um das Fenster GUI_Customer_CreateAccount mit Abbrechen zu schließen
     public static void closeCreate(){
-        guiCustomer.setVisible(true);
-        //activateCustomerGUI();
+        activateCustomerGUI();
         guiCustomerCreateAccount.dispose();
     }
 
     //Methode um das Fenster GUI_Customer_DeleteAccount mit Abbrechen zu schließen
     public static void closeDelete(){
-        guiCustomer.setVisible(true);
-        //activateCustomerGUI();
+        activateCustomerGUI();
         guiCustomerDeleteAccount.dispose();
     }
 
