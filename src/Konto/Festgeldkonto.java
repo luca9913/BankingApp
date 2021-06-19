@@ -7,6 +7,7 @@ import Person.Customer;
 public class Festgeldkonto extends Konto{
 
     public Festgeldkonto(String type, int id, Banker banker, Customer owner) {
+
         super(type, id, banker, owner);
     }
 
