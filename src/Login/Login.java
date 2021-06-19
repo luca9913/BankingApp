@@ -33,6 +33,7 @@ public class Login {
         //hash mit Datenbank abgleichen
         if (pwHash == authDatabase.getHash(userID)) {
             System.out.println("Login erfolgreich!");
+            System.out.println((Integer)authSet[2]);
             if( (Integer)authSet[2] <= 0){
                 System.out.println("Customer-ID (" + userID + ") <= 0 - Banker Login - Banker GUI öffnen");
                 // TODO: User-Parameter an GUI_Banker muss noch übergeben werden
