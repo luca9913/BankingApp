@@ -1,6 +1,8 @@
 package Person;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import Database.ProdBase;
 import java.util.Date;
 
 public class Customer extends Person{
@@ -40,6 +42,20 @@ public class Customer extends Person{
             System.err.println("Zu wenige Daten angegeben.");
         }
     }
+
+    ProdBase data;
+    ArrayList<Object[]> allAccounts;
+
+    //erstellt Liste mit Konten des Kunden und gibt diese zurück
+    public ArrayList<Object[]> getAllAccounts(){
+        allAccounts = data.getAllAccounts(id);
+        return allAccounts;
+    }
+
+
+
+
+
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
     private void syncAccounts(){

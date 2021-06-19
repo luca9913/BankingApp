@@ -85,7 +85,7 @@ public class ProdBase extends Database {
         }
     }
 
-    //retrieving functions
+    //retrieving functions TODO: arrayList zu Object[] ändern
     /**
      * Liest die Zeile mit dem entsprechenden Primär-Schlüssel in der angegeben Tabelle aus.
      * @param id Primär-Schlüssel der jeweiligen Tabelle (customer_id, banker_id, usw.)
