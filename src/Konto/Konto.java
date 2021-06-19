@@ -86,12 +86,12 @@ public class Konto{
         }else
         {
             //Transfer in die Datenbank schreiben
-            data.insertTransfer(betrag, id, recieverid, usage, date); //fehler weil insertTransfer noch nicht fertig
+            //data.insertTransfer(betrag, id, recieverid, usage, date); //fehler weil insertTransfer noch nicht fertig
         }
     }
 
     public void aendern(String key, double value){
-        database.createRequest(key,value, owner.getId(), banker.getId(), owner.getUid());
+        //database.createRequest(key,value, owner.getId(), banker.getId(), owner.getUid());
     }
 
     public void aufloesen(Konto zielkonto){
