@@ -7,7 +7,7 @@ import GUI.GUI_Customer.GUI_Customer_DeleteAccount;
 import javax.swing.*;
 
 /**
- * Die Klasse ist für die Steuerung (Öffnung, Schließung etc.) für die drei GUIs der Customer zuständig.
+ * Die Klasse ist für die Steuerung (Öffnung, Schließung, etc.) für die drei GUIs der Customer zuständig.
  */
 public class GUI_Customer_Connector extends JFrame {
 
