@@ -51,20 +51,11 @@ public class GUI_Customer extends JFrame {
 
 
     /**
-     * Die Methode ist für die Initialisierung der Haupt-GUI zuständig und enthält alle Actions und
-     * auch Optionen, wie das GUI initialisiert werden soll.
+     * Dieser Konstruktor ist für die Actions und weitere Optionen des Gui´s des Customers zuständig.
      */
     public GUI_Customer() {
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
-        this.setIconImage(titleBarImage.getImage());
-        add(Hauptpanel);
-        pack();
-        setLocationRelativeTo(null);
-        setTitle("Turing Banking App");
-        setSize(550, 385);
-        setResizable(false);
+        initialize();
 
         //Action für den Button "Aktualisieren im Tab Finanzübersicht"
         btnRefresh1.addActionListener(new ActionListener() {
@@ -152,6 +143,21 @@ public class GUI_Customer extends JFrame {
             }
         });
 
+    }
+
+    /**
+     * Die Methode ist für die Initialisierung der GUI_Customer und deren Optionen zuständig.
+     */
+    public void initialize(){
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
+        this.setIconImage(titleBarImage.getImage());
+        add(Hauptpanel);
+        pack();
+        setLocationRelativeTo(null);
+        setTitle("Turing Banking App");
+        setSize(550, 385);
+        setResizable(false);
     }
 
 }
