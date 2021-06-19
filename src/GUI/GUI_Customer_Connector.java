@@ -31,7 +31,7 @@ public class GUI_Customer_Connector extends JFrame {
         guiCustomerCreateAccount.toFront();
         guiCustomerCreateAccount.setAlwaysOnTop(true);
         guiCustomerCreateAccount.isFocused();
-        //deactivateCustomerGUI();
+        deactivateCustomerGUI();
     }
 
     //Methode um das Fenster GUI_Customer_DeleteAccount zu öffnen
@@ -40,7 +40,7 @@ public class GUI_Customer_Connector extends JFrame {
         guiCustomerDeleteAccount.toFront();
         guiCustomerDeleteAccount.setAlwaysOnTop(true);
         guiCustomerCreateAccount.isFocused();
-        //deactivateCustomerGUI();
+        deactivateCustomerGUI();
     }
 
     //Methode um das Fenster GUI_Customer_CreateAccount mit Abbrechen zu schließen
