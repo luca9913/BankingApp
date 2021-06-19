@@ -71,22 +71,6 @@ public class GUI_Customer_Connector extends JFrame {
         guiCustomerDeleteAccount.dispose();
     }
 
-    /*
-    //Methode um das Fenster GUI_Customer_CreateAccount mit X zu schließen
-    public static int closeCreateX(){
-        guiCustomer.setEnabled(true);
-        activateCustomerGUI();
-        return HIDE_ON_CLOSE;
-    }
-
-    //Methode um das Fenster GUI_Customer_DeleteAccount mit X zu schließen
-    public static int closeDeleteX(){
-        guiCustomer.setEnabled(true);
-        activateCustomerGUI();
-        return HIDE_ON_CLOSE;
-    }
-    */
-
     /**Diese Methode dient dazu, das Fenster GUI_Customer wieder zu aktivieren, bevor das Nebenfenster geschlossen wird.
      * Die Methode ist statisch und liefert keinen Rückgabewert.
      */
