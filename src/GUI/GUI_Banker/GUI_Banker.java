@@ -1,6 +1,8 @@
 package GUI.GUI_Banker;
 
 import javax.swing.*;
+
+import GUI.HelpMethods;
 import Person.Banker;
 import Database.ProdBase;
 import javax.swing.ListSelectionModel;
@@ -85,6 +87,10 @@ public class GUI_Banker extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 updateRequestStatus(1);
             }
+        });
+        btnCreateNewCustomer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { createNewCustomer(); }
         });
     }
 
@@ -235,7 +241,7 @@ public class GUI_Banker extends JFrame{
         btnSaveCustomerData.setEnabled(false);
 
         //Inititalisiere NeuerKunde-Tab
-        btnCreateNewCustomer.setEnabled(false);
+        //btnCreateNewCustomer.setEnabled(false);
 
         // Panel hinzufügen
         add(mainPanel);
@@ -274,5 +280,24 @@ public class GUI_Banker extends JFrame{
             }
             return c;
         }
+    }
+
+    private void createNewCustomer(){
+        HelpMethods h = new HelpMethods();
+        if(h.onlyString(txtNewCustomerName.getText(), true) && h.onlyString(txtNewCustomerSurname.getText(), true)) {
+            System.out.println("Eingabe gültig");
+        } else {
+            System.out.println("Ungültige Eingabe");
+        }
+        System.out.println(txtNewCustomerName.getText());
+        System.out.println(txtNewCustomerSurname.getText());
+        System.out.println(txtNewCustomerBirth.getText());
+        if(h.correctDateFormat("dd.MM.yyyy", txtNewCustomerBirth.getText())){
+            System.out.println("Date correct..");
+        }
+        if(h.correctDateFormat("dd/MM/yyyy", txtCustomerBirth.getText())){
+            System.out.println("Date correct/");
+        }
+
     }
 }
