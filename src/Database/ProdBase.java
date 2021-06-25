@@ -132,7 +132,7 @@ public class ProdBase extends Database {
      */
     public ArrayList<Object[]> getAllRequests(int id){
         try{
-            return rsToArrayList(state.executeQuery("SELECT * FROM requests WHERE customer_id ='" + id + "' OR banker_id ='" + id +"'"));
+            return rsToArrayList(state.executeQuery("SELECT * FROM request WHERE customer_id ='" + id + "' OR banker_id ='" + id +"'"));
         }catch(SQLException e){
             System.err.println("Fehler beim Auslesen der Aufträge.");
             System.err.print("Fehlermeldung: ");
@@ -212,7 +212,7 @@ public class ProdBase extends Database {
      */
     public boolean createRequest(String key, double value, int accid, int customer, int banker){
         try{
-            return returnFunction(state.executeUpdate("INSERT INTO requests(customer_id, account_id, banker_id, key, value_old) " +
+            return returnFunction(state.executeUpdate("INSERT INTO request(customer_id, account_id, banker_id, key, value_old) " +
                     "VALUES(" + customer + "," + accid + "," + "," + banker + key + "," + value + ");"));
         }catch(SQLException e){
             System.err.println("Fehler beim erstellen der Anfrage in der Datenbank.");
@@ -315,7 +315,7 @@ public class ProdBase extends Database {
      */
     public boolean updateRequest(int request_id, int status){
         try {
-            return returnFunction(state.executeUpdate("UPDATE requests SET status = " + status + " WHERE request_id = " + request_id));
+            return returnFunction(state.executeUpdate("UPDATE request SET status = " + status + " WHERE request_id = " + request_id));
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Anfrage-Status in der Datenbank.");
             System.err.print("Fehlermeldung: ");

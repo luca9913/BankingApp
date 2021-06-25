@@ -2,12 +2,15 @@ package GUI.GUI_Banker;
 
 import javax.swing.*;
 import Person.Banker;
+import Person.Banker.*;
 import Database.ProdBase;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
+import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class GUI_Banker extends JFrame{
 
@@ -56,7 +59,7 @@ public class GUI_Banker extends JFrame{
     private JLabel lblEmail;
     private JTextField textField1;
     private JTextField textField2;
-    //TODO: Felder für Telefon und E-Mail hinzufügen
+    private JScrollPane dispoAccOverview;
 
     //private int bankerID;
     private Banker admin;
@@ -67,6 +70,7 @@ public class GUI_Banker extends JFrame{
         initialize();
 
         //System.out.println(admin.name);
+        //Table-Listener Kontenfreigabe
         tblAccountApproval.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -74,72 +78,36 @@ public class GUI_Banker extends JFrame{
                 tblAccountApprovalClicked();
             }
         });
+        //Freigabe ablehnen (Listener)
         btnDeclineAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateRequestStatus(-1);
             }
         });
+        //Freigabe akzeptieren (Listener)
         btnApproveAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateRequestStatus(1);
             }
         });
-    }
-
-    private void updateApprovalTable(){
-        // TODO: Tabelle mit Konten füllen
-        String[] colnames = {"ID", "Name", "Art", "Alter Wert", "Neuer Wert"};
-        TableModel requestdata = new AbstractTableModel() {
+        //TODO: setup listeners from here
+        //Kunden-ComboBox Listener
+        cbbCurrentCustomer.addActionListener(new ActionListener() {
             @Override
-            public int getRowCount() {
-                return admin.relatedrequests.size() - 1;
-            }
+            public void actionPerformed(ActionEvent e) {
 
-            @Override
-            public int getColumnCount() {
-                return 5;
             }
-
+        });
+        //Listener Auswahl in Kontenliste
+        listAccountOverview.addListSelectionListener(new ListSelectionListener() {
             @Override
-            public String getColumnName(int column){
-                return colnames[column];
+            public void valueChanged(ListSelectionEvent e) {
+                insertBalance();
+                insertAllTransfers();
             }
-
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                String name;
-                if(columnIndex == 1){
-                    int id = (Integer)admin.relatedrequests.get(rowIndex + 1)[3];
-                    if(id == 0){
-                        id = (Integer)admin.relatedrequests.get(rowIndex + 1)[2];
-                        int i = 0;
-                        while((Integer)admin.allcustomers.get(i)[0] != id){
-                            i++;
-                        }
-                        return admin.allcustomers.get(i)[2].toString();
-                    }else{
-                        return "Konto: " + id;
-                    }
-                }else{
-                    switch(columnIndex){
-                        case 0: return admin.relatedrequests.get(rowIndex + 1)[columnIndex];
-                        case 2: return admin.relatedrequests.get(rowIndex + 1)[5];
-                        case 3: return admin.relatedrequests.get(rowIndex + 1)[6];
-                        case 4: return admin.relatedrequests.get(rowIndex + 1)[7];
-                        default: return null;
-                    }
-                }
-            }
-        };
-        tblAccountApproval.setModel(requestdata);
-        for(int i = 0; i < 5; i++){
-            TableColumn col = tblAccountApproval.getColumnModel().getColumn(i);
-            col.setCellRenderer(new RequestRenderer());
-        }
-        btnApproveAccount.setEnabled(false);
-        btnDeclineAccount.setEnabled(false);
+        });
     }
 
     private void initialize() {
@@ -155,65 +123,41 @@ public class GUI_Banker extends JFrame{
         tblDispoAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // Initialisiert Startseite-Tab
-        // TODO: Namen des Bankers einfügen
-        lblWelcome.setText("Herzlich Willkommen ");
-        // TODO: Aktuell betreuende Kunden einfügen
+        // Namen des Bankers einfügen
+        lblWelcome.setText("Herzlich Willkommen " + admin.preName + " " + admin.name);
+        // Aktuell betreuende Kunden einfügen
         lblAccountApprovalOrders.setText("Aktuell betreuende Kunden: " + admin.allcustomers.size());
-        // TODO: Kontofreigabeaufträge einfügen
-        lblSupervisingCustomers.setText("Freigabeaufträge: " + (admin.relatedrequests.size()-1));
-        // TODO: Dispoüberschreitende Konten einfügen
-        lblDispoOverwritingAccounts.setText("Dispoüberschreitende Konten: " + admin.dispoaccounts.length);
+        // Kontofreigabeaufträge einfügen
+        lblSupervisingCustomers.setText("Freigabeaufträge: " + admin.relatedrequests.size());
+        // Dispoüberschreitende Konten einfügen
+        lblDispoOverwritingAccounts.setText("Dispoüberschreitende Konten: " + admin.getDispoModel().getRowCount());
 
 
         // Initialisiert Kontenfreigabe-Tab
-        updateApprovalTable();
+        // Tabelle mit Konten füllen
+        tblAccountApproval.setModel(admin.getRequestModel());
+        for(int i = 0; i < 5; i++){
+            TableColumn col = tblAccountApproval.getColumnModel().getColumn(i);
+            col.setCellRenderer(new RequestRenderer());
+        }
+        tblAccountApproval.setCellSelectionEnabled(false);
+        tblAccountApproval.setColumnSelectionAllowed(false);
+        tblAccountApproval.setRowSelectionAllowed(true);
+        btnApproveAccount.setEnabled(false);
+        btnDeclineAccount.setEnabled(false);
 
         // Initialisiert Dispokonten-Tab
-        // TODO: Tabelle mit Konten im Dispo füllen
-        TableModel dispodata = new AbstractTableModel() {
-            String[] colnames = {"Konto-ID", "Name", "Dispo", "Saldo"};
-
-            @Override
-            public int getRowCount() {
-                return admin.dispoaccounts.length;
-            }
-
-            @Override
-            public int getColumnCount() {
-                return admin.dispoaccounts[0].length;
-            }
-
-            @Override
-            public String getColumnName(int column){
-                return colnames[column];
-            }
-
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                return admin.dispoaccounts[rowIndex][columnIndex];
-            }
-        };
-        tblDispoAccounts.setModel(dispodata);
+        // Tabelle mit Konten im Dispo füllen
+        tblDispoAccounts.setModel(admin.getDispoModel());
 
         // Initialisiert Kundenübersicht-Tab
-        cbbCurrentCustomer.addItem("Alle");
-        for(Object[] obj : admin.allcustomers){
-            cbbCurrentCustomer.addItem(obj[0] + " - " + obj[2]);
-        }
-        // Initialisiert Kundenübersicht - Finanzübersicht
-        ListModel listModel = new AbstractListModel() {
-            @Override
-            public int getSize() {
-                return admin.allaccounts.size() - 1;
-            }
+        cbbCurrentCustomer.setModel((ComboBoxModel) admin.getCustomerModel());
+        cbbCurrentCustomer.setSelectedIndex(0);
 
-            @Override
-            public Object getElementAt(int index) {
-                Object[] arr = admin.allaccounts.get(index + 1);
-                return "ID: " + arr[0] + " - " + arr[1];
-            }
-        };
-        listAccountOverview.setModel(listModel);
+        // Initialisiert Kundenübersicht - Finanzübersicht
+        ListData tmp = (ListData)cbbCurrentCustomer.getModel();
+        listAccountOverview.setModel(admin.getAccountModel(-1));
+        tblTurnovers.setModel(admin.getTransferModel(new int[]{-1}));
         btnRefreshAccount.setEnabled(false);
         btnBlockAccount.setEnabled(false);
         btnDeleteAccount.setEnabled(false);
@@ -242,19 +186,34 @@ public class GUI_Banker extends JFrame{
     }
 
     private void tblAccountApprovalClicked(){
-        int row = tblAccountApproval.getSelectedRow();
-        Object[] request = admin.relatedrequests.get(row + 1);
-        if((Integer)request[1] == 0){
+        if((Integer)tblAccountApproval.getModel().getValueAt(tblAccountApproval.getSelectedRow(), 5) == 0){
             btnDeclineAccount.setEnabled(true);
             btnApproveAccount.setEnabled(true);
         }
     }
 
-    private void updateRequestStatus(int newstatus){
+    void updateRequestStatus(int newstatus){
         int row = tblAccountApproval.getSelectedRow();
-        admin.modifyRequest(row + 1, newstatus);
-        admin.getAllRequests();
-        updateApprovalTable();
+        admin.modifyRequest((Integer)tblAccountApproval.getValueAt(row, 0), newstatus);
+        TableData model = (TableData)tblAccountApproval.getModel();
+        model.setValueAt(newstatus, row, 5);
+        btnApproveAccount.setEnabled(false);
+        btnDeclineAccount.setEnabled(false);
+    }
+
+    void insertAllCustomers(){
+    }
+
+    void insertAllAccounts(){
+    }
+
+    void insertAllTransfers(){
+
+    }
+
+    void insertBalance(){
+        String balance = admin.getBalance(listAccountOverview.getSelectedValue().toString());
+        lblAccountBalance.setText("Kontostand: " + balance + " €");
     }
 
     class RequestRenderer extends DefaultTableCellRenderer {
@@ -262,10 +221,10 @@ public class GUI_Banker extends JFrame{
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            if((Integer)admin.relatedrequests.get(row+1)[1] == -1){
+            if(admin.getRequestStatus((Integer)tblAccountApproval.getModel().getValueAt(row, 0)) == -1){
                 c.setBackground(new Color(175, 0 , 0));
                 c.setForeground(Color.white);
-            }else if((Integer)admin.relatedrequests.get(row+1)[1] == 1){
+            }else if(admin.getRequestStatus((Integer)tblAccountApproval.getValueAt(row, 0)) == 1){
                 c.setBackground(new Color(0, 109, 77));
                 c.setForeground(Color.white);
             }else{
