@@ -195,11 +195,11 @@ public class GUI_Customer extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(hm.onlyString(txtName.getText(), false, 2) == true &&
                    hm.onlyString(txtPrename.getText(), false, 2) == true &&
-                   hm.onlyInt(txtZip.getText()) == true &&
+                   hm.onlyInt(txtZip.getText()) == true && txtZip.getText().length() >= 5 &&
                    hm.onlyString(txtCity.getText(), true, 5) == true &&
                    hm.onlyString(txtAddress.getText(), true, 5) == true &&
                    hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
-                   hm.onlyString(txtMail.getText(), false, 5)){
+                   hm.onlyString(txtMail.getText(), false, 5) == true){
 
                     //Customer.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
                     txtName.setEditable(false);
@@ -212,7 +212,7 @@ public class GUI_Customer extends JFrame {
                 }
                 else if(hm.onlyString(txtName.getText(), false, 2) == false ||
                         hm.onlyString(txtPrename.getText(), false, 2) == false ||
-                        hm.onlyInt(txtZip.getText()) == false ||
+                        hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 5 ||
                         hm.onlyString(txtCity.getText(), true, 5) == false ||
                         hm.onlyString(txtAddress.getText(), true, 5) == false ||
                         hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5 ||
@@ -220,10 +220,10 @@ public class GUI_Customer extends JFrame {
 
                     if(hm.onlyString(txtName.getText(), false, 2) == false){txtName.setText("");}
                     if(hm.onlyString(txtPrename.getText(), false, 2) == false){txtPrename.setText("");}
-                    if(hm.onlyInt(txtZip.getText()) == false){txtZip.setText("");}
+                    if(hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 5){txtZip.setText("");}
                     if(hm.onlyString(txtCity.getText(), true, 5) == false){txtCity.setText("");}
                     if(hm.onlyString(txtAddress.getText(), true, 5) == false){txtAddress.setText("");}
-                    if(hm.onlyInt(txtPhone.getText()) == false){txtPhone.setText("");}
+                    if(hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5){txtPhone.setText("");}
                     if(hm.onlyString(txtMail.getText(), false, 5) == false){txtMail.setText("");}
                     JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
 
