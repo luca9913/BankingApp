@@ -1,6 +1,8 @@
 package GUI.GUI_Banker;
 
 import javax.swing.*;
+
+import GUI.HelpMethods;
 import Person.Banker;
 import Person.Banker.*;
 import Database.ProdBase;
@@ -233,5 +235,25 @@ public class GUI_Banker extends JFrame{
             }
             return c;
         }
+    }
+
+
+    private void createNewCustomer(){
+        HelpMethods h = new HelpMethods();
+        if(h.onlyString(txtNewCustomerName.getText(), true) && h.onlyString(txtNewCustomerSurname.getText(), true)) {
+            System.out.println("Eingabe gültig");
+        } else {
+            System.out.println("Ungültige Eingabe");
+        }
+        System.out.println(txtNewCustomerName.getText());
+        System.out.println(txtNewCustomerSurname.getText());
+        System.out.println(txtNewCustomerBirth.getText());
+        if(h.correctDateFormat("dd.MM.yyyy", txtNewCustomerBirth.getText())){
+            System.out.println("Date correct..");
+        }
+        if(h.correctDateFormat("dd/MM/yyyy", txtCustomerBirth.getText())){
+            System.out.println("Date correct/");
+        }
+
     }
 }
