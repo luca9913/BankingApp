@@ -106,7 +106,7 @@ public class GUI_Login extends JFrame implements KeyListener {
             System.out.println("Login-ID und Benutzername stimmen überein - Login Fenster schließen");
 
             //TODO: setVisible(false) benötigt Arbeitsspeicher - bessere Methode implementieren
-            this.setVisible(false);
+            this.dispose();
         } else {
             // Fehlerhafte Eingabe -> Erhöhe Fehlversuche
             System.out.println("Login-ID und Benutzername stimmen nicht überein - Failed Attempts anzeigen/erhöhen");
