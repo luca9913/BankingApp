@@ -23,7 +23,6 @@ public class HelpMethods {
             return true;
         }
         else{
-            JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
             return false;
         }
     }
@@ -48,7 +47,6 @@ public class HelpMethods {
             return true;
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
             return false;
         }
     }

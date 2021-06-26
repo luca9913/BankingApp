@@ -46,7 +46,7 @@ public class Login {
                 // TODO: User-Parameter an GUI_Customer muss noch übergeben werden
 
                 //Bitte die GUI_Customer über die Klasse GUI_Customer_Connector mit der Methode openCustomer aufrufen.
-                //Bitte vermeiden das Objekt der GUI hier zu erstellen und aufzurufen.
+                //Bitte vermeiden das Objekt der GUI hier zu erstellen und aufzurufen
                 GUI_Customer_Connector.openCustomer();
             }
             return true;
