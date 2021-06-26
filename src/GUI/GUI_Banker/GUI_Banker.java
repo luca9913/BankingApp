@@ -16,7 +16,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GUI_Banker extends JFrame{
+public class GUI_Banker extends JFrame implements KeyListener{
 
     private JPanel mainPanel;
     private JTextField txtNewCustomerName;
@@ -135,6 +135,13 @@ public class GUI_Banker extends JFrame{
             }
 
         });
+        cbbCurrentCustomer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Dropdown");
+            }
+        });
+
     }
 
 
@@ -214,7 +221,14 @@ public class GUI_Banker extends JFrame{
         btnSaveCustomerData.setEnabled(false);
 
         //Inititalisiere NeuerKunde-Tab
-        btnCreateNewCustomer.setEnabled(true);
+        txtNewCustomerName.addKeyListener(this);
+        txtNewCustomerSurname.addKeyListener(this);
+        txtNewCustomerBirth.addKeyListener(this);
+        txtNewCustomerAdress.addKeyListener(this);
+        txtNewCustomerZIP.addKeyListener(this);
+        txtNewCustomerCity.addKeyListener(this);
+        txtNewCustomerEmail.addKeyListener(this);
+        txtNewCustomerPhone.addKeyListener(this);
 
         // Panel hinzufügen
         add(mainPanel);
@@ -249,6 +263,24 @@ public class GUI_Banker extends JFrame{
     void insertBalance(){
         String balance = admin.getBalance(listAccountOverview.getSelectedValue().toString());
         lblAccountBalance.setText("Kontostand: " + balance + " €");
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+            System.out.println("ENTER-Pressed");
+            createNewCustomer();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 
     class RequestRenderer extends DefaultTableCellRenderer {

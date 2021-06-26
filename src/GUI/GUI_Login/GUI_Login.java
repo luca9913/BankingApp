@@ -118,6 +118,7 @@ public class GUI_Login extends JFrame implements KeyListener {
 
     private void failedAttempt(int numberOfFailedAttempts) {
         // TODO: Falls genug Zeit -> Timeout programmieren nach 3 Fehlversuchen
+        passwordField1.setText("");
         if (numberOfFailedAttempts != 0) {
             failedAttempts.setVisible(true);
             if (numberOfFailedAttempts == 1) {
