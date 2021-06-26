@@ -271,7 +271,8 @@ public class GUI_Banker extends JFrame{
             System.out.println("Correct Phone Number");
         }
 
-
+//        admin.insertCustomer();
+//        [Prename, Name, Birth, Address, ZIP, City, EMail, Phone Number]
 
     }
 }
