@@ -16,7 +16,7 @@ public class HelpMethods {
      * @param txtField Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
      * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
      */
-    private boolean onlyInt(String txtField){
+    public boolean onlyInt(String txtField){
         if(txtField.matches("[0-9]+") && txtField.length() > 2){
             return true;
         }
@@ -31,7 +31,7 @@ public class HelpMethods {
      * @param txtField Dieser Parameter enthält den Inhalt des zu parsenden Textfeldes.
      * @return Es wird der geparste Int-Wert zurückgegeben.
      */
-    private int parseInt(String txtField){
+    public int parseInt(String txtField){
        return Integer.parseInt(txtField);
     }
 
@@ -60,20 +60,20 @@ public class HelpMethods {
         return Double.parseDouble(txtField);
     }
 
-    public boolean onlyString(String txtField, boolean acceptSpace) {
+    public boolean onlyString(String txtField, boolean acceptSpace, int minLength) {
 //                "^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$"
-        if(acceptSpace) {
-            if(txtField.matches("[A-Za-z ]*")) {
-                return true;
+        if(txtField.length() > minLength) {
+            if(acceptSpace) {
+                if(txtField.matches("[A-Za-z -]*")) {
+                    return true;
+                }
+            } else {
+                if(txtField.matches("[A-Za-z-]*")) {
+                    return true;
+                }
             }
-            return false;
-        } else {
-            if(txtField.matches("[A-Za-z]*")) {
-                return true;
-            }
-            return false;
         }
-
+        return false;
     }
 
     public boolean correctDateFormat(String pattern, String date) {
@@ -81,6 +81,7 @@ public class HelpMethods {
         try {
             Date newDate = formatter.parse(date);
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Das Datum muss im Format DD.MM.YYYY angegeben werden!","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
             return false;
         }
         return true;

@@ -56,8 +56,8 @@ public class GUI_Banker extends JFrame{
     private JTabbedPane tabbedPane1;
     private JLabel lblAccountBalance;
     private JLabel lblDispoAcc;
-    private JTextField txtEmail;
-    private JTextField txtPhone;
+    private JTextField txtNewCustomerEmail;
+    private JTextField txtNewCustomerPhone;
     private JLabel lblEmail;
     private JTextField textField1;
     private JTextField textField2;
@@ -108,6 +108,12 @@ public class GUI_Banker extends JFrame{
             public void valueChanged(ListSelectionEvent e) {
                 insertBalance();
                 insertAllTransfers();
+            }
+        });
+        btnCreateNewCustomer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createNewCustomer();
             }
         });
     }
@@ -181,7 +187,7 @@ public class GUI_Banker extends JFrame{
         btnSaveCustomerData.setEnabled(false);
 
         //Inititalisiere NeuerKunde-Tab
-        btnCreateNewCustomer.setEnabled(false);
+        btnCreateNewCustomer.setEnabled(true);
 
         // Panel hinzufügen
         add(mainPanel);
@@ -240,20 +246,32 @@ public class GUI_Banker extends JFrame{
 
     private void createNewCustomer(){
         HelpMethods h = new HelpMethods();
-        if(h.onlyString(txtNewCustomerName.getText(), true) && h.onlyString(txtNewCustomerSurname.getText(), true)) {
-            System.out.println("Eingabe gültig");
+
+        if(h.onlyString(txtNewCustomerName.getText(), true, 2) && h.onlyString(txtNewCustomerSurname.getText(), true, 2)){
+            System.out.println("Namen-Eingabe gültig");
         } else {
-            System.out.println("Ungültige Eingabe");
+            System.out.println("Namen-Eingabe ungültig");
         }
-        System.out.println(txtNewCustomerName.getText());
-        System.out.println(txtNewCustomerSurname.getText());
-        System.out.println(txtNewCustomerBirth.getText());
+
         if(h.correctDateFormat("dd.MM.yyyy", txtNewCustomerBirth.getText())){
             System.out.println("Date correct..");
+        } else {
+            System.out.println("Date incorrect...");
         }
-        if(h.correctDateFormat("dd/MM/yyyy", txtCustomerBirth.getText())){
-            System.out.println("Date correct/");
+
+        if(h.onlyInt(txtNewCustomerZIP.getText())) {
+            System.out.println("Correct ZIP");
         }
+
+        if(h.onlyString(txtNewCustomerCity.getText(), true, 2)) {
+            System.out.println("Correct City");
+        }
+
+        if(h.onlyInt(txtNewCustomerPhone.getText())) {
+            System.out.println("Correct Phone Number");
+        }
+
+
 
     }
 }
