@@ -66,13 +66,6 @@ public class Customer extends Person{
 
     }
 
-
-
-
-
-
-
-
     //Funktion, um alle Konten in der GUI zu aktualisieren
     private void syncAccounts(){
 

@@ -212,7 +212,7 @@ public class ProdBase extends Database {
      */
     public boolean createRequest(String key, double value, int accid, int customer, int banker){
         try{
-            return returnFunction(state.executeUpdate("INSERT INTO request(customer_id, account_id, banker_id, key, value_old) " +
+            return returnFunction(state.executeUpdate("INSERT INTO request(customer_id, account_id, banker_id, key, value_new) " +
                     "VALUES(" + customer + "," + accid + "," + "," + banker + key + "," + value + ");"));
         }catch(SQLException e){
             System.err.println("Fehler beim erstellen der Anfrage in der Datenbank.");
