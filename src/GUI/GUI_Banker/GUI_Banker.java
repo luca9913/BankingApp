@@ -49,6 +49,8 @@ public class GUI_Banker extends JFrame{
     private JButton btnApproveAccount;
     private JTable tblDispoAccounts;
     private JButton btnSaveCustomerData;
+    private JButton btnExit;
+    private JButton btnNewCustomerCancel;
     private JLabel lblSupervisingCustomers;
     private JLabel lblAccountApprovalOrders;
     private JLabel lblDispoOverwritingAccounts;
@@ -253,7 +255,7 @@ public class GUI_Banker extends JFrame{
             System.out.println("Namen-Eingabe ungültig");
         }
 
-        if(h.correctDateFormat(txtNewCustomerBirth.getText())){
+        if(h.correctDateFormat(txtNewCustomerBirth.getText(), false)){
             System.out.println("Date correct..");
         } else {
             System.out.println("Date incorrect...");
