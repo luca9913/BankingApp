@@ -50,6 +50,8 @@ public class GUI_Customer extends JFrame {
     private JList listAccounts3;
     private JScrollPane tblTransfers;
     private JButton btnExit;
+    private JTextField txtPhone;
+    private JTextField txtMail;
     private static int changeUserData = 0;
 
     /**
@@ -164,6 +166,8 @@ public class GUI_Customer extends JFrame {
                     txtZip.setEditable(true);
                     txtCity.setEditable(true);
                     txtAddress.setEditable(true);
+                    txtPhone.setEditable(true);
+                    txtMail.setEditable(true);
                     changeUserData = 1;
                     btnCustomerDataChanges.setText("Abbrechen");
                 }
@@ -173,6 +177,8 @@ public class GUI_Customer extends JFrame {
                     txtZip.setEditable(false);
                     txtCity.setEditable(false);
                     txtAddress.setEditable(false);
+                    txtPhone.setEditable(false);
+                    txtMail.setEditable(false);
                     changeUserData = 0;
                     btnCustomerDataChanges.setText("Persönliche Daten ändern");
                 }
@@ -191,25 +197,34 @@ public class GUI_Customer extends JFrame {
                    hm.onlyString(txtPrename.getText(), false, 2) == true &&
                    hm.onlyInt(txtZip.getText()) == true &&
                    hm.onlyString(txtCity.getText(), true, 5) == true &&
-                   hm.onlyString(txtAddress.getText(), true, 5) == true){
-                    //Customer.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText());
+                   hm.onlyString(txtAddress.getText(), true, 5) == true &&
+                   hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
+                   hm.onlyString(txtMail.getText(), false, 5)){
+
+                    //Customer.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
                     txtName.setEditable(false);
                     txtPrename.setEditable(false);
                     txtZip.setEditable(false);
                     txtCity.setEditable(false);
                     txtAddress.setEditable(false);
+                    txtPhone.setEditable(false);
+                    txtMail.setEditable(false);
                 }
                 else if(hm.onlyString(txtName.getText(), false, 2) == false ||
                         hm.onlyString(txtPrename.getText(), false, 2) == false ||
                         hm.onlyInt(txtZip.getText()) == false ||
                         hm.onlyString(txtCity.getText(), true, 5) == false ||
-                        hm.onlyString(txtAddress.getText(), true, 5) == false){
+                        hm.onlyString(txtAddress.getText(), true, 5) == false ||
+                        hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5 ||
+                        hm.onlyString(txtMail.getText(), false, 5) == false){
 
                     if(hm.onlyString(txtName.getText(), false, 2) == false){txtName.setText("");}
                     if(hm.onlyString(txtPrename.getText(), false, 2) == false){txtPrename.setText("");}
                     if(hm.onlyInt(txtZip.getText()) == false){txtZip.setText("");}
                     if(hm.onlyString(txtCity.getText(), true, 5) == false){txtCity.setText("");}
                     if(hm.onlyString(txtAddress.getText(), true, 5) == false){txtAddress.setText("");}
+                    if(hm.onlyInt(txtPhone.getText()) == false){txtPhone.setText("");}
+                    if(hm.onlyString(txtMail.getText(), false, 5) == false){txtMail.setText("");}
                     JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
 
                 }
@@ -223,6 +238,8 @@ public class GUI_Customer extends JFrame {
         btnExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                GUI_Customer_Connector.closeCreate();
+                GUI_Customer_Connector.closeDelete();
                 GUI_Customer_Connector.closeCustomer();
             }
         });
