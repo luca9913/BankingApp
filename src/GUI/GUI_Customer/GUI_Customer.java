@@ -50,8 +50,7 @@ public class GUI_Customer extends JFrame {
     private JList listAccounts3;
     private JScrollPane tblTransfers;
     private JButton btnExit;
-    static boolean changeUserData = false;
-
+    private static int changeUserData = 0;
 
     /**
      * Dieser Konstruktor ist für die Actions und weitere Optionen des CUstomer-Gui´s zuständig.
@@ -159,22 +158,22 @@ public class GUI_Customer extends JFrame {
         btnCustomerDataChanges.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(changeUserData = false){
+                if(changeUserData == 0){
                     txtName.setEditable(true);
                     txtPrename.setEditable(true);
                     txtZip.setEditable(true);
                     txtCity.setEditable(true);
                     txtAddress.setEditable(true);
-                    changeUserDate = true;
+                    changeUserData = 1;
                     btnCustomerDataChanges.setText("Abbrechen");
                 }
-                if(changeUserData = true){
+                if(changeUserData == 1){
                     txtName.setEditable(false);
                     txtPrename.setEditable(false);
                     txtZip.setEditable(false);
                     txtCity.setEditable(false);
                     txtAddress.setEditable(false);
-                    changeUserDate = true;
+                    changeUserData = 0;
                     btnCustomerDataChanges.setText("Persönliche Daten ändern");
                 }
 
