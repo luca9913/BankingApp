@@ -15,15 +15,14 @@ public abstract class Person {
     public String address;
     public String email;
     public String tel;
-    protected ProdBase data = ProdBase.initialize();
+    protected ProdBase data;
 
     //Konstruktor
     Person(int id){
         this.id = id;
-    }
-
-    public void update(ProdBase datenbank){
-        this.data = datenbank;
+        if(data == null){
+            data = ProdBase.initialize();
+        }
     }
 
     public int getId() {

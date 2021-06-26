@@ -3,7 +3,7 @@ package Person;
 import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.ArrayList;
-import Database.ProdBase;
+import Database.*;
 import Konto.Konto;
 import Person.Customer;
 
@@ -15,12 +15,14 @@ import javax.swing.table.AbstractTableModel;
 public class Banker extends Person {
 
     public ArrayList<Object[]> allaccounts, allcustomers, relatedrequests, alltransfers;
+    private AuthBase authBase;
     //ArrayList<Konto> allaccounts, dispoaccounts;
     //ArrayList<Customer> allcustomers;
     //TODO: add methods to return a DataModel for Tables, List and the ComboBox, the goal is to separate the data handling and the displaying completely
 
-    public Banker(int id){
+    public Banker(int id, AuthBase auth){
         super(id);
+        this.authBase = auth;
         Object[] pdata = data.getData(id, "banker").get(0);
         this.preName = pdata[1].toString();
         this.name = pdata[2].toString();
@@ -132,8 +134,7 @@ public class Banker extends Person {
         }else {
             ArrayList<Object[]> transfers = new ArrayList<>(alltransfers.size());
             for (int id : ids) {
-                ArrayList<Object[]> tmp = data.getAllTransfers(id);
-                for (Object[] arr : tmp) {
+                for (Object[] arr : alltransfers) {
                     if ((Integer) arr[2] == id) {
                         transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
                     } else {
@@ -284,11 +285,5 @@ public class Banker extends Person {
 
 class BankerTest{
     public static void main(String[] args) {
-        ProdBase data = ProdBase.initialize();
-        Banker admin = new Banker(1);
-        String[] test = admin.getUserData(0);
-        for(String str : test) {
-            System.out.println(str);
-        }
     }
 }

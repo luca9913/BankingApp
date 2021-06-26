@@ -71,7 +71,6 @@ public class GUI_Banker extends JFrame{
         this.admin = banker;
         initialize();
 
-        //System.out.println(admin.name);
         //Table-Listener Kontenfreigabe
         tblAccountApproval.addMouseListener(new MouseAdapter() {
             @Override
@@ -99,7 +98,8 @@ public class GUI_Banker extends JFrame{
         cbbCurrentCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ListData tmp = (ListData)cbbCurrentCustomer.getModel();
+                listAccountOverview.setModel(admin.getAccountModel(tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex())));
             }
         });
         //Listener Auswahl in Kontenliste
