@@ -3,6 +3,8 @@ package GUI;
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 
 /**
@@ -62,11 +64,11 @@ public class HelpMethods {
 //                "^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$"
         if(txtField.length() > minLength) {
             if(acceptSpace) {
-                if(txtField.matches("[A-Za-z -]*")) {
+                if(txtField.matches("[A-Za-z äüöÄÜÖ-]*")) {
                     return true;
                 }
             } else {
-                if(txtField.matches("[A-Za-z-]*")) {
+                if(txtField.matches("[A-Za-z- äüöÄÜÖ]*")) {
                     return true;
                 }
             }
@@ -76,18 +78,42 @@ public class HelpMethods {
 
     /**
      * Diese Methode prüft Textfelder auf das richtige Format bei der Eingabe eines Datums.
-     * @param date Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
+     * @param dateString Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
      * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
      */
-    public boolean correctDateFormat(String date) {
-        SimpleDateFormat formatter=new SimpleDateFormat("dd.MM.yyyy");
+    public boolean correctDateFormat(String dateString, boolean inPast) {
         try {
-            Date newDate = formatter.parse(date);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Das Datum muss im Format DD.MM.YYYY angegeben werden!","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
-            return false;
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            if (sdf.format(sdf.parse(dateString)).equals(dateString)) {
+                if(inPast){
+                    DateTimeFormatter yearFormat = DateTimeFormatter.ofPattern("yyyy");
+                    DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MM");
+                    DateTimeFormatter dayFormat = DateTimeFormatter.ofPattern("dd");
+                    SimpleDateFormat sYear = new SimpleDateFormat("yyyy");
+                    SimpleDateFormat sMonth = new SimpleDateFormat("MM");
+                    SimpleDateFormat sDay = new SimpleDateFormat("dd");
+                    LocalDateTime now = LocalDateTime.now();
+
+                    if(this.parseInt(sYear.format(sdf.parse(dateString))) < this.parseInt(yearFormat.format(now))){
+                        return true;
+                    } else if (this.parseInt(sYear.format(sdf.parse(dateString))) == this.parseInt(yearFormat.format(now))){
+                        if(this.parseInt(sMonth.format(sdf.parse(dateString))) < this.parseInt(monthFormat.format(now))){
+                            if(this.parseInt(sDay.format(sdf.parse(dateString))) < this.parseInt(dayFormat.format(now))){
+                                return true;
+                            }
+                        } else if (this.parseInt(sMonth.format(sdf.parse(dateString))) < this.parseInt(monthFormat.format(now))){
+                            return true;
+                        }
+                    }
+                } else {
+                    return true;
+                }
+            }
+        } catch (Exception pe) {
         }
-        return true;
+
+        return false;
+
     }
 
     /**
@@ -105,5 +131,6 @@ public class HelpMethods {
         }
         return newDate;
     }
+
 
 }
