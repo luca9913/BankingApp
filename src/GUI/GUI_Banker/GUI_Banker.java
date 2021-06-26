@@ -253,7 +253,7 @@ public class GUI_Banker extends JFrame{
             System.out.println("Namen-Eingabe ungültig");
         }
 
-        if(h.correctDateFormat("dd.MM.yyyy", txtNewCustomerBirth.getText())){
+        if(h.correctDateFormat(txtNewCustomerBirth.getText())){
             System.out.println("Date correct..");
         } else {
             System.out.println("Date incorrect...");
