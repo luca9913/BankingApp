@@ -35,10 +35,6 @@ public abstract class Database {
             Object[] result_row = new Object[columns]; //initialize the Array to hold the result of every column for each row
             ArrayList<Object[]>result = new ArrayList<>(); //initialize ArrayList which holds the String Arrays for each row
 
-            for(int i = 1; i <= columns; i++){
-                result_row[i-1] = rsmeta.getColumnName(i);
-            }
-            result.add(ArrayUtils.clone(result_row)); //Index 0 always holds a String-Array with column names
             while(rs.next()) { //while there are results left in the Set, fill the result_row Array with the column values
                 for (int i = 1; i <= columns; i++) {
                     switch(rsmeta.getColumnTypeName(i)){

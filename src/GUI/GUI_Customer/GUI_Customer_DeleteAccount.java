@@ -18,26 +18,15 @@ public class GUI_Customer_DeleteAccount extends JFrame{
     private JPanel PanelDelete;
 
     /**
-     * Die Methode ist für die Initialisierung der Neben-GUI zuständig und enthält alle Actions und
-     * auch Optionen, wie das GUI initialisiert werden soll.
+     * Dieser Konstruktor ist für die Actions und weitere Optionen des Neben-Gui´s DeleteAccount zuständig.
      */
     public GUI_Customer_DeleteAccount() {
 
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+        initialize();
 
-        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
-        this.setIconImage(titleBarImage.getImage());
-
-        add(PanelDelete);
-        pack();
-        setLocationRelativeTo(null);
-        setTitle("Konto auflösen");
-        setSize(450, 350);
-        setResizable(false);
-        toFront();
-
-        //Action für den Button "Konto auflösen"
+        /**
+         * Die Action des Buttons "Konto auflösen" ist für das Löschen eines ausgewählten Kontos zuständig.
+         */
         btnRemoveAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,7 +34,9 @@ public class GUI_Customer_DeleteAccount extends JFrame{
             }
         });
 
-        //Action für den Button "Abbrechen"
+        /**
+         * Die Action des Buttons "Abbrechen" ist für das Schließen der GUI_Customer_DeleteAccount zuständig.
+         */
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,6 +45,23 @@ public class GUI_Customer_DeleteAccount extends JFrame{
 
             }
         });
+    }
+
+    /**
+     * Die Methode ist für die Initialisierung der GUI_Customer_DeleteAccount und deren Optionen zuständig.
+     */
+    public void initialize(){
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+        ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
+        this.setIconImage(titleBarImage.getImage());
+        add(PanelDelete);
+        pack();
+        setLocationRelativeTo(null);
+        setTitle("Konto auflösen");
+        setSize(450, 350);
+        setResizable(false);
+        toFront();
     }
 
 }

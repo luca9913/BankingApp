@@ -30,7 +30,7 @@ public abstract class Konto{
         this.type = type;
     }
 
-    public Konto(ProdBase database, String type, double betrag, int id, Banker banker, Customer owner)
+    public Konto(String type, double betrag, Banker banker, Customer owner)
     {
         if(banker == null || owner == null)
         {

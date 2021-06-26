@@ -28,15 +28,15 @@ public class Login {
     public boolean databaseComparison(int userID, String password) {
 
         int pwHash = hashen(password);
-        Object[] authSet = authDatabase.getAuthSet(userID).get(1);
+        Object[] authSet = authDatabase.getAuthSet(userID).get(0);
 
         //hash mit Datenbank abgleichen
         if (pwHash == authDatabase.getHash(userID)) {
             System.out.println("Login erfolgreich!");
+            System.out.println((Integer)authSet[2]);
             if( (Integer)authSet[2] <= 0){
                 System.out.println("Customer-ID (" + userID + ") <= 0 - Banker Login - Banker GUI öffnen");
                 // TODO: User-Parameter an GUI_Banker muss noch übergeben werden
-
                 Banker banker = new Banker((Integer)authSet[3]);
                 GUI_Banker newBankerView = new GUI_Banker(banker);
                 newBankerView.setVisible(true);
@@ -46,7 +46,8 @@ public class Login {
 
                 // TODO: User-Parameter an GUI_Customer muss noch übergeben werden
 
-                //Customer customer = new Customer((Integer)authSet[2]); Customer-Konstruktor anpassen
+                //Bitte die GUI_Customer über die Klasse GUI_Customer_Connector mit der Methode openCustomer aufrufen.
+                //Bitte vermeiden das Objekt der GUI hier zu erstellen und aufzurufen.
                 GUI_Customer_Connector.openCustomer();
             }
             return true;
