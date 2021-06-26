@@ -41,7 +41,7 @@ public class HelpMethods {
      * @param txtField Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
      * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
      */
-    private boolean onlyDouble(String txtField){
+    public boolean onlyDouble(String txtField){
         try{
             Double proof = Double.parseDouble(txtField);
             return true;
@@ -56,7 +56,7 @@ public class HelpMethods {
      * @param txtField Dieser Parameter enthält den Inhalt des zu parsenden Textfeldes.
      * @return Es wird der geparste Double-Wert zurückgegeben.
      */
-    private double parseDouble(String txtField){
+    public double parseDouble(String txtField){
         return Double.parseDouble(txtField);
     }
 

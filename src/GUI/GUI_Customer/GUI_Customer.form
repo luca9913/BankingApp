@@ -67,7 +67,7 @@
                             <border type="none"/>
                             <children/>
                           </grid>
-                          <grid id="9be8a" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                          <grid id="9be8a" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints>
                               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -93,6 +93,21 @@
                                   <background color="-5308416"/>
                                   <foreground color="-1"/>
                                   <text value="Programm beenden"/>
+                                </properties>
+                              </component>
+                              <hspacer id="99a6">
+                                <constraints>
+                                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                              </hspacer>
+                              <component id="e66e5" class="javax.swing.JButton" binding="btnLogoff">
+                                <constraints>
+                                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-5308416"/>
+                                  <foreground color="-1"/>
+                                  <text value="Ausloggen"/>
                                 </properties>
                               </component>
                             </children>
@@ -877,7 +892,7 @@
                         <properties>
                           <background color="-16767685"/>
                           <foreground color="-1"/>
-                          <text value="Dispo- / Kreditrahmen ändern"/>
+                          <text value=" Dispo-  /  Kreditrahmen   ändern "/>
                         </properties>
                       </component>
                       <component id="5f988" class="javax.swing.JTextField" binding="txtDispo">
@@ -907,7 +922,7 @@
                         <properties>
                           <background color="-16767685"/>
                           <foreground color="-1"/>
-                          <text value="Überweisungsrahmen ändern"/>
+                          <text value=" Überweisungsrahmen    ändern "/>
                         </properties>
                       </component>
                       <component id="5159c" class="javax.swing.JTextField" binding="txtTransferLimit">
@@ -956,15 +971,6 @@
                   <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
               </vspacer>
-              <grid id="9d64a" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
               <grid id="e55dd" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
@@ -996,6 +1002,15 @@
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="926e8" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>

@@ -1,6 +1,7 @@
 package GUI.GUI_Customer;
 
 import GUI.GUI_Customer_Connector;
+import GUI.GUI_Login.GUI_Login;
 import GUI.HelpMethods;
 import Person.Customer;
 import javax.swing.*;
@@ -54,8 +55,11 @@ public class GUI_Customer extends JFrame {
     private JButton btnExit;
     private JTextField txtPhone;
     private JTextField txtMail;
+    private JButton btnLogoff;
     private static int changeUserData = 0;
     private Border defaultBorder;
+    private static int dkRahmen = 0;
+    private static int ueRahmen = 0;
 
     /**
      * Dieser Konstruktor ist für die Actions und weitere Optionen des CUstomer-Gui´s zuständig.
@@ -130,7 +134,27 @@ public class GUI_Customer extends JFrame {
         btnDispoNew.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                switch(dkRahmen){
+                    case 0:
+                        txtDispo.setEditable(true);
+                        dkRahmen = 1;
+                        btnDispoNew.setText("Dispo- / Kreditrahmen speichern");
+                        break;
+                    case 1:
+                        if(hm.onlyInt(txtDispo.getText()) == true &&
+                           hm.parseInt(txtDispo.getText()) >= 0 &&
+                           hm.parseInt(txtDispo.getText()) <= 2000){
 
+                            txtDispo.setEditable(false);
+                            txtDispo.setBorder(defaultBorder);
+                            dkRahmen = 0;
+                            btnDispoNew.setText("Dispo- / Kreditrahmen ändern");
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
+                        }
+                        break;
+                }
             }
         });
 
@@ -142,7 +166,27 @@ public class GUI_Customer extends JFrame {
         btnChangeTransferLimit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                switch(ueRahmen){
+                    case 0:
+                        txtTransferLimit.setEditable(true);
+                        ueRahmen = 1;
+                        btnChangeTransferLimit.setText("Dispo- / Kreditrahmen speichern");
+                        break;
+                    case 1:
+                        if(hm.onlyInt(txtTransferLimit.getText()) == true &&
+                                hm.parseInt(txtTransferLimit.getText()) >= 0 &&
+                                hm.parseInt(txtTransferLimit.getText()) <= 20000){
 
+                            txtTransferLimit.setEditable(false);
+                            txtTransferLimit.setBorder(defaultBorder);
+                            ueRahmen = 0;
+                            btnChangeTransferLimit.setText("Überweisungsrahmen ändern");
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
+                        }
+                        break;
+                }
             }
         });
 
@@ -153,6 +197,7 @@ public class GUI_Customer extends JFrame {
         btnRefresh3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
 
             }
         });
@@ -299,6 +344,16 @@ public class GUI_Customer extends JFrame {
                 GUI_Customer_Connector.closeCreate();
                 GUI_Customer_Connector.closeDelete();
                 GUI_Customer_Connector.closeCustomer();
+            }
+        });
+
+        /**
+         * Die Action des Buttons "Ausloggen" im Tab Startseite ist für das Ausloggen des Users zuständig.
+         */
+        btnLogoff.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Hier fehlt noch Code sheesh
             }
         });
     }
