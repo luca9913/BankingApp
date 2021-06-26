@@ -82,7 +82,7 @@ public class HelpMethods {
      * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
      */
     public boolean correctDateFormat(String date) {
-        SimpleDateFormat formatter=new SimpleDateFormat("DD.MM.YYYY");
+        SimpleDateFormat formatter=new SimpleDateFormat("dd.MM.yyyy");
         try {
             Date newDate = formatter.parse(date);
         } catch (Exception ex) {
@@ -98,7 +98,7 @@ public class HelpMethods {
      * @return Es wird der geparste Datums-Wert zurückgegeben.
      */
     public Date convertStringToDate(String date){
-        SimpleDateFormat formatter=new SimpleDateFormat("DD.MM.YYYY");
+        SimpleDateFormat formatter=new SimpleDateFormat("dd.MM.yyyy");
         Date newDate = null;
         try {
             newDate=formatter.parse(date);

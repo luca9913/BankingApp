@@ -1,6 +1,7 @@
 package GUI.GUI_Customer;
 
 import GUI.GUI_Customer_Connector;
+import GUI.HelpMethods;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -48,6 +49,7 @@ public class GUI_Customer extends JFrame {
     private JButton btnSave;
     private JList listAccounts3;
     private JScrollPane tblTransfers;
+    private JButton btnExit;
 
 
     /**
@@ -170,6 +172,15 @@ public class GUI_Customer extends JFrame {
             }
         });
 
+        /**
+         * Die Action des Buttons "Programm beenden" im Tab Startseite ist für das Beenden des programmes zuständig.
+         */
+        btnExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GUI_Customer_Connector.closeCustomer();
+            }
+        });
     }
 
     /**
