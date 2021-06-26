@@ -36,7 +36,7 @@ public class HelpMethods {
     }
 
     /**
-     * Diese Methode prüft Textfelder auf reines Doublevorkommen .
+     * Diese Methode prüft Textfelder auf reines Doublevorkommen.
      * @param txtField Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
      * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
      */
@@ -76,8 +76,13 @@ public class HelpMethods {
         return false;
     }
 
-    public boolean correctDateFormat(String pattern, String date) {
-        SimpleDateFormat formatter=new SimpleDateFormat(pattern);
+    /**
+     * Diese Methode prüft Textfelder auf das richtige Format bei der Eingabe eines Datums.
+     * @param date Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
+     * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
+     */
+    public boolean correctDateFormat(String date) {
+        SimpleDateFormat formatter=new SimpleDateFormat("DD.MM.YYYY");
         try {
             Date newDate = formatter.parse(date);
         } catch (Exception ex) {
@@ -87,8 +92,13 @@ public class HelpMethods {
         return true;
     }
 
-    public Date convertStringToDate(String pattern, String date){
-        SimpleDateFormat formatter=new SimpleDateFormat(pattern);
+    /**
+     * Diese Methode wird zum parsen von Textfeldern zu Date benötigt.
+     * @param date Dieser Parameter enthält den Inhalt des zu parsenden Textfeldes.
+     * @return Es wird der geparste Datums-Wert zurückgegeben.
+     */
+    public Date convertStringToDate(String date){
+        SimpleDateFormat formatter=new SimpleDateFormat("DD.MM.YYYY");
         Date newDate = null;
         try {
             newDate=formatter.parse(date);
