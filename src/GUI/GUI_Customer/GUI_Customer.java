@@ -55,6 +55,7 @@ public class GUI_Customer extends JFrame {
     private JTextField txtPhone;
     private JTextField txtMail;
     private static int changeUserData = 0;
+    private Border defaultBorder;
 
     /**
      * Dieser Konstruktor ist für die Actions und weitere Optionen des CUstomer-Gui´s zuständig.
@@ -63,6 +64,7 @@ public class GUI_Customer extends JFrame {
 
         initialize();
         HelpMethods hm = new HelpMethods();
+        defaultBorder = txtName.getBorder();
 
         /**
          * Die Action des Buttons "Aktualisieren" im Tab Finanzübersicht ist für das Aktualisieren der Tabelle und der Konten zuständig.
@@ -162,29 +164,50 @@ public class GUI_Customer extends JFrame {
         btnCustomerDataChanges.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(changeUserData == 0){
-                    txtName.setEditable(true);
-                    txtPrename.setEditable(true);
-                    txtZip.setEditable(true);
-                    txtCity.setEditable(true);
-                    txtAddress.setEditable(true);
-                    txtPhone.setEditable(true);
-                    txtMail.setEditable(true);
-                    changeUserData = 1;
-                    btnCustomerDataChanges.setText("Abbrechen");
-                }
-                if(changeUserData == 1){
-                    txtName.setEditable(false);
-                    txtPrename.setEditable(false);
-                    txtZip.setEditable(false);
-                    txtCity.setEditable(false);
-                    txtAddress.setEditable(false);
-                    txtPhone.setEditable(false);
-                    txtMail.setEditable(false);
-                    changeUserData = 0;
-                    btnCustomerDataChanges.setText("Persönliche Daten ändern");
-                }
+                Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
+                Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
 
+                switch(changeUserData){
+                    case 0:
+                        txtName.setEditable(true);
+                        txtPrename.setEditable(true);
+                        txtZip.setEditable(true);
+                        txtCity.setEditable(true);
+                        txtAddress.setEditable(true);
+                        txtPhone.setEditable(true);
+                        txtMail.setEditable(true);
+
+                        txtName.setBorder(correctBorder);
+                        txtPrename.setBorder(correctBorder);
+                        txtZip.setBorder(correctBorder);
+                        txtCity.setBorder(correctBorder);
+                        txtAddress.setBorder(correctBorder);
+                        txtPhone.setBorder(correctBorder);
+                        txtMail.setBorder(correctBorder);
+
+                        changeUserData = 1;
+                        btnCustomerDataChanges.setText("Abbrechen");
+                        break;
+                    case 1:
+                        txtName.setEditable(false);
+                        txtPrename.setEditable(false);
+                        txtZip.setEditable(false);
+                        txtCity.setEditable(false);
+                        txtAddress.setEditable(false);
+                        txtPhone.setEditable(false);
+                        txtMail.setEditable(false);
+
+                        txtName.setBorder(defaultBorder);
+                        txtPrename.setBorder(defaultBorder);
+                        txtZip.setBorder(defaultBorder);
+                        txtCity.setBorder(defaultBorder);
+                        txtAddress.setBorder(defaultBorder);
+                        txtPhone.setBorder(defaultBorder);
+                        txtMail.setBorder(defaultBorder);
+                        changeUserData = 0;
+                        btnCustomerDataChanges.setText("Persönliche Daten ändern");
+                        break;
+                }
             }
         });
 
@@ -207,13 +230,13 @@ public class GUI_Customer extends JFrame {
                    hm.onlyString(txtMail.getText(), false, 5) == true){
 
                     //Customer.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
-                    txtName.setBorder(null);
-                    txtPrename.setBorder(null);
-                    txtZip.setBorder(null);
-                    txtCity.setBorder(null);
-                    txtAddress.setBorder(null);
-                    txtPhone.setBorder(null);
-                    txtMail.setBorder(null);
+                    txtName.setBorder(defaultBorder);
+                    txtPrename.setBorder(defaultBorder);
+                    txtZip.setBorder(defaultBorder);
+                    txtCity.setBorder(defaultBorder);
+                    txtAddress.setBorder(defaultBorder);
+                    txtPhone.setBorder(defaultBorder);
+                    txtMail.setBorder(defaultBorder);
 
                     txtName.setEditable(false);
                     txtPrename.setEditable(false);
