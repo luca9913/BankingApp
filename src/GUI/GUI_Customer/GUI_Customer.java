@@ -4,6 +4,8 @@ import GUI.GUI_Customer_Connector;
 import GUI.HelpMethods;
 import Person.Customer;
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -193,6 +195,9 @@ public class GUI_Customer extends JFrame {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
+                Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
+
                 if(hm.onlyString(txtName.getText(), false, 2) == true &&
                    hm.onlyString(txtPrename.getText(), false, 2) == true &&
                    hm.onlyInt(txtZip.getText()) == true && txtZip.getText().length() >= 5 &&
@@ -202,6 +207,14 @@ public class GUI_Customer extends JFrame {
                    hm.onlyString(txtMail.getText(), false, 5) == true){
 
                     //Customer.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
+                    txtName.setBorder(null);
+                    txtPrename.setBorder(null);
+                    txtZip.setBorder(null);
+                    txtCity.setBorder(null);
+                    txtAddress.setBorder(null);
+                    txtPhone.setBorder(null);
+                    txtMail.setBorder(null);
+
                     txtName.setEditable(false);
                     txtPrename.setEditable(false);
                     txtZip.setEditable(false);
@@ -218,13 +231,35 @@ public class GUI_Customer extends JFrame {
                         hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5 ||
                         hm.onlyString(txtMail.getText(), false, 5) == false){
 
-                    if(hm.onlyString(txtName.getText(), false, 2) == false){txtName.setText("");}
-                    if(hm.onlyString(txtPrename.getText(), false, 2) == false){txtPrename.setText("");}
-                    if(hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 5){txtZip.setText("");}
-                    if(hm.onlyString(txtCity.getText(), true, 5) == false){txtCity.setText("");}
-                    if(hm.onlyString(txtAddress.getText(), true, 5) == false){txtAddress.setText("");}
-                    if(hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5){txtPhone.setText("");}
-                    if(hm.onlyString(txtMail.getText(), false, 5) == false){txtMail.setText("");}
+                    txtName.setBorder(correctBorder);
+                    txtPrename.setBorder(correctBorder);
+                    txtZip.setBorder(correctBorder);
+                    txtCity.setBorder(correctBorder);
+                    txtAddress.setBorder(correctBorder);
+                    txtPhone.setBorder(correctBorder);
+                    txtMail.setBorder(correctBorder);
+
+                    if(hm.onlyString(txtName.getText(), false, 2) == false){
+                        txtName.setBorder(failedBorder);
+                    }
+                    if(hm.onlyString(txtPrename.getText(), false, 2) == false){
+                        txtPrename.setBorder(failedBorder);
+                    }
+                    if(hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 5){
+                        txtZip.setBorder(failedBorder);
+                    }
+                    if(hm.onlyString(txtCity.getText(), true, 5) == false){
+                        txtCity.setBorder(failedBorder);
+                    }
+                    if(hm.onlyString(txtAddress.getText(), true, 5) == false){
+                        txtAddress.setBorder(failedBorder);
+                    }
+                    if(hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5){
+                        txtPhone.setBorder(failedBorder);
+                    }
+                    if(hm.onlyString(txtMail.getText(), false, 5) == false){
+                        txtMail.setBorder(failedBorder);
+                    }
                     JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
 
                 }
