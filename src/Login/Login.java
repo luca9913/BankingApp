@@ -28,7 +28,7 @@ public class Login {
     public boolean databaseComparison(int userID, String password) {
 
         int pwHash = hashen(password);
-        Object[] authSet = authDatabase.getAuthSet(userID).get(1);
+        Object[] authSet = authDatabase.getAuthSet(userID).get(0);
 
         //hash mit Datenbank abgleichen
         if (pwHash == authDatabase.getHash(userID)) {
