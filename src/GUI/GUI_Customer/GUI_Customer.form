@@ -1021,6 +1021,7 @@
                         </constraints>
                         <properties>
                           <editable value="false"/>
+                          <enabled value="true"/>
                         </properties>
                       </component>
                       <component id="4167f" class="javax.swing.JLabel">

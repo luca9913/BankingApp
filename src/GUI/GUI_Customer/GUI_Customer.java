@@ -2,7 +2,7 @@ package GUI.GUI_Customer;
 
 import GUI.GUI_Customer_Connector;
 import GUI.HelpMethods;
-
+import Person.Customer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,6 +58,7 @@ public class GUI_Customer extends JFrame {
     public GUI_Customer() {
 
         initialize();
+        HelpMethods hm = new HelpMethods();
 
         /**
          * Die Action des Buttons "Aktualisieren" im Tab Finanzübersicht ist für das Aktualisieren der Tabelle und der Konten zuständig.
@@ -157,7 +158,11 @@ public class GUI_Customer extends JFrame {
         btnCustomerDataChanges.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                txtName.setEditable(true);
+                txtPrename.setEditable(true);
+                txtZip.setEditable(true);
+                txtCity.setEditable(true);
+                txtAddress.setEditable(true);
             }
         });
 
@@ -168,6 +173,26 @@ public class GUI_Customer extends JFrame {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(hm.onlyString(txtName.getText(), false, 2) == true &&
+                   hm.onlyString(txtPrename.getText(), false, 2) == true &&
+                   hm.onlyInt(txtZip.getText()) == true &&
+                   hm.onlyString(txtCity.getText(), true, 5) == true &&
+                   hm.onlyString(txtAddress.getText(), true, 5) == true){
+                    //Customer.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText());
+                    txtName.setEditable(false);
+                    txtPrename.setEditable(false);
+                    txtZip.setEditable(false);
+                    txtCity.setEditable(false);
+                    txtAddress.setEditable(false);
+                }
+                else if(hm.onlyString(txtName.getText(), false, 2) == false ||
+                        hm.onlyString(txtPrename.getText(), false, 2) == false ||
+                        hm.onlyInt(txtZip.getText()) == false ||
+                        hm.onlyString(txtCity.getText(), true, 5) == false ||
+                        hm.onlyString(txtAddress.getText(), true, 5) == false){
+                        JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
+
+                }
 
             }
         });
