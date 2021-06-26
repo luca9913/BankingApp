@@ -17,8 +17,8 @@ public class Main {
     public static void main(String[] args) {
 
         Login log = new Login();
-        GUI_Login wneView = new GUI_Login(log);
-        wneView.setVisible(true);
+        GUI_Login newView = new GUI_Login(log);
+        newView.setVisible(true);
 
     }
 }
