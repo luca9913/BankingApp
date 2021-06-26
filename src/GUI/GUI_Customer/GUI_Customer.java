@@ -4,6 +4,8 @@ import GUI.GUI_Customer_Connector;
 import GUI.HelpMethods;
 import Person.Customer;
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -50,7 +52,9 @@ public class GUI_Customer extends JFrame {
     private JList listAccounts3;
     private JScrollPane tblTransfers;
     private JButton btnExit;
-
+    private JTextField txtPhone;
+    private JTextField txtMail;
+    private static int changeUserData = 0;
 
     /**
      * Dieser Konstruktor ist für die Actions und weitere Optionen des CUstomer-Gui´s zuständig.
@@ -158,11 +162,29 @@ public class GUI_Customer extends JFrame {
         btnCustomerDataChanges.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                txtName.setEditable(true);
-                txtPrename.setEditable(true);
-                txtZip.setEditable(true);
-                txtCity.setEditable(true);
-                txtAddress.setEditable(true);
+                if(changeUserData == 0){
+                    txtName.setEditable(true);
+                    txtPrename.setEditable(true);
+                    txtZip.setEditable(true);
+                    txtCity.setEditable(true);
+                    txtAddress.setEditable(true);
+                    txtPhone.setEditable(true);
+                    txtMail.setEditable(true);
+                    changeUserData = 1;
+                    btnCustomerDataChanges.setText("Abbrechen");
+                }
+                if(changeUserData == 1){
+                    txtName.setEditable(false);
+                    txtPrename.setEditable(false);
+                    txtZip.setEditable(false);
+                    txtCity.setEditable(false);
+                    txtAddress.setEditable(false);
+                    txtPhone.setEditable(false);
+                    txtMail.setEditable(false);
+                    changeUserData = 0;
+                    btnCustomerDataChanges.setText("Persönliche Daten ändern");
+                }
+
             }
         });
 
@@ -173,24 +195,72 @@ public class GUI_Customer extends JFrame {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
+                Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
+
                 if(hm.onlyString(txtName.getText(), false, 2) == true &&
                    hm.onlyString(txtPrename.getText(), false, 2) == true &&
-                   hm.onlyInt(txtZip.getText()) == true &&
+                   hm.onlyInt(txtZip.getText()) == true && txtZip.getText().length() >= 5 &&
                    hm.onlyString(txtCity.getText(), true, 5) == true &&
-                   hm.onlyString(txtAddress.getText(), true, 5) == true){
-                    //Customer.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText());
+                   hm.onlyString(txtAddress.getText(), true, 5) == true &&
+                   hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
+                   hm.onlyString(txtMail.getText(), false, 5) == true){
+
+                    //Customer.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
+                    txtName.setBorder(null);
+                    txtPrename.setBorder(null);
+                    txtZip.setBorder(null);
+                    txtCity.setBorder(null);
+                    txtAddress.setBorder(null);
+                    txtPhone.setBorder(null);
+                    txtMail.setBorder(null);
+
                     txtName.setEditable(false);
                     txtPrename.setEditable(false);
                     txtZip.setEditable(false);
                     txtCity.setEditable(false);
                     txtAddress.setEditable(false);
+                    txtPhone.setEditable(false);
+                    txtMail.setEditable(false);
                 }
                 else if(hm.onlyString(txtName.getText(), false, 2) == false ||
                         hm.onlyString(txtPrename.getText(), false, 2) == false ||
-                        hm.onlyInt(txtZip.getText()) == false ||
+                        hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 5 ||
                         hm.onlyString(txtCity.getText(), true, 5) == false ||
-                        hm.onlyString(txtAddress.getText(), true, 5) == false){
-                        JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
+                        hm.onlyString(txtAddress.getText(), true, 5) == false ||
+                        hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5 ||
+                        hm.onlyString(txtMail.getText(), false, 5) == false){
+
+                    txtName.setBorder(correctBorder);
+                    txtPrename.setBorder(correctBorder);
+                    txtZip.setBorder(correctBorder);
+                    txtCity.setBorder(correctBorder);
+                    txtAddress.setBorder(correctBorder);
+                    txtPhone.setBorder(correctBorder);
+                    txtMail.setBorder(correctBorder);
+
+                    if(hm.onlyString(txtName.getText(), false, 2) == false){
+                        txtName.setBorder(failedBorder);
+                    }
+                    if(hm.onlyString(txtPrename.getText(), false, 2) == false){
+                        txtPrename.setBorder(failedBorder);
+                    }
+                    if(hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 5){
+                        txtZip.setBorder(failedBorder);
+                    }
+                    if(hm.onlyString(txtCity.getText(), true, 5) == false){
+                        txtCity.setBorder(failedBorder);
+                    }
+                    if(hm.onlyString(txtAddress.getText(), true, 5) == false){
+                        txtAddress.setBorder(failedBorder);
+                    }
+                    if(hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5){
+                        txtPhone.setBorder(failedBorder);
+                    }
+                    if(hm.onlyString(txtMail.getText(), false, 5) == false){
+                        txtMail.setBorder(failedBorder);
+                    }
+                    JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
 
                 }
 
@@ -203,6 +273,8 @@ public class GUI_Customer extends JFrame {
         btnExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                GUI_Customer_Connector.closeCreate();
+                GUI_Customer_Connector.closeDelete();
                 GUI_Customer_Connector.closeCustomer();
             }
         });
