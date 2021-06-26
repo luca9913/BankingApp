@@ -50,6 +50,7 @@ public class GUI_Customer extends JFrame {
     private JList listAccounts3;
     private JScrollPane tblTransfers;
     private JButton btnExit;
+    static boolean changeUserData = false;
 
 
     /**
@@ -158,11 +159,25 @@ public class GUI_Customer extends JFrame {
         btnCustomerDataChanges.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                txtName.setEditable(true);
-                txtPrename.setEditable(true);
-                txtZip.setEditable(true);
-                txtCity.setEditable(true);
-                txtAddress.setEditable(true);
+                if(changeUserData = false){
+                    txtName.setEditable(true);
+                    txtPrename.setEditable(true);
+                    txtZip.setEditable(true);
+                    txtCity.setEditable(true);
+                    txtAddress.setEditable(true);
+                    changeUserDate = true;
+                    btnCustomerDataChanges.setText("Abbrechen");
+                }
+                if(changeUserData = true){
+                    txtName.setEditable(false);
+                    txtPrename.setEditable(false);
+                    txtZip.setEditable(false);
+                    txtCity.setEditable(false);
+                    txtAddress.setEditable(false);
+                    changeUserDate = true;
+                    btnCustomerDataChanges.setText("Persönliche Daten ändern");
+                }
+
             }
         });
 
@@ -190,7 +205,13 @@ public class GUI_Customer extends JFrame {
                         hm.onlyInt(txtZip.getText()) == false ||
                         hm.onlyString(txtCity.getText(), true, 5) == false ||
                         hm.onlyString(txtAddress.getText(), true, 5) == false){
-                        JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
+
+                    if(hm.onlyString(txtName.getText(), false, 2) == false){txtName.setText("");}
+                    if(hm.onlyString(txtPrename.getText(), false, 2) == false){txtPrename.setText("");}
+                    if(hm.onlyInt(txtZip.getText()) == false){txtZip.setText("");}
+                    if(hm.onlyString(txtCity.getText(), true, 5) == false){txtCity.setText("");}
+                    if(hm.onlyString(txtAddress.getText(), true, 5) == false){txtAddress.setText("");}
+                    JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
 
                 }
 
