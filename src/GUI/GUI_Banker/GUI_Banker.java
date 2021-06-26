@@ -135,6 +135,12 @@ public class GUI_Banker extends JFrame{
             }
 
         });
+        cbbCurrentCustomer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Dropdown");
+            }
+        });
     }
 
 
