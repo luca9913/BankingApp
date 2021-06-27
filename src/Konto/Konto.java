@@ -93,8 +93,8 @@ public abstract class Konto{
         data.updateBalance(id, balance);
     }
 
-    //Überweisen auf ein anderes Konto TODO: usage und date muss noch in die insertTransfer() aufgenommen werden
-    /*public void transfer(int recieverid, double betrag, String usage, String date){
+    //Überweisen auf ein anderes Konto
+    public void transfer(int recieverid, double betrag, String usage, String date){
         if(transferlimit < betrag)
         {
             throw new IllegalArgumentException("Transfer limit ueberschritten");
@@ -103,13 +103,15 @@ public abstract class Konto{
             //Transfer in die Datenbank schreiben
             data.insertTransfer(betrag, id, recieverid, usage, date); //fehler weil insertTransfer noch nicht fertig
         }
-    }*/
+    }
 
 
 
     /*public void aendern(String key, double value){
         database.createRequest(key,value, owner.getId(), banker.getId(), owner.getUid());
     }*/
+
+
 
     public void aufloesen(Konto zielkonto){
         if(balance < 0)

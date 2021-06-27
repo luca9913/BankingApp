@@ -9,6 +9,8 @@ import java.util.Date;
 
 public class Customer extends Person{
 
+    private int mainBanker;
+
     //Konstruktor
     public Customer(int id){
         super(id);
@@ -20,6 +22,7 @@ public class Customer extends Person{
             this.address = pdata[3].toString();
             this.zip = Integer.parseInt(pdata[4].toString());
             this.city = pdata[5].toString();
+            this.mainBanker = Integer.parseInt(pdata[6].toString());
         }else if(pdata.length > 6){
             System.err.println("Zu viele Daten angegeben.");
         }else if(pdata.length < 6){
@@ -38,6 +41,7 @@ public class Customer extends Person{
             this.city = pdata[5].toString();
             this.email = pdata[6];
             this.tel = pdata[7];
+            this.mainBanker = Integer.parseInt(pdata[6].toString());
         }else if(pdata.length > 6){
             System.err.println("Zu viele Daten angegeben.");
         }else if(pdata.length < 6){
@@ -45,9 +49,10 @@ public class Customer extends Person{
         }
     }
 
+
     Konto konto;
     ProdBase data;
-    ArrayList<Object[]> allAccounts;
+    ArrayList<Object[]> allAccounts, allRequests;
     public ArrayList<Konto> allaccounts2;
 
 
@@ -58,7 +63,7 @@ public class Customer extends Person{
     }
 
     //initalisiert die Kontoobjekte
-    public void initialiseAccounts(){
+    /*public void initialiseAccounts(){
 
         for(Object[] arr : getAllAccounts()){
             int accountid = (Integer) arr[0];
@@ -88,24 +93,66 @@ public class Customer extends Person{
                     allaccounts2.add(tmpCredit);
                     break;
             }
-
             allaccounts2.add(tmp);
         }
-    }
+    }*/
 
 
 
     //Überweisen von ausgewähltem Konto auf ein anderes
-    /*public void transfer(int selected, int recieverid, double betrag, String usage, String date){
+    public void transfer(int selected, int recieverid, double betrag, String usage, String date){
         int accountid = (Integer) allAccounts.get(selected)[0];
-        konto.transfer();
-    }*/
-
-    //Benutzerdaten ändern
-    public void ChangeUserData(){
-
+        konto.transfer(recieverid, betrag, usage, date);
+        //irgendwie muss hier noch das gewählte Kontoobjekt gewählt werden
     }
 
+    //TODO: value müsste ein String sein
+    public void changeUserData(String name, String prename, int zip, String city, String address, String email, String telephone){
+
+        if(name != this.name){
+            data.createRequest("Name", name, 0, id, mainBanker);
+        }
+        if(prename != this.preName){
+            data.createRequest("Prename", prename, 0, id, mainBanker);
+        }
+        if(zip != this.zip){
+            data.createRequest("Zip", Integer.toString(zip) , 0, id, mainBanker);
+        }
+        if(city != this.city){
+            data.createRequest("City", city, 0, id, mainBanker);
+        }
+        if(address != this.address){
+            data.createRequest("Address", address, 0, id, mainBanker);
+        }
+        if(email != this.email){
+            data.createRequest("Email", email, 0, id, mainBanker);
+        }
+        if(telephone != this.tel){
+            data.createRequest("Telephone", telephone, 0, id, mainBanker);
+        }
+    }
+
+    public void refreshUserData(){
+
+        allRequests = data.getAllRequests(id);
+
+        Customer kunde = new Customer(id);
+        for( Object[] reqest : allRequests){
+            if((Integer)reqest[1] == 1){ //1 wird als freigegeben interpretiert
+                String value = (String)reqest[6];
+                switch((String)reqest[5]){
+                    case "Name": this.name = value;
+                    case "Prename": this.preName = value;
+                    case "Zip": this.zip = Integer.parseInt(value);
+                    case "City": this.city = value;
+                    case "Address": this.address = value;
+                    case "Email": this.email = value;
+                    case "Telephone": this.tel = value;
+                }
+            }
+        }
+        data.updatePerson(kunde);
+    }
 
 
 
@@ -115,11 +162,6 @@ public class Customer extends Person{
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
     private void syncAccounts(){
-
-    }
-
-    //Funktion, um zu überweisen
-    private void transfer(int fromAcc, int toAcc, double sum){
 
     }
 

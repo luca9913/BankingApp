@@ -210,7 +210,7 @@ public class ProdBase extends Database {
      * @param banker ID des betreuenden Bankers
      * @return
      */
-    public boolean createRequest(String key, double value, int accid, int customer, int banker){
+    public boolean createRequest(String key, String value, int accid, int customer, int banker){
         try{
             return returnFunction(state.executeUpdate("INSERT INTO request(customer_id, account_id, banker_id, key, value_old) " +
                     "VALUES(" + customer + "," + accid + "," + "," + banker + key + "," + value + ");"));
