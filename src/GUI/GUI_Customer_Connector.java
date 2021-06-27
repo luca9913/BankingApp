@@ -12,8 +12,8 @@ import javax.swing.*;
  */
 public class GUI_Customer_Connector extends JFrame {
 
+    /**Statische Variable für das Kundenobjekt.*/
     public static Person kunde;
-
     /**Statische Objekterstellung des Hauptfensters für den Customer.*/
     static GUI_Customer guiCustomer = new GUI_Customer();
     /**Statische Objekterstellung des Nebenfensters CreateAccount für den Customer.*/
