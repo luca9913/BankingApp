@@ -393,11 +393,9 @@ public class GUI_Customer extends JFrame {
         setSize(550, 385);
         setResizable(false);
 
-
-        /*
             Vector temp = new Vector(GUI_Customer_Connector.kunde.getAllAccounts());
             listAccounts1.setListData(temp);
-            */
+
 
     }
 

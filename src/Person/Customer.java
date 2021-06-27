@@ -15,7 +15,7 @@ public class Customer extends Person{
     public Customer(int id){
         super(id);
         Object[] pdata = data.getData(id, "customer").get(0);
-        if(pdata.length == 6) {
+        if(pdata.length == 7) {
             this.preName = pdata[0].toString();
             this.name = pdata[1].toString();
             this.birthDate = pdata[2].toString();
@@ -23,9 +23,9 @@ public class Customer extends Person{
             this.zip = Integer.parseInt(pdata[4].toString());
             this.city = pdata[5].toString();
             this.mainBanker = Integer.parseInt(pdata[6].toString());
-        }else if(pdata.length > 6){
+        }else if(pdata.length > 7){
             System.err.println("Zu viele Daten angegeben.");
-        }else if(pdata.length < 6){
+        }else if(pdata.length < 7){
             System.err.println("Zu wenige Daten angegeben.");
         }
     }
