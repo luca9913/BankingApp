@@ -58,6 +58,7 @@ public class GUI_Customer extends JFrame {
     private JTextField txtMail;
     private JButton btnLogoff;
     private JButton aktualisierenButton;
+    private JLabel lblHello;
     private static int changeUserData = 0;
     private Border defaultBorder;
     private static int dkRahmen = 0;
@@ -90,9 +91,9 @@ public class GUI_Customer extends JFrame {
         btnTransfer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int maxUeberweisung = (Integer)GUI_Customer_Connector.kunde.data.executeCustomQuery("SELECT transfer_limit FROM account WHERE account_id= "+ GUI_Customer_Connector.kunde.getId() + ";").get(0)[0];
+                //int maxUeberweisung = (int)kunde.data.executeCustomQuery("SELECT transfer_limit FROM account WHERE account_id= "+ GUI_Customer_Connector.kunde.getId() + ";").get(0)[0];
                 double restbetrag = 0;//listAccounts2.getSelectedValue();
-                if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > maxUeberweisung){
+                if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > 0 /*maxUeberweisung*/){
                     if(hm.parseDouble(txtAmountTo.getText()) > restbetrag ){
                         JOptionPane.showMessageDialog(null,"Ihr ausgewähltes Konto ist nicht ausreichend gedeckt.\n" +
                                 "bitte wählen Sie ein anderes Konto aus oder passen\n" +
@@ -391,10 +392,11 @@ public class GUI_Customer extends JFrame {
         setTitle("Turing Banking App");
         setSize(550, 385);
         setResizable(false);
+        lblHello.setText("Herzlich Willkommen " + GUI_Customer_Connector.kunde.preName + " in der Banking-App der");
 
-           /* Vector temp = new Vector(GUI_Customer_Connector.kunde.getAllAccounts());
-            listAccounts1.setListData(temp);
-            */
+        Vector temp = new Vector(GUI_Customer_Connector.kunde.getAllAccounts());
+        listAccounts1.setListData(temp);
+
 
     }
 
