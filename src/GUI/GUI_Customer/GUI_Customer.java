@@ -69,7 +69,6 @@ public class GUI_Customer extends JFrame {
      * Dieser Konstruktor ist für die Actions und weitere Optionen des CUstomer-Gui´s zuständig.
      */
     public GUI_Customer() {
-
         initialize();
         HelpMethods hm = new HelpMethods();
         defaultBorder = txtName.getBorder();
