@@ -60,6 +60,8 @@ public class GUI_Customer extends JFrame {
     private Border defaultBorder;
     private static int dkRahmen = 0;
     private static int ueRahmen = 0;
+    Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
+    Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
 
     /**
      * Dieser Konstruktor ist für die Actions und weitere Optionen des CUstomer-Gui´s zuständig.
@@ -87,6 +89,23 @@ public class GUI_Customer extends JFrame {
         btnTransfer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //GUI_Customer_Connector.kunde.
+                double restbetrag = 0;//listAccounts2.getSelectedValue();
+                int maxUeberweisung = hm.parseInt(txtTransferLimit.getText());
+                if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > maxUeberweisung){
+                    if(hm.parseDouble(txtAmountTo.getText()) > restbetrag ){
+                        JOptionPane.showMessageDialog(null,"Ihr ausgewähltes Konto ist nicht ausreichend gedeckt.\n" +
+                                "bitte wählen Sie ein anderes Konto aus oder passen\n" +
+                                "Sie den Überweisungsbetrag an.","Konto nicht ausreichend gedeckt", JOptionPane.CANCEL_OPTION);
+                        txtAmountTo.setText("");
+                        txtAmountTo.setBorder(failedBorder);
+                    }
+                    else{
+                        //GUI_Customer_Connector.kunde.transfer(listAccounts2.getSelectedIndex(), hm.parseInt(txtIbanTo.getText()), hm.parseDouble(txtAmountTo.getText()), txtUsageTo.getText());
+                        JOptionPane.showMessageDialog(null,"Ihre überweisung wurde erfolgreich getätigt.","Überweisung erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                        txtAmountTo.setBorder(defaultBorder);
+                    }
+                }
 
             }
         });
@@ -108,9 +127,7 @@ public class GUI_Customer extends JFrame {
         btnDeleteAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 GUI_Customer_Connector.openDelete();
-
             }
         });
 
@@ -120,9 +137,7 @@ public class GUI_Customer extends JFrame {
         btnNewAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 GUI_Customer_Connector.openCreate();
-
             }
         });
 
@@ -209,9 +224,6 @@ public class GUI_Customer extends JFrame {
         btnCustomerDataChanges.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
-                Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
-
                 switch(changeUserData){
                     case 0:
                         txtName.setEditable(true);
@@ -263,9 +275,6 @@ public class GUI_Customer extends JFrame {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
-                Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
-
                 if(hm.onlyString(txtName.getText(), false, 2) == true &&
                    hm.onlyString(txtPrename.getText(), false, 2) == true &&
                    hm.onlyInt(txtZip.getText()) == true && txtZip.getText().length() >= 5 &&
@@ -274,7 +283,7 @@ public class GUI_Customer extends JFrame {
                    hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
                    hm.onlyString(txtMail.getText(), false, 5) == true){
 
-                    //GUI_Customer_Connector.kunde.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
+                    //GUI_Customer_Connector.kunde.changeMyData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
                     txtName.setBorder(defaultBorder);
                     txtPrename.setBorder(defaultBorder);
                     txtZip.setBorder(defaultBorder);

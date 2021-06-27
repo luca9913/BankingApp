@@ -892,7 +892,7 @@
                         <properties>
                           <background color="-16767685"/>
                           <foreground color="-1"/>
-                          <text value=" Dispo-  /  Kreditrahmen   ändern "/>
+                          <text value="    Dispo- / Kreditrahmen ändern    "/>
                         </properties>
                       </component>
                       <component id="5f988" class="javax.swing.JTextField" binding="txtDispo">
@@ -922,7 +922,7 @@
                         <properties>
                           <background color="-16767685"/>
                           <foreground color="-1"/>
-                          <text value=" Überweisungsrahmen    ändern "/>
+                          <text value="   Überweisungsrahmen ändern   "/>
                         </properties>
                       </component>
                       <component id="5159c" class="javax.swing.JTextField" binding="txtTransferLimit">
