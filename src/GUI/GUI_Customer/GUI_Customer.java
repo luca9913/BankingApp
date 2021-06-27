@@ -3,6 +3,7 @@ package GUI.GUI_Customer;
 import GUI.GUI_Customer_Connector;
 import GUI.GUI_Login.GUI_Login;
 import GUI.HelpMethods;
+import Login.Login;
 import Person.Customer;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -363,7 +364,9 @@ public class GUI_Customer extends JFrame {
         btnLogoff.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Hier fehlt noch Code sheesh
+                GUI_Login login = new GUI_Login(new Login());
+                login.setVisible(true);
+                GUI_Customer_Connector.guiCustomer.dispose();
             }
         });
 
@@ -395,6 +398,7 @@ public class GUI_Customer extends JFrame {
         lblHello.setText("Herzlich Willkommen " + GUI_Customer_Connector.kunde.preName + " in der Banking-App der");
 
         Vector temp = new Vector(GUI_Customer_Connector.kunde.getAllAccounts());
+        temp.toString();
         listAccounts1.setListData(temp);
 
 

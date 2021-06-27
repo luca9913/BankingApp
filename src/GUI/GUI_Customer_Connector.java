@@ -3,6 +3,8 @@ package GUI;
 import GUI.GUI_Customer.GUI_Customer;
 import GUI.GUI_Customer.GUI_Customer_CreateAccount;
 import GUI.GUI_Customer.GUI_Customer_DeleteAccount;
+import GUI.GUI_Login.GUI_Login;
+import Login.Login;
 import Person.*;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ public class GUI_Customer_Connector extends JFrame {
     /**Statische Variable für das Kundenobjekt.*/
     public static Customer kunde;
     /**Statische Objekterstellung des Hauptfensters für den Customer.*/
-    static GUI_Customer guiCustomer;
+    public static GUI_Customer guiCustomer;
 
     /**Statische Objekterstellung des Nebenfensters CreateAccount für den Customer.*/
     static GUI_Customer_CreateAccount guiCustomerCreateAccount = new GUI_Customer_CreateAccount();
