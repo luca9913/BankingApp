@@ -90,9 +90,8 @@ public class GUI_Customer extends JFrame {
         btnTransfer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //GUI_Customer_Connector.kunde.
+                int maxUeberweisung = (Integer)GUI_Customer_Connector.kunde.data.executeCustomQuery("SELECT transfer_limit FROM account WHERE account_id= "+ GUI_Customer_Connector.kunde.getId() + ";").get(0)[0];
                 double restbetrag = 0;//listAccounts2.getSelectedValue();
-                int maxUeberweisung = hm.parseInt(txtTransferLimit.getText());
                 if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > maxUeberweisung){
                     if(hm.parseDouble(txtAmountTo.getText()) > restbetrag ){
                         JOptionPane.showMessageDialog(null,"Ihr ausgewähltes Konto ist nicht ausreichend gedeckt.\n" +
@@ -102,7 +101,7 @@ public class GUI_Customer extends JFrame {
                         txtAmountTo.setBorder(failedBorder);
                     }
                     else{
-                        //GUI_Customer_Connector.kunde.transfer(listAccounts2.getSelectedIndex(), hm.parseInt(txtIbanTo.getText()), hm.parseDouble(txtAmountTo.getText()), txtUsageTo.getText());
+                        //GUI_Customer_Connector.kunde.refreshUserData(listAccounts2.getSelectedIndex(), hm.parseInt(txtIbanTo.getText()), hm.parseDouble(txtAmountTo.getText()), txtUsageTo.getText());
                         JOptionPane.showMessageDialog(null,"Ihre überweisung wurde erfolgreich getätigt.","Überweisung erfolgreich", JOptionPane.INFORMATION_MESSAGE);
                         txtAmountTo.setBorder(defaultBorder);
                     }

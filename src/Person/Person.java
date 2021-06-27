@@ -16,8 +16,8 @@ public abstract class Person {
     public String address;
     public String email;
     public String tel;
-    protected ProdBase data = ProdBase.initialize();
-    protected AuthBase auth = AuthBase.initialize();
+    public ProdBase data = ProdBase.initialize();
+    public AuthBase auth = AuthBase.initialize();
 
     //Konstruktor
     Person(int id){
