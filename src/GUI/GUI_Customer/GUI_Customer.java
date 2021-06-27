@@ -274,7 +274,7 @@ public class GUI_Customer extends JFrame {
                    hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
                    hm.onlyString(txtMail.getText(), false, 5) == true){
 
-                    //GUI_Customer_Connector.kunde.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
+                    //GUI_Customer_Connector.kunde.changeMyData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
                     txtName.setBorder(defaultBorder);
                     txtPrename.setBorder(defaultBorder);
                     txtZip.setBorder(defaultBorder);
