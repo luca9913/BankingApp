@@ -48,7 +48,7 @@ public class ProdBase extends Database {
      * @return ProdBase-Objekt, mit dem gearbeitet werden kann oder 'null', wenn bereits eine Verbindung existiert.
      */
     public static ProdBase initialize(){
-        if(path.toString().isEmpty()){
+        if(path.toString().isEmpty()){ //eventuell entfernen, da mehrere Verbindungen benötigt werden
             ProdBase prod = new ProdBase();
             return prod;
         }else{
