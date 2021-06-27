@@ -48,13 +48,8 @@ public class ProdBase extends Database {
      * @return ProdBase-Objekt, mit dem gearbeitet werden kann oder 'null', wenn bereits eine Verbindung existiert.
      */
     public static ProdBase initialize(){
-        if(path.toString().isEmpty()){
-            ProdBase prod = new ProdBase();
-            return prod;
-        }else{
-            System.err.println("Stammdatenbank wurde bereits erstellt. Es ist nur eine Instanz erlaubt!");
-            return null;
-        }
+        ProdBase prod = new ProdBase();
+        return prod;
     }
 
     /**

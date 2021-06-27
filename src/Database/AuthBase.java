@@ -33,13 +33,8 @@ public class AuthBase extends Database {
     } //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
 
     public static AuthBase initialize(){
-        if(path.toString().isEmpty()){
-            AuthBase auth = new AuthBase();
-            return auth;
-        }else{
-            System.err.println("Authentifizierungs-Datenbank wurde bereits erstellt. Es ist nur eine Instanz erlaubt!");
-            return null;
-        }
+        AuthBase auth = new AuthBase();
+        return auth;
     }
 
     ArrayList<Object[]> executeCustomQuery(String sql){
