@@ -1,20 +1,22 @@
 package GUI.GUI_Banker;
 
 import javax.swing.*;
-
+import GUI.GUI_Login.GUI_Login;
 import GUI.HelpMethods;
+import Login.Login;
 import Person.Banker;
 import Person.Banker.*;
 import Database.ProdBase;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
+import javax.swing.border.Border;
 import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GUI_Banker extends JFrame{
+public class GUI_Banker extends JFrame implements KeyListener{
 
     private JPanel mainPanel;
     private JTextField txtNewCustomerName;
@@ -49,6 +51,8 @@ public class GUI_Banker extends JFrame{
     private JButton btnApproveAccount;
     private JTable tblDispoAccounts;
     private JButton btnSaveCustomerData;
+    private JButton btnExit;
+    private JButton btnNewCustomerCancel;
     private JLabel lblSupervisingCustomers;
     private JLabel lblAccountApprovalOrders;
     private JLabel lblDispoOverwritingAccounts;
@@ -65,13 +69,14 @@ public class GUI_Banker extends JFrame{
 
     //private int bankerID;
     private Banker admin;
+    private Login login;
 
-    // Mark: -
-    public GUI_Banker(Banker banker) {
+
+    public GUI_Banker(Banker banker, Login login) {
         this.admin = banker;
+        this.login = login;
         initialize();
 
-        //System.out.println(admin.name);
         //Table-Listener Kontenfreigabe
         tblAccountApproval.addMouseListener(new MouseAdapter() {
             @Override
@@ -99,7 +104,8 @@ public class GUI_Banker extends JFrame{
         cbbCurrentCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ListData tmp = (ListData)cbbCurrentCustomer.getModel();
+                listAccountOverview.setModel(admin.getAccountModel(tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex())));
             }
         });
         //Listener Auswahl in Kontenliste
@@ -116,6 +122,35 @@ public class GUI_Banker extends JFrame{
                 createNewCustomer();
             }
         });
+        btnNewCustomerCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resetNewCustomer();
+            }
+        });
+        btnExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeAndOpenLogin();
+            }
+
+        });
+        cbbCurrentCustomer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Dropdown");
+            }
+        });
+
+    }
+
+
+    // Stammdatenbank Prodbase wird neu inizialisiert --> Fehler beheben - nicht Schuld am Abbruch
+    //TODO: Datum muss im Format yyyy-mm-dd in die Datenbank geschrieben werden
+    private void closeAndOpenLogin() {
+        GUI_Login newView = new GUI_Login(login);
+        newView.setVisible(true);
+        this.dispose();
     }
 
     private void initialize() {
@@ -187,7 +222,14 @@ public class GUI_Banker extends JFrame{
         btnSaveCustomerData.setEnabled(false);
 
         //Inititalisiere NeuerKunde-Tab
-        btnCreateNewCustomer.setEnabled(true);
+        txtNewCustomerName.addKeyListener(this);
+        txtNewCustomerSurname.addKeyListener(this);
+        txtNewCustomerBirth.addKeyListener(this);
+        txtNewCustomerAdress.addKeyListener(this);
+        txtNewCustomerZIP.addKeyListener(this);
+        txtNewCustomerCity.addKeyListener(this);
+        txtNewCustomerEmail.addKeyListener(this);
+        txtNewCustomerPhone.addKeyListener(this);
 
         // Panel hinzufügen
         add(mainPanel);
@@ -224,6 +266,24 @@ public class GUI_Banker extends JFrame{
         lblAccountBalance.setText("Kontostand: " + balance + " €");
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+            System.out.println("ENTER-Pressed");
+            createNewCustomer();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
     class RequestRenderer extends DefaultTableCellRenderer {
 
         @Override
@@ -246,33 +306,118 @@ public class GUI_Banker extends JFrame{
 
     private void createNewCustomer(){
         HelpMethods h = new HelpMethods();
+        String[] newCustomer = {"","","","","","","",""};
 
-        if(h.onlyString(txtNewCustomerName.getText(), true, 2) && h.onlyString(txtNewCustomerSurname.getText(), true, 2)){
-            System.out.println("Namen-Eingabe gültig");
+        Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
+        Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
+
+        resetNewCustomerView();
+
+        // Vorname überprüfen
+        if(h.onlyString(txtNewCustomerName.getText(), true, 2)) {
+            System.out.println("Gültiger Vorname");
+            newCustomer[0] = txtNewCustomerName.getText();
+            txtNewCustomerName.setBorder(correctBorder);
         } else {
-            System.out.println("Namen-Eingabe ungültig");
+            txtNewCustomerName.setBorder(failedBorder);
         }
 
-        if(h.correctDateFormat("dd.MM.yyyy", txtNewCustomerBirth.getText())){
-            System.out.println("Date correct..");
+        // Nachname überprüfen
+        if(h.onlyString(txtNewCustomerSurname.getText(), true, 2)) {
+            System.out.println("Gültiger Nachname");
+            newCustomer[1] = txtNewCustomerSurname.getText();
+            txtNewCustomerSurname.setBorder(correctBorder);
         } else {
-            System.out.println("Date incorrect...");
+            txtNewCustomerSurname.setBorder(failedBorder);
         }
 
-        if(h.onlyInt(txtNewCustomerZIP.getText())) {
+        // Geburtstag überprüfen
+        if(h.correctDateFormat(txtNewCustomerBirth.getText(), true)){
+            System.out.println("Gültiges Geburtsdatum");
+            newCustomer[2] = txtNewCustomerBirth.getText();
+            txtNewCustomerBirth.setBorder(correctBorder);
+        } else {
+            txtNewCustomerBirth.setBorder(failedBorder);
+        }
+
+        // Adresse überprüfen
+        if(txtNewCustomerAdress.getText().length() > 5) {
+            System.out.println("Gültige Adresse");
+            newCustomer[3] = txtNewCustomerAdress.getText();
+            txtNewCustomerAdress.setBorder(correctBorder);
+        } else {
+            txtNewCustomerAdress.setBorder(failedBorder);
+        }
+
+        //Postleitzahl überprüfen
+        if(h.onlyInt(txtNewCustomerZIP.getText())){
             System.out.println("Correct ZIP");
+            newCustomer[4] = txtNewCustomerZIP.getText();
+            txtNewCustomerZIP.setBorder(correctBorder);
+        } else {
+            txtNewCustomerZIP.setBorder(failedBorder);
         }
 
+        // Stadt überprüfen
         if(h.onlyString(txtNewCustomerCity.getText(), true, 2)) {
             System.out.println("Correct City");
+            newCustomer[5] = txtNewCustomerCity.getText();
+            txtNewCustomerCity.setBorder(correctBorder);
+        } else {
+            txtNewCustomerCity.setBorder(failedBorder);
         }
 
+        // E-Mail überprüfen
+        if(txtNewCustomerEmail.getText().length() > 7){
+            System.out.println("Gültige E-Mail Adresse");
+            newCustomer[6] = txtNewCustomerEmail.getText();
+            txtNewCustomerEmail.setBorder(correctBorder);
+        } else {
+            txtNewCustomerEmail.setBorder(failedBorder);
+        }
+
+        // Telefonnummer überprüfen
         if(h.onlyInt(txtNewCustomerPhone.getText())) {
             System.out.println("Correct Phone Number");
+            newCustomer[7] = txtNewCustomerPhone.getText();
+            txtNewCustomerPhone.setBorder(correctBorder);
+        } else {
+            txtNewCustomerPhone.setBorder(failedBorder);
         }
 
-//        admin.insertCustomer();
-//        [Prename, Name, Birth, Address, ZIP, City, EMail, Phone Number]
+        for(int i=0; i<newCustomer.length; i++){
+            if(newCustomer[i] == ""){
+                JOptionPane.showMessageDialog(null,"Korrigieren Sie die markierten Eingaben. Das Geburtsdatum muss im Format dd.mm.yyyy angegeben werden.","Fehlerhafte Eingabe(n)", JOptionPane.CANCEL_OPTION);
+                return;
+            }
+        }
 
+        //[Prename, Name, Birth, Address, ZIP, City, EMail, Phone Number]
+        admin.insertCustomer(newCustomer);
     }
+
+    private void resetNewCustomerView() {
+        txtNewCustomerName.setBorder(null);
+        txtNewCustomerSurname.setBorder(null);
+        txtNewCustomerBirth.setBorder(null);
+        txtNewCustomerAdress.setBorder(null);
+        txtNewCustomerZIP.setBorder(null);
+        txtNewCustomerCity.setBorder(null);
+        txtNewCustomerPhone.setBorder(null);
+        txtNewCustomerEmail.setBorder(null);
+    }
+
+
+    private void resetNewCustomer() {
+        resetNewCustomerView();
+        txtNewCustomerName.setText("");
+        txtNewCustomerSurname.setText("");
+        txtNewCustomerBirth.setText("");
+        txtNewCustomerAdress.setText("");
+        txtNewCustomerZIP.setText("");
+        txtNewCustomerCity.setText("");
+        txtNewCustomerPhone.setText("");
+        txtNewCustomerEmail.setText("");
+    }
+
 }

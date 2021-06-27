@@ -3,6 +3,7 @@ package GUI;
 import GUI.GUI_Customer.GUI_Customer;
 import GUI.GUI_Customer.GUI_Customer_CreateAccount;
 import GUI.GUI_Customer.GUI_Customer_DeleteAccount;
+import Person.Person;
 
 import javax.swing.*;
 
@@ -10,6 +11,8 @@ import javax.swing.*;
  * Die Klasse ist für die Steuerung (Öffnung, Schließung, etc.) für die drei GUIs der Customer zuständig.
  */
 public class GUI_Customer_Connector extends JFrame {
+
+    public static Person kunde;
 
     /**Statische Objekterstellung des Hauptfensters für den Customer.*/
     static GUI_Customer guiCustomer = new GUI_Customer();
@@ -21,7 +24,8 @@ public class GUI_Customer_Connector extends JFrame {
     /**Diese Methode dient dazu, das Fenster GUI_Customer zu öffnen.
      * Die Methode ist statisch und liefert keinen Rückgabewert.
      */
-    public static void openCustomer(){
+    public static void openCustomer(Person customer){
+        kunde = customer;
         guiCustomer.setVisible(true);
     }
 

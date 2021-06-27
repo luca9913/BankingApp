@@ -106,7 +106,7 @@ public class GUI_Login extends JFrame implements KeyListener {
             System.out.println("Login-ID und Benutzername stimmen überein - Login Fenster schließen");
 
             //TODO: setVisible(false) benötigt Arbeitsspeicher - bessere Methode implementieren
-            this.setVisible(false);
+            this.dispose();
         } else {
             // Fehlerhafte Eingabe -> Erhöhe Fehlversuche
             System.out.println("Login-ID und Benutzername stimmen nicht überein - Failed Attempts anzeigen/erhöhen");
@@ -118,6 +118,7 @@ public class GUI_Login extends JFrame implements KeyListener {
 
     private void failedAttempt(int numberOfFailedAttempts) {
         // TODO: Falls genug Zeit -> Timeout programmieren nach 3 Fehlversuchen
+        passwordField1.setText("");
         if (numberOfFailedAttempts != 0) {
             failedAttempts.setVisible(true);
             if (numberOfFailedAttempts == 1) {

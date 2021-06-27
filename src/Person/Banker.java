@@ -3,7 +3,7 @@ package Person;
 import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.ArrayList;
-import Database.ProdBase;
+import Database.*;
 import Konto.Konto;
 import Person.Customer;
 
@@ -15,12 +15,13 @@ import javax.swing.table.AbstractTableModel;
 public class Banker extends Person {
 
     public ArrayList<Object[]> allaccounts, allcustomers, relatedrequests, alltransfers;
+    private AuthBase authBase;
     //ArrayList<Konto> allaccounts, dispoaccounts;
     //ArrayList<Customer> allcustomers;
-    //TODO: add methods to return a DataModel for Tables, List and the ComboBox, the goal is to separate the data handling and the displaying completely
 
-    public Banker(int id){
+    public Banker(int id, AuthBase auth){
         super(id);
+        this.authBase = auth;
         Object[] pdata = data.getData(id, "banker").get(0);
         this.preName = pdata[1].toString();
         this.name = pdata[2].toString();
@@ -119,21 +120,34 @@ public class Banker extends Person {
     void getAllTransfers(){
         //for each account, data.gettransfers and append them to list
         alltransfers = new ArrayList<>();
+        boolean duplicate = false;
         for(Object[] arr : allaccounts){
-            alltransfers.addAll(data.getAllTransfers((Integer)arr[0]));
+            ArrayList<Object[]> transfers = data.getAllTransfers((Integer)arr[0]);
+            for(Object[] t : transfers){
+                for(Object[] r : alltransfers){
+                    if(t[0] == r[0]){
+                        duplicate = true;
+                    }
+                }
+                if(duplicate == true){
+                    continue;
+                }
+                alltransfers.add(t);
+            }
         }
-        //TODO: check for IDs and delete when already added
     }
 
     //int selectedAccount is the index of the selected element in the list
     public TableData getTransferModel(int[] ids){
+        ArrayList<Object[]> transfers = new ArrayList<>(alltransfers.size());
         if(ids.length == 1 && ids[0] == -1){
-            return new TableData(new String[]{"ID", "Name", "Betrag"}, alltransfers);
+            for(Object[] arr : alltransfers){
+                transfers.add(new Object[]{arr[0].toString(), getName((Integer)data.getData((Integer)arr[2], "account").get(0)[5]), getName((Integer)data.getData((Integer)arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
+            }
+            return new TableData(new String[]{"ID", "Sender", "Empfänger", "Betrag"}, transfers);
         }else {
-            ArrayList<Object[]> transfers = new ArrayList<>(alltransfers.size());
             for (int id : ids) {
-                ArrayList<Object[]> tmp = data.getAllTransfers(id);
-                for (Object[] arr : tmp) {
+                for (Object[] arr : alltransfers) {
                     if ((Integer) arr[2] == id) {
                         transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
                     } else {
@@ -141,7 +155,7 @@ public class Banker extends Person {
                     }
                 }
             }
-            return new TableData(new String[]{"ID", "Name", "Betrag"}, transfers);
+            return new TableData(new String[]{"ID", "Sender", "Betrag"}, transfers);
         }
     }
 
@@ -284,11 +298,5 @@ public class Banker extends Person {
 
 class BankerTest{
     public static void main(String[] args) {
-        ProdBase data = ProdBase.initialize();
-        Banker admin = new Banker(1);
-        String[] test = admin.getUserData(0);
-        for(String str : test) {
-            System.out.println(str);
-        }
     }
 }

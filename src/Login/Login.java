@@ -36,9 +36,8 @@ public class Login {
             System.out.println((Integer)authSet[2]);
             if( (Integer)authSet[2] <= 0){
                 System.out.println("Customer-ID (" + userID + ") <= 0 - Banker Login - Banker GUI öffnen");
-                // TODO: User-Parameter an GUI_Banker muss noch übergeben werden
-                Banker banker = new Banker((Integer)authSet[3]);
-                GUI_Banker newBankerView = new GUI_Banker(banker);
+                Banker banker = new Banker((Integer)authSet[3], authDatabase);
+                GUI_Banker newBankerView = new GUI_Banker(banker, this);
                 newBankerView.setVisible(true);
 
             } else {
@@ -47,8 +46,9 @@ public class Login {
                 // TODO: User-Parameter an GUI_Customer muss noch übergeben werden
 
                 //Bitte die GUI_Customer über die Klasse GUI_Customer_Connector mit der Methode openCustomer aufrufen.
-                //Bitte vermeiden das Objekt der GUI hier zu erstellen und aufzurufen.
-                GUI_Customer_Connector.openCustomer();
+                //Bitte vermeiden das Objekt der GUI hier zu erstellen und aufzurufen
+                Customer customer = new Customer((Integer)authSet[2]);
+                GUI_Customer_Connector.openCustomer(customer);
             }
             return true;
         }
