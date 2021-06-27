@@ -56,6 +56,7 @@ public class GUI_Customer extends JFrame {
     private JTextField txtPhone;
     private JTextField txtMail;
     private JButton btnLogoff;
+    private JButton aktualisierenButton;
     private static int changeUserData = 0;
     private Border defaultBorder;
     private static int dkRahmen = 0;
@@ -363,6 +364,17 @@ public class GUI_Customer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Hier fehlt noch Code sheesh
+            }
+        });
+
+        /**
+         * Die Action des Buttons "Aktualisieren" im Tab Überweisen ist für das Aktualisieren der Liste und der Konten zuständig.
+         * Wenn sich Änderungen ergeben haben dann werden diese durch das Aktualisieren in der Liste übernommen.
+         */
+        aktualisierenButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
