@@ -106,7 +106,7 @@ public class Customer extends Person{
         //irgendwie muss hier noch das gewählte Kontoobjekt gewählt werden
     }
 
-    //TODO: value müsste ein String sein
+
     public void changeUserData(String name, String prename, int zip, String city, String address, String email, String telephone){
 
         if(name != this.name){
