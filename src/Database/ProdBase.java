@@ -52,6 +52,15 @@ public class ProdBase extends Database {
         return prod;
     }
 
+    public void close(){
+        try{
+            this.conn.close();
+        }catch(SQLException e){
+            System.err.println("Beim Schliessen der Datenbank-Verbindung zur Stammdatenbank ist ein Fehler aufgetreten!");
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Implementierung der abstrakten Klasse zur Abfrage beliebiger SQLite-Statements.
      * @param sql Ein gültiges <a href="https://sqlite.org/index.html">SQLite</a>-Statement

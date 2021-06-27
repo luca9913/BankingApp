@@ -36,7 +36,7 @@ public class Login {
             System.out.println((Integer)authSet[2]);
             if( (Integer)authSet[2] <= 0){
                 System.out.println("Customer-ID (" + userID + ") <= 0 - Banker Login - Banker GUI öffnen");
-                Banker banker = new Banker((Integer)authSet[3], authDatabase);
+                Banker banker = new Banker((Integer)authSet[3]);
                 GUI_Banker newBankerView = new GUI_Banker(banker, this);
                 newBankerView.setVisible(true);
 
