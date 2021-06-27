@@ -89,7 +89,7 @@ public class GUI_Customer extends JFrame {
         btnTransfer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GUI_Customer_Connector.kunde.
+                //GUI_Customer_Connector.kunde.
                 double restbetrag = 0;//listAccounts2.getSelectedValue();
                 int maxUeberweisung = hm.parseInt(txtTransferLimit.getText());
                 if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > maxUeberweisung){
