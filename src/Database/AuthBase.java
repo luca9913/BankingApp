@@ -37,6 +37,15 @@ public class AuthBase extends Database {
         return auth;
     }
 
+    public void close(){
+        try{
+            this.conn.close();
+        }catch(SQLException e){
+            System.err.println("Beim Schliessen der Datenbank-Verbindung zur Authentifizierungs-Datenbank ist ein Fehler aufgetreten!");
+            e.printStackTrace();
+        }
+    }
+
     ArrayList<Object[]> executeCustomQuery(String sql){
         try {
             //searches for the 'SELECT' string in the statement

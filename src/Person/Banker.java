@@ -15,13 +15,11 @@ import javax.swing.table.AbstractTableModel;
 public class Banker extends Person {
 
     public ArrayList<Object[]> allaccounts, allcustomers, relatedrequests, alltransfers;
-    private AuthBase authBase;
     //ArrayList<Konto> allaccounts, dispoaccounts;
     //ArrayList<Customer> allcustomers;
 
-    public Banker(int id, AuthBase auth){
+    public Banker(int id){
         super(id);
-        this.authBase = auth;
         Object[] pdata = data.getData(id, "banker").get(0);
         this.preName = pdata[1].toString();
         this.name = pdata[2].toString();

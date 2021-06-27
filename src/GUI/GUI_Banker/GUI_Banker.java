@@ -148,6 +148,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     // Stammdatenbank Prodbase wird neu inizialisiert --> Fehler beheben - nicht Schuld am Abbruch
     //TODO: Datum muss im Format yyyy-mm-dd in die Datenbank geschrieben werden
     private void closeAndOpenLogin() {
+        admin.closeConnections();
         GUI_Login newView = new GUI_Login(login);
         newView.setVisible(true);
         this.dispose();

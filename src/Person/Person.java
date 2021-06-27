@@ -1,5 +1,6 @@
 package Person;
 
+import Database.AuthBase;
 import Database.ProdBase;
 import java.util.Date;
 
@@ -15,14 +16,17 @@ public abstract class Person {
     public String address;
     public String email;
     public String tel;
-    protected ProdBase data;
+    protected ProdBase data = ProdBase.initialize();
+    protected AuthBase auth = AuthBase.initialize();
 
     //Konstruktor
     Person(int id){
         this.id = id;
-        if(data == null){
-            data = ProdBase.initialize();
-        }
+    }
+
+    public void closeConnections(){
+        data.close();
+        auth.close();
     }
 
     public int getId() {
