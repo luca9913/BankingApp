@@ -14,7 +14,7 @@ public class Customer extends Person{
     //Konstruktor
     public Customer(int id){
         super(id);
-        Object[] pdata = data.getData(id, "customer").get(1);
+        Object[] pdata = data.getData(id, "customer").get(0);
         if(pdata.length == 6) {
             this.preName = pdata[0].toString();
             this.name = pdata[1].toString();
@@ -51,7 +51,7 @@ public class Customer extends Person{
 
 
     Konto konto;
-    ProdBase data;
+    //ProdBase data;
     ArrayList<Object[]> allAccounts, allRequests;
     public ArrayList<Konto> allaccounts2;
 

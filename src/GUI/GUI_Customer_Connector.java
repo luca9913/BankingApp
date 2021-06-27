@@ -3,7 +3,7 @@ package GUI;
 import GUI.GUI_Customer.GUI_Customer;
 import GUI.GUI_Customer.GUI_Customer_CreateAccount;
 import GUI.GUI_Customer.GUI_Customer_DeleteAccount;
-import Person.Person;
+import Person.*;
 
 import javax.swing.*;
 
@@ -13,7 +13,7 @@ import javax.swing.*;
 public class GUI_Customer_Connector extends JFrame {
 
     /**Statische Variable für das Kundenobjekt.*/
-    public static Person kunde;
+    public static Customer kunde;
     /**Statische Objekterstellung des Hauptfensters für den Customer.*/
     static GUI_Customer guiCustomer = new GUI_Customer();
     /**Statische Objekterstellung des Nebenfensters CreateAccount für den Customer.*/
@@ -24,7 +24,7 @@ public class GUI_Customer_Connector extends JFrame {
     /**Diese Methode dient dazu, das Fenster GUI_Customer zu öffnen.
      * Die Methode ist statisch und liefert keinen Rückgabewert.
      */
-    public static void openCustomer(Person customer){
+    public static void openCustomer(Customer customer){
         kunde = customer;
         guiCustomer.setVisible(true);
     }
