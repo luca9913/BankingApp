@@ -47,7 +47,8 @@ public class Login {
 
                 //Bitte die GUI_Customer über die Klasse GUI_Customer_Connector mit der Methode openCustomer aufrufen.
                 //Bitte vermeiden das Objekt der GUI hier zu erstellen und aufzurufen
-                GUI_Customer_Connector.openCustomer();
+                Customer customer = new Customer((Integer)authSet[2]);
+                GUI_Customer_Connector.openCustomer(customer);
             }
             return true;
         }

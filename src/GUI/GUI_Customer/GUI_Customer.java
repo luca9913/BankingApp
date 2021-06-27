@@ -270,11 +270,11 @@ public class GUI_Customer extends JFrame {
                    hm.onlyString(txtPrename.getText(), false, 2) == true &&
                    hm.onlyInt(txtZip.getText()) == true && txtZip.getText().length() >= 5 &&
                    hm.onlyString(txtCity.getText(), true, 5) == true &&
-                   hm.onlyString(txtAddress.getText(), true, 5) == true &&
+                   txtAddress.getText().length() >= 5 &&
                    hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
                    hm.onlyString(txtMail.getText(), false, 5) == true){
 
-                    //Customer.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
+                    //GUI_Customer_Connector.kunde.changeUserData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
                     txtName.setBorder(defaultBorder);
                     txtPrename.setBorder(defaultBorder);
                     txtZip.setBorder(defaultBorder);
@@ -295,7 +295,7 @@ public class GUI_Customer extends JFrame {
                         hm.onlyString(txtPrename.getText(), false, 2) == false ||
                         hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 5 ||
                         hm.onlyString(txtCity.getText(), true, 5) == false ||
-                        hm.onlyString(txtAddress.getText(), true, 5) == false ||
+                        txtAddress.getText().length() < 5 ||
                         hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5 ||
                         hm.onlyString(txtMail.getText(), false, 5) == false){
 
