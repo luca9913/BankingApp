@@ -104,8 +104,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         cbbCurrentCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ListData tmp = (ListData)cbbCurrentCustomer.getModel();
-                listAccountOverview.setModel(admin.getAccountModel(tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex())));
+                customerSelected();
             }
         });
         //Listener Auswahl in Kontenliste
@@ -114,6 +113,12 @@ public class GUI_Banker extends JFrame implements KeyListener{
             public void valueChanged(ListSelectionEvent e) {
                 insertBalance();
                 insertAllTransfers();
+            }
+        });
+        btnRefreshAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                customerSelected();
             }
         });
         btnCreateNewCustomer.addActionListener(new ActionListener() {
@@ -134,12 +139,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 closeAndOpenLogin();
             }
 
-        });
-        cbbCurrentCustomer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Dropdown");
-            }
         });
 
     }
@@ -199,10 +198,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         cbbCurrentCustomer.setSelectedIndex(0);
 
         // Initialisiert Kundenübersicht - Finanzübersicht
-        ListData tmp = (ListData)cbbCurrentCustomer.getModel();
         listAccountOverview.setModel(admin.getAccountModel(-1));
         tblTurnovers.setModel(admin.getTransferModel(new int[]{-1}));
-        btnRefreshAccount.setEnabled(false);
+        btnRefreshAccount.setEnabled(true);
         btnBlockAccount.setEnabled(false);
         btnDeleteAccount.setEnabled(false);
         txtSearchTurnover.setEnabled(false);
@@ -243,6 +241,12 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
     }
 
+    void customerSelected(){
+        ListData tmp = (ListData)cbbCurrentCustomer.getModel();
+        listAccountOverview.setModel(admin.getAccountModel(tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex())));
+        insertAllTransfers();
+    }
+
     void updateRequestStatus(int newstatus){
         int row = tblAccountApproval.getSelectedRow();
         admin.modifyRequest((Integer)tblAccountApproval.getValueAt(row, 0), newstatus);
@@ -259,12 +263,30 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     void insertAllTransfers(){
-
+        ListData tmp = (ListData)listAccountOverview.getModel();
+        int[] ind = listAccountOverview.getSelectedIndices();
+        if(ind.length == 0 || ind[0] == 0){
+            ind = new int[tmp.getSize()-1];
+            for(int i = 1; i < tmp.getSize(); i++){
+                ind[i-1] = tmp.getSelectedID(i);
+            }
+            tblTurnovers.setModel(admin.getTransferModel(ind));
+        }else{
+            for(int i = 0; i < ind.length; i++){
+                ind[i] = tmp.getSelectedID(ind[i]);
+            }
+            tblTurnovers.setModel(admin.getTransferModel(ind));
+        }
     }
 
     void insertBalance(){
-        String balance = admin.getBalance(listAccountOverview.getSelectedValue().toString());
-        lblAccountBalance.setText("Kontostand: " + balance + " €");
+        ListData tmp = (ListData)listAccountOverview.getModel();
+        int index = listAccountOverview.getSelectedIndex();
+        if(index == -1){
+            lblAccountBalance.setText(admin.getBalance(-1));
+        }else{
+            lblAccountBalance.setText(admin.getBalance(tmp.getSelectedID(index)));
+        }
     }
 
     @Override
