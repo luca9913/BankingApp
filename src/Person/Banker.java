@@ -1,8 +1,8 @@
 package Person;
 
 import java.lang.reflect.Array;
-import java.util.Date;
-import java.util.ArrayList;
+import java.util.*;
+
 import Database.*;
 import Konto.Konto;
 import Person.Customer;
@@ -138,36 +138,40 @@ public class Banker extends Person {
     //int selectedAccount is the index of the selected element in the list
     public TableData getTransferModel(int[] ids){
         ArrayList<Object[]> transfers = new ArrayList<>(alltransfers.size());
-        if(ids.length == 1 && ids[0] == -1){
-            for(Object[] arr : alltransfers){
-                transfers.add(new Object[]{arr[0].toString(), getName((Integer)data.getData((Integer)arr[2], "account").get(0)[5]), getName((Integer)data.getData((Integer)arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
-            }
-            return new TableData(new String[]{"ID", "Sender", "Empfänger", "Betrag"}, transfers);
-        }else {
+        ArrayList<Integer> added = new ArrayList<>(alltransfers.size());
+        String[] colnames;
+        if(ids[0] == -1){
+            colnames = new String[]{"ID", "Sender", "Empfänger", "Betrag"};
             for (int id : ids) {
                 for (Object[] arr : alltransfers) {
+                    if((Integer)arr[2] == id || (Integer)arr[3] == id && !added.contains((Integer) arr[0])){
+                        transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[2], "account").get(0)[5]), getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
+                        added.add((Integer)arr[0]);
+                    }
+                }
+            }
+        }else {
+            colnames = new String[]{"ID", "Sender", "Betrag"};
+            for (int id : ids) {
+                for (Object[] arr : data.getAllTransfers(id)) {
                     if ((Integer) arr[2] == id) {
                         transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
-                    } else {
+                    } else if((Integer) arr[3] == id){
                         transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[2], "account").get(0)[5]), arr[1], arr[4], arr[5]});
                     }
                 }
             }
-            return new TableData(new String[]{"ID", "Sender", "Betrag"}, transfers);
         }
+
+        return new TableData(colnames, transfers);
     }
 
-    public String getBalance(String selected){
-        String sub_id = selected.substring(selected.indexOf(":") + 1, selected.indexOf("-") - 1).trim();
-        int id = Integer.parseInt(sub_id);
-
-        String balance = "";
-        for(Object[] arr : allaccounts){
-            if(arr[0].equals(id)){
-                balance = arr[2].toString();
-            }
+    public String getBalance(int id){
+        if(id == -1){
+            return "Konto wählen..";
+        }else{
+            return "Kontostand: " + data.getData(id, "account").get(0)[2].toString() + "€";
         }
-        return balance;
     }
 
 
