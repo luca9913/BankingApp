@@ -20,9 +20,9 @@ public class GUI_Customer_Connector extends JFrame {
     public static GUI_Customer guiCustomer;
 
     /**Statische Objekterstellung des Nebenfensters CreateAccount für den Customer.*/
-    static GUI_Customer_CreateAccount guiCustomerCreateAccount = new GUI_Customer_CreateAccount();
+    static GUI_Customer_CreateAccount guiCustomerCreateAccount;
     /**Statische Objekterstellung des Nebenfensters DeleteAccount für den Customer.*/
-    static GUI_Customer_DeleteAccount guiCustomerDeleteAccount = new GUI_Customer_DeleteAccount();
+    static GUI_Customer_DeleteAccount guiCustomerDeleteAccount;
 
     /**Diese Methode dient dazu, das Fenster GUI_Customer zu öffnen.
      * Die Methode ist statisch und liefert keinen Rückgabewert.
@@ -30,6 +30,8 @@ public class GUI_Customer_Connector extends JFrame {
     public static void openCustomer(Customer customer){
         kunde = customer;
         guiCustomer = new GUI_Customer();
+        guiCustomerCreateAccount = new GUI_Customer_CreateAccount();
+        guiCustomerDeleteAccount = new GUI_Customer_DeleteAccount();
         guiCustomer.setEnabled(true);
         guiCustomer.setVisible(true);
     }
