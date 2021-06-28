@@ -288,7 +288,7 @@ public class ProdBase extends Database {
      */
     public boolean updateAccountBlockage(int accid, int status){
         try{
-            return returnFunction(state.executeUpdate("UPDATE account SET locked =" + status));
+            return returnFunction(state.executeUpdate("UPDATE account SET locked =" + status + " WHERE account_id = " + accid));
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Kontostatus in der Datenbank.");
             System.err.print("Fehlermeldung: ");

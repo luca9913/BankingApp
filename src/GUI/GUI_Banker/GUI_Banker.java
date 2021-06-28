@@ -3,10 +3,13 @@ package GUI.GUI_Banker;
 import javax.swing.*;
 import GUI.GUI_Login.GUI_Login;
 import GUI.HelpMethods;
+import Konto.*;
 import Login.Login;
 import Person.Banker;
 import Person.Banker.*;
 import Database.ProdBase;
+import Person.Customer;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.border.Border;
@@ -33,8 +36,8 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JTable tblTurnovers;
     private JTextField txtTurnoverAccountNr;
     private JTextField txtTurnoverNr;
-    private JTextField txtTurnoverAmount;
-    private JTextField txtTurnoverPurpose;
+    private JTextField txtTurnoverUsage;
+    private JTextField txtTurnoverDate;
     private JButton btnBlockAccount;
     private JButton btnDeleteAccount;
     private JTextField txtCurrentDispo;
@@ -65,7 +68,8 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JLabel lblEmail;
     private JTextField textField1;
     private JTextField textField2;
-    private JScrollPane dispoAccOverview;
+    private JLabel tblTurnoversSendOrReceive;
+    private JList dispoList;
 
     //private int bankerID;
     private Banker admin;
@@ -99,7 +103,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 updateRequestStatus(1);
             }
         });
-        //TODO: setup listeners from here
         //Kunden-ComboBox Listener
         cbbCurrentCustomer.addActionListener(new ActionListener() {
             @Override
@@ -113,12 +116,86 @@ public class GUI_Banker extends JFrame implements KeyListener{
             public void valueChanged(ListSelectionEvent e) {
                 insertBalance();
                 insertAllTransfers();
+                ListData tmp = (ListData)listAccountOverview.getModel();
+                int index = listAccountOverview.getSelectedIndex();
+                if(index != -1) {
+                    if (tmp.getStatus(index) == 0) {
+                        btnBlockAccount.setBackground(new Color(175, 0, 0));
+                        btnBlockAccount.setText("Konto sperren");
+                        btnBlockAccount.setEnabled(true);
+                        btnDeleteAccount.setEnabled(true);
+                    } else if (tmp.getStatus(index) == 1) {
+                        btnBlockAccount.setBackground(new Color(0, 109, 77));
+                        btnBlockAccount.setText("Konto entsperren");
+                        btnBlockAccount.setEnabled(true);
+                        btnDeleteAccount.setEnabled(true);
+                    } else {
+                        btnBlockAccount.setEnabled(false);
+                        btnDeleteAccount.setEnabled(false);
+                    }
+                    for(int i = 0; i < tblTurnovers.getColumnCount(); i++){
+                        TableColumn col = tblTurnovers.getColumnModel().getColumn(i);
+                        col.setCellRenderer(new TransferRenderer());
+                    }
+                }
+                txtTurnoverAccountNr.setText("");
+                txtTurnoverDate.setText("");
+                txtTurnoverNr.setText("");
+                txtTurnoverUsage.setText("");
             }
         });
         btnRefreshAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 customerSelected();
+            }
+        });
+        tblTurnovers.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                tblTurnoversClicked();
+            }
+        });
+        btnBlockAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ListData tmp = (ListData) listAccountOverview.getModel();
+                int index = listAccountOverview.getSelectedIndex();
+                int id = tmp.getSelectedID(index);
+                int status = 1 - tmp.getStatus(index);
+                admin.un_lockAccount(id, status);
+                tmp.setValueAt(index, 2, status);
+                listAccountOverview.getListSelectionListeners()[0].valueChanged(new ListSelectionEvent(this, index, index, false));
+            }
+        });
+        btnDeleteAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ListData tmp = (ListData) listAccountOverview.getModel();
+                int index = listAccountOverview.getSelectedIndex();
+                if(admin.deleteAccount(tmp.getSelectedID(index))){
+                    System.out.println("Deletion succesful");
+                }
+                tmp.delete(index);
+            }
+        });
+        dispoList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                ListData tmp = (ListData)dispoList.getModel();
+                txtCurrentDispo.setText(tmp.getDispo(dispoList.getSelectedIndex()));
+                txtCurrentDispo.setEnabled(true);
+                btnApproveDispo.setEnabled(true);
+            }
+        });
+        btnApproveDispo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ListData tmp = (ListData)dispoList.getModel();
+                //TODO: dispo updatebar machen
+                admin.updateAccData(tmp.getSelectedID(dispoList.getSelectedIndex()), 3, txtCurrentDispo.getText());
+                tmp.setValueAt(dispoList.getSelectedIndex(), 3, txtCurrentDispo.getText());
             }
         });
         btnCreateNewCustomer.addActionListener(new ActionListener() {
@@ -143,9 +220,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
     }
 
-
-    // Stammdatenbank Prodbase wird neu inizialisiert --> Fehler beheben - nicht Schuld am Abbruch
-    //TODO: Datum muss im Format yyyy-mm-dd in die Datenbank geschrieben werden
     private void closeAndOpenLogin() {
         admin.closeConnections();
         GUI_Login newView = new GUI_Login(login);
@@ -194,12 +268,22 @@ public class GUI_Banker extends JFrame implements KeyListener{
         tblDispoAccounts.setModel(admin.getDispoModel());
 
         // Initialisiert Kundenübersicht-Tab
-        cbbCurrentCustomer.setModel((ComboBoxModel) admin.getCustomerModel());
+        ListData tmp = (ListData) admin.getCustomerModel();
+        cbbCurrentCustomer.setModel(tmp);
         cbbCurrentCustomer.setSelectedIndex(0);
 
         // Initialisiert Kundenübersicht - Finanzübersicht
-        listAccountOverview.setModel(admin.getAccountModel(-1));
-        tblTurnovers.setModel(admin.getTransferModel(new int[]{-1}));
+        lblAccountBalance.setText("Konto wählen...");
+        tmp = admin.getAccountModel(-1);
+        tmp.addElement(0, new Object[]{"Alle", -1, -1});
+        listAccountOverview.setModel(tmp);
+        listAccountOverview.setSelectedIndex(0);
+        listAccountOverview.setCellRenderer(new AccountRenderer());
+        int[]ids = new int[tmp.getSize()];
+        for(int i = 0; i < ids.length; i++){
+            ids[i] = tmp.getSelectedID(i);
+        }
+        tblTurnovers.setModel(admin.getTransferModel(ids));
         btnRefreshAccount.setEnabled(true);
         btnBlockAccount.setEnabled(false);
         btnDeleteAccount.setEnabled(false);
@@ -207,6 +291,8 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
         // Initialisiere Kundenübersicht - Dispo
         lblDispoAcc.setText("Wähle Konto");
+        tmp = admin.getAccountModel(-1);
+        dispoList.setModel(tmp);
         txtCurrentDispo.setEnabled(false);
         btnApproveDispo.setEnabled(false);
 
@@ -243,7 +329,11 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
     void customerSelected(){
         ListData tmp = (ListData)cbbCurrentCustomer.getModel();
-        listAccountOverview.setModel(admin.getAccountModel(tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex())));
+        ListData newmodel = admin.getAccountModel(tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex()));
+        newmodel.addElement(0, new Object[]{"Alle", -1, -1});
+        listAccountOverview.setModel(newmodel);
+        listAccountOverview.setSelectedIndex(0);
+        dispoList.setModel(admin.getAccountModel(tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex())));
         insertAllTransfers();
     }
 
@@ -256,19 +346,14 @@ public class GUI_Banker extends JFrame implements KeyListener{
         btnDeclineAccount.setEnabled(false);
     }
 
-    void insertAllCustomers(){
-    }
-
-    void insertAllAccounts(){
-    }
-
     void insertAllTransfers(){
         ListData tmp = (ListData)listAccountOverview.getModel();
         int[] ind = listAccountOverview.getSelectedIndices();
         if(ind.length == 0 || ind[0] == 0){
-            ind = new int[tmp.getSize()-1];
+            ind = new int[tmp.getSize()];
+            ind[0] = -1;
             for(int i = 1; i < tmp.getSize(); i++){
-                ind[i-1] = tmp.getSelectedID(i);
+                ind[i] = tmp.getSelectedID(i);
             }
             tblTurnovers.setModel(admin.getTransferModel(ind));
         }else{
@@ -287,6 +372,28 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }else{
             lblAccountBalance.setText(admin.getBalance(tmp.getSelectedID(index)));
         }
+    }
+
+    void tblTurnoversClicked(){
+        TableData tmp = (TableData)tblTurnovers.getModel();
+        if(tmp.getColumnCount() == 4){
+            txtTurnoverAccountNr.setText(tmp.getValueAt(tblTurnovers.getSelectedRow(), 1).toString() + " -> " + tmp.getValueAt(tblTurnovers.getSelectedRow(), 2).toString());
+            txtTurnoverNr.setText(tmp.getValueAt(tblTurnovers.getSelectedRow(), 0).toString());
+            txtTurnoverUsage.setText(tmp.getValueAt(tblTurnovers.getSelectedRow(), 4).toString());
+            txtTurnoverDate.setText(tmp.getValueAt(tblTurnovers.getSelectedRow(), 5).toString());
+        }else{
+            int row = tblTurnovers.getSelectedRow();
+            if(tmp.getValueAt(tblTurnovers.getSelectedRow(), 5).toString().equals("in")){
+                tblTurnoversSendOrReceive.setText("Sender: ");
+            }else{
+                tblTurnoversSendOrReceive.setText("Empfänger: ");
+            }
+            txtTurnoverAccountNr.setText(tmp.getValueAt(tblTurnovers.getSelectedRow(), 1).toString());
+            txtTurnoverNr.setText(tmp.getValueAt(tblTurnovers.getSelectedRow(), 0).toString());
+            txtTurnoverUsage.setText(tmp.getValueAt(tblTurnovers.getSelectedRow(), 3).toString());
+            txtTurnoverDate.setText(tmp.getValueAt(tblTurnovers.getSelectedRow(), 4).toString());
+        }
+
     }
 
     @Override
@@ -317,6 +424,45 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 c.setForeground(Color.white);
             }else if(admin.getRequestStatus((Integer)tblAccountApproval.getValueAt(row, 0)) == 1){
                 c.setBackground(new Color(0, 109, 77));
+                c.setForeground(Color.white);
+            }else{
+                c.setBackground(Color.white);
+                c.setForeground(Color.black);
+            }
+            return c;
+        }
+    }
+
+    class TransferRenderer extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            TableData tmp = (TableData)tblTurnovers.getModel();
+            if(tmp.getColumnCount() == 3){
+                if(tmp.getValueAt(row, 5).toString().equals("out")){
+                    c.setBackground(new Color(175, 0 , 0));
+                    c.setForeground(Color.white);
+                }else if(tmp.getValueAt(row, 5).toString().equals("in")){
+                    c.setBackground(new Color(0, 109, 77));
+                    c.setForeground(Color.white);
+                }else{
+                    c.setBackground(Color.white);
+                    c.setForeground(Color.black);
+                }
+            }
+            return c;
+        }
+    }
+
+    class AccountRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            ListData tmp = (ListData)listAccountOverview.getModel();
+            if(tmp.getStatus(index) == 1){
+                c.setBackground(new Color(175, 0 , 0));
                 c.setForeground(Color.white);
             }else{
                 c.setBackground(Color.white);

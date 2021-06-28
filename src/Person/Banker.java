@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 import Database.*;
-import Konto.Konto;
+import Konto.*;
 import Person.Customer;
 
 import javax.swing.*;
@@ -54,6 +54,7 @@ public class Banker extends Person {
     }
 
     public ListModel getCustomerModel(){
+        update();
         ArrayList<Object[]> customers = new ArrayList<>(allcustomers.size());
         customers.add(new Object[]{"Alle", -1});
         for(Object[] arr : allcustomers){
@@ -87,6 +88,7 @@ public class Banker extends Person {
 
 
     public TableData getDispoModel(){
+        update();
         ArrayList<Object[]> dispoaccounts = new ArrayList<>(allaccounts.size());
         for(int i = 0; i < allaccounts.size(); i++){
             Object[] obj = allaccounts.get(i);
@@ -104,11 +106,11 @@ public class Banker extends Person {
     }
 
     public ListData getAccountModel(int customerid){
+            update();
             ArrayList<Object[]> accounts = new ArrayList<>(allaccounts.size());
-            accounts.add(0, new Object[]{"Alle", -1});
             for (Object[] arr : allaccounts) {
                 if ((Integer) arr[5] == customerid || customerid == -1) {
-                    accounts.add(new Object[]{arr[0].toString() + " - " + arr[1].toString(), (Integer) arr[0]});
+                    accounts.add(new Object[]{arr[0].toString() + " - " + arr[1].toString(), (Integer) arr[0], arr[7], arr[3]});
                 }
             }
             accounts.trimToSize();
@@ -137,27 +139,45 @@ public class Banker extends Person {
 
     //int selectedAccount is the index of the selected element in the list
     public TableData getTransferModel(int[] ids){
+        update();
         ArrayList<Object[]> transfers = new ArrayList<>(alltransfers.size());
         ArrayList<Integer> added = new ArrayList<>(alltransfers.size());
         String[] colnames;
+        String name;
         if(ids[0] == -1){
             colnames = new String[]{"ID", "Sender", "Empfänger", "Betrag"};
-            for (int id : ids) {
+            for (int id = 1; id < ids.length; id++) {
                 for (Object[] arr : alltransfers) {
-                    if((Integer)arr[2] == id || (Integer)arr[3] == id && !added.contains((Integer) arr[0])){
-                        transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[2], "account").get(0)[5]), getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
+                    if(((Integer)arr[2] == ids[id] || (Integer)arr[3] == ids[id]) && !added.contains((Integer) arr[0])){
+                        if(data.getData((Integer) arr[2], "account").size() == 0){
+                            transfers.add(new Object[]{arr[0].toString(), arr[2] + " - Gelöscht", getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
+                        }else if(data.getData((Integer) arr[3], "account").size() == 0){
+                            transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[2], "account").get(0)[5]), arr[3] + " - Gelöscht" ,arr[1], arr[4], arr[5]});
+                        }else {
+                            transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[2], "account").get(0)[5]), getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
+                        }
                         added.add((Integer)arr[0]);
                     }
                 }
             }
         }else {
-            colnames = new String[]{"ID", "Sender", "Betrag"};
+            colnames = new String[]{"ID", "Sender/Empfänger", "Betrag"};
             for (int id : ids) {
                 for (Object[] arr : data.getAllTransfers(id)) {
                     if ((Integer) arr[2] == id) {
-                        transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
+                        if((Integer)data.getData((Integer)arr[3], "account").size() == 0){
+                            name = "Gelöscht";
+                        }else{
+                            name = getName((Integer)data.getData((Integer)arr[3], "account").get(0)[5]);
+                        }
+                        transfers.add(new Object[]{arr[0].toString(), arr[3].toString() + " - " + name, arr[1], arr[4], arr[5], "out"});
                     } else if((Integer) arr[3] == id){
-                        transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[2], "account").get(0)[5]), arr[1], arr[4], arr[5]});
+                        if((Integer)data.getData((Integer)arr[3], "account").size() == 0){
+                            name = "Gelöscht";
+                        }else{
+                            name = getName((Integer)data.getData((Integer)arr[3], "account").get(0)[5]);
+                        }
+                        transfers.add(new Object[]{arr[0].toString(), arr[2].toString() + " - " + name, arr[1], arr[4], arr[5], "in"});
                     }
                 }
             }
@@ -196,6 +216,22 @@ public class Banker extends Person {
             i++;
         }
         return userdata;
+    }
+
+    public void updateAccData(int id, int col, Object value){
+        Konto modified;
+        Object[] accdata = data.getData(id, "account").get(0);
+        switch(accdata[1].toString()){
+            case "Depot": modified = new Depot(id, this, new Customer((Integer)accdata[5])); break;
+            case "Festgeldkonto": modified = new Festgeldkonto(id, this, new Customer((Integer)accdata[5])); break;
+            case "Kreditkarte": modified = new Kreditkarte(id, this, new Customer((Integer)accdata[5])); break;
+            default: modified = new Girokonto(id, this, new Customer((Integer)accdata[5])); break;
+        }
+        switch(col){
+            case 3: modified.dispo = Double.parseDouble(value.toString()); break;
+            case 4: modified.transferlimit = Double.parseDouble(value.toString()); break;
+        }
+        System.out.println(data.updateAccountData(modified));
     }
 
     String getName(int id){
@@ -286,6 +322,10 @@ public class Banker extends Person {
             return data.size();
         }
 
+        public void addElement(int index, Object[] value){
+            data.add(index, value);
+        }
+
         @Override
         public Object getElementAt(int index) {
             return data.get(index)[0];
@@ -293,6 +333,20 @@ public class Banker extends Person {
 
         public int getSelectedID(int index){
             return (Integer)data.get(index)[1];
+        }
+
+        public int getStatus(int index){return (Integer)data.get(index)[2];}
+
+        public String getDispo(int index){return data.get(index)[3].toString();}
+
+        public void setValueAt(int index, int col,Object value){
+            data.get(index)[col] = value;
+            fireContentsChanged(this, index, index);
+        }
+
+        public void delete(int index){
+            data.remove(index);
+            fireContentsChanged(this, index, index);
         }
     }
 
