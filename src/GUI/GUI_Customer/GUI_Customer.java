@@ -3,13 +3,17 @@ package GUI.GUI_Customer;
 import GUI.GUI_Customer_Connector;
 import GUI.GUI_Login.GUI_Login;
 import GUI.HelpMethods;
+import Konto.Konto;
 import Login.Login;
 import Person.Customer;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
 
@@ -165,7 +169,7 @@ public class GUI_Customer extends JFrame {
                             txtDispo.setEditable(false);
                             txtDispo.setBorder(defaultBorder);
                             dkRahmen = 0;
-                            btnDispoNew.setText("Dispo- / Kreditrahmen ändern");
+                            btnDispoNew.setText("   Dispo- / Kreditrahmen ändern   ");
                         }
                         else{
                             JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
@@ -187,7 +191,7 @@ public class GUI_Customer extends JFrame {
                     case 0:
                         txtTransferLimit.setEditable(true);
                         ueRahmen = 1;
-                        btnChangeTransferLimit.setText("Dispo- / Kreditrahmen speichern");
+                        btnChangeTransferLimit.setText("Überweisungsrahmen speichern");
                         break;
                     case 1:
                         if(hm.onlyInt(txtTransferLimit.getText()) == true &&
@@ -197,7 +201,7 @@ public class GUI_Customer extends JFrame {
                             txtTransferLimit.setEditable(false);
                             txtTransferLimit.setBorder(defaultBorder);
                             ueRahmen = 0;
-                            btnChangeTransferLimit.setText("Überweisungsrahmen ändern");
+                            btnChangeTransferLimit.setText("   Überweisungsrahmen ändern   ");
                         }
                         else{
                             JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
@@ -380,6 +384,17 @@ public class GUI_Customer extends JFrame {
 
             }
         });
+
+        /**
+         * Die Action des Such-Textfeldes "txtSearch" im Tab Finanzübersicht ist für die Suche in der Tabelle tblTransfers
+         * zuständig und sucht nach dem Suchstring des Textfeldes in der Tabelle.
+         */
+        txtSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     /**
@@ -397,9 +412,11 @@ public class GUI_Customer extends JFrame {
         setResizable(false);
         lblHello.setText("Herzlich Willkommen " + GUI_Customer_Connector.kunde.preName + " in der Banking-App der");
 
-        Vector temp = new Vector(GUI_Customer_Connector.kunde.getAllAccounts());
+        Vector<Konto> temp= new Vector(GUI_Customer_Connector.kunde.getAllAccounts());
         temp.toString();
         listAccounts1.setListData(temp);
+        listAccounts2.setListData(temp);
+        listAccounts3.setListData(temp);
 
 
     }

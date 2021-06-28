@@ -5,6 +5,7 @@ import GUI.GUI_Customer_Connector;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 /**
  * Die Klasse ist für das Nebengui des Customers zur Löschung eines bestehenden Kontos zuständig.
@@ -62,6 +63,14 @@ public class GUI_Customer_DeleteAccount extends JFrame{
         setSize(450, 350);
         setResizable(false);
         toFront();
+
+        Vector tempRemove = new Vector(GUI_Customer_Connector.kunde.getAllAccounts());
+        tempRemove.toString();
+        listAccountToRemove.setListData(tempRemove);
+
+        Vector tempReceive = new Vector(GUI_Customer_Connector.kunde.getAllAccounts());
+        tempReceive.toString();
+        listAccountToReceive.setListData(tempReceive);
     }
 
 }
