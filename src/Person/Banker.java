@@ -262,7 +262,7 @@ public class Banker extends Person {
         //call data.insertPerson(Customer-Object)
         data.insertPerson(customer);
 
-        int user_id = (Integer)data.executeCustomQuery("SELECT MAX(account_id) FROM account").get(0)[0];
+        int user_id = (Integer)data.executeCustomQuery("SELECT MAX(customer_id) FROM customer").get(0)[0];
 
         HelpMethods h = new HelpMethods();
         String newPassword = h.generatePassword();
