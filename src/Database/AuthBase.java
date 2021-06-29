@@ -115,17 +115,17 @@ public class AuthBase extends Database {
     }
 
     //inserting function
-    public boolean insertUser(String pw, int id, String function){
+    public boolean insertUser(int login_id, String pw, int user_id, String function){
         try {
             int hash = pw.hashCode();
             int rows = 0;
 
             switch(function){
                 case "banker":
-                    rows = state.executeUpdate("INSERT INTO user(pw_hash, banker_id) VALUES(" + hash + "," + id +")");
+                    rows = state.executeUpdate("INSERT INTO user(user_id, pw_hash, banker_id) VALUES(" + login_id + "," + hash + "," + user_id +")");
                     break;
                 case "customer":
-                    rows = state.executeUpdate("INSERT INTO user(pw_hash, customer_id) VALUES(" + hash + "," + id +")");
+                    rows = state.executeUpdate("INSERT INTO user(user_id, pw_hash, customer_id) VALUES(" + login_id + "," + hash + "," + user_id +")");
                     break;
             }
 

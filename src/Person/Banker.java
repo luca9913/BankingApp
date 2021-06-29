@@ -16,8 +16,6 @@ import javax.swing.table.AbstractTableModel;
 public class Banker extends Person {
 
     public ArrayList<Object[]> allaccounts, allcustomers, relatedrequests, alltransfers;
-    //ArrayList<Konto> allaccounts, dispoaccounts;
-    //ArrayList<Customer> allcustomers;
 
     public Banker(int id) {
         super(id);
