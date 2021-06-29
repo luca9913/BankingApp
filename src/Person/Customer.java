@@ -44,7 +44,7 @@ public class Customer extends Person{
             this.city = pdata[5].toString();
             this.email = pdata[6];
             this.tel = pdata[7];
-            this.mainBanker = Integer.parseInt(pdata[6].toString());
+            this.mainBanker = Integer.parseInt(pdata[8].toString());
         }else if(pdata.length > 9){
             System.err.println("Zu viele Daten angegeben.");
         }else if(pdata.length < 9){

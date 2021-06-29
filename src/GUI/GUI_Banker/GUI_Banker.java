@@ -320,7 +320,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
     private void createNewCustomer(){
         HelpMethods h = new HelpMethods();
-        String[] newCustomer = {"","","","","","","",""};
+        String[] newCustomer = {"","","","","","","","",""};
 
         Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
         Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
@@ -398,6 +398,8 @@ public class GUI_Banker extends JFrame implements KeyListener{
         } else {
             txtNewCustomerPhone.setBorder(failedBorder);
         }
+
+        newCustomer[8] = String.valueOf(admin.getId());
 
         for(int i=0; i<newCustomer.length; i++){
             if(newCustomer[i] == ""){
