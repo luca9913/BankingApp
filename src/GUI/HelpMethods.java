@@ -117,19 +117,27 @@ public class HelpMethods {
     }
 
     /**
-     * Diese Methode wird zum parsen von Textfeldern zu Date benötigt.
-     * @param date Dieser Parameter enthält den Inhalt des zu parsenden Textfeldes.
+     * Diese Methode wird zum parsen von Textfeldern in das passende Datumsformat benötigt.
+     * @param dateString Dieser Parameter enthält den Inhalt des zu parsenden Textfeldes.
      * @return Es wird der geparste Datums-Wert zurückgegeben.
      */
-    public Date convertStringToDate(String date){
-        SimpleDateFormat formatter=new SimpleDateFormat("dd.MM.yyyy");
-        Date newDate = null;
+    public String convertStringIntoDateFormat(String dateString){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sYear = new SimpleDateFormat("yyyy");
+        SimpleDateFormat sMonth = new SimpleDateFormat("MM");
+        SimpleDateFormat sDay = new SimpleDateFormat("dd");
+
         try {
-            newDate=formatter.parse(date);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Das Datum muss im Format DD.MM.YYYY angegeben werden!","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
+            Integer year = this.parseInt(sYear.format(sdf.parse(dateString)));
+            Integer month = this.parseInt(sMonth.format(sdf.parse(dateString)));
+            Integer day = this.parseInt(sDay.format(sdf.parse(dateString)));
+
+            return year+"-"+month+"-"+day+"T16:00:00-08:00";
+        } catch (Exception pe){
+            System.out.println("Fehler bei Datumsumwandlung");
         }
-        return newDate;
+        return "";
+
     }
 
 

@@ -66,6 +66,10 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JTextField textField1;
     private JTextField textField2;
     private JScrollPane dispoAccOverview;
+    private JButton btnLogout;
+
+    // private Border border
+    private Border defaultBorder;
 
     //private int bankerID;
     private Banker admin;
@@ -128,13 +132,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 resetNewCustomer();
             }
         });
-        btnExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                closeAndOpenLogin();
-            }
-
-        });
         cbbCurrentCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,6 +139,19 @@ public class GUI_Banker extends JFrame implements KeyListener{
             }
         });
 
+        btnLogout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeAndOpenLogin();
+            }
+        });
+
+        btnExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
 
@@ -155,6 +165,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     private void initialize() {
+        // Set default border
+        defaultBorder = txtNewCustomerName.getBorder();
+
         // Title Bar Icon
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
@@ -335,7 +348,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         // Geburtstag überprüfen
         if(h.correctDateFormat(txtNewCustomerBirth.getText(), true)){
             System.out.println("Gültiges Geburtsdatum");
-            newCustomer[2] = txtNewCustomerBirth.getText();
+            newCustomer[2] = h.convertStringIntoDateFormat(txtNewCustomerBirth.getText());
             txtNewCustomerBirth.setBorder(correctBorder);
         } else {
             txtNewCustomerBirth.setBorder(failedBorder);
@@ -398,14 +411,14 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     private void resetNewCustomerView() {
-        txtNewCustomerName.setBorder(null);
-        txtNewCustomerSurname.setBorder(null);
-        txtNewCustomerBirth.setBorder(null);
-        txtNewCustomerAdress.setBorder(null);
-        txtNewCustomerZIP.setBorder(null);
-        txtNewCustomerCity.setBorder(null);
-        txtNewCustomerPhone.setBorder(null);
-        txtNewCustomerEmail.setBorder(null);
+        txtNewCustomerName.setBorder(defaultBorder);
+        txtNewCustomerSurname.setBorder(defaultBorder);
+        txtNewCustomerBirth.setBorder(defaultBorder);
+        txtNewCustomerAdress.setBorder(defaultBorder);
+        txtNewCustomerZIP.setBorder(defaultBorder);
+        txtNewCustomerCity.setBorder(defaultBorder);
+        txtNewCustomerPhone.setBorder(defaultBorder);
+        txtNewCustomerEmail.setBorder(defaultBorder);
     }
 
 
