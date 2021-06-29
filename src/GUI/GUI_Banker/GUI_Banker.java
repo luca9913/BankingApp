@@ -70,6 +70,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JTextField txtCustomerTel;
     private JLabel tblTurnoversSendOrReceive;
     private JList dispoList;
+    private JButton btnLogout;
 
     //private int bankerID;
     private Banker admin;
@@ -527,7 +528,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
     private void createNewCustomer(){
         HelpMethods h = new HelpMethods();
-        String[] newCustomer = {"","","","","","","",""};
+        String[] newCustomer = {"","","","","","","","",""};
 
         Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
         Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
