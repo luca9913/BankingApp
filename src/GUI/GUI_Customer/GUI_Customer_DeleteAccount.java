@@ -31,7 +31,10 @@ public class GUI_Customer_DeleteAccount extends JFrame{
         btnRemoveAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(listAccountToRemove.getSelectedIndex() == listAccountToReceive.getSelectedIndex()){
+                    JOptionPane.showMessageDialog(null,"Empfangendes und zu löschendes Konto können nicht gleich sein.","Information", JOptionPane.INFORMATION_MESSAGE);
 
+                }
             }
         });
 

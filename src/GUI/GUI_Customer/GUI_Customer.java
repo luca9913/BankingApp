@@ -142,9 +142,7 @@ public class GUI_Customer extends JFrame {
          */
         btnNewAccount.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                GUI_Customer_Connector.openCreate();
-            }
+            public void actionPerformed(ActionEvent e) { GUI_Customer_Connector.openCreate();}
         });
 
         /**
