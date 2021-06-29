@@ -230,7 +230,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 resetNewCustomer();
             }
         });
-        btnExit.addActionListener(new ActionListener() {
+        btnLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 closeAndOpenLogin();
@@ -238,6 +238,12 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
         });
 
+        btnExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     private void closeAndOpenLogin() {
