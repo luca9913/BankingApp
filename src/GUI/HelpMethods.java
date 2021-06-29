@@ -132,7 +132,7 @@ public class HelpMethods {
             Integer month = this.parseInt(sMonth.format(sdf.parse(dateString)));
             Integer day = this.parseInt(sDay.format(sdf.parse(dateString)));
 
-            return year+"-"+month+"-"+day+"T16:00:00-08:00";
+            return year+"-"+month+"-"+day;
         } catch (Exception pe){
             System.out.println("Fehler bei Datumsumwandlung");
         }
