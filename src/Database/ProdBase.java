@@ -191,10 +191,10 @@ public class ProdBase extends Database {
             int rows;
             if(person.getClass().toString().contains("Banker")){
                 rows =  state.executeUpdate("INSERT INTO banker(prename, name, birthdate, zip, city, address) " +
-                        "VALUES(" + person.preName + "," + person.name + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + ")");
+                        "VALUES('" + person.preName + "' , '" + person.name + "', '" + person.birthDate + "' ," + person.zip + ", '" + person.city + "' , '" + person.address + "')");
             }else{
                 rows = state.executeUpdate("INSERT INTO customer(prename, name, birthdate, zip, city, address, email, telephone) " +
-                        "VALUES(" + person.preName + "," + person.name + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + "," + person.email + "," + person.tel + ")");
+                        "VALUES('" + person.preName + "' , '" + person.name + "' , '" + person.birthDate + "' ," + person.zip + ", '" + person.city + "' , '" + person.address + "' , '" + person.email + "' , '" + person.tel + "')");
             }
             return returnFunction(rows);
         }catch(SQLException e){
