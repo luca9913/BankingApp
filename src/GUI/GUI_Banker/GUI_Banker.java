@@ -556,7 +556,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         // Geburtstag überprüfen
         if(h.correctDateFormat(txtNewCustomerBirth.getText(), true)){
             System.out.println("Gültiges Geburtsdatum");
-            newCustomer[2] = txtNewCustomerBirth.getText();
+            newCustomer[2] = h.convertStringIntoDateFormat(txtNewCustomerBirth.getText());
             txtNewCustomerBirth.setBorder(correctBorder);
         } else {
             txtNewCustomerBirth.setBorder(failedBorder);
@@ -606,6 +606,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         } else {
             txtNewCustomerPhone.setBorder(failedBorder);
         }
+
+        // Banker ID einfügen
+        newCustomer[8] = String.valueOf(admin.getId());
 
         for(int i=0; i<newCustomer.length; i++){
             if(newCustomer[i] == ""){
