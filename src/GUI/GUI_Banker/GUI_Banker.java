@@ -626,6 +626,8 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
         //[Prename, Name, Birth, Address, ZIP, City, EMail, Phone Number]
         admin.insertCustomer(newCustomer);
+
+        resetNewCustomer();
     }
 
     private void resetNewCustomerView() {
