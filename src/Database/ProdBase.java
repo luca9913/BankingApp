@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import Konto.Konto;
-import Person.Person;
+import Person.*;
 
 /**
  * Dient dem Zugriff und dem Ausführen von Befehlen in der Datenbank, die die Kundendaten, Überweisungen und sonstige "Produktionsdaten"
@@ -193,8 +193,8 @@ public class ProdBase extends Database {
                 rows =  state.executeUpdate("INSERT INTO banker(prename, name, birthdate, zip, city, address) " +
                         "VALUES(" + person.preName + "," + person.name + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + ")");
             }else{
-                rows = state.executeUpdate("INSERT INTO customer(prename, name, birthdate, zip, city, address) " +
-                        "VALUES(" + person.preName + "," + person.name + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + ")");
+                rows = state.executeUpdate("INSERT INTO customer(prename, name, birthdate, zip, city, address, email, telephone) " +
+                        "VALUES(" + person.preName + "," + person.name + "," + person.birthDate + "," + person.zip + "," + person.city + "," + person.address + "," + person.email + "," + person.tel + ")");
             }
             return returnFunction(rows);
         }catch(SQLException e){
@@ -303,13 +303,24 @@ public class ProdBase extends Database {
      */
    public boolean updateAccountData(Konto account){
         try {
-            return returnFunction(state.executeUpdate("UPDATE account SET dispo ='" + account.dispo + "', transfer_limit ='" + account.transferlimit + "', owner ='" + account.owner + "', banker_id ='" + account.banker + "', locked ='" + account.locked + "' WHERE account_id = " + account.id));
+            return returnFunction(state.executeUpdate("UPDATE account SET dispo ='" + account.dispo + "', transfer_limit ='" + account.transferlimit + "', owner ='" + account.owner.getId() + "', banker_id ='" + account.banker.getId() + "', locked ='" + account.locked + "' WHERE account_id = " + account.id));
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Kontodaten in der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean updateCustomerData(Customer customer){
+       try{
+           return returnFunction(state.executeUpdate("UPDATE customer SET prename =" + customer.preName + ", name =" + customer.name + ", birthdate =" + customer.birthDate + ", zip=" + customer.zip + ", city =" + customer.city + ", address =" + customer.address + ", email =" + customer.email + ", telephone =" + customer.tel));
+       }catch(SQLException e){
+           System.err.println("Fehler beim Aktualisieren des Kunden in der Datenbank.");
+           System.err.print("Fehlermeldung: ");
+           e.printStackTrace();
+           return false;
+       }
     }
 
     /**Aktualisiert den Status eines Freigabe-Auftrages.

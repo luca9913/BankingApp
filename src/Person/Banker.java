@@ -203,22 +203,12 @@ public class Banker extends Person {
         return data.deleteAccount(id);
     }
 
-    public String[] getUserData(int id){
-        String[] userdata = new String[9];
-        int i = 0;
-
-        for(Object obj : data.getData(id, "customer").get(0)){
-            if(obj == null){
-                userdata[i] = "null";
-            }else{
-                userdata[i] = obj.toString();
-            }
-            i++;
-        }
-        return userdata;
+    public Customer getUserData(int id){
+        Customer user = new Customer(id);
+        return user;
     }
 
-    public void updateAccData(int id, int col, Object value){
+    public boolean updateAccData(int id, int col, Object value){
         Konto modified;
         Object[] accdata = data.getData(id, "account").get(0);
         switch(accdata[1].toString()){
@@ -231,7 +221,12 @@ public class Banker extends Person {
             case 3: modified.dispo = Double.parseDouble(value.toString()); break;
             case 4: modified.transferlimit = Double.parseDouble(value.toString()); break;
         }
-        System.out.println(data.updateAccountData(modified));
+        modified.id = (Integer)accdata[0];
+        return data.updateAccountData(modified);
+    }
+
+    public boolean updateUserData(Customer user){
+        return true;
     }
 
     String getName(int id){

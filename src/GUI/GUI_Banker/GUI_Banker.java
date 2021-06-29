@@ -66,14 +66,15 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JTextField txtNewCustomerEmail;
     private JTextField txtNewCustomerPhone;
     private JLabel lblEmail;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTextField txtCustomerMail;
+    private JTextField txtCustomerTel;
     private JLabel tblTurnoversSendOrReceive;
     private JList dispoList;
 
     //private int bankerID;
     private Banker admin;
     private Login login;
+    private Customer customer;
 
 
     public GUI_Banker(Banker banker, Login login) {
@@ -184,6 +185,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 ListData tmp = (ListData)dispoList.getModel();
+                lblDispoAcc.setText("");
                 txtCurrentDispo.setText(tmp.getDispo(dispoList.getSelectedIndex()));
                 txtCurrentDispo.setEnabled(true);
                 btnApproveDispo.setEnabled(true);
@@ -193,9 +195,26 @@ public class GUI_Banker extends JFrame implements KeyListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ListData tmp = (ListData)dispoList.getModel();
-                //TODO: dispo updatebar machen
-                admin.updateAccData(tmp.getSelectedID(dispoList.getSelectedIndex()), 3, txtCurrentDispo.getText());
-                tmp.setValueAt(dispoList.getSelectedIndex(), 3, txtCurrentDispo.getText());
+                JDialog status = new JDialog();
+                status.setTitle("Dispoänderung");
+                //TODO: Popup mit Statusmeldung
+                if(admin.updateAccData(tmp.getSelectedID(dispoList.getSelectedIndex()), 3, txtCurrentDispo.getText())){
+                    tmp.setValueAt(dispoList.getSelectedIndex(), 3, txtCurrentDispo.getText());
+                }
+
+            }
+        });
+        btnSaveCustomerData.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                customer.preName = txtCustomerName.getText();
+                customer.name = txtCustomerSurname.getText();
+                customer.birthDate = txtCustomerBirth.getText();
+                customer.zip = Integer.parseInt(txtCustomerZIP.getText());
+                customer.city = txtCustomerCity.getText();
+                customer.address = txtCustomerAdress.getText();
+                customer.email = txtCustomerMail.getText();
+                customer.tel = txtCustomerTel.getText();
             }
         });
         btnCreateNewCustomer.addActionListener(new ActionListener() {
@@ -304,6 +323,8 @@ public class GUI_Banker extends JFrame implements KeyListener{
         txtCustomerAdress.setEnabled(false);
         txtCustomerZIP.setEnabled(false);
         txtCustomerCity.setEnabled(false);
+        txtCustomerMail.setEnabled(false);
+        txtCustomerTel.setEnabled(false);
         btnSaveCustomerData.setEnabled(false);
 
         //Inititalisiere NeuerKunde-Tab
@@ -329,12 +350,43 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
     void customerSelected(){
         ListData tmp = (ListData)cbbCurrentCustomer.getModel();
-        ListData newmodel = admin.getAccountModel(tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex()));
+        int id = tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex());
+        ListData newmodel = admin.getAccountModel(id);
         newmodel.addElement(0, new Object[]{"Alle", -1, -1});
         listAccountOverview.setModel(newmodel);
         listAccountOverview.setSelectedIndex(0);
         dispoList.setModel(admin.getAccountModel(tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex())));
         insertAllTransfers();
+        if(id != -1) {
+            customer = admin.getUserData(id);
+            txtCustomerID.setText(String.valueOf(customer.getId()));
+            txtCustomerName.setText(customer.preName);
+            txtCustomerName.setEnabled(true);
+            txtCustomerSurname.setText(customer.name);
+            txtCustomerSurname.setEnabled(true);
+            txtCustomerBirth.setText(customer.birthDate);
+            txtCustomerBirth.setEnabled(true);
+            txtCustomerAdress.setText(customer.address);
+            txtCustomerAdress.setEnabled(true);
+            txtCustomerZIP.setText(String.valueOf(customer.zip));
+            txtCustomerZIP.setEnabled(true);
+            txtCustomerCity.setText(customer.city);
+            txtCustomerCity.setEnabled(true);
+            txtCustomerMail.setText(customer.email);
+            txtCustomerMail.setEnabled(true);
+            txtCustomerTel.setText(customer.tel);
+            txtCustomerTel.setEnabled(true);
+            btnSaveCustomerData.setEnabled(true);
+        }else{
+            txtCustomerName.setEnabled(false);
+            txtCustomerSurname.setEnabled(false);
+            txtCustomerBirth.setEnabled(false);
+            txtCustomerAdress.setEnabled(false);
+            txtCustomerZIP.setEnabled(false);
+            txtCustomerCity.setEnabled(false);
+            txtCustomerMail.setEnabled(false);
+            txtCustomerTel.setEnabled(false);
+        }
     }
 
     void updateRequestStatus(int newstatus){
