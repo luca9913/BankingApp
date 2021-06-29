@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 import Database.*;
+import GUI.HelpMethods;
 import Konto.*;
 import Person.Customer;
 
@@ -259,6 +260,19 @@ public class Banker extends Person {
     public boolean insertCustomer(String[] pdata) {
         //create new Customer-Object
         Customer customer = new Customer(pdata);
+
+        HelpMethods h = new HelpMethods();
+        String newPassword = h.generatePassword();
+        Integer newLoginID;
+
+        Boolean success = false;
+        do {
+            newLoginID = h.generateLoginID();
+            success = auth.insertUser(newLoginID, newPassword, customer.getId(),"customer");
+        } while (success == false);
+
+        JOptionPane.showMessageDialog(null,"Der neue Kunde wurde erfolgreich angelegt: \n Login-ID: " + newLoginID + "\nPasswort: " + newPassword + "\n Das Passwort ist vorläufig und wird dem Kunden per Post zugestellt. Beim ersten Login wird er aufgefordert das Passwort aus Sicherheitsgründen zu ändern!","Fehlerhafte Eingabe(n)", JOptionPane.CANCEL_OPTION);
+
         //call data.insertPerson(Customer-Object)
         return data.insertPerson(customer);
 
