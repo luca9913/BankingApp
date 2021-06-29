@@ -70,6 +70,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JTextField txtCustomerTel;
     private JLabel tblTurnoversSendOrReceive;
     private JList dispoList;
+    private JButton btnLogout;
 
     //private int bankerID;
     private Banker admin;
@@ -527,7 +528,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
     private void createNewCustomer(){
         HelpMethods h = new HelpMethods();
-        String[] newCustomer = {"","","","","","","",""};
+        String[] newCustomer = {"","","","","","","","",""};
 
         Border failedBorder = BorderFactory.createLineBorder(new Color(175, 0 , 0));
         Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
@@ -555,7 +556,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         // Geburtstag überprüfen
         if(h.correctDateFormat(txtNewCustomerBirth.getText(), true)){
             System.out.println("Gültiges Geburtsdatum");
-            newCustomer[2] = txtNewCustomerBirth.getText();
+            newCustomer[2] = h.convertStringIntoDateFormat(txtNewCustomerBirth.getText());
             txtNewCustomerBirth.setBorder(correctBorder);
         } else {
             txtNewCustomerBirth.setBorder(failedBorder);
@@ -605,6 +606,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         } else {
             txtNewCustomerPhone.setBorder(failedBorder);
         }
+
+        // Banker ID einfügen
+        newCustomer[8] = String.valueOf(admin.getId());
 
         for(int i=0; i<newCustomer.length; i++){
             if(newCustomer[i] == ""){
