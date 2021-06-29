@@ -11,9 +11,13 @@ import java.awt.event.ActionListener;
  */
 public class GUI_Customer_CreateAccount extends JFrame{
     private JPanel PanelCreate;
-    private JRadioButton girokontoRadioButton;
+    private JRadioButton rdbGiro;
     private JButton abbrechenButton;
     private JButton kontoAnlegenButton;
+    private JRadioButton rdbTages;
+    private JRadioButton rdbSpar;
+    private JRadioButton rdbfest;
+    private JRadioButton rdbKredit;
 
     /**
      * Dieser Konstruktor ist für die Actions und weitere Optionen des Neben-Gui´s CreateAccount zuständig.
@@ -28,7 +32,21 @@ public class GUI_Customer_CreateAccount extends JFrame{
         kontoAnlegenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(rdbGiro.isSelected()){
+                    //GUI_Customer_Connector.kunde.createAccount();
+                }
+                else if(rdbTages.isSelected()){
+                    //GUI_Customer_Connector.kunde.createAccount();
+                }
+                else if(rdbSpar.isSelected()){
+                    //GUI_Customer_Connector.kunde.createAccount();
+                }
+                else if(rdbfest.isSelected()){
+                    //GUI_Customer_Connector.kunde.createAccount();
+                }
+                else if(rdbKredit.isSelected()){
+                    //GUI_Customer_Connector.kunde.createAccount();
+                }
             }
         });
 

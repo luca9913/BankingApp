@@ -24,7 +24,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="f42e2" class="javax.swing.JRadioButton" binding="girokontoRadioButton" default-binding="true">
+              <component id="f42e2" class="javax.swing.JRadioButton" binding="rdbGiro">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -33,7 +33,7 @@
                   <text value="Girokonto"/>
                 </properties>
               </component>
-              <component id="ae00f" class="javax.swing.JRadioButton" default-binding="true">
+              <component id="ae00f" class="javax.swing.JRadioButton" binding="rdbTages">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -41,7 +41,7 @@
                   <text value="Tagesgeldkonto"/>
                 </properties>
               </component>
-              <component id="a9802" class="javax.swing.JRadioButton" default-binding="true">
+              <component id="a9802" class="javax.swing.JRadioButton" binding="rdbfest">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -49,7 +49,7 @@
                   <text value="Festgeldkonto"/>
                 </properties>
               </component>
-              <component id="b1dae" class="javax.swing.JRadioButton" default-binding="true">
+              <component id="b1dae" class="javax.swing.JRadioButton" binding="rdbKredit">
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -57,7 +57,7 @@
                   <text value="Kreditkonto"/>
                 </properties>
               </component>
-              <component id="362a3" class="javax.swing.JRadioButton" default-binding="true">
+              <component id="362a3" class="javax.swing.JRadioButton" binding="rdbSpar">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
