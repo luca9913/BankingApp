@@ -10,11 +10,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -86,7 +86,15 @@ public class GUI_Customer extends JFrame {
         btnRefresh1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                DefaultListModel dlm = new DefaultListModel();
+                int i = 0;
+                for(Object[] arr : GUI_Customer_Connector.kunde.getAllAccounts()){
+                    dlm.add(i, arr[0].toString() + "  |  " + arr[1].toString() + "  |  " + arr[2].toString());
+                    i++;
+                }
+                listAccounts1.setModel(dlm);
+                listAccounts2.setModel(dlm);
+                listAccounts3.setModel(dlm);
             }
         });
 
@@ -216,8 +224,15 @@ public class GUI_Customer extends JFrame {
         btnRefresh3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
+                DefaultListModel dlm = new DefaultListModel();
+                int i = 0;
+                for(Object[] arr : GUI_Customer_Connector.kunde.getAllAccounts()){
+                    dlm.add(i, arr[0].toString() + "  |  " + arr[1].toString() + "  |  " + arr[2].toString());
+                    i++;
+                }
+                listAccounts1.setModel(dlm);
+                listAccounts2.setModel(dlm);
+                listAccounts3.setModel(dlm);
             }
         });
 
@@ -380,7 +395,15 @@ public class GUI_Customer extends JFrame {
         aktualisierenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                DefaultListModel dlm = new DefaultListModel();
+                int i = 0;
+                for(Object[] arr : GUI_Customer_Connector.kunde.getAllAccounts()){
+                    dlm.add(i, arr[0].toString() + "  |  " + arr[1].toString() + "  |  " + arr[2].toString());
+                    i++;
+                }
+                listAccounts1.setModel(dlm);
+                listAccounts2.setModel(dlm);
+                listAccounts3.setModel(dlm);
             }
         });
 
@@ -392,6 +415,33 @@ public class GUI_Customer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+
+        /**
+         * Die Tabelle "tableTurnover" im Tab Finanzübersicht zeigt alle Umsätze eines angeklickten Kontos.
+         * Das Click-Event füllt die Textfelder unter der Tabelle mit den entsprechenden Einträgen aus der
+         * Tabelle.
+         */
+        tblTransfers.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Object accNr1 = tableTurnover.getValueAt(tableTurnover.getSelectedRow(), 0);
+                String accNr2 = accNr1.toString();
+                txtAccNr.setText(accNr2);
+
+                Object receiver1 = tableTurnover.getValueAt(tableTurnover.getSelectedRow(), 1);
+                String receiver2 = receiver1.toString();
+                txtReceiver.setText(receiver2);
+
+                Object amount1 = tableTurnover.getValueAt(tableTurnover.getSelectedRow(), 2);
+                String amount2 = amount1.toString();
+                txtAmount.setText(amount2);
+
+                Object usage1 = tableTurnover.getValueAt(tableTurnover.getSelectedRow(), 3);
+                String usage2 = usage1.toString();
+                txtUsage.setText(usage2);
             }
         });
     }
@@ -414,7 +464,7 @@ public class GUI_Customer extends JFrame {
         DefaultListModel dlm = new DefaultListModel();
         int i = 0;
         for(Object[] arr : GUI_Customer_Connector.kunde.getAllAccounts()){
-            dlm.add(i, arr[0].toString() + " - " + arr[1].toString());
+            dlm.add(i, arr[0].toString() + "  |  " + arr[1].toString() + "  |  " + arr[2].toString());
             i++;
         }
         listAccounts1.setModel(dlm);
