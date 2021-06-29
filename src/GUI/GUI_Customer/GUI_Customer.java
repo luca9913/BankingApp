@@ -370,6 +370,7 @@ public class GUI_Customer extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 GUI_Login login = new GUI_Login(new Login());
                 login.setVisible(true);
+                GUI_Customer_Connector.kunde.closeConnections();
                 GUI_Customer_Connector.guiCustomer.dispose();
             }
         });

@@ -74,13 +74,11 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
     //private int bankerID;
     private Banker admin;
-    private Login login;
     private Customer customer;
 
 
-    public GUI_Banker(Banker banker, Login login) {
+    public GUI_Banker(Banker banker) {
         this.admin = banker;
-        this.login = login;
         initialize();
 
         //Table-Listener Kontenfreigabe
@@ -249,7 +247,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
     private void closeAndOpenLogin() {
         admin.closeConnections();
-        GUI_Login newView = new GUI_Login(login);
+        GUI_Login newView = new GUI_Login(new Login());
         newView.setVisible(true);
         this.dispose();
     }
