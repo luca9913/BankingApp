@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -421,6 +420,8 @@ public class GUI_Customer extends JFrame {
         listAccounts1.setModel(dlm);
         listAccounts2.setModel(dlm);
         listAccounts3.setModel(dlm);
+
+
     }
 
 }
