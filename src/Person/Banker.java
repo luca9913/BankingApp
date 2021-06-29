@@ -275,7 +275,7 @@ public class Banker extends Person {
             success = auth.insertUser(newLoginID, newPassword, user_id,"customer");
         } while (success == false);
 
-        JOptionPane.showMessageDialog(null,"Der neue Kunde wurde erfolgreich angelegt: \n Login-ID: " + newLoginID + "\nPasswort: " + newPassword + "\n Das Passwort ist vorläufig und wird dem Kunden per Post zugestellt. Beim ersten Login wird er aufgefordert das Passwort aus Sicherheitsgründen zu ändern!","Fehlerhafte Eingabe(n)", JOptionPane.CANCEL_OPTION);
+        JOptionPane.showMessageDialog(null,"Der neue Kunde wurde erfolgreich angelegt: \nLogin-ID: " + newLoginID + "\nPasswort: " + newPassword + "\nDas Passwort ist vorläufig und wird dem Kunden per Post zugestellt. Beim ersten Login wird er aufgefordert das Passwort aus Sicherheitsgründen zu ändern!","Fehlerhafte Eingabe(n)", JOptionPane.CANCEL_OPTION);
     }
 
     public class TableData extends AbstractTableModel {
