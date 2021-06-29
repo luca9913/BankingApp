@@ -39,7 +39,7 @@ public class Login {
                 Banker banker = new Banker((Integer)authSet[3]);
                 GUI_Banker newBankerView = new GUI_Banker(banker, this);
                 newBankerView.setVisible(true);
-
+                authDatabase.close();
             } else {
                 System.out.println("Login-ID (" + userID + ") über 1000 - Customer Login - Customer GUI öffnen");
 
