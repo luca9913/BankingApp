@@ -72,6 +72,8 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JList dispoList;
     private JButton btnLogout;
 
+    private Border defaultBorder;
+
     //private int bankerID;
     private Banker admin;
     private Customer customer;
@@ -253,6 +255,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     private void initialize() {
+        // Set default border
+        defaultBorder = txtNewCustomerName.getBorder();
+
         // Title Bar Icon
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
@@ -629,14 +634,14 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     private void resetNewCustomerView() {
-        txtNewCustomerName.setBorder(null);
-        txtNewCustomerSurname.setBorder(null);
-        txtNewCustomerBirth.setBorder(null);
-        txtNewCustomerAdress.setBorder(null);
-        txtNewCustomerZIP.setBorder(null);
-        txtNewCustomerCity.setBorder(null);
-        txtNewCustomerPhone.setBorder(null);
-        txtNewCustomerEmail.setBorder(null);
+        txtNewCustomerName.setBorder(defaultBorder);
+        txtNewCustomerSurname.setBorder(defaultBorder);
+        txtNewCustomerBirth.setBorder(defaultBorder);
+        txtNewCustomerAdress.setBorder(defaultBorder);
+        txtNewCustomerZIP.setBorder(defaultBorder);
+        txtNewCustomerCity.setBorder(defaultBorder);
+        txtNewCustomerPhone.setBorder(defaultBorder);
+        txtNewCustomerEmail.setBorder(defaultBorder);
     }
 
 
