@@ -11,6 +11,8 @@ import Person.Person;
 import Login.Login;
 
 import java.awt.*;
+import java.nio.charset.Charset;
+import java.util.Random;
 
 public class Main {
 
