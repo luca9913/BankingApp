@@ -20,8 +20,5 @@ public class Main {
         GUI_Login newView = new GUI_Login(log);
         newView.setVisible(true);
 
-        HelpMethods h = new HelpMethods();
-        h.convertStringIntoDateFormat("02.06.2002");
-        h.convertStringIntoDateFormat("05.12.1977");
     }
 }
