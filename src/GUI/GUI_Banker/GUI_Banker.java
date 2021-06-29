@@ -216,6 +216,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 customer.address = txtCustomerAdress.getText();
                 customer.email = txtCustomerMail.getText();
                 customer.tel = txtCustomerTel.getText();
+                admin.updateUserData(customer);
             }
         });
         btnCreateNewCustomer.addActionListener(new ActionListener() {

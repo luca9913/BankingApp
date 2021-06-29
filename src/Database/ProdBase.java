@@ -314,7 +314,7 @@ public class ProdBase extends Database {
 
     public boolean updateCustomerData(Customer customer){
        try{
-           return returnFunction(state.executeUpdate("UPDATE customer SET prename =" + customer.preName + ", name =" + customer.name + ", birthdate =" + customer.birthDate + ", zip=" + customer.zip + ", city =" + customer.city + ", address =" + customer.address + ", email =" + customer.email + ", telephone =" + customer.tel));
+           return returnFunction(state.executeUpdate("UPDATE customer SET prename = '" + customer.preName + "', name = '" + customer.name + "', birthdate = '" + customer.birthDate + "', zip=" + customer.zip + ", city = '" + customer.city + "', address = '" + customer.address + "', email = '" + customer.email + "', telephone = '" + customer.tel + "'WHERE customer_id =" + customer.getId()));
        }catch(SQLException e){
            System.err.println("Fehler beim Aktualisieren des Kunden in der Datenbank.");
            System.err.print("Fehlermeldung: ");
