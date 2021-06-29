@@ -413,11 +413,15 @@ public class GUI_Customer extends JFrame {
         setResizable(false);
         lblHello.setText("Herzlich Willkommen " + GUI_Customer_Connector.kunde.preName + " in der Banking-App der");
 
-        Vector<Konto> temp= new Vector(GUI_Customer_Connector.kunde.getAllAccounts());
-        temp.toString();
-        listAccounts1.setListData(temp);
-        listAccounts2.setListData(temp);
-        listAccounts3.setListData(temp);
+        DefaultListModel dlm = new DefaultListModel();
+        int i = 0;
+        for(Object[] arr : GUI_Customer_Connector.kunde.getAllAccounts()){
+            dlm.add(i, arr[0].toString() + " - " + arr[1].toString());
+            i++;
+        }
+        listAccounts1.setModel(dlm);
+        listAccounts2.setModel(dlm);
+        listAccounts3.setModel(dlm);
 
 
     }
