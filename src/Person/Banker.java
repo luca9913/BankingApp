@@ -255,25 +255,27 @@ public class Banker extends Person {
         return data.updateRequest(id, status);
     }
 
-    public boolean insertCustomer(String[] pdata) {
+    public void insertCustomer(String[] pdata) {
         //create new Customer-Object
         Customer customer = new Customer(pdata);
+
+        //call data.insertPerson(Customer-Object)
+        data.insertPerson(customer);
+
+        int user_id = (Integer)data.executeCustomQuery("SELECT MAX(account_id) FROM account").get(0)[0];
 
         HelpMethods h = new HelpMethods();
         String newPassword = h.generatePassword();
         Integer newLoginID;
 
+
         Boolean success = false;
         do {
             newLoginID = h.generateLoginID();
-            success = auth.insertUser(newLoginID, newPassword, customer.getId(),"customer");
+            success = auth.insertUser(newLoginID, newPassword, user_id,"customer");
         } while (success == false);
 
         JOptionPane.showMessageDialog(null,"Der neue Kunde wurde erfolgreich angelegt: \n Login-ID: " + newLoginID + "\nPasswort: " + newPassword + "\n Das Passwort ist vorläufig und wird dem Kunden per Post zugestellt. Beim ersten Login wird er aufgefordert das Passwort aus Sicherheitsgründen zu ändern!","Fehlerhafte Eingabe(n)", JOptionPane.CANCEL_OPTION);
-
-        //call data.insertPerson(Customer-Object)
-        return data.insertPerson(customer);
-
     }
 
     public class TableData extends AbstractTableModel {
