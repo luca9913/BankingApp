@@ -68,7 +68,6 @@ public class GUI_Customer_Connector extends JFrame {
     /**Diese Methode dient dazu, das Fenster GUI_Customer_CreateAccount bei Betätigung des Buttons Abbrechen zu schließen.
      * Die Methode ist statisch und liefert keinen Rückgabewert.
      */
-    //Methode um das Fenster GUI_Customer_CreateAccount mit Abbrechen zu schließen
     public static void closeCreate(){
         activateCustomerGUI();
         guiCustomerCreateAccount.dispose();
