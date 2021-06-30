@@ -180,6 +180,7 @@ public class GUI_Customer extends JFrame {
                            hm.parseInt(txtDispo.getText()) >= 0 &&
                            hm.parseInt(txtDispo.getText()) <= 2000){
 
+                            //GUI_Customer_Connector.kunde.setDispo(String.valueOf(txtDispo.getText()));
                             txtDispo.setEditable(false);
                             txtDispo.setBorder(defaultBorder);
                             dkRahmen = 0;
@@ -209,9 +210,10 @@ public class GUI_Customer extends JFrame {
                         break;
                     case 1:
                         if(hm.onlyInt(txtTransferLimit.getText()) == true &&
-                                hm.parseInt(txtTransferLimit.getText()) >= 0 &&
-                                hm.parseInt(txtTransferLimit.getText()) <= 20000){
+                            hm.parseInt(txtTransferLimit.getText()) >= 0 &&
+                            hm.parseInt(txtTransferLimit.getText()) <= 20000){
 
+                            //GUI_Customer_Connector.kunde.setLimit(String.valueOf(txtTransferLimit.getText()));
                             txtTransferLimit.setEditable(false);
                             txtTransferLimit.setBorder(defaultBorder);
                             ueRahmen = 0;
@@ -484,6 +486,9 @@ public class GUI_Customer extends JFrame {
         txtAddress.setText((String)customerdata[6]);
         txtPhone.setText((String)customerdata[8]);
         txtMail.setText((String)customerdata[7]);
+
+        //txtDispo.setText(GUI_Customer_Connector.kunde.getDispo());
+        //txtTransferLimit.setText(GUI_Customer_Connector.kunde.getLimit());
     }
 
 }
