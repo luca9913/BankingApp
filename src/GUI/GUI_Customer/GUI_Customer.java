@@ -213,7 +213,9 @@ public class GUI_Customer extends JFrame {
                             hm.parseInt(txtTransferLimit.getText()) >= 0 &&
                             hm.parseInt(txtTransferLimit.getText()) <= 20000){
 
-                            //GUI_Customer_Connector.kunde.setLimit(String.valueOf(txtTransferLimit.getText()));
+                            String a = listAccounts3.getSelectedValue().toString();
+                            int idKonto = Integer.parseInt(a.substring(0, a.indexOf(" ")));
+                            //GUI_Customer_Connector.kunde.setLimit(String.valueOf(idKonto, txtTransferLimit.getText()));
                             txtTransferLimit.setEditable(false);
                             txtTransferLimit.setBorder(defaultBorder);
                             ueRahmen = 0;
