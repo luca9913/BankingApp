@@ -131,7 +131,15 @@ public class GUI_Customer extends JFrame {
         btnRefresh2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                DefaultListModel dlm = new DefaultListModel();
+                int i = 0;
+                for(Object[] arr : GUI_Customer_Connector.kunde.getAllAccounts()){
+                    dlm.add(i, arr[0].toString() + "  |  " + arr[1].toString() + "  |  " + arr[2].toString());
+                    i++;
+                }
+                listAccounts1.setModel(dlm);
+                listAccounts2.setModel(dlm);
+                listAccounts3.setModel(dlm);
             }
         });
 
@@ -295,7 +303,7 @@ public class GUI_Customer extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(hm.onlyString(txtName.getText(), false, 2) == true &&
                    hm.onlyString(txtPrename.getText(), false, 2) == true &&
-                   hm.onlyInt(txtZip.getText()) == true && txtZip.getText().length() >= 5 &&
+                   hm.onlyInt(txtZip.getText()) == true && txtZip.getText().length() >= 2 &&
                    hm.onlyString(txtCity.getText(), true, 5) == true &&
                    txtAddress.getText().length() >= 5 &&
                    hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
@@ -319,7 +327,7 @@ public class GUI_Customer extends JFrame {
                 }
                 else if(hm.onlyString(txtName.getText(), false, 2) == false ||
                         hm.onlyString(txtPrename.getText(), false, 2) == false ||
-                        hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 5 ||
+                        hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 2 ||
                         hm.onlyString(txtCity.getText(), true, 5) == false ||
                         txtAddress.getText().length() < 5 ||
                         hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5 ||
@@ -339,7 +347,7 @@ public class GUI_Customer extends JFrame {
                     if(hm.onlyString(txtPrename.getText(), false, 2) == false){
                         txtPrename.setBorder(failedBorder);
                     }
-                    if(hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 5){
+                    if(hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 2){
                         txtZip.setBorder(failedBorder);
                     }
                     if(hm.onlyString(txtCity.getText(), true, 5) == false){
@@ -355,7 +363,6 @@ public class GUI_Customer extends JFrame {
                         txtMail.setBorder(failedBorder);
                     }
                     JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
-
                 }
 
             }
