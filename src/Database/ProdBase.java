@@ -373,6 +373,17 @@ public class ProdBase extends Database {
         }
     }
 
+    public boolean deleteRequest(int id){
+        try{
+            return returnFunction(state.executeUpdate("DELETE FROM request WHERE request_id =" + id));
+        }catch(SQLException e){
+            System.err.println("Fehler beim Löschen der Anfrage aus der Datenbank.");
+            System.err.print("Fehlermeldung: ");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     //helping functions
     boolean returnFunction(int rows){
         if(rows >= 1){

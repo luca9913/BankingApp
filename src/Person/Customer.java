@@ -10,12 +10,14 @@ import java.util.Date;
 public class Customer extends Person{
 
     private int mainBanker;
+    public ArrayList<Object[]> allrequests;
+    public ArrayList<Konto> allaccounts;
 
     //Konstruktor
     public Customer(int id){
         super(id);
         Object[] pdata = data.getData(id, "customer").get(0);
-        if(pdata.length == 9) {
+        if(pdata.length == 10) {
             this.preName = pdata[1].toString();
             this.name = pdata[2].toString();
             this.birthDate = pdata[3].toString();
@@ -24,18 +26,18 @@ public class Customer extends Person{
             this.address = pdata[6].toString();
             this.email = pdata[7].toString();
             this.tel = pdata[8].toString();
-            //To-Do: DB anpassen
-            //this.mainBanker = Integer.parseInt(pdata[6].toString());
-        }else if(pdata.length > 9){
+            this.mainBanker = Integer.parseInt(pdata[9].toString());
+            this.allrequests = data.getAllRequests(id);
+        }else if(pdata.length > 10){
             System.err.println("Zu viele Daten angegeben.");
-        }else if(pdata.length < 9){
+        }else if(pdata.length < 10){
             System.err.println("Zu wenige Daten angegeben.");
         }
     }
 
     public Customer(String[] pdata){
         super(0);
-        if(pdata.length == 9) {
+        if(pdata.length == 10) {
             this.preName = pdata[0].toString();
             this.name = pdata[1].toString();
             this.birthDate = pdata[2].toString();
@@ -45,15 +47,12 @@ public class Customer extends Person{
             this.email = pdata[6];
             this.tel = pdata[7];
             this.mainBanker = Integer.parseInt(pdata[8].toString());
-        }else if(pdata.length > 9){
+        }else if(pdata.length > 10){
             System.err.println("Zu viele Daten angegeben.");
-        }else if(pdata.length < 9){
+        }else if(pdata.length < 10){
             System.err.println("Zu wenige Daten angegeben.");
         }
     }
-
-    ArrayList<Object[]> allRequests;
-    public ArrayList<Konto> allaccounts;
 
     //initalisiert die Kontoobjekte
     public void initialiseAccounts(){
@@ -97,7 +96,34 @@ public class Customer extends Person{
         }
     }
 
+    public void updateApprovedRequests(){
+        for(Object[] arr : allrequests){
+            if((Integer)arr[1] == 1){
+                int accid = (Integer)arr[3];
+                String key = arr[5].toString();
+                Object value = arr[7];
+                if(accid == 0){
+                    switch(key){
+                        case "name": this.name = value.toString(); break;
+                        case "prename": this.preName = value.toString(); break;
+                        case "zip": this.zip = (Integer)value; break;
+                        case "city": this.city = value.toString(); break;
+                        case "address": this.address = value.toString(); break;
+                        case "email": this.email = value.toString(); break;
+                        case "telephone": this.tel = value.toString(); break;
+                    }
+                }else{
+                    switch (key){
+                        //TODO: write cases for account data
+                    }
+                }
 
+            }else if((Integer)arr[1] == -1){
+                System.out.println("Die Anfrage " + arr[0] + " mit Betreff " + arr[5] + " und neuem Wert " + arr[7] + "wurde abgelehnt.");
+                data.deleteRequest((Integer)arr[0]);
+            }
+        }
+    }
 
     //Überweisen von ausgewähltem Konto auf ein anderes
     public void transfer(int selected, int recieverid, double betrag, String usage, String date){
@@ -133,10 +159,8 @@ public class Customer extends Person{
 
     public void refreshUserData(){
 
-        allRequests = data.getAllRequests(id);
-
         Customer kunde = new Customer(id);
-        for( Object[] reqest : allRequests){
+        for( Object[] reqest : allrequests){
             if((Integer)reqest[1] == 1){ //1 wird als freigegeben interpretiert
                 String value = (String)reqest[6];
                 switch((String)reqest[5]){

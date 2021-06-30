@@ -86,15 +86,7 @@ public class GUI_Customer extends JFrame {
         btnRefresh1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultListModel dlm = new DefaultListModel();
-                int i = 0;
-                for(Konto acc : GUI_Customer_Connector.kunde.allaccounts){
-                    dlm.add(i, acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
-                    i++;
-                }
-                listAccounts1.setModel(dlm);
-                listAccounts2.setModel(dlm);
-                listAccounts3.setModel(dlm);
+                updateAccountLists();
             }
         });
 
@@ -131,15 +123,7 @@ public class GUI_Customer extends JFrame {
         btnRefresh2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultListModel dlm = new DefaultListModel();
-                int i = 0;
-                for(Konto acc : GUI_Customer_Connector.kunde.allaccounts){
-                    dlm.add(i, acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
-                    i++;
-                }
-                listAccounts1.setModel(dlm);
-                listAccounts2.setModel(dlm);
-                listAccounts3.setModel(dlm);
+                updateAccountLists();
             }
         });
 
@@ -158,7 +142,21 @@ public class GUI_Customer extends JFrame {
          */
         btnNewAccount.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { GUI_Customer_Connector.openCreate();}
+            public void actionPerformed(ActionEvent e) {
+                // GUI_Customer_Connector.openCreate(); might be unnecessay if the below method works
+                JFrame addAccount = new JFrame("Konto erstellen");
+                addAccount.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                addAccount.setIconImage(new ImageIcon("src/img/Turing Bank Square (32x32).png").getImage());
+                addAccount.setLocationRelativeTo(null);
+                addAccount.setTitle("Konto erstellen");
+                addAccount.setSize(350, 270);
+                addAccount.setResizable(false);
+                addAccount.toFront();
+                addAccount.setAlwaysOnTop(true);
+                addAccount.isFocused();
+                addAccount.setVisible(true);
+                setEnabled(false); //sets the underlying Customer_GUI to the disabled state
+            }
         });
 
         /**
@@ -400,15 +398,7 @@ public class GUI_Customer extends JFrame {
         aktualisierenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultListModel dlm = new DefaultListModel();
-                int i = 0;
-                for(Konto acc : GUI_Customer_Connector.kunde.allaccounts){
-                    dlm.add(i, acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
-                    i++;
-                }
-                listAccounts1.setModel(dlm);
-                listAccounts2.setModel(dlm);
-                listAccounts3.setModel(dlm);
+                updateAccountLists();
             }
         });
 
@@ -466,15 +456,7 @@ public class GUI_Customer extends JFrame {
         setResizable(false);
         lblHello.setText("Herzlich Willkommen " + GUI_Customer_Connector.kunde.preName + " in der Banking-App der");
 
-        DefaultListModel dlm = new DefaultListModel();
-        int i = 0;
-        for(Konto acc : GUI_Customer_Connector.kunde.allaccounts){
-            dlm.add(i, acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
-            i++;
-        }
-        listAccounts1.setModel(dlm);
-        listAccounts2.setModel(dlm);
-        listAccounts3.setModel(dlm);
+        updateAccountLists();
 
         Object[] customerdata = GUI_Customer_Connector.kunde.data.getData(GUI_Customer_Connector.kunde.id, "customer").get(0);
         txtName.setText((String)customerdata[2]);
@@ -484,6 +466,19 @@ public class GUI_Customer extends JFrame {
         txtAddress.setText((String)customerdata[6]);
         txtPhone.setText((String)customerdata[8]);
         txtMail.setText((String)customerdata[7]);
+        GUI_Customer_Connector.kunde.updateApprovedRequests();
+    }
+
+    void updateAccountLists(){
+        DefaultListModel dlm = new DefaultListModel();
+        int i = 0;
+        for(Konto acc : GUI_Customer_Connector.kunde.allaccounts){
+            dlm.add(i, acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
+            i++;
+        }
+        listAccounts1.setModel(dlm);
+        listAccounts2.setModel(dlm);
+        listAccounts3.setModel(dlm);
     }
 
 }

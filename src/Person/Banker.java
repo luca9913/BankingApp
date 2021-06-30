@@ -57,7 +57,7 @@ public class Banker extends Person {
         ArrayList<Object[]> customers = new ArrayList<>(allcustomers.size());
         customers.add(new Object[]{"Alle", -1});
         for (Object[] arr : allcustomers) {
-            customers.add(new Object[]{arr[0].toString() + " - " + arr[1].toString(), (Integer) arr[0]});
+            customers.add(new Object[]{arr[0].toString() + " - " + arr[2].toString(), (Integer) arr[0]});
         }
         return new ListData(customers);
     }

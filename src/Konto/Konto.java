@@ -16,10 +16,10 @@ public abstract class Konto{
     private Customer owner;
     private Banker banker;
     private ProdBase data;
+    ArrayList<Object[]> transferList;
 
     public Konto(String type, int id, Banker banker, Customer owner, ProdBase data)
     {
-        //TODO: getAllTransfers() in constructor
         if(banker == null || owner == null)
         {
             throw new IllegalArgumentException("Banker und/oder Customer dürfen nicht null sein.");
@@ -29,6 +29,7 @@ public abstract class Konto{
         this.id = id;
         this.type = type;
         this.data = data;
+        transferList = data.getAllTransfers(id);
     }
 
     public void setId(int id){
@@ -85,7 +86,6 @@ public abstract class Konto{
         return this.getBanker();
     }
 
-    ArrayList<Object[]> transferList;
     //gibt Liste aller Umsätze zurück
     public ArrayList<Object[]> getAllTranfers(){
        transferList = data.getAllTransfers(id);
