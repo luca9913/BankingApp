@@ -178,6 +178,7 @@ public class GUI_Customer extends JFrame {
                            hm.parseInt(txtDispo.getText()) >= 0 &&
                            hm.parseInt(txtDispo.getText()) <= 2000){
 
+                            GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setDispo(Integer.parseInt(txtDispo.getText()));
                             txtDispo.setEditable(false);
                             txtDispo.setBorder(defaultBorder);
                             dkRahmen = 0;
@@ -207,9 +208,10 @@ public class GUI_Customer extends JFrame {
                         break;
                     case 1:
                         if(hm.onlyInt(txtTransferLimit.getText()) == true &&
-                                hm.parseInt(txtTransferLimit.getText()) >= 0 &&
-                                hm.parseInt(txtTransferLimit.getText()) <= 20000){
+                            hm.parseInt(txtTransferLimit.getText()) >= 0 &&
+                            hm.parseInt(txtTransferLimit.getText()) <= 20000){
 
+                            GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setLimit(Integer.parseInt(txtTransferLimit.getText()));
                             txtTransferLimit.setEditable(false);
                             txtTransferLimit.setBorder(defaultBorder);
                             ueRahmen = 0;
@@ -437,6 +439,19 @@ public class GUI_Customer extends JFrame {
                 Object usage1 = tableTurnover.getValueAt(tableTurnover.getSelectedRow(), 3);
                 String usage2 = usage1.toString();
                 txtUsage.setText(usage2);
+            }
+        });
+
+        /**
+         * Die Action der Liste "listAccounts3" im Tab Konten füllt die beiden Textfelder txtDispo und
+         * txtTransferLimit mit den entsprechenden Werten des selektierten Kontos.
+         */
+        listAccounts3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                txtTransferLimit.setText(GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).getLimit().toString());
+                txtDispo.setText(GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).getDispo().toString());
             }
         });
     }
