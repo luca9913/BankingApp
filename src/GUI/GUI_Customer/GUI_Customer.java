@@ -460,8 +460,8 @@ public class GUI_Customer extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setLimit(Integer.parseInt(txtTransferLimit.getText()));
-                GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setDispo(Integer.parseInt(txtDispo.getText()));
+                txtTransferLimit.setText(GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).getLimit().toString());
+                txtDispo.setText(GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).getDispo().toString());
             }
         });
     }
