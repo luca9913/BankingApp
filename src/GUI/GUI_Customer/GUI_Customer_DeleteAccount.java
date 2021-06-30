@@ -1,6 +1,7 @@
 package GUI.GUI_Customer;
 
 import GUI.GUI_Customer_Connector;
+import Konto.Konto;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -80,8 +81,8 @@ public class GUI_Customer_DeleteAccount extends JFrame{
 
         DefaultListModel dlm = new DefaultListModel();
         int i = 0;
-        for(Object[] arr : GUI_Customer_Connector.kunde.getAllAccounts()){
-            dlm.add(i, arr[0].toString() + "  |  " + arr[1].toString() + "  |  " + arr[2].toString());
+        for(Konto acc : GUI_Customer_Connector.kunde.allaccounts){
+            dlm.add(i, acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
             i++;
         }
         listAccountToRemove.setModel(dlm);

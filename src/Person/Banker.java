@@ -212,27 +212,27 @@ public class Banker extends Person {
         Object[] accdata = data.getData(id, "account").get(0);
         switch (accdata[1].toString()) {
             case "Depot":
-                modified = new Depot(id, this, new Customer((Integer) accdata[5]));
+                modified = new Depot(id, this, new Customer((Integer) accdata[5]), data);
                 break;
             case "Festgeldkonto":
-                modified = new Festgeldkonto(id, this, new Customer((Integer) accdata[5]));
+                modified = new Festgeldkonto(id, this, new Customer((Integer) accdata[5]), data);
                 break;
             case "Kreditkarte":
-                modified = new Kreditkarte(id, this, new Customer((Integer) accdata[5]));
+                modified = new Kreditkarte(id, this, new Customer((Integer) accdata[5]), data);
                 break;
             default:
-                modified = new Girokonto(id, this, new Customer((Integer) accdata[5]));
+                modified = new Girokonto(id, this, new Customer((Integer) accdata[5]), data);
                 break;
         }
         switch (col) {
             case 3:
-                modified.dispo = Double.parseDouble(value.toString());
+                modified.setDispo(Double.parseDouble(value.toString()));
                 break;
             case 4:
-                modified.transferlimit = Double.parseDouble(value.toString());
+                modified.setLimit(Double.parseDouble(value.toString()));
                 break;
         }
-        modified.id = (Integer) accdata[0];
+        modified.setId((Integer) accdata[0]);
         return data.updateAccountData(modified);
     }
 

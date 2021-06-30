@@ -29,6 +29,7 @@ public class GUI_Customer_Connector extends JFrame {
      */
     public static void openCustomer(Customer customer){
         kunde = customer;
+        kunde.initialiseAccounts();
         guiCustomer = new GUI_Customer();
         guiCustomerCreateAccount = new GUI_Customer_CreateAccount();
         guiCustomerDeleteAccount = new GUI_Customer_DeleteAccount();

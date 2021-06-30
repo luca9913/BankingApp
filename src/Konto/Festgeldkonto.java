@@ -6,9 +6,9 @@ import Person.Customer;
 
 public class Festgeldkonto extends Konto{
 
-    public Festgeldkonto(int id, Banker banker, Customer owner) {
+    public Festgeldkonto(int id, Banker banker, Customer owner, ProdBase data) {
 
-        super("Festgeldkonto", id, banker, owner);
+        super("Festgeldkonto", id, banker, owner, data);
     }
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
