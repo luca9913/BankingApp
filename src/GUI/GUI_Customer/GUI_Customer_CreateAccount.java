@@ -44,6 +44,9 @@ public class GUI_Customer_CreateAccount extends JFrame{
                 else if(rdbKredit.isSelected()){
                     //GUI_Customer_Connector.kunde.createAccount("Kreditkarte");
                 }
+                JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
+                        "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
+                GUI_Customer_Connector.closeCreate();
             }
         });
 
@@ -53,9 +56,7 @@ public class GUI_Customer_CreateAccount extends JFrame{
         abbrechenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 GUI_Customer_Connector.closeCreate();
-
             }
         });
     }
