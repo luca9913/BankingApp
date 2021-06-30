@@ -7,56 +7,88 @@ import Database.ProdBase;
 import java.util.ArrayList;
 
 public abstract class Konto{
-    public int id; //KontoID
-    public String type;
-    public double balance = 0;
-    public double dispo = -1000;
-    public double transferlimit = 10000;
-    public int locked;
-    public Customer owner;
-    public Banker banker;
-    protected ProdBase database;
+    private int id; //KontoID
+    private String type;
+    private double balance = 0;
+    private double dispo = -500;
+    private double transferlimit = 10000;
+    private int locked;
+    private Customer owner;
+    private Banker banker;
+    private ProdBase data;
 
-    public Konto(ProdBase database, String type, int id, Banker banker, Customer owner)
+    public Konto(String type, int id, Banker banker, Customer owner, ProdBase data)
     {
+        //TODO: getAllTransfers() in constructor
         if(banker == null || owner == null)
         {
-            throw new IllegalArgumentException("Banker und oder Customer darf net null sein");
+            throw new IllegalArgumentException("Banker und/oder Customer dürfen nicht null sein.");
         }
         this.banker = banker;
         this.owner = owner;
         this.id = id;
-        this.database = database;
         this.type = type;
+        this.data = data;
     }
 
-    public Konto(String type, double betrag, Banker banker, Customer owner)
-    {
-        if(banker == null || owner == null)
-        {
-            throw new IllegalArgumentException("Banker und oder Customer darf net NULL sein");
-        }
-        if(betrag < 0) {
-            throw new IllegalArgumentException("Kein negativer Parameter");
-        }else
-        {
-            this.balance = betrag;
-        }
-        this.banker = banker;
-        this.owner = owner;
+    public void setId(int id){
         this.id = id;
-        this.database = database;
-        this.type = type;
     }
 
-    ProdBase data;
+    public void setBalance(double balance){
+        this.balance = balance;
+    }
+
+    public void setDispo(double dispo){
+        this.dispo = dispo;
+    }
+
+    public void setLimit(double limit){
+        this.transferlimit = limit;
+    }
+
+    public void setStatus(int status){
+        if(status <= 1 && status >= -1) {
+            this.locked = status;
+        }
+    }
+
+    public Integer getId(){
+        return this.id;
+    }
+
+    public String getType(){
+        return this.type;
+    }
+
+    public Double getBalance(){
+        return this.balance;
+    }
+
+    public Double getDispo(){
+        return this.dispo;
+    }
+
+    public Double getLimit(){
+        return this.transferlimit;
+    }
+
+    public Integer getStatus(){
+        return this.locked;
+    }
+
+    public Customer getOwner(){
+        return this.owner;
+    }
+
+    public Banker getBanker(){
+        return this.getBanker();
+    }
 
     ArrayList<Object[]> transferList;
-
     //gibt Liste aller Umsätze zurück
     public ArrayList<Object[]> getAllTranfers(){
        transferList = data.getAllTransfers(id);
-
        return transferList;
     }
 
@@ -107,10 +139,9 @@ public abstract class Konto{
 
 
 
-    /*public void aendern(String key, double value){
-        database.createRequest(key,value, owner.getId(), banker.getId(), owner.getUid());
-    }*/
-
+    public void aendern(String key, String value){
+        data.createRequest(key, value, owner.getId(), banker.getId(), owner.getId());
+    }
 
 
     public void aufloesen(Konto zielkonto){

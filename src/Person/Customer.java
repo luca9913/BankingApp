@@ -52,61 +52,57 @@ public class Customer extends Person{
         }
     }
 
-
-    Konto konto;
-    //ProdBase data;
-    ArrayList<Object[]> allAccounts, allRequests;
-    public ArrayList<Konto> allaccounts2;
-
-
-    //erstellt Liste mit Konten des Kunden und gibt diese zurück
-    public ArrayList<Object[]> getAllAccounts(){
-        allAccounts = data.getAllAccounts(id);
-        return allAccounts;
-    }
+    ArrayList<Object[]> allRequests;
+    public ArrayList<Konto> allaccounts;
 
     //initalisiert die Kontoobjekte
-    /*public void initialiseAccounts(){
-
-        for(Object[] arr : getAllAccounts()){
-            int accountid = (Integer) arr[0];
-            String type = (String) arr[1];
-            double balance = (Double) arr[2];
-            double dispo = (Double) arr[3];
-            double transferLimit = (Double) arr[4];
-            int ownerid = (Integer) arr[5];
-            int bankerid = (Integer) arr[6];
-            int locked = (Integer) arr[7];
-
-            switch(type){
+    public void initialiseAccounts(){
+        ArrayList<Object[]> tmp = data.getAllAccounts(this.id);
+        allaccounts = new ArrayList<>(tmp.size());
+        for(Object[] arr : tmp){
+            switch(arr[1].toString()){
                 case "Girokonto":
-                    Girokonto tmpGiro = new Girokonto();
-                    allaccounts2.add(tmpGiro);
+                    Girokonto tmpGiro = new Girokonto((Integer)arr[0], new Banker((Integer)arr[6]), this, data);
+                    tmpGiro.setBalance((Double)arr[2]);
+                    tmpGiro.setDispo((Double)arr[3]);
+                    tmpGiro.setLimit((Double)arr[4]);
+                    tmpGiro.setStatus((Integer)arr[7]);
+                    allaccounts.add(tmpGiro);
                     break;
                 case "Festgeldkonto":
-                    Festgeldkonto tmpFest = new Festgeldkonto();
-                    allaccounts2.add(tmpFest);
+                    Festgeldkonto tmpFest = new Festgeldkonto((Integer)arr[0], new Banker((Integer)arr[6]), this, data);
+                    tmpFest.setBalance((Double)arr[2]);
+                    tmpFest.setDispo((Double)arr[3]);
+                    tmpFest.setLimit((Double)arr[4]);
+                    tmpFest.setStatus((Integer)arr[7]);
+                    allaccounts.add(tmpFest);
                     break;
                 case "Depot":
-                    Depot tmpDepot = new Depot();
-                    allaccounts2.add(tmpDepot);
+                    Depot tmpDepot = new Depot((Integer)arr[0], new Banker((Integer)arr[6]), this, data);
+                    tmpDepot.setBalance((Double)arr[2]);
+                    tmpDepot.setDispo((Double)arr[3]);
+                    tmpDepot.setLimit((Double)arr[4]);
+                    tmpDepot.setStatus((Integer)arr[7]);
+                    allaccounts.add(tmpDepot);
                     break;
                 case "Kreditkarte":
-                    Kreditkarte tmpCredit = new Kreditkarte();
-                    allaccounts2.add(tmpCredit);
+                    Kreditkarte tmpCredit = new Kreditkarte((Integer)arr[0], new Banker((Integer)arr[6]), this, data);
+                    tmpCredit.setBalance((Double)arr[2]);
+                    tmpCredit.setDispo((Double)arr[3]);
+                    tmpCredit.setLimit((Double)arr[4]);
+                    tmpCredit.setStatus((Integer)arr[7]);
+                    allaccounts.add(tmpCredit);
                     break;
             }
-            allaccounts2.add(tmp);
         }
-    }*/
+    }
 
 
 
     //Überweisen von ausgewähltem Konto auf ein anderes
     public void transfer(int selected, int recieverid, double betrag, String usage, String date){
-        int accountid = (Integer) allAccounts.get(selected)[0];
+        Konto konto = allaccounts.get(selected);
         konto.transfer(recieverid, betrag, usage, date);
-        //irgendwie muss hier noch das gewählte Kontoobjekt gewählt werden
     }
 
 
@@ -158,9 +154,13 @@ public class Customer extends Person{
     }
 
 
+    /*public Konto createAccount(){
 
+    }
 
+    public void removeAccount(){
 
+    }*/
 
 
     //Funktion, um alle Konten in der GUI zu aktualisieren

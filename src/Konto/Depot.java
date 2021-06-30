@@ -6,7 +6,7 @@ import Person.Customer;
 
 public class Depot extends Konto{
 
-    public Depot(int id, Banker banker, Customer owner) {
-        super("Depot", id, banker, owner);
+    public Depot(int id, Banker banker, Customer owner, ProdBase data) {
+        super("Depot", id, banker, owner, data);
     }
 }
