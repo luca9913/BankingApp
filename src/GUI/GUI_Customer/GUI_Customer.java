@@ -180,7 +180,7 @@ public class GUI_Customer extends JFrame {
                            hm.parseInt(txtDispo.getText()) >= 0 &&
                            hm.parseInt(txtDispo.getText()) <= 2000){
 
-                            GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setDispo(Integer.parseInt(txtTransferLimit.getText()));
+                            GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setDispo(Integer.parseInt(txtDispo.getText()));
                             txtDispo.setEditable(false);
                             txtDispo.setBorder(defaultBorder);
                             dkRahmen = 0;
@@ -451,6 +451,19 @@ public class GUI_Customer extends JFrame {
                 txtUsage.setText(usage2);
             }
         });
+
+        /**
+         * Die Action der Liste "listAccounts3" im Tab Konten füllt die beiden Textfelder txtDispo und
+         * txtTransferLimit mit den entsprechenden Werten des selektierten Kontos.
+         */
+        listAccounts3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setLimit(Integer.parseInt(txtTransferLimit.getText()));
+                GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setDispo(Integer.parseInt(txtDispo.getText()));
+            }
+        });
     }
 
     /**
@@ -486,9 +499,6 @@ public class GUI_Customer extends JFrame {
         txtAddress.setText((String)customerdata[6]);
         txtPhone.setText((String)customerdata[8]);
         txtMail.setText((String)customerdata[7]);
-
-        //txtDispo.setText(GUI_Customer_Connector.kunde.getDispo());
-        //txtTransferLimit.setText(GUI_Customer_Connector.kunde.getLimit());
     }
 
 }
