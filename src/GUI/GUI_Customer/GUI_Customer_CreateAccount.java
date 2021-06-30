@@ -15,8 +15,8 @@ public class GUI_Customer_CreateAccount extends JFrame{
     private JButton abbrechenButton;
     private JButton kontoAnlegenButton;
     private JRadioButton rdbTages;
-    private JRadioButton rdbSpar;
-    private JRadioButton rdbfest;
+    private JRadioButton rdbDepot;
+    private JRadioButton rdbFest;
     private JRadioButton rdbKredit;
 
     /**
@@ -33,19 +33,16 @@ public class GUI_Customer_CreateAccount extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(rdbGiro.isSelected()){
-                    //GUI_Customer_Connector.kunde.createAccount();
+                    //GUI_Customer_Connector.kunde.createAccount("Girokonto");
                 }
-                else if(rdbTages.isSelected()){
-                    //GUI_Customer_Connector.kunde.createAccount();
+                else if(rdbDepot.isSelected()){
+                    //GUI_Customer_Connector.kunde.createAccount("Depot");
                 }
-                else if(rdbSpar.isSelected()){
-                    //GUI_Customer_Connector.kunde.createAccount();
-                }
-                else if(rdbfest.isSelected()){
-                    //GUI_Customer_Connector.kunde.createAccount();
+                else if(rdbFest.isSelected()){
+                    //GUI_Customer_Connector.kunde.createAccount("Festgeldkonto");
                 }
                 else if(rdbKredit.isSelected()){
-                    //GUI_Customer_Connector.kunde.createAccount();
+                    //GUI_Customer_Connector.kunde.createAccount("Kreditkarte");
                 }
             }
         });

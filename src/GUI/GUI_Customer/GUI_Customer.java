@@ -224,15 +224,14 @@ public class GUI_Customer extends JFrame {
         btnRefresh3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultListModel dlm = new DefaultListModel();
-                int i = 0;
-                for(Object[] arr : GUI_Customer_Connector.kunde.getAllAccounts()){
-                    dlm.add(i, arr[0].toString() + "  |  " + arr[1].toString() + "  |  " + arr[2].toString());
-                    i++;
-                }
-                listAccounts1.setModel(dlm);
-                listAccounts2.setModel(dlm);
-                listAccounts3.setModel(dlm);
+                Object[] customerdata = GUI_Customer_Connector.kunde.data.getData(GUI_Customer_Connector.kunde.id, "customer").get(0);
+                txtName.setText((String)customerdata[2]);
+                txtPrename.setText((String)customerdata[1]);
+                txtZip.setText(String.valueOf(customerdata[4]));
+                txtCity.setText((String)customerdata[5]);
+                txtAddress.setText((String)customerdata[6]);
+                txtPhone.setText((String)customerdata[8]);
+                txtMail.setText((String)customerdata[7]);
             }
         });
 
@@ -302,7 +301,7 @@ public class GUI_Customer extends JFrame {
                    hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
                    hm.onlyString(txtMail.getText(), false, 5) == true){
 
-                    //GUI_Customer_Connector.kunde.changeMyData(txtName.getText(), txtPrename.getText(), txtZip.getText(), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
+                    GUI_Customer_Connector.kunde.changeUserData(txtName.getText(), txtPrename.getText(), Integer.parseInt(txtZip.getText()), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
                     txtName.setBorder(defaultBorder);
                     txtPrename.setBorder(defaultBorder);
                     txtZip.setBorder(defaultBorder);
@@ -310,7 +309,6 @@ public class GUI_Customer extends JFrame {
                     txtAddress.setBorder(defaultBorder);
                     txtPhone.setBorder(defaultBorder);
                     txtMail.setBorder(defaultBorder);
-
                     txtName.setEditable(false);
                     txtPrename.setEditable(false);
                     txtZip.setEditable(false);
@@ -471,7 +469,14 @@ public class GUI_Customer extends JFrame {
         listAccounts2.setModel(dlm);
         listAccounts3.setModel(dlm);
 
-
+        Object[] customerdata = GUI_Customer_Connector.kunde.data.getData(GUI_Customer_Connector.kunde.id, "customer").get(0);
+        txtName.setText((String)customerdata[2]);
+        txtPrename.setText((String)customerdata[1]);
+        txtZip.setText(String.valueOf(customerdata[4]));
+        txtCity.setText((String)customerdata[5]);
+        txtAddress.setText((String)customerdata[6]);
+        txtPhone.setText((String)customerdata[8]);
+        txtMail.setText((String)customerdata[7]);
     }
 
 }
