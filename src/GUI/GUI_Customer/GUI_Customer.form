@@ -465,6 +465,7 @@
                         </constraints>
                         <properties>
                           <editable value="false"/>
+                          <text value=""/>
                         </properties>
                       </component>
                       <component id="b9650" class="javax.swing.JTextField" binding="txtAmount">
