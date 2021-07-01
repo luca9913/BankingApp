@@ -264,16 +264,15 @@ public class Customer extends Person{
     }
 
 
-    /*public Konto createAccount(){
-
-    }*/
+    public void createAccount(String type, int accID) {
+        this.data.createRequest("account", type, accID, this.id, allaccounts.get(accID).getBanker().getId());
+    }
 
     public void removeAccount(Konto remove, Konto rest){
         String today = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
         data.insertTransfer(remove.getBalance(), remove.getId(), rest.getId(), "Restbetrag Kontoauflösung", today);
         data.deleteAccount(remove.getId());
     }
-
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
     private void syncAccounts(){
