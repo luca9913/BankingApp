@@ -34,29 +34,19 @@ public class GUI_Customer_CreateAccount extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(rdbGiro.isSelected()){
                     GUI_Customer_Connector.kunde.createAccount("Girokonto", 0);
-                    JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
-                            "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
-                    GUI_Customer_Connector.closeCreate();
                 }
                 else if(rdbDepot.isSelected()){
                     GUI_Customer_Connector.kunde.createAccount("Depot", 0);
-                    JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
-                            "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
-                    GUI_Customer_Connector.closeCreate();
                 }
                 else if(rdbFest.isSelected()){
                     GUI_Customer_Connector.kunde.createAccount("Festgeldkonto", 0);
-                    JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
-                            "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
-                    GUI_Customer_Connector.closeCreate();
                 }
                 else if(rdbKredit.isSelected()){
                     GUI_Customer_Connector.kunde.createAccount("Kreditkarte", 0);
-                    JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
-                            "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
-                    GUI_Customer_Connector.closeCreate();
                 }
-
+                JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
+                        "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
+                GUI_Customer_Connector.closeCreate();
             }
         });
 
