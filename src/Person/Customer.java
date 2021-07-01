@@ -7,6 +7,7 @@ import Konto.*;
 
 import javax.swing.*;
 import java.util.Date;
+import java.util.Random;
 
 public class Customer extends Person{
 
@@ -229,13 +230,51 @@ public class Customer extends Person{
     }
 
 
-    /*public Konto createAccount(){
-
+    public void createAccount(String type){
+        Banker tempBanker = new Banker(this.mainBanker);
+        switch(type){
+            case "Girokonto":
+                Girokonto tmpGiro;
+                do{
+                    Random rdm = new Random();
+                    int number = rdm.nextInt(999999999);
+                    tmpGiro = new Girokonto(number, tempBanker, this, this.data);
+                }while(this.data.insertAccount(tmpGiro) == false);
+                this.data.insertAccount(tmpGiro);
+                break;
+            case "Festgeldkonto":
+                Festgeldkonto tmpFest;
+                do{
+                    Random rdm = new Random();
+                    int number = rdm.nextInt(999999999);
+                    tmpFest = new Festgeldkonto(number, tempBanker, this, this.data);
+                }while(this.data.insertAccount(tmpFest) == false);
+                this.data.insertAccount(tmpFest);
+                break;
+            case "Depot":
+                Depot tmpDepot;
+                do{
+                    Random rdm = new Random();
+                    int number = rdm.nextInt(999999999);
+                    tmpDepot = new Depot(number, tempBanker, this, this.data);
+                }while(this.data.insertAccount(tmpDepot) == false);
+                this.data.insertAccount(tmpDepot);
+                break;
+            case "Kreditkarte":
+                Kreditkarte tmpCredit;
+                do{
+                    Random rdm = new Random();
+                    int number = rdm.nextInt(999999999);
+                    tmpCredit = new Kreditkarte(number, tempBanker, this, this.data);
+                }while(this.data.insertAccount(tmpCredit) == false);
+                this.data.insertAccount(tmpCredit);
+                break;
+        }
     }
 
     public void removeAccount(){
 
-    }*/
+    }
 
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
