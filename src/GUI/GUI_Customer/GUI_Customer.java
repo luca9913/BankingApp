@@ -104,9 +104,10 @@ public class GUI_Customer extends JFrame {
         btnTransfer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //int maxUeberweisung = (int)kunde.data.executeCustomQuery("SELECT transfer_limit FROM account WHERE account_id= "+ GUI_Customer_Connector.kunde.getId() + ";").get(0)[0];
-                double restbetrag = 0;//listAccounts2.getSelectedValue();
-                if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > 0 /*maxUeberweisung*/){
+                double maxUeberweisung = GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getLimit();
+                double restbetrag = GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getBalance();
+                double dispo = GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getDispo();
+                if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > 0 && maxUeberweisung*/){
                     if(hm.parseDouble(txtAmountTo.getText()) > restbetrag ){
                         JOptionPane.showMessageDialog(null,"Ihr ausgewähltes Konto ist nicht ausreichend gedeckt.\n" +
                                 "bitte wählen Sie ein anderes Konto aus oder passen\n" +
