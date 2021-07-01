@@ -321,7 +321,7 @@ public class GUI_Customer extends JFrame {
                    hm.onlyString(txtCity.getText(), true, 5) == true &&
                    txtAddress.getText().length() >= 5 &&
                    hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
-                   hm.onlyString(txtMail.getText(), false, 5) == true){
+                    txtMail.getText().length() >= 5){
 
                     GUI_Customer_Connector.kunde.changeUserData(txtName.getText(), txtPrename.getText(), Integer.parseInt(txtZip.getText()), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
                     txtName.setBorder(defaultBorder);
@@ -345,7 +345,7 @@ public class GUI_Customer extends JFrame {
                         hm.onlyString(txtCity.getText(), true, 5) == false ||
                         txtAddress.getText().length() < 5 ||
                         hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5 ||
-                        hm.onlyString(txtMail.getText(), false, 5) == false){
+                        txtMail.getText().length() < 5){
 
                     txtName.setBorder(correctBorder);
                     txtPrename.setBorder(correctBorder);
@@ -367,18 +367,17 @@ public class GUI_Customer extends JFrame {
                     if(!hm.onlyString(txtCity.getText(), true, 5)){
                         txtCity.setBorder(failedBorder);
                     }
-                    if(!hm.onlyString(txtAddress.getText(), true, 5)){
+                    if(txtAddress.getText().length() < 5){
                         txtAddress.setBorder(failedBorder);
                     }
                     if(!hm.onlyInt(txtPhone.getText()) || txtPhone.getText().length() < 5){
                         txtPhone.setBorder(failedBorder);
                     }
-                    if(!hm.onlyString(txtMail.getText(), false, 5)){
+                    if(txtMail.getText().length() < 5){
                         txtMail.setBorder(failedBorder);
                     }
                     JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
                 }
-
             }
         });
 
