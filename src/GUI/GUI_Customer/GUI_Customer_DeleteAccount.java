@@ -38,16 +38,11 @@ public class GUI_Customer_DeleteAccount extends JFrame{
                     JOptionPane.showMessageDialog(null,"Empfangendes und zu löschendes Konto können nicht gleich sein.","Information", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
-                    String a = listAccountToRemove.getSelectedValue().toString();
-                    String b = listAccountToReceive.getSelectedValue().toString();
-                    int idToRemove = Integer.parseInt(a.substring(0, a.indexOf(" ")));
-                    int idToReceive = Integer.parseInt(b.substring(0, b.indexOf(" ")));
-                    double amount = Double.parseDouble(GUI_Customer_Connector.kunde.data.getData(idToRemove, "account").get(0)[2].toString());
-
-                    String currentDate = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
-
-                    GUI_Customer_Connector.kunde.transfer(idToRemove, idToReceive, amount, "Kontoauflösung des Kontos " + idToRemove, currentDate);
-                    //GUI_Customer_Connector.kunde.removeAccount(idToRemove);
+                    Konto remove = GUI_Customer_Connector.kunde.allaccounts.get(listAccountToRemove.getSelectedIndex());
+                    Konto rest = GUI_Customer_Connector.kunde.allaccounts.get(listAccountToReceive.getSelectedIndex());
+                    GUI_Customer_Connector.kunde.removeAccount(remove, rest);
+                    GUI_Customer_Connector.kunde.allaccounts.remove(listAccountToRemove.getSelectedIndex());
+                    GUI_Customer_Connector.closeDelete();
                 }
             }
         });

@@ -1,6 +1,7 @@
 package Person;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import Database.ProdBase;
 import Konto.*;
@@ -111,15 +112,47 @@ public class Customer extends Person{
                 String key = arr[5].toString();
                 Object value = arr[7];
                 if(accid == 0){
-                    switch(key){
-                        case "name": this.name = value.toString(); break;
-                        case "prename": this.preName = value.toString(); break;
-                        case "zip": this.zip = (Integer)value; break;
-                        case "city": this.city = value.toString(); break;
-                        case "address": this.address = value.toString(); break;
-                        case "email": this.email = value.toString(); break;
-                        case "telephone": this.tel = value.toString(); break;
+                    switch (key) {
+                        case "name" -> this.name = value.toString();
+                        case "prename" -> this.preName = value.toString();
+                        case "zip" -> this.zip = (Integer) value;
+                        case "city" -> this.city = value.toString();
+                        case "address" -> this.address = value.toString();
+                        case "email" -> this.email = value.toString();
+                        case "telephone" -> this.tel = value.toString();
+                        case "account" -> {
+                            Random rnd = new Random();
+                            Konto newacc;
+                            int id;
+                            switch (value.toString()) {
+                                case "Girokonto":
+                                    id = 400000000 + rnd.nextInt(99999999);
+                                    newacc = new Girokonto(id, new Banker(1 + rnd.nextInt(19)), this, data);
+                                    data.insertAccount(newacc);
+                                    allaccounts.add(newacc);
+                                    break;
+                                case "Festgeldkonto":
+                                    id = 300000000 + rnd.nextInt(99999999);
+                                    newacc = new Festgeldkonto(id, new Banker(1 + rnd.nextInt(19)), this, data);
+                                    data.insertAccount(newacc);
+                                    allaccounts.add(newacc);
+                                    break;
+                                case "Depot":
+                                    id = 100000000 + rnd.nextInt(99999999);
+                                    newacc = new Depot(id, new Banker(1+ rnd.nextInt(19)), this, data);
+                                    data.insertAccount(newacc);
+                                    allaccounts.add(newacc);
+                                    break;
+                                case "Kreditkarte":
+                                    id = 200000000 + rnd.nextInt(99999999);
+                                    newacc = new Kreditkarte(id, new Banker(1 + rnd.nextInt(19)), this, data);
+                                    data.insertAccount(newacc);
+                                    allaccounts.add(newacc);
+                                    break;
+                            }
+                        }
                     }
+                    data.deleteRequest((Integer)arr[0]);
                     data.updateCustomerData(this);
                 }else{
                     int index = 0;
@@ -131,6 +164,7 @@ public class Customer extends Person{
                         case "dispo": allaccounts.get(index).setDispo((Double)value); break;
                         case "transferlimit": allaccounts.get(index).setLimit((Integer)value); break;
                     }
+                    data.deleteRequest((Integer)arr[0]);
                     data.updateAccountData(allaccounts.get(index));
                 }
             }else if((Integer)arr[1] == -1){
@@ -230,11 +264,30 @@ public class Customer extends Person{
     }
 
 
-    public void createAccount(String type, int accID){
+    public void createAccount(String type, int accID) {
         this.data.createRequest("account", type, accID, this.id, allaccounts.get(accID).getBanker().getId());
     }
 
-    public void removeAccount(){
+    public void removeAccount(Konto remove, Konto rest){
+        String today = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
+        data.insertTransfer(remove.getBalance(), remove.getId(), rest.getId(), "Restbetrag Kontoauflösung", today);
+        data.deleteAccount(remove.getId());
+    }
+
+    //Funktion, um alle Konten in der GUI zu aktualisieren
+    private void syncAccounts(){
+
+    }
+
+    //Funktion, um die aktuellen Kontostände anzuzeigen
+    //Offene Frage: Alle Kontostände oder nur der Kontostand eines Kontos
+    private void showFinances(int accID){
+
+    }
+
+    //Zeigt Kontobewegungen (z.B. letzte Überweisungen)
+    //Offene Frage: Alle Kontobewegungen oder nur die Kontobewegungen eines Kontos
+    private void showAccMovement(int accID){
 
     }
 

@@ -172,9 +172,9 @@ public class ProdBase extends Database {
         try {
             //return number of inserted rows
             return returnFunction(state.executeUpdate("INSERT INTO account(type, balance, dispo, transferlimit, owner, banker_id) " +
-                    "VALUES(" + account.getType() + "," + account.getDispo() + "," + account.getBalance() + "," + account.getLimit() + "," + account.getOwner().id + "," + account.getBanker().id + ");"));
+                    "VALUES('" + account.getType() + "'," + account.getBalance() + "," + account.getDispo() + "," + account.getLimit() + "," + account.getOwner().id + "," + account.getBanker().id + ");"));
         }catch(SQLException e){
-            System.err.println("Fehler beim Einfügen der neuen Benutzer in die Datenbank.");
+            System.err.println("Fehler beim Einfügen des neuen Kontos in die Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
             return false;
@@ -236,7 +236,7 @@ public class ProdBase extends Database {
     public boolean insertTransfer(double amount, int sender, int receiver, String usage, String date){
         try{
             return returnFunction(state.executeUpdate("INSERT INTO transfer(amount, sender, receiver, usage, date) " +
-                    "VALUES(" + amount + "," + sender + "," + receiver + "," + usage + "," + date + ");"));
+                    "VALUES(" + amount + "," + sender + "," + receiver + ", '" + usage + "' , '" + date + "');"));
         }catch(SQLException e){
             System.err.println("Fehler beim übertragen der Überweisung in die Datenbank.");
             System.err.print("Fehlermeldung: ");
