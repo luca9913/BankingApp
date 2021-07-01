@@ -429,17 +429,6 @@ public class GUI_Customer extends JFrame {
         });
 
         /**
-         * Die Action des Such-Textfeldes "txtSearch" im Tab Finanzübersicht ist für die Suche in der Tabelle tblTransfers
-         * zuständig und sucht nach dem Suchstring des Textfeldes in der Tabelle.
-         */
-        txtSearch.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        /**
          * Die Tabelle "tableTurnover" im Tab Finanzübersicht zeigt alle Umsätze eines angeklickten Kontos.
          * Das Click-Event füllt die Textfelder unter der Tabelle mit den entsprechenden Einträgen aus der
          * Tabelle.
