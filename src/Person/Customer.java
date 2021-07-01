@@ -230,46 +230,8 @@ public class Customer extends Person{
     }
 
 
-    public void createAccount(String type){
-        Banker tempBanker = new Banker(this.mainBanker);
-        switch(type){
-            case "Girokonto":
-                Girokonto tmpGiro;
-                do{
-                    Random rdm = new Random();
-                    int number = rdm.nextInt(999999999);
-                    tmpGiro = new Girokonto(number, tempBanker, this, this.data);
-                }while(this.data.insertAccount(tmpGiro) == false);
-                this.data.insertAccount(tmpGiro);
-                break;
-            case "Festgeldkonto":
-                Festgeldkonto tmpFest;
-                do{
-                    Random rdm = new Random();
-                    int number = rdm.nextInt(999999999);
-                    tmpFest = new Festgeldkonto(number, tempBanker, this, this.data);
-                }while(this.data.insertAccount(tmpFest) == false);
-                this.data.insertAccount(tmpFest);
-                break;
-            case "Depot":
-                Depot tmpDepot;
-                do{
-                    Random rdm = new Random();
-                    int number = rdm.nextInt(999999999);
-                    tmpDepot = new Depot(number, tempBanker, this, this.data);
-                }while(this.data.insertAccount(tmpDepot) == false);
-                this.data.insertAccount(tmpDepot);
-                break;
-            case "Kreditkarte":
-                Kreditkarte tmpCredit;
-                do{
-                    Random rdm = new Random();
-                    int number = rdm.nextInt(999999999);
-                    tmpCredit = new Kreditkarte(number, tempBanker, this, this.data);
-                }while(this.data.insertAccount(tmpCredit) == false);
-                this.data.insertAccount(tmpCredit);
-                break;
-        }
+    public void createAccount(String type, int accID){
+        this.data.createRequest("account", type, accID, this.id, allaccounts.get(accID).getBanker().getId());
     }
 
     public void removeAccount(){
