@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Database.ProdBase;
 import Konto.*;
 
+import javax.swing.*;
 import java.util.Date;
 
 public class Customer extends Person{
@@ -27,7 +28,7 @@ public class Customer extends Person{
             this.email = pdata[7].toString();
             this.tel = pdata[8].toString();
             this.mainBanker = Integer.parseInt(pdata[9].toString());
-            this.allrequests = data.getAllRequests(id);
+            update();
         }else if(pdata.length > 10){
             System.err.println("Zu viele Daten angegeben.");
         }else if(pdata.length < 10){
@@ -54,6 +55,12 @@ public class Customer extends Person{
         }
     }
 
+    public void update(){
+        this.allrequests = data.getAllRequests(id);
+        initialiseAccounts();
+        updateRequests();
+    }
+
     //initalisiert die Kontoobjekte
     public void initialiseAccounts(){
         ArrayList<Object[]> tmp = data.getAllAccounts(this.id);
@@ -64,7 +71,7 @@ public class Customer extends Person{
                     Girokonto tmpGiro = new Girokonto((Integer)arr[0], new Banker((Integer)arr[6]), this, data);
                     tmpGiro.setBalance((Double)arr[2]);
                     tmpGiro.setDispo((Double)arr[3]);
-                    tmpGiro.setLimit((Double)arr[4]);
+                    tmpGiro.setLimit((Integer)arr[4]);
                     tmpGiro.setStatus((Integer)arr[7]);
                     allaccounts.add(tmpGiro);
                     break;
@@ -72,7 +79,7 @@ public class Customer extends Person{
                     Festgeldkonto tmpFest = new Festgeldkonto((Integer)arr[0], new Banker((Integer)arr[6]), this, data);
                     tmpFest.setBalance((Double)arr[2]);
                     tmpFest.setDispo((Double)arr[3]);
-                    tmpFest.setLimit((Double)arr[4]);
+                    tmpFest.setLimit((Integer)arr[4]);
                     tmpFest.setStatus((Integer)arr[7]);
                     allaccounts.add(tmpFest);
                     break;
@@ -80,7 +87,7 @@ public class Customer extends Person{
                     Depot tmpDepot = new Depot((Integer)arr[0], new Banker((Integer)arr[6]), this, data);
                     tmpDepot.setBalance((Double)arr[2]);
                     tmpDepot.setDispo((Double)arr[3]);
-                    tmpDepot.setLimit((Double)arr[4]);
+                    tmpDepot.setLimit((Integer)arr[4]);
                     tmpDepot.setStatus((Integer)arr[7]);
                     allaccounts.add(tmpDepot);
                     break;
@@ -88,7 +95,7 @@ public class Customer extends Person{
                     Kreditkarte tmpCredit = new Kreditkarte((Integer)arr[0], new Banker((Integer)arr[6]), this, data);
                     tmpCredit.setBalance((Double)arr[2]);
                     tmpCredit.setDispo((Double)arr[3]);
-                    tmpCredit.setLimit((Double)arr[4]);
+                    tmpCredit.setLimit((Integer)arr[4]);
                     tmpCredit.setStatus((Integer)arr[7]);
                     allaccounts.add(tmpCredit);
                     break;
@@ -96,7 +103,7 @@ public class Customer extends Person{
         }
     }
 
-    public void updateApprovedRequests(){
+    public void updateRequests(){
         for(Object[] arr : allrequests){
             if((Integer)arr[1] == 1){
                 int accid = (Integer)arr[3];
@@ -112,10 +119,18 @@ public class Customer extends Person{
                         case "email": this.email = value.toString(); break;
                         case "telephone": this.tel = value.toString(); break;
                     }
+                    data.updateCustomerData(this);
                 }else{
+                    int index = 0;
+                    do{
+                        index++;
+                    }while(allaccounts.get(index).getId() != accid);
+
                     switch (key){
-                        //TODO: write cases for account data
+                        case "dispo": allaccounts.get(index).setDispo((Double)value); break;
+                        case "transferlimit": allaccounts.get(index).setLimit((Integer)value); break;
                     }
+                    data.updateAccountData(allaccounts.get(index));
                 }
 
             }else if((Integer)arr[1] == -1){
@@ -123,6 +138,35 @@ public class Customer extends Person{
                 data.deleteRequest((Integer)arr[0]);
             }
         }
+    }
+
+    public TableData getTransfers(int index){
+        Konto acc = allaccounts.get(index);
+        int accid = acc.getId();
+        ArrayList<Object[]> transfers = acc.getAllTranfers();
+        for(int i = 0; i < transfers.size(); i++){
+            Object[] transfer = transfers.get(i);
+            if ((Integer)transfer[2] == accid) {
+                ArrayList<Object[]> otheracc = data.getData((Integer) transfer[3], "account");
+                if (otheracc.size() == 0) {
+                    name = "Gelöscht";
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], "Begünstiger", "-", transfer[4], transfer[5]});
+                } else {
+                    name = getName((Integer)otheracc.get(0)[5]);
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], "Begünstiger", transfer[3], transfer[4], transfer[5]});
+                }
+            } else if ((Integer)transfer[3] == accid) {
+                ArrayList<Object[]> otheracc = data.getData((Integer) transfer[2], "account");
+                if (otheracc.size() == 0) {
+                    name = "Gelöscht";
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], "Absender", "-", transfer[4], transfer[5]});
+                } else {
+                    name = getName((Integer) data.getData((Integer) transfer[2], "account").get(0)[5]);
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], "Absender", transfer[2], transfer[4], transfer[5]});
+                }
+            }
+        }
+        return new TableData(new String[]{"ID", "Name", "Betrag"}, transfers);
     }
 
     //Überweisen von ausgewähltem Konto auf ein anderes

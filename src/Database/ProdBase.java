@@ -171,7 +171,7 @@ public class ProdBase extends Database {
     public boolean insertAccount(Konto account){
         try {
             //return number of inserted rows
-            return returnFunction(state.executeUpdate("INSERT INTO account(type, balance, dispo, transfer_limit, owner, banker_id) " +
+            return returnFunction(state.executeUpdate("INSERT INTO account(type, balance, dispo, transferlimit, owner, banker_id) " +
                     "VALUES(" + account.getType() + "," + account.getDispo() + "," + account.getBalance() + "," + account.getLimit() + "," + account.getOwner().id + "," + account.getBanker().id + ");"));
         }catch(SQLException e){
             System.err.println("Fehler beim Einfügen der neuen Benutzer in die Datenbank.");
@@ -303,7 +303,7 @@ public class ProdBase extends Database {
      */
    public boolean updateAccountData(Konto account){
         try {
-            return returnFunction(state.executeUpdate("UPDATE account SET dispo ='" + account.getDispo() + "', transfer_limit ='" + account.getLimit() + "', owner ='" + account.getOwner().getId() + "', banker_id ='" + account.getBanker().getId() + "', locked ='" + account.getStatus() + "' WHERE account_id = " + account.getId()));
+            return returnFunction(state.executeUpdate("UPDATE account SET dispo ='" + account.getDispo() + "', transferlimit ='" + account.getLimit() + "', owner ='" + account.getOwner().getId() + "', banker_id ='" + account.getBanker().getId() + "', locked ='" + account.getStatus() + "' WHERE account_id = " + account.getId()));
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Kontodaten in der Datenbank.");
             System.err.print("Fehlermeldung: ");

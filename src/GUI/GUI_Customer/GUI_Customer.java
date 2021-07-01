@@ -6,6 +6,8 @@ import GUI.HelpMethods;
 import Konto.Konto;
 import Login.Login;
 import Person.Customer;
+import Person.Person;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.*;
@@ -13,6 +15,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
@@ -32,7 +35,6 @@ public class GUI_Customer extends JFrame {
     private JButton btnRefresh1;
     private JTextField txtAccNr;
     private JTextField txtReceiver;
-    private JTextField txtAmount;
     private JTextField txtUsage;
     private JList listAccounts2;
     private JButton btnTransfer;
@@ -64,6 +66,8 @@ public class GUI_Customer extends JFrame {
     private JButton btnLogoff;
     private JButton aktualisierenButton;
     private JLabel lblHello;
+    private JLabel srlabel;
+    private JTextField txtDate;
     private static int changeUserData = 0;
     private Border defaultBorder;
     private static int dkRahmen = 0;
@@ -87,6 +91,7 @@ public class GUI_Customer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateAccountLists();
+                tableTurnover.setModel(new DefaultTableModel());
             }
         });
 
@@ -143,9 +148,9 @@ public class GUI_Customer extends JFrame {
         btnNewAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // GUI_Customer_Connector.openCreate(); might be unnecessay if the below method works
+                GUI_Customer_Connector.openCreate();
+                /*alternative method to invoke the new frames, must be written as a new class GUI_CreateAccount or something
                 JFrame addAccount = new JFrame("Konto erstellen");
-                addAccount.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 addAccount.setIconImage(new ImageIcon("src/img/Turing Bank Square (32x32).png").getImage());
                 addAccount.setLocationRelativeTo(null);
                 addAccount.setTitle("Konto erstellen");
@@ -155,7 +160,7 @@ public class GUI_Customer extends JFrame {
                 addAccount.setAlwaysOnTop(true);
                 addAccount.isFocused();
                 addAccount.setVisible(true);
-                setEnabled(false); //sets the underlying Customer_GUI to the disabled state
+                setEnabled(false); //sets the underlying Customer_GUI to the disabled state */
             }
         });
 
@@ -341,25 +346,25 @@ public class GUI_Customer extends JFrame {
                     txtPhone.setBorder(correctBorder);
                     txtMail.setBorder(correctBorder);
 
-                    if(hm.onlyString(txtName.getText(), false, 2) == false){
+                    if(!hm.onlyString(txtName.getText(), false, 2)){
                         txtName.setBorder(failedBorder);
                     }
-                    if(hm.onlyString(txtPrename.getText(), false, 2) == false){
+                    if(!hm.onlyString(txtPrename.getText(), false, 2)){
                         txtPrename.setBorder(failedBorder);
                     }
-                    if(hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 2){
+                    if(!hm.onlyInt(txtZip.getText()) || txtZip.getText().length() < 2){
                         txtZip.setBorder(failedBorder);
                     }
-                    if(hm.onlyString(txtCity.getText(), true, 5) == false){
+                    if(!hm.onlyString(txtCity.getText(), true, 5)){
                         txtCity.setBorder(failedBorder);
                     }
-                    if(hm.onlyString(txtAddress.getText(), true, 5) == false){
+                    if(!hm.onlyString(txtAddress.getText(), true, 5)){
                         txtAddress.setBorder(failedBorder);
                     }
-                    if(hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5){
+                    if(!hm.onlyInt(txtPhone.getText()) || txtPhone.getText().length() < 5){
                         txtPhone.setBorder(failedBorder);
                     }
-                    if(hm.onlyString(txtMail.getText(), false, 5) == false){
+                    if(!hm.onlyString(txtMail.getText(), false, 5)){
                         txtMail.setBorder(failedBorder);
                     }
                     JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
@@ -420,25 +425,31 @@ public class GUI_Customer extends JFrame {
          * Das Click-Event füllt die Textfelder unter der Tabelle mit den entsprechenden Einträgen aus der
          * Tabelle.
          */
-        tblTransfers.addMouseListener(new MouseAdapter() {
+        tableTurnover.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                Object accNr1 = tableTurnover.getValueAt(tableTurnover.getSelectedRow(), 0);
-                String accNr2 = accNr1.toString();
-                txtAccNr.setText(accNr2);
+                Person.TableData tmp = (Person.TableData) tableTurnover.getModel();
+                int row = tableTurnover.getSelectedRow();
+                txtAccNr.setText(tmp.getValueAt(row, 4).toString());
+                srlabel.setText(tmp.getValueAt(row, 3).toString());
+                txtReceiver.setText(tmp.getValueAt(row, 1).toString());
+                txtUsage.setText(tmp.getValueAt(row, 5).toString());
+                txtDate.setText(tmp.getValueAt(row, 6).toString());
+            }
+        });
 
-                Object receiver1 = tableTurnover.getValueAt(tableTurnover.getSelectedRow(), 1);
-                String receiver2 = receiver1.toString();
-                txtReceiver.setText(receiver2);
-
-                Object amount1 = tableTurnover.getValueAt(tableTurnover.getSelectedRow(), 2);
-                String amount2 = amount1.toString();
-                txtAmount.setText(amount2);
-
-                Object usage1 = tableTurnover.getValueAt(tableTurnover.getSelectedRow(), 3);
-                String usage2 = usage1.toString();
-                txtUsage.setText(usage2);
+        listAccounts1.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selected = listAccounts1.getSelectedIndex();
+                if(selected != -1){
+                    tableTurnover.setModel(GUI_Customer_Connector.kunde.getTransfers(listAccounts1.getSelectedIndex()));
+                }
+                txtAccNr.setText("");
+                txtReceiver.setText("");
+                txtUsage.setText("");
+                txtDate.setText("");
             }
         });
 
@@ -450,7 +461,7 @@ public class GUI_Customer extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                txtTransferLimit.setText(GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).getLimit().toString());
+                txtTransferLimit.setText(String.valueOf(GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).getLimit()));
                 txtDispo.setText(GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).getDispo().toString());
             }
         });
@@ -481,7 +492,6 @@ public class GUI_Customer extends JFrame {
         txtAddress.setText((String)customerdata[6]);
         txtPhone.setText((String)customerdata[8]);
         txtMail.setText((String)customerdata[7]);
-        GUI_Customer_Connector.kunde.updateApprovedRequests();
     }
 
     void updateAccountLists(){

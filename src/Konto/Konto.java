@@ -11,7 +11,7 @@ public abstract class Konto{
     private String type;
     private double balance = 0;
     private double dispo = -500;
-    private double transferlimit = 10000;
+    private int transferlimit = 10000;
     private int locked;
     private Customer owner;
     private Banker banker;
@@ -44,7 +44,7 @@ public abstract class Konto{
         this.dispo = dispo;
     }
 
-    public void setLimit(double limit){
+    public void setLimit(int limit){
         this.transferlimit = limit;
     }
 
@@ -70,7 +70,7 @@ public abstract class Konto{
         return this.dispo;
     }
 
-    public Double getLimit(){
+    public int getLimit(){
         return this.transferlimit;
     }
 
@@ -88,7 +88,7 @@ public abstract class Konto{
 
     //gibt Liste aller Umsätze zurück
     public ArrayList<Object[]> getAllTranfers(){
-       transferList = data.getAllTransfers(id);
+        transferList = data.getAllTransfers(id);
        return transferList;
     }
 

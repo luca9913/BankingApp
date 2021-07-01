@@ -229,7 +229,7 @@ public class Banker extends Person {
                 modified.setDispo(Double.parseDouble(value.toString()));
                 break;
             case 4:
-                modified.setLimit(Double.parseDouble(value.toString()));
+                modified.setLimit(Integer.parseInt(value.toString()));
                 break;
         }
         modified.setId((Integer) accdata[0]);
@@ -238,10 +238,6 @@ public class Banker extends Person {
 
     public boolean updateUserData(Customer user) {
         return data.updateCustomerData(user);
-    }
-
-    String getName(int id) {
-        return data.getData(id, "customer").get(0)[2].toString();
     }
 
     public int getRequestStatus(int id) {
