@@ -10,9 +10,9 @@ public abstract class Konto{
     private int id; //KontoID
     private String type;
     private double balance = 0;
-    private double dispo = -500;
-    private int transferlimit = 10000;
-    private int locked;
+    private double dispo;
+    private int transferlimit;
+    private int locked = 0;
     private Customer owner;
     private Banker banker;
     private ProdBase data;
@@ -89,7 +89,7 @@ public abstract class Konto{
     //gibt Liste aller Umsätze zurück
     public ArrayList<Object[]> getAllTranfers(){
         transferList = data.getAllTransfers(id);
-       return transferList;
+        return transferList;
     }
 
     //gibt Daten zu einem konkreten Umsatz zurück getData: 95
@@ -99,97 +99,22 @@ public abstract class Konto{
         return data.getData(id, "transfer").get(1);
     }
 
-    //gibt Empfängers / Senders eines Umsatzes zurück
-    public Object[] getDataName (int selected){
-        int transferid = (Integer) transferList.get(selected)[0];
-
-        for(Object[] transfer : transferList){
-            if(id == (Integer) transfer[2])
-                if(transferid == (Integer) transfer[0])
-                    return data.executeCustomQuery("SELECT prename, name FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
-            else
-                if(transferid == (Integer) transfer[0])
-                    return data.executeCustomQuery("SELECT prename, name FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
-        }
-        return null;
-    }
-
-    //aktualisiert die Balance anhand der Überweisungen
-    public void refreshBalance(){
-        for(Object[] transfer : transferList){
-            if(id == (Integer) transfer[2])
-                zahlungsAusgang((Integer)transfer[1]);
-            else
-                zahlungsEingang((Integer) transfer[1]);
-        }
-        data.updateBalance(id, balance);
-    }
-
     //Überweisen auf ein anderes Konto
-    public void transfer(int recieverid, double betrag, String usage, String date){
-        if(transferlimit < betrag)
+    public boolean transfer(int id, double amount, String usage, String date){
+        if(transferlimit < amount)
         {
             throw new IllegalArgumentException("Transfer limit ueberschritten");
         }else
         {
+            updateBalance(amount * (-1));
+            data.updateAccountData(this);
             //Transfer in die Datenbank schreiben
-            data.insertTransfer(betrag, id, recieverid, usage, date); //fehler weil insertTransfer noch nicht fertig
+            return data.insertTransfer(amount, id, id, usage, date);
         }
-    }
-
-
-
-    public void aendern(String key, String value){
-        data.createRequest(key, value, owner.getId(), banker.getId(), owner.getId());
-    }
-
-
-    public void aufloesen(Konto zielkonto){
-        if(balance < 0)
-        {
-            throw new IllegalStateException("Konto isch im Minus um "+ balance +" Euro");
-        }else
-        {
-            zielkonto.zahlungsEingang(zahlungsAusgang(balance));
-        }
-    }
-
-    public double aufloesen() {
-        if (balance < 0) {
-            throw new IllegalStateException("Konto isch im Minus");
-        }
-        return balance;
     }
 
     //Funktion um einzuzahlen
-    public void zahlungsEingang(double betrag){
-        if(betrag <= 0)
-        {
-            throw new IllegalArgumentException("Kein negativer Parameter oder 0 möglich");
-        }
-        balance += betrag;
-    }
-
-    //Funktion um auszuzahlen
-    public double zahlungsAusgang(double betrag){
-        if(betrag <= 0)
-        {
-            throw new IllegalArgumentException("Kein negativer Parameter oder 0 möglich");
-        }
-        if(dispo > balance - betrag)
-        {
-            double ueberzug = (balance - betrag -dispo) * -1;
-            throw new IllegalArgumentException("Dispo ueberzogen um "+ ueberzug + " Euro");
-        }else
-        {
-            balance -= betrag;
-            return betrag;
-        }
-    }
-
-
-
-    public double anzeigenDispo(){
-        return dispo;
+    public void updateBalance(Double amount){
+        balance += amount;
     }
 }

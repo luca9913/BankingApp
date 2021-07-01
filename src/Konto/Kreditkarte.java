@@ -9,11 +9,10 @@ public class Kreditkarte extends Konto {
 
     public Kreditkarte(int id, Banker banker, Customer owner, ProdBase data) {
         super("Kreditkarte", id, banker, owner, data);
+        setDispo(-2500);
+        setLimit(15000);
     }
 
-    //public Kreditkarte(){
-    //    debit = 0;
-    //}
     //Bank bezahlen --> debit auf 0
     private void payBank(double amount) {
         debit -= amount;

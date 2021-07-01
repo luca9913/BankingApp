@@ -6,7 +6,8 @@ import java.util.*;
 import Database.*;
 import GUI.HelpMethods;
 import Konto.*;
-import Person.Customer;
+import Person.*;
+import Person.Person.TableData;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -272,48 +273,6 @@ public class Banker extends Person {
         } while (success == false);
 
         JOptionPane.showMessageDialog(null,"Der neue Kunde wurde erfolgreich angelegt: \nLogin-ID: " + newLoginID + "\nPasswort: " + newPassword + "\nDas Passwort ist vorläufig und wird dem Kunden per Post zugestellt. Beim ersten Login wird er aufgefordert das Passwort aus Sicherheitsgründen zu ändern!","Fehlerhafte Eingabe(n)", JOptionPane.CANCEL_OPTION);
-    }
-
-    public class TableData extends AbstractTableModel {
-        String[] colnames;
-        ArrayList<Object[]> data;
-
-        TableData(String[] colnames, ArrayList<Object[]> data) {
-            this.colnames = colnames;
-            this.data = data;
-        }
-
-        @Override
-        public int getRowCount() {
-            return data.size();
-        }
-
-        @Override
-        public int getColumnCount() {
-            return colnames.length;
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return colnames[column];
-        }
-
-        @Override
-        //fill transfer table
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            return data.get(rowIndex)[columnIndex];
-        }
-
-        @Override
-        public void setValueAt(Object value, int row, int col) {
-            data.get(row)[col] = value;
-            fireTableDataChanged();
-        }
-
-        public void update(ArrayList<Object[]> newdata) {
-            this.data = newdata;
-            fireTableDataChanged();
-        }
     }
 
     public class ListData extends AbstractListModel implements ComboBoxModel {

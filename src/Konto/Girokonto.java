@@ -9,8 +9,9 @@ public class Girokonto extends Konto{
 
     public Girokonto(int id, Banker banker, Customer owner, ProdBase data) {
         super("Girokonto", id, banker, owner, data);
+        setDispo(-500);
+        setLimit(5000);
     }
-
 
     /*Funktion, um zu überweisen
     private void transfer(Girokonto toAcc, double sum){

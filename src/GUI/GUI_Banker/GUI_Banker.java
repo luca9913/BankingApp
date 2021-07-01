@@ -3,12 +3,11 @@ package GUI.GUI_Banker;
 import javax.swing.*;
 import GUI.GUI_Login.GUI_Login;
 import GUI.HelpMethods;
-import Konto.*;
 import Login.Login;
 import Person.Banker;
 import Person.Banker.*;
-import Database.ProdBase;
 import Person.Customer;
+import Person.Person.TableData;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
@@ -32,7 +31,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JComboBox cbbCurrentCustomer;
     private JList listAccountOverview;
     private JButton btnRefreshAccount;
-    private JTextField txtSearchTurnover;
     private JTable tblTurnovers;
     private JTextField txtTurnoverAccountNr;
     private JTextField txtTurnoverNr;
@@ -166,9 +164,13 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 int index = listAccountOverview.getSelectedIndex();
                 int id = tmp.getSelectedID(index);
                 int status = 1 - tmp.getStatus(index);
-                admin.un_lockAccount(id, status);
-                tmp.setValueAt(index, 2, status);
-                listAccountOverview.getListSelectionListeners()[0].valueChanged(new ListSelectionEvent(this, index, index, false));
+                if(admin.un_lockAccount(id, status)){
+                    tmp.setValueAt(index, 2, status);
+                    listAccountOverview.getListSelectionListeners()[0].valueChanged(new ListSelectionEvent(this, index, index, false));
+                    JOptionPane.showMessageDialog(mainPanel, "Änderung des Kontostatus erfolgreich!", "Kontostatus geändert", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(mainPanel, "Kontostatus konnte nicht geändert werden!", "Fehler Kontostatus", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         btnDeleteAccount.addActionListener(new ActionListener() {
@@ -177,9 +179,12 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 ListData tmp = (ListData) listAccountOverview.getModel();
                 int index = listAccountOverview.getSelectedIndex();
                 if(admin.deleteAccount(tmp.getSelectedID(index))){
-                    System.out.println("Deletion succesful");
+                    JOptionPane.showMessageDialog(mainPanel, "Kontolöschung erfolgreich!", "Account gelöscht", JOptionPane.INFORMATION_MESSAGE);
+                    tmp.delete(index);
+                }else{
+                    JOptionPane.showMessageDialog(mainPanel, "Konto konnte nicht gelöscht werden!", "Fehler Kontolöschung", JOptionPane.ERROR_MESSAGE);
                 }
-                tmp.delete(index);
+
             }
         });
         dispoList.addListSelectionListener(new ListSelectionListener() {
@@ -201,10 +206,14 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 //TODO: Popup mit Statusmeldung
                 if(admin.updateAccData(tmp.getSelectedID(dispoList.getSelectedIndex()), 3, txtCurrentDispo.getText())){
                     tmp.setValueAt(dispoList.getSelectedIndex(), 3, txtCurrentDispo.getText());
+                    JOptionPane.showMessageDialog(mainPanel, "Dispo erfolgreich auf " + txtCurrentDispo.getText() + " geändert!", "Dispoänderung", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(mainPanel, "Dispo konnte nicht geändert werden!", "Fehler Dispoänderung", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
         });
+
         btnSaveCustomerData.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -216,9 +225,14 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 customer.address = txtCustomerAdress.getText();
                 customer.email = txtCustomerMail.getText();
                 customer.tel = txtCustomerTel.getText();
-                admin.updateUserData(customer);
+                if(admin.updateUserData(customer)){
+                    JOptionPane.showMessageDialog(mainPanel, "Kundendaten erfolgreich geändert!", "Kundendaten", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(mainPanel, "Kundendaten konnten nicht geändert werden!", "Fehler Kundendaten", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
+
         btnCreateNewCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -317,7 +331,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         btnRefreshAccount.setEnabled(true);
         btnBlockAccount.setEnabled(false);
         btnDeleteAccount.setEnabled(false);
-        txtSearchTurnover.setEnabled(false);
 
         // Initialisiere Kundenübersicht - Dispo
         lblDispoAcc.setText("Wähle Konto");

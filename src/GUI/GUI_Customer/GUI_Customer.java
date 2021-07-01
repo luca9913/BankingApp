@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -95,6 +96,18 @@ public class GUI_Customer extends JFrame {
             }
         });
 
+        listAccounts2.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                Object value = listAccounts2.getSelectedValue();
+                if(value == null || value.toString().contains("Gesperrt")){
+                    btnTransfer.setEnabled(false);
+                }else{
+                    btnTransfer.setEnabled(true);
+                }
+            }
+        });
+
         /**
          * Die Action des Buttons "Überweisen" im Tab Überweisen triggert die Überweisung.
          */
@@ -106,20 +119,17 @@ public class GUI_Customer extends JFrame {
                 double dispo = GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getDispo();
                 double rahmen = restbetrag + dispo;
                 double transfer = Integer.parseInt(txtAmountTo.getText()) - rahmen;
-                if(listAccounts2.isSelectionEmpty() == true){
-                    JOptionPane.showMessageDialog(null,"Bitte wählen Sie ein Konto aus der Liste aus.","Kein konto ausgewählt", JOptionPane.ERROR_MESSAGE);
-                }
-                else if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > 0 && transfer > 0 && maxUeberweisung > hm.parseDouble(txtAmountTo.getText())){
-                    JOptionPane.showMessageDialog(null,"Ihre überweisung wurde erfolgreich getätigt.","Überweisung erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                    String currentDate = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
-                    GUI_Customer_Connector.kunde.transfer(GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getId(), hm.parseInt(txtIbanTo.getText()), hm.parseDouble(txtAmountTo.getText()), txtUsageTo.getText(), currentDate);
+                if(hm.onlyDouble(txtAmountTo.getText()) && hm.parseDouble(txtAmountTo.getText()) > 0 && transfer > 0 && maxUeberweisung > hm.parseDouble(txtAmountTo.getText())){
+                    String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                    if(GUI_Customer_Connector.kunde.transfer(listAccounts2.getSelectedIndex(), hm.parseInt(txtIbanTo.getText()), hm.parseDouble(txtAmountTo.getText()), txtUsageTo.getText(), currentDate)){
+                        JOptionPane.showMessageDialog(null,"Ihre überweisung wurde erfolgreich getätigt.","Überweisung erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+                    }
                     txtAmountTo.setBorder(defaultBorder);
                     txtNameTo.setText("");
                     txtIbanTo.setText("");
                     txtAmountTo.setText("");
                     txtUsageTo.setText("");
-                }
-                else if(hm.onlyDouble(txtAmountTo.getText()) == false || hm.parseDouble(txtAmountTo.getText()) < 0 || transfer < 0 || maxUeberweisung < hm.parseDouble(txtAmountTo.getText())){
+                }else if(!hm.onlyDouble(txtAmountTo.getText()) || hm.parseDouble(txtAmountTo.getText()) < 0 || transfer < 0 || maxUeberweisung < hm.parseDouble(txtAmountTo.getText())){
                     if(transfer < 0){
                         JOptionPane.showMessageDialog(null,"Ihr ausgewähltes Konto ist nicht ausreichend gedeckt.\n" +
                                 "bitte wählen Sie ein anderes Konto aus oder passen\n" +
@@ -127,7 +137,7 @@ public class GUI_Customer extends JFrame {
                         txtAmountTo.setBorder(failedBorder);
                         txtAmountTo.setText("");
                     }
-                    if(hm.onlyDouble(txtAmountTo.getText()) == false){
+                    if(!hm.onlyDouble(txtAmountTo.getText())){
                         JOptionPane.showMessageDialog(null,"Ihre Eingabe war Fehlerhaft.","Betrag fehlerhaft", JOptionPane.ERROR_MESSAGE);
                         txtAmountTo.setBorder(failedBorder);
                         txtAmountTo.setText("");
@@ -317,13 +327,13 @@ public class GUI_Customer extends JFrame {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(hm.onlyString(txtName.getText(), false, 2) == true &&
-                   hm.onlyString(txtPrename.getText(), false, 2) == true &&
-                   hm.onlyInt(txtZip.getText()) == true && txtZip.getText().length() >= 2 &&
-                   hm.onlyString(txtCity.getText(), true, 5) == true &&
+                if(hm.onlyString(txtName.getText(), false, 2) &&
+                        hm.onlyString(txtPrename.getText(), false, 2) &&
+                        hm.onlyInt(txtZip.getText()) && txtZip.getText().length() >= 2 &&
+                        hm.onlyString(txtCity.getText(), true, 5) &&
                    txtAddress.getText().length() >= 5 &&
-                   hm.onlyInt(txtPhone.getText()) == true && txtPhone.getText().length() >= 5 &&
-                   hm.onlyString(txtMail.getText(), false, 5) == true){
+                        hm.onlyInt(txtPhone.getText()) && txtPhone.getText().length() >= 5 &&
+                        hm.onlyString(txtMail.getText(), false, 5)){
 
                     GUI_Customer_Connector.kunde.changeUserData(txtName.getText(), txtPrename.getText(), Integer.parseInt(txtZip.getText()), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
                     txtName.setBorder(defaultBorder);
@@ -340,14 +350,13 @@ public class GUI_Customer extends JFrame {
                     txtAddress.setEditable(false);
                     txtPhone.setEditable(false);
                     txtMail.setEditable(false);
-                }
-                else if(hm.onlyString(txtName.getText(), false, 2) == false ||
-                        hm.onlyString(txtPrename.getText(), false, 2) == false ||
-                        hm.onlyInt(txtZip.getText()) == false || txtZip.getText().length() < 2 ||
-                        hm.onlyString(txtCity.getText(), true, 5) == false ||
+                }else if(!hm.onlyString(txtName.getText(), false, 2) ||
+                        !hm.onlyString(txtPrename.getText(), false, 2) ||
+                        !hm.onlyInt(txtZip.getText()) || txtZip.getText().length() < 2 ||
+                        !hm.onlyString(txtCity.getText(), true, 5) ||
                         txtAddress.getText().length() < 5 ||
-                        hm.onlyInt(txtPhone.getText()) == false || txtPhone.getText().length() < 5 ||
-                        hm.onlyString(txtMail.getText(), false, 5) == false){
+                        !hm.onlyInt(txtPhone.getText()) || txtPhone.getText().length() < 5 ||
+                        !hm.onlyString(txtMail.getText(), false, 5)){
 
                     txtName.setBorder(correctBorder);
                     txtPrename.setBorder(correctBorder);
@@ -448,7 +457,7 @@ public class GUI_Customer extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 int selected = listAccounts1.getSelectedIndex();
                 if(selected != -1){
-                    tableTurnover.setModel(GUI_Customer_Connector.kunde.getTransfers(listAccounts1.getSelectedIndex()));
+                    tableTurnover.setModel(GUI_Customer_Connector.kunde.getTransfers(selected));
                 }
                 txtAccNr.setText("");
                 txtReceiver.setText("");
@@ -485,7 +494,11 @@ public class GUI_Customer extends JFrame {
         setSize(550, 385);
         setResizable(false);
         lblHello.setText("Herzlich Willkommen " + GUI_Customer_Connector.kunde.preName + " in der Banking-App der");
+        btnTransfer.setEnabled(false);
 
+        listAccounts1.setCellRenderer(new AccountRenderer());
+        listAccounts2.setCellRenderer(new AccountRenderer());
+        listAccounts3.setCellRenderer(new AccountRenderer());
         updateAccountLists();
 
         Object[] customerdata = GUI_Customer_Connector.kunde.data.getData(GUI_Customer_Connector.kunde.id, "customer").get(0);
@@ -502,12 +515,55 @@ public class GUI_Customer extends JFrame {
         DefaultListModel dlm = new DefaultListModel();
         int i = 0;
         for(Konto acc : GUI_Customer_Connector.kunde.allaccounts){
-            dlm.add(i, acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
+            if(acc.getStatus() == 0) {
+                dlm.add(i, acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
+            }else{
+                dlm.add(i, "Gesperrt | " + acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
+            }
             i++;
         }
         listAccounts1.setModel(dlm);
         listAccounts2.setModel(dlm);
         listAccounts3.setModel(dlm);
+    }
+
+    class TransferRenderer extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            Person.TableData tmp = (Person.TableData)tableTurnover.getModel();
+            if(tmp.getColumnCount() == 3){
+                if(tmp.getValueAt(row, 5).toString().equals("out")){
+                    c.setBackground(new Color(175, 0 , 0));
+                    c.setForeground(Color.white);
+                }else if(tmp.getValueAt(row, 5).toString().equals("in")){
+                    c.setBackground(new Color(0, 109, 77));
+                    c.setForeground(Color.white);
+                }else{
+                    c.setBackground(Color.white);
+                    c.setForeground(Color.black);
+                }
+            }
+            return c;
+        }
+    }
+
+    class AccountRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            ListModel tmp = listAccounts1.getModel();
+            if(tmp.getElementAt(index).toString().contains("Gesperrt")){
+                c.setBackground(new Color(175, 0 , 0));
+                c.setForeground(Color.white);
+            }else{
+                c.setBackground(Color.white);
+                c.setForeground(Color.black);
+            }
+            return c;
+        }
     }
 
 }

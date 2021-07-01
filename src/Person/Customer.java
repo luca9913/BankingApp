@@ -174,6 +174,8 @@ public class Customer extends Person{
         }
     }
 
+    //TODO: add TransferRenderer
+
     public TableData getTransfers(int index){
         Konto acc = allaccounts.get(index);
         int accid = acc.getId();
@@ -184,23 +186,23 @@ public class Customer extends Person{
                 ArrayList<Object[]> otheracc = data.getData((Integer) transfer[3], "account");
                 if (otheracc.size() == 0) {
                     name = "Gelöscht";
-                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], "Begünstiger", "-", transfer[4], transfer[5]});
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstiger", "-", transfer[5]});
                 } else {
                     name = getName((Integer)otheracc.get(0)[5]);
-                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], "Begünstiger", transfer[3], transfer[4], transfer[5]});
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstiger", transfer[3], transfer[5]});
                 }
             } else if ((Integer)transfer[3] == accid) {
                 ArrayList<Object[]> otheracc = data.getData((Integer) transfer[2], "account");
                 if (otheracc.size() == 0) {
                     name = "Gelöscht";
-                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], "Absender", "-", transfer[4], transfer[5]});
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Absender", "-", transfer[5]});
                 } else {
                     name = getName((Integer) data.getData((Integer) transfer[2], "account").get(0)[5]);
-                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], "Absender", transfer[2], transfer[4], transfer[5]});
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Absender", transfer[2], transfer[5]});
                 }
             }
         }
-        return new TableData(new String[]{"ID", "Name", "Betrag"}, transfers);
+        return new TableData(new String[]{"ID", "Name", "Betrag", "Verwendungszweck"}, transfers);
     }
 
     public void createDispoRequest(String key, String value, int accID){
@@ -212,9 +214,39 @@ public class Customer extends Person{
     }
 
     //Überweisen von ausgewähltem Konto auf ein anderes
-    public void transfer(int selected, int recieverid, double betrag, String usage, String date){
+    public boolean transfer(int selected, int recieverid, double betrag, String usage, String date){
         Konto konto = allaccounts.get(selected);
-        konto.transfer(recieverid, betrag, usage, date);
+        Object[] tmp = data.getData(recieverid, "account").get(0);
+        Konto receiver = null;
+        switch(tmp[1].toString()){
+            case "Girokonto":
+                receiver = new Girokonto((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
+                receiver.setDispo((Double)tmp[3]);
+                receiver.setLimit((Integer)tmp[4]);
+                receiver.setBalance((Double)tmp[2]);
+                break;
+            case "Festgeldkonto":
+                receiver = new Festgeldkonto((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
+                receiver.setDispo((Double)tmp[3]);
+                receiver.setLimit((Integer)tmp[4]);
+                receiver.setBalance((Double)tmp[2]);
+                break;
+            case "Depot":
+                receiver = new Depot((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
+                receiver.setDispo((Double)tmp[3]);
+                receiver.setLimit((Integer)tmp[4]);
+                receiver.setBalance((Double)tmp[2]);
+                break;
+            case "Kreditkarte":
+                receiver = new Kreditkarte((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
+                receiver.setDispo((Double)tmp[3]);
+                receiver.setLimit((Integer)tmp[4]);
+                receiver.setBalance((Double)tmp[2]);
+                break;
+        }
+        receiver.updateBalance(betrag);
+        data.updateAccountData(receiver);
+        return konto.transfer(recieverid, betrag, usage, date);
     }
 
 
@@ -243,33 +275,13 @@ public class Customer extends Person{
         }
     }
 
-    public void refreshUserData(){
-
-        Customer kunde = new Customer(id);
-        for( Object[] reqest : allrequests){
-            if((Integer)reqest[1] == 1){ //1 wird als freigegeben interpretiert
-                String value = (String)reqest[6];
-                switch((String)reqest[5]){
-                    case "Name": this.name = value;
-                    case "Prename": this.preName = value;
-                    case "Zip": this.zip = Integer.parseInt(value);
-                    case "City": this.city = value;
-                    case "Address": this.address = value;
-                    case "Email": this.email = value;
-                    case "Telephone": this.tel = value;
-                }
-            }
-        }
-        data.updatePerson(kunde);
-    }
-
 
     public void createAccount(String type, int accID) {
         this.data.createRequest("account", type, accID, this.id, this.mainBanker);
     }
 
     public void removeAccount(Konto remove, Konto rest){
-        String today = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
+        String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         data.insertTransfer(remove.getBalance(), remove.getId(), rest.getId(), "Restbetrag Kontoauflösung", today);
         data.deleteAccount(remove.getId());
     }
