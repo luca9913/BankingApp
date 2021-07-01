@@ -97,7 +97,13 @@ public class Customer extends Person{
         }
     }
 
+    public void createDispoRequest(String key, String value, int accID){
+        this.data.createRequest(key, value, accID, this.id, allaccounts.get(accID).getBanker().getId());
+    }
 
+    public void createLimitRequest(String key, String value, int accID){
+        this.data.createRequest(key, value, accID, this.id, allaccounts.get(accID).getBanker().getId());
+    }
 
     //Überweisen von ausgewähltem Konto auf ein anderes
     public void transfer(int selected, int recieverid, double betrag, String usage, String date){
