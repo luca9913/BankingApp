@@ -111,7 +111,7 @@ public class GUI_Customer extends JFrame {
                 }
                 else if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > 0 && transfer > 0 && maxUeberweisung > hm.parseDouble(txtAmountTo.getText())){
                     JOptionPane.showMessageDialog(null,"Ihre überweisung wurde erfolgreich getätigt.","Überweisung erfolgreich", JOptionPane.INFORMATION_MESSAGE);
-                    String currentDate = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
+                    String currentDate = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
                     GUI_Customer_Connector.kunde.transfer(GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getId(), hm.parseInt(txtIbanTo.getText()), hm.parseDouble(txtAmountTo.getText()), txtUsageTo.getText(), currentDate);
                     txtAmountTo.setBorder(defaultBorder);
                     txtNameTo.setText("");
@@ -174,18 +174,6 @@ public class GUI_Customer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GUI_Customer_Connector.openCreate();
-                /*alternative method to invoke the new frames, must be written as a new class GUI_CreateAccount or something
-                JFrame addAccount = new JFrame("Konto erstellen");
-                addAccount.setIconImage(new ImageIcon("src/img/Turing Bank Square (32x32).png").getImage());
-                addAccount.setLocationRelativeTo(null);
-                addAccount.setTitle("Konto erstellen");
-                addAccount.setSize(350, 270);
-                addAccount.setResizable(false);
-                addAccount.toFront();
-                addAccount.setAlwaysOnTop(true);
-                addAccount.isFocused();
-                addAccount.setVisible(true);
-                setEnabled(false); //sets the underlying Customer_GUI to the disabled state */
             }
         });
 

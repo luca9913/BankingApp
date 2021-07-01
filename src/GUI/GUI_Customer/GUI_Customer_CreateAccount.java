@@ -27,7 +27,7 @@ public class GUI_Customer_CreateAccount extends JFrame{
         initialize();
 
         /**
-         * Die Action des Buttons "Konto erstellen" ist für das Erstellen eines neuen Kontos zuständig.
+         * Die Action des Buttons "Konto anlegen" ist für das Erstellen eines neuen Kontos zuständig.
          */
         kontoAnlegenButton.addActionListener(new ActionListener() {
             @Override
