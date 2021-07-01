@@ -447,6 +447,10 @@ public class GUI_Customer extends JFrame {
             }
         });
 
+        /**
+         * Die Action der Liste "listAccounts1" im Tab Finanzübersicht sorgt dafür, wenn kein Konto in der
+         * Liste ausgewählt wurde, dass die Textfelder für die Überweisungen leer sind.
+         */
         listAccounts1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
