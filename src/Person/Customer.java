@@ -265,7 +265,7 @@ public class Customer extends Person{
 
 
     public void createAccount(String type, int accID) {
-        this.data.createRequest("account", type, accID, this.id, allaccounts.get(accID).getBanker().getId());
+        this.data.createRequest("account", type, accID, this.id, this.mainBanker);
     }
 
     public void removeAccount(Konto remove, Konto rest){
