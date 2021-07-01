@@ -201,7 +201,8 @@ public class GUI_Customer extends JFrame {
                            hm.parseInt(txtDispo.getText()) >= 0 &&
                            hm.parseInt(txtDispo.getText()) <= 2000){
 
-                            GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setDispo(Integer.parseInt(txtDispo.getText()));
+                            //GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setDispo(Integer.parseInt(txtDispo.getText()));
+                            GUI_Customer_Connector.kunde.createLimitRequest("dispo", txtDispo.getText(), listAccounts3.getSelectedIndex());
                             txtDispo.setEditable(false);
                             txtDispo.setBorder(defaultBorder);
                             dkRahmen = 0;
@@ -234,7 +235,8 @@ public class GUI_Customer extends JFrame {
                             hm.parseInt(txtTransferLimit.getText()) >= 0 &&
                             hm.parseInt(txtTransferLimit.getText()) <= 20000){
 
-                            GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setLimit(Integer.parseInt(txtTransferLimit.getText()));
+                            //GUI_Customer_Connector.kunde.allaccounts.get(listAccounts3.getSelectedIndex()).setLimit(Integer.parseInt(txtTransferLimit.getText()));
+                            GUI_Customer_Connector.kunde.createLimitRequest("transferlimit", txtTransferLimit.getText(), listAccounts3.getSelectedIndex());
                             txtTransferLimit.setEditable(false);
                             txtTransferLimit.setBorder(defaultBorder);
                             ueRahmen = 0;
