@@ -48,20 +48,24 @@ public class GUI_Customer_CreateAccount extends JFrame{
                 switch(flex){
                     case 1:
                         GUI_Customer_Connector.kunde.createAccount("Girokonto", 0);
+                        GUI_Customer_Connector.closeCreate();
                         break;
                     case 2:
                         GUI_Customer_Connector.kunde.createAccount("Depot", 0);
+                        GUI_Customer_Connector.closeCreate();
                         break;
                     case 3:
                         GUI_Customer_Connector.kunde.createAccount("Festgeldkonto", 0);
+                        GUI_Customer_Connector.closeCreate();
                         break;
                     case 4:
                         GUI_Customer_Connector.kunde.createAccount("Kreditkarte", 0);
+                        GUI_Customer_Connector.closeCreate();
                         break;
                 }
                 JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
                         "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
-                GUI_Customer_Connector.closeCreate();
+
 
 
             }
