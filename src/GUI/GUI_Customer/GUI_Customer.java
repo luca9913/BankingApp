@@ -107,7 +107,7 @@ public class GUI_Customer extends JFrame {
                 double maxUeberweisung = GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getLimit();
                 double restbetrag = GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getBalance();
                 double dispo = GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getDispo();
-                if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > 0 && maxUeberweisung*/){
+                if(hm.onlyDouble(txtAmountTo.getText()) == true && hm.parseDouble(txtAmountTo.getText()) > 0 /*maxUeberweisung*/){
                     if(hm.parseDouble(txtAmountTo.getText()) > restbetrag ){
                         JOptionPane.showMessageDialog(null,"Ihr ausgewähltes Konto ist nicht ausreichend gedeckt.\n" +
                                 "bitte wählen Sie ein anderes Konto aus oder passen\n" +
