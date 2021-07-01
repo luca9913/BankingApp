@@ -76,7 +76,7 @@ public class GUI_Customer extends JFrame {
     Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
 
     /**
-     * Dieser Konstruktor ist für die Actions und weitere Optionen des CUstomer-Gui´s zuständig.
+     * Dieser Konstruktor ist für die Actions und weitere Optionen des Customer-Gui´s zuständig.
      */
     public GUI_Customer() {
         initialize();
@@ -148,9 +148,7 @@ public class GUI_Customer extends JFrame {
          */
         btnRefresh2.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                updateAccountLists();
-            }
+            public void actionPerformed(ActionEvent e) { updateAccountLists(); }
         });
 
         /**
