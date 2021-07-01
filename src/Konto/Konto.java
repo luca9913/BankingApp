@@ -83,7 +83,7 @@ public abstract class Konto{
     }
 
     public Banker getBanker(){
-        return this.getBanker();
+        return this.banker;
     }
 
     //gibt Liste aller Umsätze zurück

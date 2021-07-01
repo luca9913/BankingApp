@@ -159,7 +159,11 @@ public class GUI_Customer extends JFrame {
         btnDeleteAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GUI_Customer_Connector.openDelete();
+                if(GUI_Customer_Connector.kunde.allaccounts.size() > 1){
+                    GUI_Customer_Connector.openDelete();
+                }else{
+                    JOptionPane.showMessageDialog(null,"Um ihr letztes Konto aufzulösen kontaktieren Sie ihren zuständigen Banker.","Letztes Konto", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
