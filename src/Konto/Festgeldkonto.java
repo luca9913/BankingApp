@@ -9,6 +9,8 @@ public class Festgeldkonto extends Konto{
     public Festgeldkonto(int id, Banker banker, Customer owner, ProdBase data) {
 
         super("Festgeldkonto", id, banker, owner, data);
+        setDispo(0);
+        setLimit(10000);
     }
 
     //Funktion, um alle Konten in der GUI zu aktualisieren
