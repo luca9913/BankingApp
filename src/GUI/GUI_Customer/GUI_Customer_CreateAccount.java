@@ -32,21 +32,38 @@ public class GUI_Customer_CreateAccount extends JFrame{
         kontoAnlegenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int flex = 0;
                 if(rdbGiro.isSelected()){
-                    GUI_Customer_Connector.kunde.createAccount("Girokonto", 0);
+                    flex = 1;
                 }
                 else if(rdbDepot.isSelected()){
-                    GUI_Customer_Connector.kunde.createAccount("Depot", 0);
+                    flex = 2;
                 }
                 else if(rdbFest.isSelected()){
-                    GUI_Customer_Connector.kunde.createAccount("Festgeldkonto", 0);
+                    flex = 3;
                 }
                 else if(rdbKredit.isSelected()){
-                    GUI_Customer_Connector.kunde.createAccount("Kreditkarte", 0);
+                    flex = 4;
+                }
+                switch(flex){
+                    case 1:
+                        GUI_Customer_Connector.kunde.createAccount("Girokonto", 0);
+                        break;
+                    case 2:
+                        GUI_Customer_Connector.kunde.createAccount("Depot", 0);
+                        break;
+                    case 3:
+                        GUI_Customer_Connector.kunde.createAccount("Festgeldkonto", 0);
+                        break;
+                    case 4:
+                        GUI_Customer_Connector.kunde.createAccount("Kreditkarte", 0);
+                        break;
                 }
                 JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
                         "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
                 GUI_Customer_Connector.closeCreate();
+
+
             }
         });
 
