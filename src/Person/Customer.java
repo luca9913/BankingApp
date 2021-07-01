@@ -238,24 +238,6 @@ public class Customer extends Person{
 
     }
 
-
-    //Funktion, um alle Konten in der GUI zu aktualisieren
-    private void syncAccounts(){
-
-    }
-
-    //Funktion, um die aktuellen Kontostände anzuzeigen
-    //Offene Frage: Alle Kontostände oder nur der Kontostand eines Kontos
-    private void showFinances(int accID){
-
-    }
-
-    //Zeigt Kontobewegungen (z.B. letzte Überweisungen)
-    //Offene Frage: Alle Kontobewegungen oder nur die Kontobewegungen eines Kontos
-    private void showAccMovement(int accID){
-
-    }
-
     //Ändern des eigenen Datensatzes
     private void changeMyData(String name, String preName, int zip, String address){
         this.name = name;
