@@ -63,11 +63,8 @@ public class GUI_Customer_CreateAccount extends JFrame{
                         GUI_Customer_Connector.closeCreate();
                         break;
                 }
-                JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
-                        "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
-
-
-
+                /*JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
+                        "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);*/
             }
         });
 
