@@ -77,7 +77,7 @@ public class GUI_Customer extends JFrame {
     Border correctBorder = BorderFactory.createLineBorder(new Color(0,109,77));
 
     /**
-     * Dieser Konstruktor ist für die Actions und weitere Optionen des CUstomer-Gui´s zuständig.
+     * Dieser Konstruktor ist für die Actions und weitere Optionen des Customer-Gui´s zuständig.
      */
     public GUI_Customer() {
         initialize();
@@ -378,18 +378,17 @@ public class GUI_Customer extends JFrame {
                     if(!hm.onlyString(txtCity.getText(), true, 5)){
                         txtCity.setBorder(failedBorder);
                     }
-                    if(!hm.onlyString(txtAddress.getText(), true, 5)){
+                    if(txtAddress.getText().length() < 5){
                         txtAddress.setBorder(failedBorder);
                     }
                     if(!hm.onlyInt(txtPhone.getText()) || txtPhone.getText().length() < 5){
                         txtPhone.setBorder(failedBorder);
                     }
-                    if(!hm.onlyString(txtMail.getText(), false, 5)){
+                    if(txtMail.getText().length() < 5){
                         txtMail.setBorder(failedBorder);
                     }
                     JOptionPane.showMessageDialog(null,"Bitte wiederholen Sie Ihre Eingabe.","Fehlerhafte Eingabe", JOptionPane.CANCEL_OPTION);
                 }
-
             }
         });
 
