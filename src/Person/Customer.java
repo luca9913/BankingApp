@@ -132,7 +132,6 @@ public class Customer extends Person{
                     }
                     data.updateAccountData(allaccounts.get(index));
                 }
-
             }else if((Integer)arr[1] == -1){
                 System.out.println("Die Anfrage " + arr[0] + " mit Betreff " + arr[5] + " und neuem Wert " + arr[7] + "wurde abgelehnt.");
                 data.deleteRequest((Integer)arr[0]);
@@ -167,6 +166,14 @@ public class Customer extends Person{
             }
         }
         return new TableData(new String[]{"ID", "Name", "Betrag"}, transfers);
+    }
+
+    public void createDispoRequest(String key, String value, int accID){
+        this.data.createRequest(key, value, accID, this.id, allaccounts.get(accID).getBanker().getId());
+    }
+
+    public void createLimitRequest(String key, String value, int accID){
+        this.data.createRequest(key, value, accID, this.id, allaccounts.get(accID).getBanker().getId());
     }
 
     //Überweisen von ausgewähltem Konto auf ein anderes
