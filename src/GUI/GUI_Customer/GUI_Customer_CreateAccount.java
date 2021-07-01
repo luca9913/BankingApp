@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static javax.swing.JOptionPane.*;
+
 /**
  * Die Klasse ist für das Nebengui des Customers zur Erstellung eines weiteren Kontos zuständig.
  * Hier werden die Components und Actions verwaltet und weitere Optionen für die GUI festgelegt.
@@ -44,8 +46,7 @@ public class GUI_Customer_CreateAccount extends JFrame{
                 else if(rdbKredit.isSelected()){
                     GUI_Customer_Connector.kunde.createAccount("Kreditkarte", 0);
                 }
-                JOptionPane.showMessageDialog(null,"Ihr Bänker prüpft Ihre Kontoerstellung.\n" +
-                        "Bitte haben Sie geduld.","Erstellung wird geprüft", JOptionPane.INFORMATION_MESSAGE);
+                showMessageDialog(PanelCreate,"Ihr Bänker prüft Ihre Kontoerstellung.\n Bitte haben Sie Geduld.","Erstellung wird geprüft", INFORMATION_MESSAGE);
                 GUI_Customer_Connector.closeCreate();
             }
         });
