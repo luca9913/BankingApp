@@ -16,8 +16,8 @@ public class Customer extends Person{
     public ArrayList<Konto> allaccounts;
 
     /**
-     * Hier Text einfügen
-     * @param id Parameter für den Konstruktor.
+     * Standardkonstruktor der Klasse "Customer" mit einer Variable als Parameter.
+     * @param id Dieser Parameter ist die Kunden-ID.
      */
     public Customer(int id){
         super(id);
@@ -41,8 +41,8 @@ public class Customer extends Person{
     }
 
     /**
-     * Hier Text einfügen
-     * @param pdata Parameter für den Konstruktor.
+     * Standardkonstruktor der Klasse "Customer" mit einem Array als Parameter.
+     * @param pdata Das Eingangsparameter ist ein String-Array mit allen Daten des Kunden.
      */
     public Customer(String[] pdata){
         super(0);
@@ -64,7 +64,7 @@ public class Customer extends Person{
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      */
     public void update(){
         this.allrequests = data.getAllRequests(id);
@@ -74,7 +74,7 @@ public class Customer extends Person{
 
 
     /**
-     * Diese Methode initialisiert die Konto-Objekte
+     * Diese Methode initialisiert die Konto-Objekte des Kunden
      */
     public void initialiseAccounts(){
         ArrayList<Object[]> tmp = data.getAllAccounts(this.id);
@@ -118,7 +118,7 @@ public class Customer extends Person{
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      */
     public void updateRequests(){
         for(Object[] arr : allrequests){
@@ -190,9 +190,10 @@ public class Customer extends Person{
     }
 
     /**
-     * Hier Text einfügen
-     * @param index
-     * @return
+     * Diese Methode ist für die Füllung der Tabelle "tableTurnover" im Tab Finanzübersicht zuständig.
+     * @param index Der ausgewählte Listenindex der Liste "listAccounts1" steht für das Konto, von welchem in der Tabelle die
+     * die Umsätze angezeigt werden sollen.
+     * @return Es werden die Daten zum Füllen der Tabelle in Form einer TableData zurückgegeben.
      */
     public TableData getTransfers(int index){
         Konto acc = allaccounts.get(index);
@@ -323,18 +324,20 @@ public class Customer extends Person{
     }
 
     /**
-     * Hier Text einfügen
-     * @param type
-     * @param accID
+     * Diese Methode ist dafür zuständig, eine Anfrage ("Request") für ein neues Konto-Objekt zu erstellen.
+     * @param type Der Parameter spezifiziert, welcher Kontotyp erstellt werden soll.
+     * @param accID Der Parameter ist die ID des Kunden-Objektes. Er wird gebraucht, damit
+     * das Konto für den entsprechenden Kunden angelegt wird.
      */
     public void createAccount(String type, int accID) {
         this.data.createRequest("account", type, accID, this.id, this.mainBanker);
     }
 
     /**
-     * Hier Text einfügen
-     * @param remove
-     * @param rest
+     * Diese Methode ist dafür zuständig, um ein vorher ausgewähltes Konto zu löschen.
+     * @param remove Dieser Parameter übergibt das zu löschende Kontoobjekt.
+     * @param rest Dieser Parameter übergibt das Konto-Objekt, welches den Restsaldo des
+     * zu löschenden Kontos erhalten soll.
      */
     public void removeAccount(Konto remove, Konto rest){
         String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
