@@ -9,7 +9,8 @@ import java.awt.event.KeyListener;
 import java.text.Normalizer;
 
 /**
- * Hier Text einfügen
+ * Die Klasse ist für das GUI des Login zuständig. Dort werden die Components
+ * und Actions verwaltet und weitere Optionen für die GUI festgelegt.
  */
 public class GUI_Login extends JFrame implements KeyListener {
 
@@ -23,13 +24,13 @@ public class GUI_Login extends JFrame implements KeyListener {
     private JLabel failedAttempts;
 
     /**
-     * //Login-Instanz mit der auf die Login-Datenbank zugegriffen werden kann
+     * Diese Variable enthält die Login-Instanz, mit welcher auf die Login-Datenbank zugegriffen werden kann.
      */
     private Login loginReference;
 
     /**
-     * Hier Text einfügen
-     * @param loginReference
+     * Dieser Konstruktor ist für die Actions und weitere Optionen des Login-Gui´s zuständig.
+     * @param loginReference ToDo: Hier Text einfügen
      */
     public GUI_Login(Login loginReference) {
         this.loginReference = loginReference;
@@ -54,7 +55,7 @@ public class GUI_Login extends JFrame implements KeyListener {
     }
 
     /**
-     * Hier Text einfügen
+     * Die Methode ist für die Initialisierung der GUI_Login und deren Optionen zuständig.
      */
     private void initialize() {
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
@@ -71,7 +72,8 @@ public class GUI_Login extends JFrame implements KeyListener {
     }
 
     /**
-     * Hier Text einfügen
+     * Diese Methode fängt Fehler beim Einloggvorgang ab, zum Beispiel wenn die
+     * Textfelder leer sind und weitere.
      */
     private void loginPressed() {
         System.out.println("Login Pressed");
@@ -114,8 +116,10 @@ public class GUI_Login extends JFrame implements KeyListener {
     }
 
     /**
-     * Hier Text einfügen
-     * @param numberOfFailedAttempts
+     * Diese Methode ist für das Aktivieren und die Anzeige der Fehlversuche
+     * bei der Passworteingabe beim Login zuständig.
+     * @param numberOfFailedAttempts Als Parameter wird die Anzahl an Fehlschlägen
+     * des Logins übergeben.
      */
     private void failedAttempt(int numberOfFailedAttempts) {
         passwordField1.setText("");
