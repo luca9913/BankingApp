@@ -17,7 +17,7 @@ public class Customer extends Person{
 
     /**
      * Hier Text einfügen
-     * @param id
+     * @param id Parameter für den Konstruktor.
      */
     public Customer(int id){
         super(id);
@@ -42,7 +42,7 @@ public class Customer extends Person{
 
     /**
      * Hier Text einfügen
-     * @param pdata
+     * @param pdata Parameter für den Konstruktor.
      */
     public Customer(String[] pdata){
         super(0);

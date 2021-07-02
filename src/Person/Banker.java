@@ -14,7 +14,7 @@ public class Banker extends Person {
 
     /**
      * Hier Text einfügen
-     * @param id
+     * @param id Parameter für den Konstruktor.
      */
     public Banker(int id) {
         super(id);

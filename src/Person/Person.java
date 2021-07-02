@@ -23,16 +23,15 @@ public abstract class Person {
     public AuthBase auth = AuthBase.initialize();
 
     /**
-     * Hier Text einfügen
-     * @param id
+     * Standardkonstruktor der Klasse "Person".
+     * @param id Parameter für den Konstruktor.
      */
     Person(int id){
         this.id = id;
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Diese Methode schließt die Datenbankverbindungen.
      */
     public void closeConnections(){
         data.close();
@@ -40,24 +39,24 @@ public abstract class Person {
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Diese metzode gibt die ID der Person zurück.
+     * @return Gibt die ID des Objektes zurück.
      */
     public int getId() {
         return id;
     }
 
     /**
-     * Hier Text einfügen
-     * @param id
-     * @return
+     * Diese Methode gibt den Namen des Objektes zurück.
+     * @param id Als Parameter wird die ID des Objektes genutzt.
+     * @return Es wird der String mit dem Namen zurückgegeben.
      */
     public String getName(int id) {
         return data.getData(id, "customer").get(0)[1].toString() + " " + data.getData(id, "customer").get(0)[2].toString();
     }
 
     /**
-     * Hier Text einfügen
+     * Diese Klasse ist für das Füllen von JTables zuständig
      */
     public class TableData extends AbstractTableModel {
         String[] colnames;
