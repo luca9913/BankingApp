@@ -56,7 +56,7 @@ public abstract class Person {
     }
 
     /**
-     * Diese Klasse ist für das Füllen von JTables zuständig
+     * Diese Klasse ist für das Füllen von JTables zuständig.
      */
     public class TableData extends AbstractTableModel {
         String[] colnames;
