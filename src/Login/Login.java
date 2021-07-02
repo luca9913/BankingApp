@@ -10,6 +10,9 @@ import Person.Person;
 import Person.Customer;
 import javax.swing.*;
 
+/**
+ * Hier Text einfügen
+ */
 public class Login {
 
     private String password;
@@ -19,18 +22,26 @@ public class Login {
     private AuthBase authDatabase = AuthBase.initialize();
     private Person user = null;
 
-    //hashed das Passwort
+    /**
+     * Diese Methode hasht das Passwort
+     * @param password
+     * @return
+     */
     private int hashen(String password){
         return password.hashCode();
     }
 
-    //databaseComparison vergleicht die Eingabe mit der Datenbank und gibt mit "true" zurück ob ein passender Tupel gefunden wurde.
+    /**
+     * //databaseComparison vergleicht die Eingabe mit der Datenbank und gibt mit "true" zurück ob ein passender Tupel gefunden wurde.
+     * @param userID
+     * @param password
+     * @return
+     */
     public boolean databaseComparison(int userID, String password) {
 
         int pwHash = hashen(password);
         Object[] authSet = authDatabase.getAuthSet(userID).get(0);
 
-        //hash mit Datenbank abgleichen
         if (pwHash == authDatabase.getHash(userID)) {
             System.out.println("Login erfolgreich!");
             System.out.println((Integer)authSet[2]);
@@ -42,24 +53,11 @@ public class Login {
                 authDatabase.close();
             } else {
                 System.out.println("Login-ID (" + userID + ") über 1000 - Customer Login - Customer GUI öffnen");
-
-                // TODO: User-Parameter an GUI_Customer muss noch übergeben werden
-
-                //Bitte die GUI_Customer über die Klasse GUI_Customer_Connector mit der Methode openCustomer aufrufen.
-                //Bitte vermeiden das Objekt der GUI hier zu erstellen und aufzurufen
                 Customer customer = new Customer((Integer)authSet[2]);
                 GUI_Customer_Connector.openCustomer(customer);
             }
             return true;
         }
         return false;
-
-
-    }
-
-    //sendToGUI
-    private void sendToGUI(boolean valid, int UserID){
-
-
     }
 }

@@ -14,8 +14,15 @@ import java.awt.*;
 import java.nio.charset.Charset;
 import java.util.Random;
 
+/**
+ * Hier Text einfügen
+ */
 public class Main {
 
+    /**
+     * Hier Text einfügen
+     * @param args
+     */
     public static void main(String[] args) {
 
         Login log = new Login();
