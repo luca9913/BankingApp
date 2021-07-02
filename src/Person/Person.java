@@ -27,8 +27,7 @@ public abstract class Person {
 
     /**
      * Hier Text einfügen
-     * @param
-     * @return
+     * @param id
      */
     Person(int id){
         this.id = id;
@@ -36,7 +35,6 @@ public abstract class Person {
 
     /**
      * Hier Text einfügen
-     * @param
      * @return
      */
     public void closeConnections(){
@@ -46,7 +44,6 @@ public abstract class Person {
 
     /**
      * Hier Text einfügen
-     * @param
      * @return
      */
     public int getId() {
@@ -55,7 +52,7 @@ public abstract class Person {
 
     /**
      * Hier Text einfügen
-     * @param
+     * @param id
      * @return
      */
     public String getName(int id) {
@@ -64,8 +61,6 @@ public abstract class Person {
 
     /**
      * Hier Text einfügen
-     * @param
-     * @return
      */
     public class TableData extends AbstractTableModel {
         String[] colnames;
@@ -73,7 +68,8 @@ public abstract class Person {
 
         /**
          * Hier Text einfügen
-         * @param
+         * @param colnames
+         * @param data
          * @return
          */
         TableData(String[] colnames, ArrayList<Object[]> data) {
@@ -83,7 +79,6 @@ public abstract class Person {
 
         /**
          * Hier Text einfügen
-         * @param
          * @return
          */
         @Override
@@ -93,7 +88,6 @@ public abstract class Person {
 
         /**
          * Hier Text einfügen
-         * @param
          * @return
          */
         @Override
@@ -103,7 +97,7 @@ public abstract class Person {
 
         /**
          * Hier Text einfügen
-         * @param
+         * @param column
          * @return
          */
         @Override
@@ -112,20 +106,21 @@ public abstract class Person {
         }
 
         /**
-         * Hier Text einfügen
-         * @param
+         * Hier Text einfügen (fill transfer table)
+         * @param rowIndex
+         * @param columnIndex
          * @return
          */
         @Override
-        //fill transfer table
         public Object getValueAt(int rowIndex, int columnIndex) {
             return data.get(rowIndex)[columnIndex];
         }
 
         /**
          * Hier Text einfügen
-         * @param
-         * @return
+         * @param value
+         * @param row
+         * @param col
          */
         @Override
         public void setValueAt(Object value, int row, int col) {
@@ -135,8 +130,6 @@ public abstract class Person {
 
         /**
          * Hier Text einfügen
-         * @param
-         * @return
          */
         public void clear(){
             data.clear();
@@ -144,8 +137,7 @@ public abstract class Person {
 
         /**
          * Hier Text einfügen
-         * @param
-         * @return
+         * @param newdata
          */
         public void update(ArrayList<Object[]> newdata) {
             this.data = newdata;

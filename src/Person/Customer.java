@@ -10,13 +10,19 @@ import javax.swing.*;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ * Hier Text einfügen
+ */
 public class Customer extends Person{
 
     private int mainBanker;
     public ArrayList<Object[]> allrequests;
     public ArrayList<Konto> allaccounts;
 
-    //Konstruktor
+    /**
+     * Hier Text einfügen
+     * @param id
+     */
     public Customer(int id){
         super(id);
         Object[] pdata = data.getData(id, "customer").get(0);
@@ -38,6 +44,10 @@ public class Customer extends Person{
         }
     }
 
+    /**
+     * Hier Text einfügen
+     * @param pdata
+     */
     public Customer(String[] pdata){
         super(0);
         if(pdata.length == 10) {
@@ -57,13 +67,19 @@ public class Customer extends Person{
         }
     }
 
+    /**
+     * Hier Text einfügen
+     */
     public void update(){
         this.allrequests = data.getAllRequests(id);
         initialiseAccounts();
         updateRequests();
     }
 
-    //initalisiert die Kontoobjekte
+
+    /**
+     * Diese Methode initialisiert die Konto-Objekte
+     */
     public void initialiseAccounts(){
         ArrayList<Object[]> tmp = data.getAllAccounts(this.id);
         allaccounts = new ArrayList<>(tmp.size());
@@ -105,6 +121,9 @@ public class Customer extends Person{
         }
     }
 
+    /**
+     * Hier Text einfügen
+     */
     public void updateRequests(){
         for(Object[] arr : allrequests){
             if((Integer)arr[1] == 1){
@@ -174,8 +193,11 @@ public class Customer extends Person{
         }
     }
 
-    //TODO: add TransferRenderer
-
+    /**
+     * Hier Text einfügen
+     * @param index
+     * @return
+     */
     public TableData getTransfers(int index){
         Konto acc = allaccounts.get(index);
         int accid = acc.getId();
@@ -205,18 +227,38 @@ public class Customer extends Person{
         return new TableData(new String[]{"ID", "Name", "Betrag", "Verwendungszweck"}, transfers);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param key
+     * @param value
+     * @param accID
+     */
     public void createDispoRequest(String key, String value, int accID){
         this.data.createRequest(key, value, accID, this.id, allaccounts.get(accID).getBanker().getId());
     }
 
+    /**
+     * Hier Text einfügen
+     * @param key
+     * @param value
+     * @param accID
+     */
     public void createLimitRequest(String key, String value, int accID){
         this.data.createRequest(key, value, accID, this.id, allaccounts.get(accID).getBanker().getId());
     }
 
-    //Überweisen von ausgewähltem Konto auf ein anderes
-    public boolean transfer(int selected, int recieverid, double betrag, String usage, String date){
+    /**
+     * Diese Methode sorgt für die Überweisung ...... to be continued
+     * @param selected
+     * @param receiverid
+     * @param betrag
+     * @param usage
+     * @param date
+     * @return
+     */
+    public boolean transfer(int selected, int receiverid, double betrag, String usage, String date){
         Konto konto = allaccounts.get(selected);
-        Object[] tmp = data.getData(recieverid, "account").get(0);
+        Object[] tmp = data.getData(receiverid, "account").get(0);
         Konto receiver = null;
         switch(tmp[1].toString()){
             case "Girokonto":
@@ -246,10 +288,19 @@ public class Customer extends Person{
         }
         receiver.updateBalance(betrag);
         data.updateAccountData(receiver);
-        return konto.transfer(recieverid, betrag, usage, date);
+        return konto.transfer(receiverid, betrag, usage, date);
     }
 
-
+    /**
+     * Hier Text einfügen
+     * @param name
+     * @param prename
+     * @param zip
+     * @param city
+     * @param address
+     * @param email
+     * @param telephone
+     */
     public void changeUserData(String name, String prename, int zip, String city, String address, String email, String telephone){
 
         if(name != this.name){
@@ -275,22 +326,23 @@ public class Customer extends Person{
         }
     }
 
-
+    /**
+     * Hier Text einfügen
+     * @param type
+     * @param accID
+     */
     public void createAccount(String type, int accID) {
         this.data.createRequest("account", type, accID, this.id, this.mainBanker);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param remove
+     * @param rest
+     */
     public void removeAccount(Konto remove, Konto rest){
         String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         data.insertTransfer(remove.getBalance(), remove.getId(), rest.getId(), "Restbetrag Kontoauflösung", today);
         data.deleteAccount(remove.getId());
-    }
-
-    //Ändern des eigenen Datensatzes
-    private void changeMyData(String name, String preName, int zip, String address){
-        this.name = name;
-        this.preName = preName;
-        this.zip = zip;
-        this.address = address;
     }
 }
