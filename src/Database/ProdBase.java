@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-
 import Konto.Konto;
 import Person.*;
 

@@ -2,13 +2,10 @@ package Login;
 
 import Database.*;
 import GUI.GUI_Banker.GUI_Banker;
-import GUI.GUI_Customer.GUI_Customer;
 import GUI.GUI_Customer_Connector;
-import GUI.GUI_Login.GUI_Login;
 import Person.Banker;
 import Person.Person;
 import Person.Customer;
-import javax.swing.*;
 
 /**
  * Hier Text einfügen

@@ -1,9 +1,7 @@
 package Konto;
 
 import Person.*;
-import Database.*;
 import Database.ProdBase;
-
 import java.util.ArrayList;
 
 /**

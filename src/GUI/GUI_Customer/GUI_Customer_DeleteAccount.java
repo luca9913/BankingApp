@@ -6,9 +6,6 @@ import Konto.Konto;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Vector;
 
 /**
  * Die Klasse ist für das Nebengui des Customers zur Löschung eines bestehenden Kontos zuständig.

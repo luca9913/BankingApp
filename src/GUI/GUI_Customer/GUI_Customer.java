@@ -5,7 +5,6 @@ import GUI.GUI_Login.GUI_Login;
 import GUI.HelpMethods;
 import Konto.Konto;
 import Login.Login;
-import Person.Customer;
 import Person.Person;
 
 import javax.swing.*;
@@ -13,13 +12,10 @@ import javax.swing.border.Border;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Vector;
 
 /**
  * Die Klasse ist für die Hauptgui des Customers zuständig. Dort werden die Components

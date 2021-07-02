@@ -3,13 +3,8 @@ package GUI;
 import GUI.GUI_Customer.GUI_Customer;
 import GUI.GUI_Customer.GUI_Customer_CreateAccount;
 import GUI.GUI_Customer.GUI_Customer_DeleteAccount;
-import GUI.GUI_Login.GUI_Login;
-import Login.Login;
 import Person.*;
-
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
 
 /**
  * Die Klasse ist für die Steuerung (Öffnung, Schließung, etc.) für die drei GUIs der Customer zuständig.

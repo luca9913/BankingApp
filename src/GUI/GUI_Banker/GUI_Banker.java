@@ -8,7 +8,6 @@ import Person.Banker;
 import Person.Banker.*;
 import Person.Customer;
 import Person.Person.TableData;
-
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.border.Border;

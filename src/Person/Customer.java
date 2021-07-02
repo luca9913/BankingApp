@@ -1,12 +1,8 @@
 package Person;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import Database.ProdBase;
 import Konto.*;
-
-import javax.swing.*;
 import java.util.Date;
 import java.util.Random;
 

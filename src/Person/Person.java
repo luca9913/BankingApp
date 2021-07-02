@@ -2,10 +2,8 @@ package Person;
 
 import Database.AuthBase;
 import Database.ProdBase;
-
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Die abstrakte Klasse "Person" ist die Vaterklasse für die Unterklassen "Banker" und "Customer".

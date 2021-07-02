@@ -1,17 +1,11 @@
 package GUI.GUI_Login;
 
 import Login.Login;
-import Main.Main;
-import Person.Banker;
-import Person.Customer;
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
 
 /**
  * Hier Text einfügen

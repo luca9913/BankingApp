@@ -1,12 +1,9 @@
 package GUI;
 
-import javax.swing.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Random;
-
 
 /**
  * Die Klasse enthält einige hilfreiche Methoden für die GUI´s, zum Beispiel

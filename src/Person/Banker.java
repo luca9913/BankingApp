@@ -1,18 +1,9 @@
 package Person;
 
-import java.lang.reflect.Array;
 import java.util.*;
-
-import Database.*;
 import GUI.HelpMethods;
 import Konto.*;
-import Person.*;
-import Person.Person.TableData;
-
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
 
 /**
  * Hier Text einfügen
