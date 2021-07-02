@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * Hier Text einfügen
+ * Die Klasse "Customer" ist für die Objekte der Kunden da. Sie erbt von der Klasse "Person".
  */
 public class Customer extends Person{
 

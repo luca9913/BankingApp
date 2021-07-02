@@ -24,7 +24,7 @@ public abstract class Person {
 
     /**
      * Standardkonstruktor der Klasse "Person".
-     * @param id Parameter für den Konstruktor.
+     * @param id Parameter des Konstruktors.
      */
     Person(int id){
         this.id = id;
@@ -39,7 +39,7 @@ public abstract class Person {
     }
 
     /**
-     * Diese metzode gibt die ID der Person zurück.
+     * Diese Methode gibt die ID des Personenobjektes zurück.
      * @return Gibt die ID des Objektes zurück.
      */
     public int getId() {
@@ -63,7 +63,7 @@ public abstract class Person {
         ArrayList<Object[]> data;
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param colnames
          * @param data
          * @return
@@ -92,7 +92,7 @@ public abstract class Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param column
          * @return
          */
@@ -102,7 +102,7 @@ public abstract class Person {
         }
 
         /**
-         * Hier Text einfügen (fill transfer table)
+         * ToDo: Hier Text einfügen
          * @param rowIndex
          * @param columnIndex
          * @return
@@ -113,7 +113,7 @@ public abstract class Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param value
          * @param row
          * @param col
@@ -125,14 +125,14 @@ public abstract class Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          */
         public void clear(){
             data.clear();
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param newdata
          */
         public void update(ArrayList<Object[]> newdata) {

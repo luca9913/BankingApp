@@ -6,7 +6,7 @@ import Konto.*;
 import javax.swing.*;
 
 /**
- * Hier Text einfügen
+ * Die Klasse "Banker" ist für die Objekte der Kunden da. Sie erbt von der Klasse "Person".
  */
 public class Banker extends Person {
 
