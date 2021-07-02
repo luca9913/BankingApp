@@ -6,6 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+/**
+ * Hier Text einfügen
+ */
 public class AuthBase extends Database {
 
     static Path path = Paths.get("");
@@ -19,6 +22,9 @@ public class AuthBase extends Database {
      * Link: java.sql.ResultSet*/
     ResultSet result;
 
+    /**
+     * Hier Text einfügen //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
+     */
     private AuthBase(){
         path = Paths.get(FOLDER + "auth.db");
         try{
@@ -30,13 +36,19 @@ public class AuthBase extends Database {
             System.err.println("Das Programm wird beendet...");
             System.exit(1);
         }
-    } //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
+    }
 
+    /**
+     * Hier Text einfügen
+     */
     public static AuthBase initialize(){
         AuthBase auth = new AuthBase();
         return auth;
     }
 
+    /**
+     * Hier Text einfügen
+     */
     public void close(){
         try{
             this.conn.close();
@@ -46,6 +58,11 @@ public class AuthBase extends Database {
         }
     }
 
+    /**
+     * Hier Text einfügen
+     * @param sql
+     * @return
+     */
     ArrayList<Object[]> executeCustomQuery(String sql){
         try {
             //searches for the 'SELECT' string in the statement
@@ -69,7 +86,11 @@ public class AuthBase extends Database {
         }
     }
 
-    //retrieving functions
+    /**
+     * Hier Text einfügen //retrieving functions
+     * @param uid
+     * @return
+     */
     public ArrayList<Object[]> getAuthSet(int uid){
         try {
             result = state.executeQuery("SELECT * FROM user WHERE user_id = " + uid);
@@ -82,6 +103,11 @@ public class AuthBase extends Database {
         }
     }
 
+    /**
+     * Hier Text einfügen
+     * @param uid
+     * @return
+     */
      public int getHash(int uid){
         try{
             ResultSet rs = state.executeQuery("SELECT pw_hash FROM user WHERE user_id =" + uid);
@@ -98,6 +124,11 @@ public class AuthBase extends Database {
         }
     }
 
+    /**
+     * Hier Text einfügen
+     * @param uid
+     * @return
+     */
     public Integer getIdentity(int uid){
         try{
             ResultSet rs = state.executeQuery("SELECT customer_id, banker_id FROM user WHERE user_id =" + uid);
@@ -114,7 +145,14 @@ public class AuthBase extends Database {
         }
     }
 
-    //inserting function
+    /**
+     * Hier Text einfügen
+     * @param login_id
+     * @param pw
+     * @param user_id
+     * @param function
+     * @return
+     */
     public boolean insertUser(int login_id, String pw, int user_id, String function){
         try {
             int hash = pw.hashCode();
@@ -142,8 +180,12 @@ public class AuthBase extends Database {
         }
     }
 
-    //deleting function
-    public boolean deleteUser(int id){ //returns boolean because every id only has one account
+    /**
+     * Hier Text einfügen//returns boolean because every id only has one account
+     * @param id
+     * @return
+     */
+    public boolean deleteUser(int id){
         try{
             int rows = state.executeUpdate("DELETE FROM user WHERE user_id ='" + id + "' OR customer_id ='" + id + "' OR banker_id ='" + id +"';");
             if(rows == 0){
@@ -159,7 +201,12 @@ public class AuthBase extends Database {
         }
     }
 
-    //updating function
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @param pw
+     * @return
+     */
     public boolean updateHash(int id, String pw){ //returns boolean because every id only has one account
         try{
             int hash = pw.hashCode();

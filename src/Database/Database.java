@@ -3,7 +3,6 @@ package Database;
 import java.sql.*;
 import java.util.ArrayList;
 import org.apache.commons.lang3.ArrayUtils;
-import java.util.regex.Pattern;
 
 /**
  * Die abstrakte Datenbank-Klasse enthält alle gemeinsamen Felder und (abstrakten) Methoden zum Arbeiten mit den beiden Datenbanken.
@@ -63,6 +62,9 @@ public abstract class Database {
     }
 }
 
+/**
+ * Hier Text einfügen
+ */
 class DatabaseTest{
 
     public static void main(String[] args){
