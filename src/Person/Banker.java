@@ -14,10 +14,18 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Hier Text einfügen
+ */
 public class Banker extends Person {
+
 
     public ArrayList<Object[]> allaccounts, allcustomers, relatedrequests, alltransfers;
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     */
     public Banker(int id) {
         super(id);
         Object[] pdata = data.getData(id, "banker").get(0);
@@ -30,6 +38,9 @@ public class Banker extends Person {
         update();
     }
 
+    /**
+     * Hier Text einfügen
+     */
     void update() {
         relatedrequests = data.getAllRequests(id);
         allaccounts = data.getAllAccounts(id);
@@ -37,6 +48,9 @@ public class Banker extends Person {
         getAllTransfers();
     }
 
+    /**
+     * Hier Text einfügen
+     */
     void createCustomerList() {
         allcustomers = new ArrayList<>(allaccounts.size());
         ArrayList<Integer> ids = new ArrayList<>(allaccounts.size());
@@ -53,6 +67,10 @@ public class Banker extends Person {
         allcustomers.trimToSize();
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public ListModel getCustomerModel() {
         update();
         ArrayList<Object[]> customers = new ArrayList<>(allcustomers.size());
@@ -63,6 +81,10 @@ public class Banker extends Person {
         return new ListData(customers);
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public TableData getRequestModel() {
         update();
         ArrayList<Object[]> requests = new ArrayList<>(relatedrequests.size());
@@ -86,7 +108,10 @@ public class Banker extends Person {
         return new TableData(new String[]{"ID", "Name", "Betreff", "Alter Wert", "Neuer Wert"}, requests);
     }
 
-
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public TableData getDispoModel() {
         update();
         ArrayList<Object[]> dispoaccounts = new ArrayList<>(allaccounts.size());
@@ -105,6 +130,11 @@ public class Banker extends Person {
         return new TableData(new String[]{"Konto-ID", "Name", "Dispo", "überzogen"}, dispoaccounts);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param customerid
+     * @return
+     */
     public ListData getAccountModel(int customerid) {
         update();
         ArrayList<Object[]> accounts = new ArrayList<>(allaccounts.size());
@@ -117,6 +147,9 @@ public class Banker extends Person {
         return new ListData(accounts);
     }
 
+    /**
+     * Hier Text einfügen
+     */
     void getAllTransfers() {
         //for each account, data.gettransfers and append them to list
         alltransfers = new ArrayList<>();
@@ -137,7 +170,11 @@ public class Banker extends Person {
         }
     }
 
-    //int selectedAccount is the index of the selected element in the list
+    /**
+     * Hier Text einfügen
+     * @param ids
+     * @return
+     */
     public TableData getTransferModel(int[] ids) {
         update();
         ArrayList<Object[]> transfers = new ArrayList<>(alltransfers.size());
@@ -186,6 +223,11 @@ public class Banker extends Person {
         return new TableData(colnames, transfers);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @return
+     */
     public String getBalance(int id) {
         if (id == -1) {
             return "Konto wählen..";
@@ -194,11 +236,21 @@ public class Banker extends Person {
         }
     }
 
-
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @param status
+     * @return
+     */
     public boolean un_lockAccount(int id, int status) {
         return data.updateAccountBlockage(id, status);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @return
+     */
     public boolean deleteAccount(int id) {
         return data.deleteAccount(id);
     }
@@ -208,6 +260,13 @@ public class Banker extends Person {
         return user;
     }
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @param col
+     * @param value
+     * @return
+     */
     public boolean updateAccData(int id, int col, Object value) {
         Konto modified;
         Object[] accdata = data.getData(id, "account").get(0);
@@ -237,14 +296,30 @@ public class Banker extends Person {
         return data.updateAccountData(modified);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param user
+     * @return
+     */
     public boolean updateUserData(Customer user) {
         return data.updateCustomerData(user);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @return
+     */
     public int getRequestStatus(int id) {
         return (Integer) data.getData(id, "request").get(0)[1];
     }
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @param status
+     * @return
+     */
     public boolean modifyRequest(int id, int status) {
         /*possible actions:
          * approve: 1, decline: -1, (pending: 0)
@@ -252,6 +327,10 @@ public class Banker extends Person {
         return data.updateRequest(id, status);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param pdata
+     */
     public void insertCustomer(String[] pdata) {
         //create new Customer-Object
         Customer customer = new Customer(pdata);
@@ -275,6 +354,9 @@ public class Banker extends Person {
         JOptionPane.showMessageDialog(null,"Der neue Kunde wurde erfolgreich angelegt: \nLogin-ID: " + newLoginID + "\nPasswort: " + newPassword + "\nDas Passwort ist vorläufig und wird dem Kunden per Post zugestellt. Beim ersten Login wird er aufgefordert das Passwort aus Sicherheitsgründen zu ändern!","Fehlerhafte Eingabe(n)", JOptionPane.CANCEL_OPTION);
     }
 
+    /**
+     * Hier Text einfügen
+     */
     public class ListData extends AbstractListModel implements ComboBoxModel {
         Object selected;
         ArrayList<Object[]> data;
@@ -283,47 +365,94 @@ public class Banker extends Person {
             this.data = data;
         }
 
+        /**
+         * Hier Text einfügen
+         * @param anItem
+         */
         @Override
         public void setSelectedItem(Object anItem) {
             selected = anItem;
         }
 
+        /**
+         * Hier Text einfügen
+         * @return
+         */
         @Override
         public Object getSelectedItem() {
             return selected;
         }
 
+        /**
+         * Hier Text einfügen
+         * @return
+         */
         @Override
         public int getSize() {
             return data.size();
         }
 
+        /**
+         * Hier Text einfügen
+         * @param index
+         * @param value
+         */
         public void addElement(int index, Object[] value) {
             data.add(index, value);
         }
 
+        /**
+         * Hier Text einfügen
+         * @param index
+         * @return
+         */
         @Override
         public Object getElementAt(int index) {
             return data.get(index)[0];
         }
 
+        /**
+         * Hier Text einfügen
+         * @param index
+         * @return
+         */
         public int getSelectedID(int index) {
             return (Integer) data.get(index)[1];
         }
 
+        /**
+         * Hier Text einfügen
+         * @param index
+         * @return
+         */
         public int getStatus(int index) {
             return (Integer) data.get(index)[2];
         }
 
+        /**
+         * Hier Text einfügen
+         * @param index
+         * @return
+         */
         public String getDispo(int index) {
             return data.get(index)[3].toString();
         }
 
+        /**
+         * Hier Text einfügen
+         * @param index
+         * @param col
+         * @param value
+         */
         public void setValueAt(int index, int col, Object value) {
             data.get(index)[col] = value;
             fireContentsChanged(this, index, index);
         }
 
+        /**
+         * Hier Text einfügen
+         * @param index
+         */
         public void delete(int index) {
             data.remove(index);
             fireContentsChanged(this, index, index);
