@@ -2,7 +2,6 @@ package GUI.GUI_Customer;
 
 import GUI.GUI_Customer_Connector;
 import Konto.Konto;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

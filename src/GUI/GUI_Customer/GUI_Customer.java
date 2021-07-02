@@ -22,12 +22,8 @@ import java.util.Date;
  * und Actions verwaltet und weitere Optionen für die GUI festgelegt.
  */
 public class GUI_Customer extends JFrame {
-    private JTabbedPane tabbedPaneMain;
     private JPanel Hauptpanel;
-    private JPanel JPanelLinks;
-    private JPanel JPanelRechts;
     private JList listAccounts1;
-    private JTextField txtSearch;
     private JTable tableTurnover;
     private JButton btnRefresh1;
     private JTextField txtAccNr;
@@ -39,7 +35,6 @@ public class GUI_Customer extends JFrame {
     private JTextField txtIbanTo;
     private JTextField txtAmountTo;
     private JTextField txtUsageTo;
-    private JLabel image;
     private JTextField txtName;
     private JButton btnCustomerDataChanges;
     private JButton btnRefresh3;
@@ -56,7 +51,6 @@ public class GUI_Customer extends JFrame {
     private JTextField txtDispo;
     private JButton btnSave;
     private JList listAccounts3;
-    private JScrollPane tblTransfers;
     private JButton btnExit;
     private JTextField txtPhone;
     private JTextField txtMail;

@@ -15,7 +15,6 @@ public class GUI_Customer_CreateAccount extends JFrame{
     private JRadioButton rdbGiro;
     private JButton abbrechenButton;
     private JButton kontoAnlegenButton;
-    private JRadioButton rdbTages;
     private JRadioButton rdbDepot;
     private JRadioButton rdbFest;
     private JRadioButton rdbKredit;

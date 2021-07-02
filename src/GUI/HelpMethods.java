@@ -59,7 +59,6 @@ public class HelpMethods {
     }
 
     public boolean onlyString(String txtField, boolean acceptSpace, int minLength) {
-//                "^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$"
         if(txtField.length() > minLength) {
             if(acceptSpace) {
                 if(txtField.matches("[A-Za-z äüöÄÜÖ-]*")) {
@@ -109,9 +108,7 @@ public class HelpMethods {
             }
         } catch (Exception pe) {
         }
-
         return false;
-
     }
 
     /**
@@ -143,8 +140,8 @@ public class HelpMethods {
      * @return
      */
     public String generatePassword() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
+        int leftLimit = 48;
+        int rightLimit = 122;
         int targetStringLength = 10;
         Random random = new Random();
 

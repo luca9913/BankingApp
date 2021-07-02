@@ -59,12 +59,10 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JLabel lblAccountApprovalOrders;
     private JLabel lblDispoOverwritingAccounts;
     private JLabel lblWelcome;
-    private JTabbedPane tabbedPane1;
     private JLabel lblAccountBalance;
     private JLabel lblDispoAcc;
     private JTextField txtNewCustomerEmail;
     private JTextField txtNewCustomerPhone;
-    private JLabel lblEmail;
     private JTextField txtCustomerMail;
     private JTextField txtCustomerTel;
     private JLabel tblTurnoversSendOrReceive;
@@ -347,10 +345,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
      * Hier Text einfügen
      */
     private void initialize() {
-        // Set default border
         defaultBorder = txtNewCustomerName.getBorder();
-
-        // Title Bar Icon
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
 
@@ -360,20 +355,11 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
         tblDispoAccounts.setCellSelectionEnabled(true);
         tblDispoAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        // Initialisiert Startseite-Tab
-        // Namen des Bankers einfügen
         lblWelcome.setText("Herzlich Willkommen " + admin.preName + " " + admin.name);
-        // Aktuell betreuende Kunden einfügen
         lblAccountApprovalOrders.setText("Aktuell betreuende Kunden: " + admin.allcustomers.size());
-        // Kontofreigabeaufträge einfügen
         lblSupervisingCustomers.setText("Freigabeaufträge: " + admin.relatedrequests.size());
-        // Dispoüberschreitende Konten einfügen
         lblDispoOverwritingAccounts.setText("Dispoüberschreitende Konten: " + admin.getDispoModel().getRowCount());
 
-
-        // Initialisiert Kontenfreigabe-Tab
-        // Tabelle mit Konten füllen
         tblAccountApproval.setModel(admin.getRequestModel());
         for(int i = 0; i < 5; i++){
             TableColumn col = tblAccountApproval.getColumnModel().getColumn(i);
@@ -385,16 +371,12 @@ public class GUI_Banker extends JFrame implements KeyListener{
         btnApproveAccount.setEnabled(false);
         btnDeclineAccount.setEnabled(false);
 
-        // Initialisiert Dispokonten-Tab
-        // Tabelle mit Konten im Dispo füllen
         tblDispoAccounts.setModel(admin.getDispoModel());
 
-        // Initialisiert Kundenübersicht-Tab
         ListData tmp = (ListData) admin.getCustomerModel();
         cbbCurrentCustomer.setModel(tmp);
         cbbCurrentCustomer.setSelectedIndex(0);
 
-        // Initialisiert Kundenübersicht - Finanzübersicht
         lblAccountBalance.setText("Konto wählen...");
         tmp = admin.getAccountModel(-1);
         tmp.addElement(0, new Object[]{"Alle", -1, -1});
@@ -410,14 +392,12 @@ public class GUI_Banker extends JFrame implements KeyListener{
         btnBlockAccount.setEnabled(false);
         btnDeleteAccount.setEnabled(false);
 
-        // Initialisiere Kundenübersicht - Dispo
         lblDispoAcc.setText("Wähle Konto");
         tmp = admin.getAccountModel(-1);
         dispoList.setModel(tmp);
         txtCurrentDispo.setEnabled(false);
         btnApproveDispo.setEnabled(false);
 
-        // Initialisiere Kundenübersicht - Benutzerdaten
         txtCustomerID.setEnabled(false);
         txtCustomerName.setEnabled(false);
         txtCustomerSurname.setEnabled(false);
@@ -429,7 +409,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         txtCustomerTel.setEnabled(false);
         btnSaveCustomerData.setEnabled(false);
 
-        //Inititalisiere NeuerKunde-Tab
         txtNewCustomerName.addKeyListener(this);
         txtNewCustomerSurname.addKeyListener(this);
         txtNewCustomerBirth.addKeyListener(this);
@@ -439,7 +418,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         txtNewCustomerEmail.addKeyListener(this);
         txtNewCustomerPhone.addKeyListener(this);
 
-        // Panel hinzufügen
         add(mainPanel);
     }
 
@@ -678,7 +656,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
         resetNewCustomerView();
 
-        // Vorname überprüfen
         if(h.onlyString(txtNewCustomerName.getText(), true, 2)) {
             System.out.println("Gültiger Vorname");
             newCustomer[0] = txtNewCustomerName.getText();
@@ -687,7 +664,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerName.setBorder(failedBorder);
         }
 
-        // Nachname überprüfen
         if(h.onlyString(txtNewCustomerSurname.getText(), true, 2)) {
             System.out.println("Gültiger Nachname");
             newCustomer[1] = txtNewCustomerSurname.getText();
@@ -696,7 +672,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerSurname.setBorder(failedBorder);
         }
 
-        // Geburtstag überprüfen
         if(h.correctDateFormat(txtNewCustomerBirth.getText(), true)){
             System.out.println("Gültiges Geburtsdatum");
             newCustomer[2] = h.convertStringIntoDateFormat(txtNewCustomerBirth.getText());
@@ -705,7 +680,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerBirth.setBorder(failedBorder);
         }
 
-        // Adresse überprüfen
         if(txtNewCustomerAdress.getText().length() > 5) {
             System.out.println("Gültige Adresse");
             newCustomer[3] = txtNewCustomerAdress.getText();
@@ -714,7 +688,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerAdress.setBorder(failedBorder);
         }
 
-        //Postleitzahl überprüfen
         if(h.onlyInt(txtNewCustomerZIP.getText())){
             System.out.println("Correct ZIP");
             newCustomer[4] = txtNewCustomerZIP.getText();
@@ -723,7 +696,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerZIP.setBorder(failedBorder);
         }
 
-        // Stadt überprüfen
         if(h.onlyString(txtNewCustomerCity.getText(), true, 2)) {
             System.out.println("Correct City");
             newCustomer[5] = txtNewCustomerCity.getText();
@@ -732,7 +704,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerCity.setBorder(failedBorder);
         }
 
-        // E-Mail überprüfen
         if(txtNewCustomerEmail.getText().length() > 7){
             System.out.println("Gültige E-Mail Adresse");
             newCustomer[6] = txtNewCustomerEmail.getText();
@@ -741,7 +712,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerEmail.setBorder(failedBorder);
         }
 
-        // Telefonnummer überprüfen
         if(h.onlyInt(txtNewCustomerPhone.getText())) {
             System.out.println("Correct Phone Number");
             newCustomer[7] = txtNewCustomerPhone.getText();
@@ -750,7 +720,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerPhone.setBorder(failedBorder);
         }
 
-        // Banker ID einfügen
         newCustomer[8] = String.valueOf(admin.getId());
 
         for(int i=0; i<newCustomer.length; i++){
@@ -760,7 +729,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             }
         }
 
-        //[Prename, Name, Birth, Address, ZIP, City, EMail, Phone Number]
         admin.insertCustomer(newCustomer);
 
         resetNewCustomer();
