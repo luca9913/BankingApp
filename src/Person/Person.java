@@ -74,8 +74,8 @@ public abstract class Person {
         }
 
         /**
-         * Hier Text einfügen
-         * @return
+         * Diese Methode gibt die Anzahl der Zeilen der Tabelle zurück.
+         * @return Der Rückgabewert ist int.
          */
         @Override
         public int getRowCount() {
@@ -83,8 +83,8 @@ public abstract class Person {
         }
 
         /**
-         * Hier Text einfügen
-         * @return
+         * Diese Methode gibt die Anzahl der Reihen der Tabelle zurück.
+         * @return Der Rückgabewert ist int.
          */
         @Override
         public int getColumnCount() {
