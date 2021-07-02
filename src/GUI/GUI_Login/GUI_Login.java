@@ -14,7 +14,7 @@ import java.text.Normalizer;
 public class GUI_Login extends JFrame implements KeyListener {
 
     private int attempts = 0;
-    //private Form image;
+    //private JForm image;
     private JTextField LOGINNAMETextField;
     private JPasswordField passwordField1;
     private JButton exitButton;
