@@ -13,7 +13,7 @@ public class Banker extends Person {
     public ArrayList<Object[]> allaccounts, allcustomers, relatedrequests, alltransfers;
 
     /**
-     * Hier Text einfügen
+     * Standardkonstruktor der Klasse "Customer" mit einer Variable als Parameter.
      * @param id Parameter für den Konstruktor.
      */
     public Banker(int id) {
@@ -29,7 +29,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      */
     void update() {
         relatedrequests = data.getAllRequests(id);
@@ -39,7 +39,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      */
     void createCustomerList() {
         allcustomers = new ArrayList<>(allaccounts.size());
@@ -58,7 +58,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @return
      */
     public ListModel getCustomerModel() {
@@ -72,7 +72,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @return
      */
     public TableData getRequestModel() {
@@ -98,7 +98,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @return
      */
     public TableData getDispoModel() {
@@ -120,7 +120,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param customerid
      * @return
      */
@@ -137,7 +137,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      */
     void getAllTransfers() {
         alltransfers = new ArrayList<>();
@@ -159,7 +159,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param ids
      * @return
      */
@@ -212,7 +212,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param id
      * @return
      */
@@ -225,7 +225,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param id
      * @param status
      * @return
@@ -235,7 +235,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param id
      * @return
      */
@@ -244,7 +244,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param id
      * @return
      */
@@ -254,7 +254,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param id
      * @param col
      * @param value
@@ -290,7 +290,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param user
      * @return
      */
@@ -299,7 +299,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param id
      * @return
      */
@@ -308,7 +308,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param id
      * @param status
      * @return
@@ -318,7 +318,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      * @param pdata
      */
     public void insertCustomer(String[] pdata) {
@@ -343,7 +343,7 @@ public class Banker extends Person {
     }
 
     /**
-     * Hier Text einfügen
+     * ToDo: Hier Text einfügen
      */
     public class ListData extends AbstractListModel implements ComboBoxModel {
         Object selected;
@@ -354,7 +354,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param anItem
          */
         @Override
@@ -363,7 +363,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @return
          */
         @Override
@@ -372,7 +372,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @return
          */
         @Override
@@ -381,7 +381,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param index
          * @param value
          */
@@ -390,7 +390,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param index
          * @return
          */
@@ -400,7 +400,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param index
          * @return
          */
@@ -409,7 +409,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param index
          * @return
          */
@@ -418,7 +418,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param index
          * @return
          */
@@ -427,7 +427,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param index
          * @param col
          * @param value
@@ -438,7 +438,7 @@ public class Banker extends Person {
         }
 
         /**
-         * Hier Text einfügen
+         * ToDo: Hier Text einfügen
          * @param index
          */
         public void delete(int index) {
