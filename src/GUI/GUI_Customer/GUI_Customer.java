@@ -510,6 +510,9 @@ public class GUI_Customer extends JFrame {
         txtMail.setText((String)customerdata[7]);
     }
 
+    /**
+     * Hier Text einfügen
+     */
     void updateAccountLists(){
         DefaultListModel dlm = new DefaultListModel();
         int i = 0;
@@ -526,8 +529,21 @@ public class GUI_Customer extends JFrame {
         listAccounts3.setModel(dlm);
     }
 
+    /**
+     * Hier Text einfügen
+     */
     class TransferRenderer extends DefaultTableCellRenderer {
 
+        /**
+         * Hier Text einfügen
+         * @param table
+         * @param value
+         * @param isSelected
+         * @param hasFocus
+         * @param row
+         * @param column
+         * @return
+         */
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -548,6 +564,9 @@ public class GUI_Customer extends JFrame {
         }
     }
 
+    /**
+     * Hier Text einfügen
+     */
     class AccountRenderer extends DefaultListCellRenderer {
 
         @Override
@@ -564,5 +583,4 @@ public class GUI_Customer extends JFrame {
             return c;
         }
     }
-
 }
