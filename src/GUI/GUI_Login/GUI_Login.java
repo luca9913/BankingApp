@@ -1,32 +1,37 @@
 package GUI.GUI_Login;
 
 import Login.Login;
-import Main.Main;
-import Person.Banker;
-import Person.Customer;
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
+import java.text.Normalizer;
 
+/**
+ * Die Klasse ist für das GUI des Login zuständig. Dort werden die Components
+ * und Actions verwaltet und weitere Optionen für die GUI festgelegt.
+ */
 public class GUI_Login extends JFrame implements KeyListener {
 
     private int attempts = 0;
-
+    private JLabel image;
     private JTextField LOGINNAMETextField;
     private JPasswordField passwordField1;
     private JButton exitButton;
     private JButton loginButton;
     private JPanel panel1;
-    private JLabel image;
     private JLabel failedAttempts;
 
-    private Login loginReference; //Login-Instanz mit der auf die Login-Datenbank zugegriffen werden kann
+    /**
+     * Diese Variable enthält die Login-Instanz, mit welcher auf die Login-Datenbank zugegriffen werden kann.
+     */
+    private Login loginReference;
 
+    /**
+     * Dieser Konstruktor ist für die Actions und weitere Optionen des Login-Gui´s zuständig.
+     * @param loginReference ToDo: Hier Text einfügen
+     */
     public GUI_Login(Login loginReference) {
         this.loginReference = loginReference;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,9 +54,10 @@ public class GUI_Login extends JFrame implements KeyListener {
         });
     }
 
-
+    /**
+     * Die Methode ist für die Initialisierung der GUI_Login und deren Optionen zuständig.
+     */
     private void initialize() {
-        // Title Bar Icon
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
 
@@ -65,18 +71,19 @@ public class GUI_Login extends JFrame implements KeyListener {
         add(panel1);
     }
 
-
+    /**
+     * Diese Methode fängt Fehler beim Einloggvorgang ab, zum Beispiel wenn die
+     * Textfelder leer sind und weitere.
+     */
     private void loginPressed() {
         System.out.println("Login Pressed");
 
-        //Überprüft, ob userID vorhanden ist
         if (LOGINNAMETextField.getText().length() == 0) {
             System.out.println("Keine Login-ID eingegeben");
             JOptionPane.showMessageDialog(null, "Bitte geben Sie eine Login-ID ein.", "Login-ID Feld leer!", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        // Überprüft, ob sich der String in einen Integer umwandeln lässt
         int userID;
         try {
             userID = Integer.parseInt(LOGINNAMETextField.getText());
@@ -87,37 +94,34 @@ public class GUI_Login extends JFrame implements KeyListener {
             return;
         }
 
-        // Konvertiert char[] in StringBuilder
         StringBuilder passwordStringBuilder = new StringBuilder();
         for(char chars: passwordField1.getPassword()) {
             passwordStringBuilder.append(chars);
         }
 
-        // Überprüft, ob Passwort vorhanden ist
         if (passwordStringBuilder.length() == 0) {
             System.out.println("Kein Passwort eingegeben");
             JOptionPane.showMessageDialog(null, "Bitte geben Sie ein Passwort ein.", "Passwortfeld leer!", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        // Compare data with authbase
         if(loginReference.databaseComparison(userID, passwordStringBuilder.toString())) {
-            // Passwort und Nutzername stimmen überein
             System.out.println("Login-ID und Benutzername stimmen überein - Login Fenster schließen");
-
-            //TODO: setVisible(false) benötigt Arbeitsspeicher - bessere Methode implementieren
             this.dispose();
         } else {
-            // Fehlerhafte Eingabe -> Erhöhe Fehlversuche
             System.out.println("Login-ID und Benutzername stimmen nicht überein - Failed Attempts anzeigen/erhöhen");
             attempts++;
             failedAttempt(attempts);
         }
     }
 
-
+    /**
+     * Diese Methode ist für das Aktivieren und die Anzeige der Fehlversuche
+     * bei der Passworteingabe beim Login zuständig.
+     * @param numberOfFailedAttempts Als Parameter wird die Anzahl an Fehlschlägen
+     * des Logins übergeben.
+     */
     private void failedAttempt(int numberOfFailedAttempts) {
-        // TODO: Falls genug Zeit -> Timeout programmieren nach 3 Fehlversuchen
         passwordField1.setText("");
         if (numberOfFailedAttempts != 0) {
             failedAttempts.setVisible(true);
@@ -129,8 +133,10 @@ public class GUI_Login extends JFrame implements KeyListener {
         }
     }
 
-
-    // Methoden müssen vorhanden sein, da KeyListener diese verlangt
+    /**
+     * Diese Methode muss vorhanden sein, da der KeyListener diese verlangt.
+     * @param e Parameter für das Key-Event.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER){
@@ -139,10 +145,18 @@ public class GUI_Login extends JFrame implements KeyListener {
         }
     }
 
+    /**
+     * Diese Methode muss vorhanden sein, da der KeyListener diese verlangt.
+     * @param e Parameter für das Key-Event.
+     */
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+     * Diese Methode muss vorhanden sein, da der KeyListener diese verlangt.
+     * @param e Parameter für das Key-Event.
+     */
     @Override
     public void keyReleased(KeyEvent e) {
     }

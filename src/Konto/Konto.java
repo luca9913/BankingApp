@@ -1,23 +1,33 @@
 package Konto;
 
 import Person.*;
-import Database.*;
 import Database.ProdBase;
-
 import java.util.ArrayList;
 
+/**
+ * Hier Text einfügen
+ */
 public abstract class Konto{
-    private int id; //KontoID
+
+    private int id;
     private String type;
     private double balance = 0;
-    private double dispo = -500;
-    private int transferlimit = 10000;
-    private int locked;
+    private double dispo;
+    private int transferlimit;
+    private int locked = 0;
     private Customer owner;
     private Banker banker;
     private ProdBase data;
     ArrayList<Object[]> transferList;
 
+    /**
+     * Hier Text einfügen
+     * @param type
+     * @param id
+     * @param banker
+     * @param owner
+     * @param data
+     */
     public Konto(String type, int id, Banker banker, Customer owner, ProdBase data)
     {
         if(banker == null || owner == null)
@@ -32,164 +42,154 @@ public abstract class Konto{
         transferList = data.getAllTransfers(id);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     */
     public void setId(int id){
         this.id = id;
     }
 
+    /**
+     * Hier Text einfügen
+     * @param balance
+     */
     public void setBalance(double balance){
         this.balance = balance;
     }
 
+    /**
+     * Hier Text einfügen
+     * @param dispo
+     */
     public void setDispo(double dispo){
         this.dispo = dispo;
     }
 
+    /**
+     * Hier Text einfügen
+     * @param limit
+     */
     public void setLimit(int limit){
         this.transferlimit = limit;
     }
 
+    /**
+     * Hier Text einfügen
+     * @param status
+     */
     public void setStatus(int status){
         if(status <= 1 && status >= -1) {
             this.locked = status;
         }
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public Integer getId(){
         return this.id;
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public String getType(){
         return this.type;
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public Double getBalance(){
         return this.balance;
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public Double getDispo(){
         return this.dispo;
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public int getLimit(){
         return this.transferlimit;
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public Integer getStatus(){
         return this.locked;
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public Customer getOwner(){
         return this.owner;
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public Banker getBanker(){
         return this.banker;
     }
 
-    //gibt Liste aller Umsätze zurück
+    /**
+     * Diese Methode gibt eine Liste mit allen Kontoumsätzen zurück
+     * @return
+     */
     public ArrayList<Object[]> getAllTranfers(){
         transferList = data.getAllTransfers(id);
-       return transferList;
+        return transferList;
     }
 
-    //gibt Daten zu einem konkreten Umsatz zurück getData: 95
-    public Object[] getData(int selected){
-        int transferid = (Integer) transferList.get(selected)[0];
-
+    /**
+     * //gibt Daten zu einem konkreten Umsatz zurück getData: 95
+     * @return
+     */
+    public Object[] getData(){
         return data.getData(id, "transfer").get(1);
     }
 
-    //gibt Empfängers / Senders eines Umsatzes zurück
-    public Object[] getDataName (int selected){
-        int transferid = (Integer) transferList.get(selected)[0];
-
-        for(Object[] transfer : transferList){
-            if(id == (Integer) transfer[2])
-                if(transferid == (Integer) transfer[0])
-                    return data.executeCustomQuery("SELECT prename, name FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
-            else
-                if(transferid == (Integer) transfer[0])
-                    return data.executeCustomQuery("SELECT prename, name FROM transfer,account,customer WHERE sender = account_id AND owner = customer_id AND transfer_id = " + transferid ).get(1);
-        }
-        return null;
-    }
-
-    //aktualisiert die Balance anhand der Überweisungen
-    public void refreshBalance(){
-        for(Object[] transfer : transferList){
-            if(id == (Integer) transfer[2])
-                zahlungsAusgang((Integer)transfer[1]);
-            else
-                zahlungsEingang((Integer) transfer[1]);
-        }
-        data.updateBalance(id, balance);
-    }
-
-    //Überweisen auf ein anderes Konto
-    public void transfer(int recieverid, double betrag, String usage, String date){
-        if(transferlimit < betrag)
+    /**
+     * //Überweisen auf ein anderes Konto
+     * @param id
+     * @param amount
+     * @param usage
+     * @param date
+     * @return
+     */
+    public boolean transfer(int id, double amount, String usage, String date){
+        if(transferlimit < amount)
         {
             throw new IllegalArgumentException("Transfer limit ueberschritten");
         }else
         {
-            //Transfer in die Datenbank schreiben
-            data.insertTransfer(betrag, id, recieverid, usage, date); //fehler weil insertTransfer noch nicht fertig
+            updateBalance(amount * (-1));
+            data.updateAccountData(this);
+            return data.insertTransfer(amount, id, id, usage, date);
         }
     }
 
-
-
-    public void aendern(String key, String value){
-        data.createRequest(key, value, owner.getId(), banker.getId(), owner.getId());
-    }
-
-
-    public void aufloesen(Konto zielkonto){
-        if(balance < 0)
-        {
-            throw new IllegalStateException("Konto isch im Minus um "+ balance +" Euro");
-        }else
-        {
-            zielkonto.zahlungsEingang(zahlungsAusgang(balance));
-        }
-    }
-
-    public double aufloesen() {
-        if (balance < 0) {
-            throw new IllegalStateException("Konto isch im Minus");
-        }
-        return balance;
-    }
-
-    //Funktion um einzuzahlen
-    public void zahlungsEingang(double betrag){
-        if(betrag <= 0)
-        {
-            throw new IllegalArgumentException("Kein negativer Parameter oder 0 möglich");
-        }
-        balance += betrag;
-    }
-
-    //Funktion um auszuzahlen
-    public double zahlungsAusgang(double betrag){
-        if(betrag <= 0)
-        {
-            throw new IllegalArgumentException("Kein negativer Parameter oder 0 möglich");
-        }
-        if(dispo > balance - betrag)
-        {
-            double ueberzug = (balance - betrag -dispo) * -1;
-            throw new IllegalArgumentException("Dispo ueberzogen um "+ ueberzug + " Euro");
-        }else
-        {
-            balance -= betrag;
-            return betrag;
-        }
-    }
-
-
-
-    public double anzeigenDispo(){
-        return dispo;
+    /**
+     * Diese Methode ... //Funktion um einzuzahlen
+     * @param amount
+     */
+    public void updateBalance(Double amount){
+        balance += amount;
     }
 }

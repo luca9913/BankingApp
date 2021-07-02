@@ -1,22 +1,21 @@
 package Person;
 
-import java.lang.reflect.Array;
 import java.util.*;
-
-import Database.*;
 import GUI.HelpMethods;
 import Konto.*;
-import Person.Customer;
-
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
 
+/**
+ * Die Klasse "Banker" ist für die Objekte der Kunden da. Sie erbt von der Klasse "Person".
+ */
 public class Banker extends Person {
 
     public ArrayList<Object[]> allaccounts, allcustomers, relatedrequests, alltransfers;
 
+    /**
+     * Standardkonstruktor der Klasse "Customer" mit einer Variable als Parameter.
+     * @param id Parameter für den Konstruktor.
+     */
     public Banker(int id) {
         super(id);
         Object[] pdata = data.getData(id, "banker").get(0);
@@ -29,6 +28,9 @@ public class Banker extends Person {
         update();
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     */
     void update() {
         relatedrequests = data.getAllRequests(id);
         allaccounts = data.getAllAccounts(id);
@@ -36,6 +38,9 @@ public class Banker extends Person {
         getAllTransfers();
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     */
     void createCustomerList() {
         allcustomers = new ArrayList<>(allaccounts.size());
         ArrayList<Integer> ids = new ArrayList<>(allaccounts.size());
@@ -52,6 +57,10 @@ public class Banker extends Person {
         allcustomers.trimToSize();
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @return
+     */
     public ListModel getCustomerModel() {
         update();
         ArrayList<Object[]> customers = new ArrayList<>(allcustomers.size());
@@ -62,6 +71,10 @@ public class Banker extends Person {
         return new ListData(customers);
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @return
+     */
     public TableData getRequestModel() {
         update();
         ArrayList<Object[]> requests = new ArrayList<>(relatedrequests.size());
@@ -81,11 +94,13 @@ public class Banker extends Person {
 
             requests.add(tmp);
         }
-
         return new TableData(new String[]{"ID", "Name", "Betreff", "Alter Wert", "Neuer Wert"}, requests);
     }
 
-
+    /**
+     * ToDo: Hier Text einfügen
+     * @return
+     */
     public TableData getDispoModel() {
         update();
         ArrayList<Object[]> dispoaccounts = new ArrayList<>(allaccounts.size());
@@ -104,6 +119,11 @@ public class Banker extends Person {
         return new TableData(new String[]{"Konto-ID", "Name", "Dispo", "überzogen"}, dispoaccounts);
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @param customerid
+     * @return
+     */
     public ListData getAccountModel(int customerid) {
         update();
         ArrayList<Object[]> accounts = new ArrayList<>(allaccounts.size());
@@ -116,8 +136,10 @@ public class Banker extends Person {
         return new ListData(accounts);
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     */
     void getAllTransfers() {
-        //for each account, data.gettransfers and append them to list
         alltransfers = new ArrayList<>();
         boolean duplicate = false;
         for (Object[] arr : allaccounts) {
@@ -136,7 +158,11 @@ public class Banker extends Person {
         }
     }
 
-    //int selectedAccount is the index of the selected element in the list
+    /**
+     * ToDo: Hier Text einfügen
+     * @param ids
+     * @return
+     */
     public TableData getTransferModel(int[] ids) {
         update();
         ArrayList<Object[]> transfers = new ArrayList<>(alltransfers.size());
@@ -185,6 +211,11 @@ public class Banker extends Person {
         return new TableData(colnames, transfers);
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @param id
+     * @return
+     */
     public String getBalance(int id) {
         if (id == -1) {
             return "Konto wählen..";
@@ -193,20 +224,42 @@ public class Banker extends Person {
         }
     }
 
-
+    /**
+     * ToDo: Hier Text einfügen
+     * @param id
+     * @param status
+     * @return
+     */
     public boolean un_lockAccount(int id, int status) {
         return data.updateAccountBlockage(id, status);
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @param id
+     * @return
+     */
     public boolean deleteAccount(int id) {
         return data.deleteAccount(id);
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @param id
+     * @return
+     */
     public Customer getUserData(int id) {
         Customer user = new Customer(id);
         return user;
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @param id
+     * @param col
+     * @param value
+     * @return
+     */
     public boolean updateAccData(int id, int col, Object value) {
         Konto modified;
         Object[] accdata = data.getData(id, "account").get(0);
@@ -236,26 +289,41 @@ public class Banker extends Person {
         return data.updateAccountData(modified);
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @param user
+     * @return
+     */
     public boolean updateUserData(Customer user) {
         return data.updateCustomerData(user);
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @param id
+     * @return
+     */
     public int getRequestStatus(int id) {
         return (Integer) data.getData(id, "request").get(0)[1];
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @param id
+     * @param status
+     * @return
+     */
     public boolean modifyRequest(int id, int status) {
-        /*possible actions:
-         * approve: 1, decline: -1, (pending: 0)
-         */
         return data.updateRequest(id, status);
     }
 
+    /**
+     * ToDo: Hier Text einfügen
+     * @param pdata
+     */
     public void insertCustomer(String[] pdata) {
-        //create new Customer-Object
         Customer customer = new Customer(pdata);
 
-        //call data.insertPerson(Customer-Object)
         data.insertPerson(customer);
 
         int user_id = (Integer)data.executeCustomQuery("SELECT MAX(customer_id) FROM customer").get(0)[0];
@@ -274,48 +342,9 @@ public class Banker extends Person {
         JOptionPane.showMessageDialog(null,"Der neue Kunde wurde erfolgreich angelegt: \nLogin-ID: " + newLoginID + "\nPasswort: " + newPassword + "\nDas Passwort ist vorläufig und wird dem Kunden per Post zugestellt. Beim ersten Login wird er aufgefordert das Passwort aus Sicherheitsgründen zu ändern!","Fehlerhafte Eingabe(n)", JOptionPane.CANCEL_OPTION);
     }
 
-    public class TableData extends AbstractTableModel {
-        String[] colnames;
-        ArrayList<Object[]> data;
-
-        TableData(String[] colnames, ArrayList<Object[]> data) {
-            this.colnames = colnames;
-            this.data = data;
-        }
-
-        @Override
-        public int getRowCount() {
-            return data.size();
-        }
-
-        @Override
-        public int getColumnCount() {
-            return colnames.length;
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return colnames[column];
-        }
-
-        @Override
-        //fill transfer table
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            return data.get(rowIndex)[columnIndex];
-        }
-
-        @Override
-        public void setValueAt(Object value, int row, int col) {
-            data.get(row)[col] = value;
-            fireTableDataChanged();
-        }
-
-        public void update(ArrayList<Object[]> newdata) {
-            this.data = newdata;
-            fireTableDataChanged();
-        }
-    }
-
+    /**
+     * ToDo: Hier Text einfügen
+     */
     public class ListData extends AbstractListModel implements ComboBoxModel {
         Object selected;
         ArrayList<Object[]> data;
@@ -324,47 +353,94 @@ public class Banker extends Person {
             this.data = data;
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @param anItem
+         */
         @Override
         public void setSelectedItem(Object anItem) {
             selected = anItem;
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @return
+         */
         @Override
         public Object getSelectedItem() {
             return selected;
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @return
+         */
         @Override
         public int getSize() {
             return data.size();
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @param index
+         * @param value
+         */
         public void addElement(int index, Object[] value) {
             data.add(index, value);
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @param index
+         * @return
+         */
         @Override
         public Object getElementAt(int index) {
             return data.get(index)[0];
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @param index
+         * @return
+         */
         public int getSelectedID(int index) {
             return (Integer) data.get(index)[1];
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @param index
+         * @return
+         */
         public int getStatus(int index) {
             return (Integer) data.get(index)[2];
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @param index
+         * @return
+         */
         public String getDispo(int index) {
             return data.get(index)[3].toString();
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @param index
+         * @param col
+         * @param value
+         */
         public void setValueAt(int index, int col, Object value) {
             data.get(index)[col] = value;
             fireContentsChanged(this, index, index);
         }
 
+        /**
+         * ToDo: Hier Text einfügen
+         * @param index
+         */
         public void delete(int index) {
             data.remove(index);
             fireContentsChanged(this, index, index);

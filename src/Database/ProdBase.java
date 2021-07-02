@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-
 import Konto.Konto;
 import Person.*;
 
@@ -41,7 +40,7 @@ public class ProdBase extends Database {
             System.err.println("Das Programm wird beendet...");
             System.exit(1);
         }
-    } //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
+    }
 
     /**
      * Funktion zum Herstellen einer Verbindung zur der Datenbank-Datei.
@@ -89,7 +88,6 @@ public class ProdBase extends Database {
         }
     }
 
-    //retrieving functions TODO: arrayList zu Object[] ändern
     /**
      * Liest die Zeile mit dem entsprechenden Primär-Schlüssel in der angegeben Tabelle aus.
      * @param id Primär-Schlüssel der jeweiligen Tabelle (customer_id, banker_id, usw.)
@@ -161,8 +159,6 @@ public class ProdBase extends Database {
         }
     }
 
-
-    //inserting functions
     /**
      * Fügt die Felder eines Konto-Objektes als Werte in die entsprechenden Spalte der Tabelle 'account' in der Datenbank production.db ein.
      * @param account Konto-Objekt, das eingefügt werden soll
@@ -245,7 +241,6 @@ public class ProdBase extends Database {
         }
     }
 
-    //updating functions
     /**Aktualisiert die Daten einer Person (Banker oder Kunde) in der entsprechenden Tabelle der Datenbank production.db.
      * @param person Objekt der Klasse Banker oder Customer, das die Daten enthält
      * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
@@ -312,6 +307,11 @@ public class ProdBase extends Database {
         }
     }
 
+    /**
+     * Hier Text einfügen
+     * @param customer
+     * @return
+     */
     public boolean updateCustomerData(Customer customer){
        try{
            return returnFunction(state.executeUpdate("UPDATE customer SET prename = '" + customer.preName + "', name = '" + customer.name + "', birthdate = '" + customer.birthDate + "', zip=" + customer.zip + ", city = '" + customer.city + "', address = '" + customer.address + "', email = '" + customer.email + "', telephone = '" + customer.tel + "'WHERE customer_id =" + customer.getId()));
@@ -339,8 +339,6 @@ public class ProdBase extends Database {
         }
     }
 
-    //deleting functions
-
     /**
      * @param id
      * @return
@@ -362,6 +360,11 @@ public class ProdBase extends Database {
         }
     }
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @return
+     */
     public boolean deleteAccount(int id){
         try{
             return returnFunction(state.executeUpdate("DELETE FROM account WHERE account_id =" + id));
@@ -373,6 +376,11 @@ public class ProdBase extends Database {
         }
     }
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @return
+     */
     public boolean deleteRequest(int id){
         try{
             return returnFunction(state.executeUpdate("DELETE FROM request WHERE request_id =" + id));
@@ -384,7 +392,11 @@ public class ProdBase extends Database {
         }
     }
 
-    //helping functions
+    /**
+     * Hier Text einfügen
+     * @param rows
+     * @return
+     */
     boolean returnFunction(int rows){
         if(rows >= 1){
             return true;

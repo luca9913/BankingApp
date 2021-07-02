@@ -3,13 +3,11 @@ package GUI.GUI_Banker;
 import javax.swing.*;
 import GUI.GUI_Login.GUI_Login;
 import GUI.HelpMethods;
-import Konto.*;
 import Login.Login;
 import Person.Banker;
 import Person.Banker.*;
-import Database.ProdBase;
 import Person.Customer;
-
+import Person.Person.TableData;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.border.Border;
@@ -17,8 +15,10 @@ import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
+/**
+ * Hier Text einfügen
+ */
 public class GUI_Banker extends JFrame implements KeyListener{
 
     private JPanel mainPanel;
@@ -32,8 +32,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JComboBox cbbCurrentCustomer;
     private JList listAccountOverview;
     private JButton btnRefreshAccount;
-    private JTextField txtSearchTurnover;
     private JTable tblTurnovers;
+    private JTabbedPane tabbedPane1;
+    private JLabel lblEmail;
     private JTextField txtTurnoverAccountNr;
     private JTextField txtTurnoverNr;
     private JTextField txtTurnoverUsage;
@@ -60,30 +61,31 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JLabel lblAccountApprovalOrders;
     private JLabel lblDispoOverwritingAccounts;
     private JLabel lblWelcome;
-    private JTabbedPane tabbedPane1;
     private JLabel lblAccountBalance;
     private JLabel lblDispoAcc;
     private JTextField txtNewCustomerEmail;
     private JTextField txtNewCustomerPhone;
-    private JLabel lblEmail;
     private JTextField txtCustomerMail;
     private JTextField txtCustomerTel;
     private JLabel tblTurnoversSendOrReceive;
     private JList dispoList;
     private JButton btnLogout;
-
     private Border defaultBorder;
-
-    //private int bankerID;
     private Banker admin;
     private Customer customer;
 
-
+    /**
+     * Hier Text einfügen
+     * @param banker
+     */
     public GUI_Banker(Banker banker) {
         this.admin = banker;
         initialize();
 
-        //Table-Listener Kontenfreigabe
+        /**
+         * Hier Text einfügen//Table-Listener Kontenfreigabe
+         * @param e
+         */
         tblAccountApproval.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -91,28 +93,44 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 tblAccountApprovalClicked();
             }
         });
-        //Freigabe ablehnen (Listener)
+
+        /**
+         * Hier Text einfügen //Freigabe ablehnen (Listener)
+         * @param e
+         */
         btnDeclineAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateRequestStatus(-1);
             }
         });
-        //Freigabe akzeptieren (Listener)
+
+        /**
+         * Hier Text einfügen//Freigabe akzeptieren (Listener)
+         * @param e
+         */
         btnApproveAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateRequestStatus(1);
             }
         });
-        //Kunden-ComboBox Listener
+
+        /**
+         * Hier Text einfügen //Kunden-ComboBox Listener
+         * @param e
+         */
         cbbCurrentCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 customerSelected();
             }
         });
-        //Listener Auswahl in Kontenliste
+
+        /**
+         * Hier Text einfügen//Listener Auswahl in Kontenliste
+         * @param e
+         */
         listAccountOverview.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -146,12 +164,22 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 txtTurnoverUsage.setText("");
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         btnRefreshAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 customerSelected();
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         tblTurnovers.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -159,6 +187,11 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 tblTurnoversClicked();
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         btnBlockAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -166,22 +199,39 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 int index = listAccountOverview.getSelectedIndex();
                 int id = tmp.getSelectedID(index);
                 int status = 1 - tmp.getStatus(index);
-                admin.un_lockAccount(id, status);
-                tmp.setValueAt(index, 2, status);
-                listAccountOverview.getListSelectionListeners()[0].valueChanged(new ListSelectionEvent(this, index, index, false));
+                if(admin.un_lockAccount(id, status)){
+                    tmp.setValueAt(index, 2, status);
+                    listAccountOverview.getListSelectionListeners()[0].valueChanged(new ListSelectionEvent(this, index, index, false));
+                    JOptionPane.showMessageDialog(mainPanel, "Änderung des Kontostatus erfolgreich!", "Kontostatus geändert", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(mainPanel, "Kontostatus konnte nicht geändert werden!", "Fehler Kontostatus", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         btnDeleteAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ListData tmp = (ListData) listAccountOverview.getModel();
                 int index = listAccountOverview.getSelectedIndex();
                 if(admin.deleteAccount(tmp.getSelectedID(index))){
-                    System.out.println("Deletion succesful");
+                    JOptionPane.showMessageDialog(mainPanel, "Kontolöschung erfolgreich!", "Account gelöscht", JOptionPane.INFORMATION_MESSAGE);
+                    tmp.delete(index);
+                }else{
+                    JOptionPane.showMessageDialog(mainPanel, "Konto konnte nicht gelöscht werden!", "Fehler Kontolöschung", JOptionPane.ERROR_MESSAGE);
                 }
-                tmp.delete(index);
+
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         dispoList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -192,6 +242,11 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 btnApproveDispo.setEnabled(true);
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         btnApproveDispo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -201,10 +256,18 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 //TODO: Popup mit Statusmeldung
                 if(admin.updateAccData(tmp.getSelectedID(dispoList.getSelectedIndex()), 3, txtCurrentDispo.getText())){
                     tmp.setValueAt(dispoList.getSelectedIndex(), 3, txtCurrentDispo.getText());
+                    JOptionPane.showMessageDialog(mainPanel, "Dispo erfolgreich auf " + txtCurrentDispo.getText() + " geändert!", "Dispoänderung", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(mainPanel, "Dispo konnte nicht geändert werden!", "Fehler Dispoänderung", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         btnSaveCustomerData.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -216,21 +279,40 @@ public class GUI_Banker extends JFrame implements KeyListener{
                 customer.address = txtCustomerAdress.getText();
                 customer.email = txtCustomerMail.getText();
                 customer.tel = txtCustomerTel.getText();
-                admin.updateUserData(customer);
+                if(admin.updateUserData(customer)){
+                    JOptionPane.showMessageDialog(mainPanel, "Kundendaten erfolgreich geändert!", "Kundendaten", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(mainPanel, "Kundendaten konnten nicht geändert werden!", "Fehler Kundendaten", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         btnCreateNewCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createNewCustomer();
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         btnNewCustomerCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetNewCustomer();
             }
         });
+
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         btnLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -239,6 +321,10 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
         });
 
+        /**
+         * Hier Text einfügen
+         * @param e
+         */
         btnExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -247,6 +333,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
     }
 
+    /**
+     * Hier Text einfügen
+     */
     private void closeAndOpenLogin() {
         admin.closeConnections();
         GUI_Login newView = new GUI_Login(new Login());
@@ -254,11 +343,11 @@ public class GUI_Banker extends JFrame implements KeyListener{
         this.dispose();
     }
 
+    /**
+     * Hier Text einfügen
+     */
     private void initialize() {
-        // Set default border
         defaultBorder = txtNewCustomerName.getBorder();
-
-        // Title Bar Icon
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
         this.setIconImage(titleBarImage.getImage());
 
@@ -268,20 +357,11 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
         tblDispoAccounts.setCellSelectionEnabled(true);
         tblDispoAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        // Initialisiert Startseite-Tab
-        // Namen des Bankers einfügen
         lblWelcome.setText("Herzlich Willkommen " + admin.preName + " " + admin.name);
-        // Aktuell betreuende Kunden einfügen
         lblAccountApprovalOrders.setText("Aktuell betreuende Kunden: " + admin.allcustomers.size());
-        // Kontofreigabeaufträge einfügen
         lblSupervisingCustomers.setText("Freigabeaufträge: " + admin.relatedrequests.size());
-        // Dispoüberschreitende Konten einfügen
         lblDispoOverwritingAccounts.setText("Dispoüberschreitende Konten: " + admin.getDispoModel().getRowCount());
 
-
-        // Initialisiert Kontenfreigabe-Tab
-        // Tabelle mit Konten füllen
         tblAccountApproval.setModel(admin.getRequestModel());
         for(int i = 0; i < 5; i++){
             TableColumn col = tblAccountApproval.getColumnModel().getColumn(i);
@@ -293,16 +373,12 @@ public class GUI_Banker extends JFrame implements KeyListener{
         btnApproveAccount.setEnabled(false);
         btnDeclineAccount.setEnabled(false);
 
-        // Initialisiert Dispokonten-Tab
-        // Tabelle mit Konten im Dispo füllen
         tblDispoAccounts.setModel(admin.getDispoModel());
 
-        // Initialisiert Kundenübersicht-Tab
         ListData tmp = (ListData) admin.getCustomerModel();
         cbbCurrentCustomer.setModel(tmp);
         cbbCurrentCustomer.setSelectedIndex(0);
 
-        // Initialisiert Kundenübersicht - Finanzübersicht
         lblAccountBalance.setText("Konto wählen...");
         tmp = admin.getAccountModel(-1);
         tmp.addElement(0, new Object[]{"Alle", -1, -1});
@@ -317,16 +393,13 @@ public class GUI_Banker extends JFrame implements KeyListener{
         btnRefreshAccount.setEnabled(true);
         btnBlockAccount.setEnabled(false);
         btnDeleteAccount.setEnabled(false);
-        txtSearchTurnover.setEnabled(false);
 
-        // Initialisiere Kundenübersicht - Dispo
         lblDispoAcc.setText("Wähle Konto");
         tmp = admin.getAccountModel(-1);
         dispoList.setModel(tmp);
         txtCurrentDispo.setEnabled(false);
         btnApproveDispo.setEnabled(false);
 
-        // Initialisiere Kundenübersicht - Benutzerdaten
         txtCustomerID.setEnabled(false);
         txtCustomerName.setEnabled(false);
         txtCustomerSurname.setEnabled(false);
@@ -338,7 +411,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         txtCustomerTel.setEnabled(false);
         btnSaveCustomerData.setEnabled(false);
 
-        //Inititalisiere NeuerKunde-Tab
         txtNewCustomerName.addKeyListener(this);
         txtNewCustomerSurname.addKeyListener(this);
         txtNewCustomerBirth.addKeyListener(this);
@@ -348,10 +420,12 @@ public class GUI_Banker extends JFrame implements KeyListener{
         txtNewCustomerEmail.addKeyListener(this);
         txtNewCustomerPhone.addKeyListener(this);
 
-        // Panel hinzufügen
         add(mainPanel);
     }
 
+    /**
+     * Hier Text einfügen
+     */
     private void tblAccountApprovalClicked(){
         if((Integer)tblAccountApproval.getModel().getValueAt(tblAccountApproval.getSelectedRow(), 5) == 0){
             btnDeclineAccount.setEnabled(true);
@@ -359,6 +433,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
     }
 
+    /**
+     * Hier Text einfügen
+     */
     void customerSelected(){
         ListData tmp = (ListData)cbbCurrentCustomer.getModel();
         int id = tmp.getSelectedID(cbbCurrentCustomer.getSelectedIndex());
@@ -400,6 +477,10 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
     }
 
+    /**
+     * Hier Text einfügen
+     * @param newstatus
+     */
     void updateRequestStatus(int newstatus){
         int row = tblAccountApproval.getSelectedRow();
         admin.modifyRequest((Integer)tblAccountApproval.getValueAt(row, 0), newstatus);
@@ -409,6 +490,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         btnDeclineAccount.setEnabled(false);
     }
 
+    /**
+     * Hier Text einfügen
+     */
     void insertAllTransfers(){
         ListData tmp = (ListData)listAccountOverview.getModel();
         int[] ind = listAccountOverview.getSelectedIndices();
@@ -427,6 +511,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
     }
 
+    /**
+     * Hier Text einfügen
+     */
     void insertBalance(){
         ListData tmp = (ListData)listAccountOverview.getModel();
         int index = listAccountOverview.getSelectedIndex();
@@ -437,6 +524,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
     }
 
+    /**
+     * Hier Text einfügen
+     */
     void tblTurnoversClicked(){
         TableData tmp = (TableData)tblTurnovers.getModel();
         if(tmp.getColumnCount() == 4){
@@ -459,11 +549,19 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
     }
 
+    /**
+     * Diese Methode muss vorhanden sein, da der KeyListener diese verlangt.
+     * @param e Parameter für das Key-Event.
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
+    /**
+     * Diese Methode muss vorhanden sein, da der KeyListener diese verlangt.
+     * @param e Parameter für das Key-Event.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER){
@@ -472,11 +570,18 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
     }
 
+    /**
+     * Diese Methode muss vorhanden sein, da der KeyListener diese verlangt.
+     * @param e Parameter für das Key-Event.
+     */
     @Override
     public void keyReleased(KeyEvent e) {
 
     }
 
+    /**
+     * Hier Text einfügen
+     */
     class RequestRenderer extends DefaultTableCellRenderer {
 
         @Override
@@ -496,6 +601,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
     }
 
+    /**
+     * Hier Text einfügen
+     */
     class TransferRenderer extends DefaultTableCellRenderer {
 
         @Override
@@ -518,6 +626,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
     }
 
+    /**
+     * Hier Text einfügen
+     */
     class AccountRenderer extends DefaultListCellRenderer {
 
         @Override
@@ -535,7 +646,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
     }
 
-
+    /**
+     * Hier Text einfügen
+     */
     private void createNewCustomer(){
         HelpMethods h = new HelpMethods();
         String[] newCustomer = {"","","","","","","","",""};
@@ -545,7 +658,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
 
         resetNewCustomerView();
 
-        // Vorname überprüfen
         if(h.onlyString(txtNewCustomerName.getText(), true, 2)) {
             System.out.println("Gültiger Vorname");
             newCustomer[0] = txtNewCustomerName.getText();
@@ -554,7 +666,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerName.setBorder(failedBorder);
         }
 
-        // Nachname überprüfen
         if(h.onlyString(txtNewCustomerSurname.getText(), true, 2)) {
             System.out.println("Gültiger Nachname");
             newCustomer[1] = txtNewCustomerSurname.getText();
@@ -563,7 +674,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerSurname.setBorder(failedBorder);
         }
 
-        // Geburtstag überprüfen
         if(h.correctDateFormat(txtNewCustomerBirth.getText(), true)){
             System.out.println("Gültiges Geburtsdatum");
             newCustomer[2] = h.convertStringIntoDateFormat(txtNewCustomerBirth.getText());
@@ -572,7 +682,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerBirth.setBorder(failedBorder);
         }
 
-        // Adresse überprüfen
         if(txtNewCustomerAdress.getText().length() > 5) {
             System.out.println("Gültige Adresse");
             newCustomer[3] = txtNewCustomerAdress.getText();
@@ -581,7 +690,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerAdress.setBorder(failedBorder);
         }
 
-        //Postleitzahl überprüfen
         if(h.onlyInt(txtNewCustomerZIP.getText())){
             System.out.println("Correct ZIP");
             newCustomer[4] = txtNewCustomerZIP.getText();
@@ -590,7 +698,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerZIP.setBorder(failedBorder);
         }
 
-        // Stadt überprüfen
         if(h.onlyString(txtNewCustomerCity.getText(), true, 2)) {
             System.out.println("Correct City");
             newCustomer[5] = txtNewCustomerCity.getText();
@@ -599,7 +706,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerCity.setBorder(failedBorder);
         }
 
-        // E-Mail überprüfen
         if(txtNewCustomerEmail.getText().length() > 7){
             System.out.println("Gültige E-Mail Adresse");
             newCustomer[6] = txtNewCustomerEmail.getText();
@@ -608,7 +714,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerEmail.setBorder(failedBorder);
         }
 
-        // Telefonnummer überprüfen
         if(h.onlyInt(txtNewCustomerPhone.getText())) {
             System.out.println("Correct Phone Number");
             newCustomer[7] = txtNewCustomerPhone.getText();
@@ -617,7 +722,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
             txtNewCustomerPhone.setBorder(failedBorder);
         }
 
-        // Banker ID einfügen
         newCustomer[8] = String.valueOf(admin.getId());
 
         for(int i=0; i<newCustomer.length; i++){
@@ -627,12 +731,14 @@ public class GUI_Banker extends JFrame implements KeyListener{
             }
         }
 
-        //[Prename, Name, Birth, Address, ZIP, City, EMail, Phone Number]
         admin.insertCustomer(newCustomer);
 
         resetNewCustomer();
     }
 
+    /**
+     * Hier Text einfügen
+     */
     private void resetNewCustomerView() {
         txtNewCustomerName.setBorder(defaultBorder);
         txtNewCustomerSurname.setBorder(defaultBorder);
@@ -644,7 +750,9 @@ public class GUI_Banker extends JFrame implements KeyListener{
         txtNewCustomerEmail.setBorder(defaultBorder);
     }
 
-
+    /**
+     * Hier Text einfügen
+     */
     private void resetNewCustomer() {
         resetNewCustomerView();
         txtNewCustomerName.setText("");

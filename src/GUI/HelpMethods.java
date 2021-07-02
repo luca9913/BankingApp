@@ -1,12 +1,9 @@
 package GUI;
 
-import javax.swing.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Random;
-
 
 /**
  * Die Klasse enthält einige hilfreiche Methoden für die GUI´s, zum Beispiel
@@ -62,7 +59,6 @@ public class HelpMethods {
     }
 
     public boolean onlyString(String txtField, boolean acceptSpace, int minLength) {
-//                "^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$"
         if(txtField.length() > minLength) {
             if(acceptSpace) {
                 if(txtField.matches("[A-Za-z äüöÄÜÖ-]*")) {
@@ -80,7 +76,7 @@ public class HelpMethods {
     /**
      * Diese Methode prüft Textfelder auf das richtige Format bei der Eingabe eines Datums.
      * @param dateString Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
-     * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
+     * @return Je nach Prüfungsergebnis wird entweder ein "true" oder ein "false" zurückgegeben.
      */
     public boolean correctDateFormat(String dateString, boolean inPast) {
         try {
@@ -112,9 +108,7 @@ public class HelpMethods {
             }
         } catch (Exception pe) {
         }
-
         return false;
-
     }
 
     /**
@@ -141,10 +135,14 @@ public class HelpMethods {
 
     }
 
-
+    /**
+     * Diese Methode ist für das Generieren eines neuen Passwortes bei Erstellung
+     * eines neuen Kunden-Objektes zuständig.
+     * @return Es wird das generierte Passwort zurückgegeben.
+     */
     public String generatePassword() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
+        int leftLimit = 48;
+        int rightLimit = 122;
         int targetStringLength = 10;
         Random random = new Random();
 
@@ -157,6 +155,11 @@ public class HelpMethods {
         return generatedString;
     }
 
+    /**
+     * Diese Methode ist für das Generieren einer neuen Login-ID bei Erstellung
+     * eines neuen Kunden-Objektes zuständig.
+     * @return Es wird die generierte ID zurückgegeben.
+     */
     public Integer generateLoginID() {
         Random r = new Random();
         return r.nextInt(1000000);
