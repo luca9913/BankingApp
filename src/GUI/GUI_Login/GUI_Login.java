@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.Normalizer;
 
 /**
  * Hier Text einfügen
@@ -13,6 +14,7 @@ import java.awt.event.KeyListener;
 public class GUI_Login extends JFrame implements KeyListener {
 
     private int attempts = 0;
+    //private Form image;
     private JTextField LOGINNAMETextField;
     private JPasswordField passwordField1;
     private JButton exitButton;

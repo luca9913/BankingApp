@@ -33,6 +33,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private JList listAccountOverview;
     private JButton btnRefreshAccount;
     private JTable tblTurnovers;
+    private JTabbedPane tabbedPane1;
     private JTextField txtTurnoverAccountNr;
     private JTextField txtTurnoverNr;
     private JTextField txtTurnoverUsage;
