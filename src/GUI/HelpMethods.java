@@ -76,7 +76,7 @@ public class HelpMethods {
     /**
      * Diese Methode prüft Textfelder auf das richtige Format bei der Eingabe eines Datums.
      * @param dateString Dieser Parameter enthält den Inhalt des zu prüfenden Textfeldes.
-     * @return Je nach Prüfungsergebnis wird entweder ein true oder ein false zurückgegeben.
+     * @return Je nach Prüfungsergebnis wird entweder ein "true" oder ein "false" zurückgegeben.
      */
     public boolean correctDateFormat(String dateString, boolean inPast) {
         try {
@@ -136,8 +136,9 @@ public class HelpMethods {
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Diese Methode ist für das Generieren eines neuen Passwortes bei Erstellung
+     * eines neuen Kunden-Objektes zuständig.
+     * @return Es wird das generierte Passwort zurückgegeben.
      */
     public String generatePassword() {
         int leftLimit = 48;
@@ -155,8 +156,9 @@ public class HelpMethods {
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Diese Methode ist für das Generieren einer neuen Login-ID bei Erstellung
+     * eines neuen Kunden-Objektes zuständig.
+     * @return Es wird die generierte ID zurückgegeben.
      */
     public Integer generateLoginID() {
         Random r = new Random();
