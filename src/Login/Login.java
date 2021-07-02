@@ -8,7 +8,7 @@ import Person.Person;
 import Person.Customer;
 
 /**
- * Hier Text einfügen
+ * Dies ist die Login Klasse, welche Methoden für die Login-GUI enthält.
  */
 public class Login {
 
@@ -16,19 +16,20 @@ public class Login {
     private Person user = null;
 
     /**
-     * Diese Methode hasht das Passwort
-     * @param password
-     * @return
+     * Diese Methode hasht das eingegebene Passwort der Login-GUI.
+     * @param password Dieser parameter enthäkt das zu hashende Passwort.
+     * @return Es wird das gehashte Passwort zurückgegeben.
      */
     private int hashen(String password){
         return password.hashCode();
     }
 
     /**
-     * //databaseComparison vergleicht die Eingabe mit der Datenbank und gibt mit "true" zurück ob ein passender Tupel gefunden wurde.
-     * @param userID
-     * @param password
-     * @return
+     * Diese Methode gleicht die eingegebene User-ID und das eingegebene Passwort mit der Datenbank ab.
+     * @param userID Dieser Parameter enthält die User-ID aus dem entsprechenden Textfeld.
+     * @param password Dieser Parameter enthält das Passwort aus dem entsprechenden Textfeld.
+     * @return Wenn der Datenbankabgleich erfolgreich war, dann wird "true" zurückgegeben,
+     * andernfalls wird "false" zurück gegeben.
      */
     public boolean databaseComparison(int userID, String password) {
 
