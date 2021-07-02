@@ -35,6 +35,7 @@ public class GUI_Customer extends JFrame {
     private JPanel JPanelRechts;
     private JTextField txtNameTo;
     private JTabbedPane tabbedPaneMain;
+    private JScrollPane tblTransfers;
     private JTextField txtIbanTo;
     private JTextField txtAmountTo;
     private JTextField txtUsageTo;
