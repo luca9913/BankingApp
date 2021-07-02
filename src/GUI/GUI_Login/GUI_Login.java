@@ -13,6 +13,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
+/**
+ * Hier Text einfügen
+ */
 public class GUI_Login extends JFrame implements KeyListener {
 
     private int attempts = 0;
@@ -25,8 +28,15 @@ public class GUI_Login extends JFrame implements KeyListener {
     private JLabel image;
     private JLabel failedAttempts;
 
-    private Login loginReference; //Login-Instanz mit der auf die Login-Datenbank zugegriffen werden kann
+    /**
+     * //Login-Instanz mit der auf die Login-Datenbank zugegriffen werden kann
+     */
+    private Login loginReference;
 
+    /**
+     * Hier Text einfügen
+     * @param loginReference
+     */
     public GUI_Login(Login loginReference) {
         this.loginReference = loginReference;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,7 +59,9 @@ public class GUI_Login extends JFrame implements KeyListener {
         });
     }
 
-
+    /**
+     * Hier Text einfügen
+     */
     private void initialize() {
         // Title Bar Icon
         ImageIcon titleBarImage = new ImageIcon("src/img/Turing Bank Square (32x32).png");
@@ -65,7 +77,9 @@ public class GUI_Login extends JFrame implements KeyListener {
         add(panel1);
     }
 
-
+    /**
+     * Hier Text einfügen
+     */
     private void loginPressed() {
         System.out.println("Login Pressed");
 
@@ -115,7 +129,10 @@ public class GUI_Login extends JFrame implements KeyListener {
         }
     }
 
-
+    /**
+     * Hier Text einfügen
+     * @param numberOfFailedAttempts
+     */
     private void failedAttempt(int numberOfFailedAttempts) {
         // TODO: Falls genug Zeit -> Timeout programmieren nach 3 Fehlversuchen
         passwordField1.setText("");
@@ -129,8 +146,10 @@ public class GUI_Login extends JFrame implements KeyListener {
         }
     }
 
-
-    // Methoden müssen vorhanden sein, da KeyListener diese verlangt
+    /**
+     * Diese Methode muss vorhanden sein, da der KeyListener diese verlangt.
+     * @param e Parameter für das Key-Event.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER){
@@ -139,10 +158,18 @@ public class GUI_Login extends JFrame implements KeyListener {
         }
     }
 
+    /**
+     * Diese Methode muss vorhanden sein, da der KeyListener diese verlangt.
+     * @param e Parameter für das Key-Event.
+     */
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+     * Diese Methode muss vorhanden sein, da der KeyListener diese verlangt.
+     * @param e Parameter für das Key-Event.
+     */
     @Override
     public void keyReleased(KeyEvent e) {
     }

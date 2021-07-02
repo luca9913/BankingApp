@@ -141,7 +141,10 @@ public class HelpMethods {
 
     }
 
-
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public String generatePassword() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
@@ -157,6 +160,10 @@ public class HelpMethods {
         return generatedString;
     }
 
+    /**
+     * Hier Text einfügen
+     * @return
+     */
     public Integer generateLoginID() {
         Random r = new Random();
         return r.nextInt(1000000);
