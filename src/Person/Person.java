@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public abstract class Person {
 
-    //Variablen
     public int id;
     public String name;
     public String preName;

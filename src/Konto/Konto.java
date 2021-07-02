@@ -8,7 +8,8 @@ import java.util.ArrayList;
  * Hier Text einfügen
  */
 public abstract class Konto{
-    private int id; //KontoID
+
+    private int id;
     private String type;
     private double balance = 0;
     private double dispo;
@@ -158,12 +159,9 @@ public abstract class Konto{
 
     /**
      * //gibt Daten zu einem konkreten Umsatz zurück getData: 95
-     * @param selected
      * @return
      */
-    public Object[] getData(int selected){
-        int transferid = (Integer) transferList.get(selected)[0];
-
+    public Object[] getData(){
         return data.getData(id, "transfer").get(1);
     }
 
@@ -183,7 +181,6 @@ public abstract class Konto{
         {
             updateBalance(amount * (-1));
             data.updateAccountData(this);
-            //Transfer in die Datenbank schreiben
             return data.insertTransfer(amount, id, id, usage, date);
         }
     }

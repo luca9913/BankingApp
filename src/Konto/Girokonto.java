@@ -8,7 +8,6 @@ import Person.Customer;
  * Hier Text einfügen
  */
 public class Girokonto extends Konto{
-    double balance;
 
     /**
      * Hier Text einfügen

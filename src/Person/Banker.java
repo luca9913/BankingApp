@@ -10,7 +10,6 @@ import javax.swing.*;
  */
 public class Banker extends Person {
 
-
     public ArrayList<Object[]> allaccounts, allcustomers, relatedrequests, alltransfers;
 
     /**
@@ -95,7 +94,6 @@ public class Banker extends Person {
 
             requests.add(tmp);
         }
-
         return new TableData(new String[]{"ID", "Name", "Betreff", "Alter Wert", "Neuer Wert"}, requests);
     }
 
@@ -142,7 +140,6 @@ public class Banker extends Person {
      * Hier Text einfügen
      */
     void getAllTransfers() {
-        //for each account, data.gettransfers and append them to list
         alltransfers = new ArrayList<>();
         boolean duplicate = false;
         for (Object[] arr : allaccounts) {
@@ -246,6 +243,11 @@ public class Banker extends Person {
         return data.deleteAccount(id);
     }
 
+    /**
+     * Hier Text einfügen
+     * @param id
+     * @return
+     */
     public Customer getUserData(int id) {
         Customer user = new Customer(id);
         return user;
@@ -312,9 +314,6 @@ public class Banker extends Person {
      * @return
      */
     public boolean modifyRequest(int id, int status) {
-        /*possible actions:
-         * approve: 1, decline: -1, (pending: 0)
-         */
         return data.updateRequest(id, status);
     }
 
@@ -323,10 +322,8 @@ public class Banker extends Person {
      * @param pdata
      */
     public void insertCustomer(String[] pdata) {
-        //create new Customer-Object
         Customer customer = new Customer(pdata);
 
-        //call data.insertPerson(Customer-Object)
         data.insertPerson(customer);
 
         int user_id = (Integer)data.executeCustomQuery("SELECT MAX(customer_id) FROM customer").get(0)[0];

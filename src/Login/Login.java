@@ -12,10 +12,6 @@ import Person.Customer;
  */
 public class Login {
 
-    private String password;
-    private String pwHash;
-    private int userID = 0;
-    private boolean valid;
     private AuthBase authDatabase = AuthBase.initialize();
     private Person user = null;
 
