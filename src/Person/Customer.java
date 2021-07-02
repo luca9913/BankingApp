@@ -225,33 +225,41 @@ public class Customer extends Person{
     }
 
     /**
-     * Hier Text einfügen
-     * @param key
-     * @param value
-     * @param accID
+     * Diese Methode erstellt ein Request für den Banker, welche eine Dispoänderung
+     * des Kunden enthält.
+     * @param key Dieser Parameter enthält das Schlüsselwort für die Request, dass es sich
+     * um die Änderung des Disporahmens handelt.
+     * @param value Dieser Parameter enthält den Wert der Änderung.
+     * @param accID Dieser Parameter enthält die ID des Konto-Objektes, für welches
+     * die Änderung gelten soll.
      */
     public void createDispoRequest(String key, String value, int accID){
         this.data.createRequest(key, value, accID, this.id, allaccounts.get(accID).getBanker().getId());
     }
 
     /**
-     * Hier Text einfügen
-     * @param key
-     * @param value
-     * @param accID
+     * Diese Methode erstellt ein Request für den Banker, welche die Änderung des
+     * Überweisungsrahmens des Kunden enthält.
+     * @param key Dieser Parameter enthält das Schlüsselwort für die Request, dass es sich
+     * um die Änderung des Überweisungsrahmens handelt.
+     * @param value Dieser Parameter enthält den Wert der Änderung.
+     * @param accID Dieser Parameter enthält die ID des Konto-Objektes, für welches
+     * die Änderung gelten soll.
      */
     public void createLimitRequest(String key, String value, int accID){
         this.data.createRequest(key, value, accID, this.id, allaccounts.get(accID).getBanker().getId());
     }
 
     /**
-     * Diese Methode sorgt für die Überweisung ...... to be continued
-     * @param selected
-     * @param receiverid
-     * @param betrag
-     * @param usage
-     * @param date
-     * @return
+     * Diese Methode führt eine Überweisung des Kunden von einem in der Liste gewählten Konto auf ein
+     * anderes Konto durch.
+     * @param selected Dieser Parameter enthält die Zeile des Kontos, von dem überwiesen werden soll.
+     * @param receiverid Dieser Parameter enthält die ID des Empfängerkontos.
+     * @param betrag Dieser Parameter enthält den Betrag der Überweisung.
+     * @param usage Dieser Parameter enthält den Überweisungszweck.
+     * @param date Dieser Parameter enthält das Datum der Überweisung.
+     * @return Der Rückgabewert ist ein boolean. Ist er "true, dann war die überweisung erfolgreich, wird
+     * "false" zurückgegeben, dann war die Überweisung fehlerhaft.
      */
     public boolean transfer(int selected, int receiverid, double betrag, String usage, String date){
         Konto konto = allaccounts.get(selected);
@@ -289,14 +297,15 @@ public class Customer extends Person{
     }
 
     /**
-     * Hier Text einfügen
-     * @param name
-     * @param prename
-     * @param zip
-     * @param city
-     * @param address
-     * @param email
-     * @param telephone
+     * Diese Methode ist dafür zuständig, die geänderten Benutzerdaten des Kunden als Request
+     * an den Bänker zu übermitteln.
+     * @param name Parameter für den Namen des Kunden.
+     * @param prename Parameter für den Vornamen des Kunden.
+     * @param zip Parameter für die PLZ des Kunden.
+     * @param city Parameter für die Stadt des Kunden.
+     * @param address Parameter für die Adresse des Kunden.
+     * @param email Parameter für die Email des Kunden.
+     * @param telephone Parameter für die Telefonnummer des Kunden.
      */
     public void changeUserData(String name, String prename, int zip, String city, String address, String email, String telephone){
 
