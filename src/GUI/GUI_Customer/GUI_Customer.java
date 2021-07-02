@@ -61,6 +61,7 @@ public class GUI_Customer extends JFrame {
     private JButton btnLogoff;
     private JButton aktualisierenButton;
     private JLabel lblHello;
+    private JLabel image;
     private JLabel srlabel;
     private JTextField txtDate;
     private static int changeUserData = 0;
