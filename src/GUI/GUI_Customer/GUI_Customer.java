@@ -125,7 +125,6 @@ public class GUI_Customer extends JFrame {
                     txtIbanTo.setText("");
                     txtAmountTo.setText("");
                     txtUsageTo.setText("");
-                    System.out.println();
                 }else if(!hm.onlyDouble(txtAmountTo.getText()) || hm.parseDouble(txtAmountTo.getText()) < 0 || transfer < 0 || maxUeberweisung < hm.parseDouble(txtAmountTo.getText())){
                     if(transfer < 0){
                         JOptionPane.showMessageDialog(null,"Ihr ausgewähltes Konto ist nicht ausreichend gedeckt.\n" +
