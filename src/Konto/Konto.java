@@ -5,7 +5,7 @@ import Database.ProdBase;
 import java.util.ArrayList;
 
 /**
- * Hier Text einfügen
+ * Die abstrakte Klasse "Konto" ist die Vaterklasse für die Unterklassen der Kontotypen.
  */
 public abstract class Konto{
 
@@ -21,12 +21,12 @@ public abstract class Konto{
     ArrayList<Object[]> transferList;
 
     /**
-     * Hier Text einfügen
-     * @param type
-     * @param id
-     * @param banker
-     * @param owner
-     * @param data
+     * Standardkonstruktor der Klasse "Person".
+     * @param type Parameter des Konstruktors.
+     * @param id Parameter des Konstruktors.
+     * @param banker Parameter des Konstruktors.
+     * @param owner Parameter des Konstruktors.
+     * @param data Parameter des Konstruktors.
      */
     public Konto(String type, int id, Banker banker, Customer owner, ProdBase data)
     {
@@ -43,40 +43,45 @@ public abstract class Konto{
     }
 
     /**
-     * Hier Text einfügen
-     * @param id
+     * Diese Methode ist der Setter für die Konto-ID.
+     * @param id Der Parameter enthält die ID des Kontoobjektes,
+     * welche geändert werden soll.
      */
     public void setId(int id){
         this.id = id;
     }
 
     /**
-     * Hier Text einfügen
-     * @param balance
+     * Diese Methode ist der Setter für den Kontostand.
+     * @param balance Der Parameter enthält den Kontostand des Kontoobjektes,
+     * welcher geändert werden soll.
      */
     public void setBalance(double balance){
         this.balance = balance;
     }
 
     /**
-     * Hier Text einfügen
-     * @param dispo
+     * Diese Methode ist der Setter für den Disporahmen.
+     * @param dispo Der Parameter enthält den alten Disporahmen des Kontoobjektes,
+     * welcher geändert werden soll.
      */
     public void setDispo(double dispo){
         this.dispo = dispo;
     }
 
     /**
-     * Hier Text einfügen
-     * @param limit
+     * Diese Methode ist der Setter für den Überweisungsrahmen.
+     * @param limit Der Parameter enthält den alten Überweisungsrahmen des Kontoobjektes,
+     * welcher geändert werden soll.
      */
     public void setLimit(int limit){
         this.transferlimit = limit;
     }
 
     /**
-     * Hier Text einfügen
-     * @param status
+     * Diese Methode ist der Setter für den Status des Kontoobjektes.
+     * @param status Der Parameter enthält den Status, welcher für das Konto-Objekt
+     * übernommen werden soll.
      */
     public void setStatus(int status){
         if(status <= 1 && status >= -1) {
@@ -85,72 +90,72 @@ public abstract class Konto{
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Dieser Getter gibt die ID des Kontoobjektes zurück.
+     * @return Die ID wird als Integer zurückgegeben.
      */
     public Integer getId(){
         return this.id;
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Dieser Getter gibt die Kontoart des Kontoobjektes zurück.
+     * @return Die Kontoart wird als String zurückgegeben.
      */
     public String getType(){
         return this.type;
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Dieser Getter gibt den Kontostand des Kontoobjektes zurück.
+     * @return Der Kontostand wird als Double zurückgegeben.
      */
     public Double getBalance(){
         return this.balance;
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Dieser Getter gibt den Disporahmen des Kontoobjektes zurück.
+     * @return Der Disporahmen wird als Double zurückgegeben.
      */
     public Double getDispo(){
         return this.dispo;
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Dieser Getter gibt den Überweisungsrahmen des Kontoobjektes zurück.
+     * @return Der Überweisungsrahmen wird als Integer zurückgegeben.
      */
     public int getLimit(){
         return this.transferlimit;
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Dieser Getter gibt den Status des Kontoobjektes zurück.
+     * @return Der Status wird als Integer zurückgegeben.
      */
     public Integer getStatus(){
         return this.locked;
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Dieser Getter gibt das Kunden-Objekt des Besitzers des Kontoobjektes zurück.
+     * @return Es wird das Kunde-Objekt zurückgegeben.
      */
     public Customer getOwner(){
         return this.owner;
     }
 
     /**
-     * Hier Text einfügen
-     * @return
+     * Dieser Getter gibt das zugeordnete Banker-Objekt des Kontoobjektes zurück.
+     * @return Es wird das Banker-Objekt zurückgegeben.
      */
     public Banker getBanker(){
         return this.banker;
     }
 
     /**
-     * Diese Methode gibt eine Liste mit allen Kontoumsätzen zurück
-     * @return
+     * Diese Methode gibt eine Liste mit allen Kontoumsätzen eines Kontoobjektes zurück.
+     * @return Es wird eine Objektliste zurückgegeben.
      */
     public ArrayList<Object[]> getAllTranfers(){
         transferList = data.getAllTransfers(id);
