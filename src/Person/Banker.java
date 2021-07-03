@@ -175,7 +175,7 @@ public class Banker extends Person {
                 for (Object[] arr : alltransfers) {
                     if (((Integer) arr[2] == ids[id] || (Integer) arr[3] == ids[id]) && !added.contains((Integer) arr[0])) {
                         if (data.getData((Integer) arr[2], "account").size() == 0) {
-                            transfers.add(new Object[]{arr[0].toString(), arr[2] + " - Gelöscht", getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
+                            transfers.add(new Object[]{arr[0].toString(), arr[2] + " - Extern", getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]), arr[1], arr[4], arr[5]});
                         } else if (data.getData((Integer) arr[3], "account").size() == 0) {
                             transfers.add(new Object[]{arr[0].toString(), getName((Integer) data.getData((Integer) arr[2], "account").get(0)[5]), arr[3] + " - Gelöscht", arr[1], arr[4], arr[5]});
                         } else {
