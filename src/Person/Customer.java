@@ -205,10 +205,10 @@ public class Customer extends Person{
                 ArrayList<Object[]> otheracc = data.getData((Integer) transfer[3], "account");
                 if (otheracc.size() == 0) {
                     name = "Extern";
-                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstiger", "", transfer[5]});
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstigter", "", transfer[5]});
                 } else {
                     name = getName((Integer)otheracc.get(0)[5]);
-                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstiger", transfer[3], transfer[5]});
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstigter", transfer[3], transfer[5]});
                 }
             } else if ((Integer)transfer[3] == accid) {
                 ArrayList<Object[]> otheracc = data.getData((Integer) transfer[2], "account");

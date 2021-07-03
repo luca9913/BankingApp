@@ -63,7 +63,7 @@ public class ProdBase extends Database {
     /**
      * Implementierung der abstrakten Klasse zur Abfrage beliebiger SQLite-Statements.
      * @param sql Ein gültiges <a href="https://sqlite.org/index.html">SQLite</a>-Statement
-     * @return Eine Array-Liste mit einem Eintrag pro gefundener, gelöschter oder veränderter Zeile. Die Elemente der Array-Liste sind Object-Arrays mit einem Wert für jede Spalte der Tabelle.
+     * @return Eine Array-Liste mit einem Eintrag pro gefundener Zeile. Die Elemente der Array-Liste sind Object-Arrays mit einem Wert für jede Spalte der Tabelle. Im Falle eines Datenbank UPDATEs wird eine ArrayListe mit einem Eintrag zurückgegeben. Dieser Eintrag enthält die Anzahl der aktualisierten Zeilen.
      */
     public ArrayList<Object[]> executeCustomQuery(String sql){
         try {

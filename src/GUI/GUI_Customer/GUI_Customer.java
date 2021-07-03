@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -452,6 +453,9 @@ public class GUI_Customer extends JFrame {
                 int selected = listAccounts1.getSelectedIndex();
                 if(selected != -1){
                     tableTurnover.setModel(GUI_Customer_Connector.kunde.getTransfers(selected));
+                    for(int i = 0; i < 4; i++){
+                        tableTurnover.getColumnModel().getColumn(i).setCellRenderer(new TransferRenderer());
+                    }
                 }
                 txtAccNr.setText("");
                 txtReceiver.setText("");
@@ -542,17 +546,15 @@ public class GUI_Customer extends JFrame {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             Person.TableData tmp = (Person.TableData)tableTurnover.getModel();
-            if(tmp.getColumnCount() == 3){
-                if(tmp.getValueAt(row, 5).toString().equals("out")){
-                    c.setBackground(new Color(175, 0 , 0));
-                    c.setForeground(Color.white);
-                }else if(tmp.getValueAt(row, 5).toString().equals("in")){
-                    c.setBackground(new Color(0, 109, 77));
-                    c.setForeground(Color.white);
-                }else{
-                    c.setBackground(Color.white);
-                    c.setForeground(Color.black);
-                }
+            if(tmp.getValueAt(row, 4).toString().equals("Begünstigter")){
+                c.setBackground(new Color(175, 0 , 0));
+                c.setForeground(Color.white);
+            }else if(tmp.getValueAt(row, 4).toString().equals("Absender")){
+                c.setBackground(new Color(0, 109, 77));
+                c.setForeground(Color.white);
+            }else{
+                c.setBackground(Color.white);
+                c.setForeground(Color.black);
             }
             return c;
         }
