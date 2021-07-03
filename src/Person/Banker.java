@@ -29,7 +29,7 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
+     * Aktualisiert die Daten des Bankers durch einen erneuten Datenbankabgleich
      */
     void update() {
         relatedrequests = data.getAllRequests(id);
@@ -39,7 +39,7 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
+     * Erstellt eine ArrayList mit allen Kundenobjekten und speichert diese in <code>allcustomers</code>
      */
     void createCustomerList() {
         allcustomers = new ArrayList<>(allaccounts.size());
@@ -58,8 +58,8 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @return
+     * Erstellt eine ArrayList mit allen Kunden und gibt diese als Modell für eine Liste aus
+     * @return Modell für die Kundenliste
      */
     public ListModel getCustomerModel() {
         update();
@@ -72,8 +72,8 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @return
+     * Erstellt ein Modell für die Tabelle mit den Freigabeaufträgen
+     * @return Freigabeaufträge im TableData Format
      */
     public TableData getRequestModel() {
         update();
@@ -98,8 +98,8 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @return
+     * Erstellt ein Modell für die Tabelle mit den Konten im Dispo
+     * @return Konten im Dispo im TableData Format
      */
     public TableData getDispoModel() {
         update();
@@ -120,9 +120,9 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param customerid
-     * @return
+     * Erstellt ein Modell für die Tabelle mit den Konten, die zu einem bestimmten Kunden gehören.
+     * @param customerid Kunden-ID zur Identifizierung der zum Kunden zugehörigen Konten
+     * @return Kundenkonten im TableData Format
      */
     public ListData getAccountModel(int customerid) {
         update();
@@ -137,7 +137,7 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
+     * Ruft alle Transferns eines Kunden in der Datenbank ab und speichert sie in einer ArrayList <code>alltransfers</code>
      */
     void getAllTransfers() {
         alltransfers = new ArrayList<>();
@@ -159,9 +159,9 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param ids
-     * @return
+     * Erstellt ein Modell für die Tabelle mit den zu einem Konto zugehörigen Transfers/Umsätzen
+     * @param ids IDs der Transfers des Kontos
+     * @return Transfers/Umsätze im TableData Format
      */
     public TableData getTransferModel(int[] ids) {
         update();
@@ -212,9 +212,9 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param id
-     * @return
+     * Gibt den Kontostand des Kontos aus
+     * @param id Konto-ID zur Identifizierung des Kontos
+     * @return Text, mit Kontostand, falls vorhanden, ansonsten mit dem Hinweis, dass ein Konto gewählt werden soll.
      */
     public String getBalance(int id) {
         if (id == -1) {
@@ -225,28 +225,28 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param id
-     * @param status
-     * @return
+     * Ändert den Status eines Kontos
+     * @param id ID des Kontos
+     * @param status Zu setztender Status des Kontos
+     * @return Bei Erfolg wird true, bei Misserfolg false zurückgegeben
      */
     public boolean un_lockAccount(int id, int status) {
         return data.updateAccountBlockage(id, status);
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param id
-     * @return
+     * Löscht ein Konto
+     * @param id ID des Kontos
+     * @return Bei Erfolg wird true, bei Misserfolg false zurückgegeben
      */
     public boolean deleteAccount(int id) {
         return data.deleteAccount(id);
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param id
-     * @return
+     * Gibt ein bestimmtes Kundenobjekt zurück
+     * @param id ID des Kunden
+     * @return Objekt des Kunden
      */
     public Customer getUserData(int id) {
         Customer user = new Customer(id);
@@ -254,11 +254,11 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param id
-     * @param col
-     * @param value
-     * @return
+     * Aktualisiert die Daten des Kontos beispielsweise das Dispo
+     * @param id ID des Kontos
+     * @param col Ausgewählter Datensatz
+     * @param value Zu setztender Wert
+     * @return Bei Erfolg wird true, bei Misserfolg false zurückgegeben
      */
     public boolean updateAccData(int id, int col, Object value) {
         Konto modified;
@@ -290,17 +290,17 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param user
-     * @return
+     * Aktualisiert die Kundendaten
+     * @param user Kundenobjekt
+     * @return Bei Erfolg wird true, bei Misserfolg false zurückgegeben
      */
     public boolean updateUserData(Customer user) {
         return data.updateCustomerData(user);
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param id
+     * Gibt den Status des Freigabeauftrages zurück
+     * @param id Indentifikationsnummer
      * @return
      */
     public int getRequestStatus(int id) {
