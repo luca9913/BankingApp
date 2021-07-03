@@ -506,7 +506,7 @@ public class GUI_Customer extends JFrame {
     }
 
     /**
-     * Hier Text einfügen
+     * Aktualisiert die Liste mit allen Accounts des Kontos
      */
     void updateAccountLists(){
         DefaultListModel dlm = new DefaultListModel();
@@ -525,19 +525,19 @@ public class GUI_Customer extends JFrame {
     }
 
     /**
-     * Hier Text einfügen
+     * Renderer für die Zellen der Tabelle mit den Transfers eines Kontos
      */
     class TransferRenderer extends DefaultTableCellRenderer {
 
         /**
-         * Hier Text einfügen
-         * @param table
-         * @param value
-         * @param isSelected
-         * @param hasFocus
-         * @param row
-         * @param column
-         * @return
+         * Gibt einen Komponenten einer bestimmten Zelle zurück
+         * @param table JTable
+         * @param value Wert im Object Format
+         * @param isSelected Status der Zelle (ausgewählt / nicht ausgewählt)
+         * @param hasFocus Status der Zelle (im Fokus / nicht im Fokus)
+         * @param row Zeile der Zelle
+         * @param column Spalte der Zelle
+         * @return Tabellenzellen-Renderer-Element als <code>Component</code>
          */
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -560,7 +560,7 @@ public class GUI_Customer extends JFrame {
     }
 
     /**
-     * Hier Text einfügen
+     * Renderer für die Zellen der Liste mit den Kontos
      */
     class AccountRenderer extends DefaultListCellRenderer {
 

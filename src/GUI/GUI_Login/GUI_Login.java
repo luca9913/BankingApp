@@ -30,7 +30,7 @@ public class GUI_Login extends JFrame implements KeyListener {
 
     /**
      * Dieser Konstruktor ist für die Actions und weitere Optionen des Login-Gui´s zuständig.
-     * @param loginReference ToDo: Hier Text einfügen
+     * @param loginReference Objekt der Klasse Login.java
      */
     public GUI_Login(Login loginReference) {
         this.loginReference = loginReference;
@@ -123,6 +123,7 @@ public class GUI_Login extends JFrame implements KeyListener {
      */
     private void failedAttempt(int numberOfFailedAttempts) {
         passwordField1.setText("");
+        LOGINNAMETextField.setText("");
         if (numberOfFailedAttempts != 0) {
             failedAttempts.setVisible(true);
             if (numberOfFailedAttempts == 1) {

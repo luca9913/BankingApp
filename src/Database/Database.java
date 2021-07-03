@@ -61,13 +61,3 @@ public abstract class Database {
         }
     }
 }
-
-/**
- * Hier Text einfügen
- */
-class DatabaseTest{
-
-    public static void main(String[] args){
-        System.out.println("test123".hashCode());
-    }
-}

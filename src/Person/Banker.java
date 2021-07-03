@@ -301,25 +301,25 @@ public class Banker extends Person {
     /**
      * Gibt den Status des Freigabeauftrages zurück
      * @param id Indentifikationsnummer
-     * @return
+     * @return Aktueller Status des Freigabeauftrages
      */
     public int getRequestStatus(int id) {
         return (Integer) data.getData(id, "request").get(0)[1];
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param id
-     * @param status
-     * @return
+     * Setzt einen neuen Status für einen Freigabeauftrag
+     * @param id ID des Freigabeauftrags
+     * @param status neuer Status des Freigabeauftrags
+     * @return Bei Erfolg wird true, bei Misserfolg false zurückgegeben
      */
     public boolean modifyRequest(int id, int status) {
         return data.updateRequest(id, status);
     }
 
     /**
-     * ToDo: Hier Text einfügen
-     * @param pdata
+     * Erstellt mit Hilfe der übergebenen Daten einen neuen Kunden und verknüpft diesen mit der Authentifizierungsdatenbank
+     * @param pdata Daten des neuen Kunden als String Array
      */
     public void insertCustomer(String[] pdata) {
         Customer customer = new Customer(pdata);
@@ -343,7 +343,7 @@ public class Banker extends Person {
     }
 
     /**
-     * ToDo: Hier Text einfügen
+     * Verwaltet die Daten in einer Liste
      */
     public class ListData extends AbstractListModel implements ComboBoxModel {
         Object selected;
@@ -354,8 +354,8 @@ public class Banker extends Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param anItem
+         * Setzt ein Element in der Liste als ausgewählt
+         * @param anItem Element, dass als ausgewählt markiert werden soll
          */
         @Override
         public void setSelectedItem(Object anItem) {
@@ -363,8 +363,8 @@ public class Banker extends Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @return
+         * Gibt das ausgewählte Element der Liste zurück
+         * @return Ausgewähltes Element als Object
          */
         @Override
         public Object getSelectedItem() {
@@ -372,8 +372,8 @@ public class Banker extends Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @return
+         * Gibt die Größe der Liste zurück
+         * @return Größe der Liste
          */
         @Override
         public int getSize() {
@@ -381,18 +381,18 @@ public class Banker extends Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param index
-         * @param value
+         * Fügt der Liste ein Element hinzu
+         * @param index Index, an dem das neue Element hinzugefügt werden soll
+         * @param value Wert des neuen Elements
          */
         public void addElement(int index, Object[] value) {
             data.add(index, value);
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param index
-         * @return
+         * Gibt den Wert eines bestimmten Elements an einem vorgegebenen Index aus
+         * @param index Index des auszugebenden Elements
+         * @return Wert des Elements am gegebenen Index
          */
         @Override
         public Object getElementAt(int index) {
@@ -400,37 +400,37 @@ public class Banker extends Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param index
-         * @return
+         * Gibt die ID des Elements am gegebenen Index in der List zurück
+         * @param index Index, von dem die ID ausgegeben werden soll
+         * @return ID als Integer
          */
         public int getSelectedID(int index) {
             return (Integer) data.get(index)[1];
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param index
-         * @return
+         * Gibt den Status des Elements am gegebenen Index in der List zurück
+         * @param index Index, von dem der Status ausgegeben werden soll
+         * @return Status als Integer
          */
         public int getStatus(int index) {
             return (Integer) data.get(index)[2];
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param index
-         * @return
+         * Gibt den Dispo des Elements am gegebenen Index in der List zurück
+         * @param index Index, von dem der Dispo ausgegeben werden soll
+         * @return ID als Integer
          */
         public String getDispo(int index) {
             return data.get(index)[3].toString();
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param index
-         * @param col
-         * @param value
+         * Setzt einen Wert an einem bestimmten Index.
+         * @param index Index, an dem der Wert gesetzt werden soll
+         * @param col Spalte, in der der Wert gesetzt werden soll
+         * @param value Wert, der gesetzt werden soll
          */
         public void setValueAt(int index, int col, Object value) {
             data.get(index)[col] = value;
@@ -438,8 +438,8 @@ public class Banker extends Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param index
+         * Löscht ein Element an einem bestimmten Index aus der Liste
+         * @param index Index, dessen Element gelöscht werden soll
          */
         public void delete(int index) {
             data.remove(index);

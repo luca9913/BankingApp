@@ -308,9 +308,9 @@ public class ProdBase extends Database {
     }
 
     /**
-     * Hier Text einfügen
-     * @param customer
-     * @return
+     * Überschreibt die Daten des Kunden mit den Daten des Kunden, der über den Parameter übergeben wird
+     * @param customer Kundenobjekt mit den Daten, die aktualisiert werden
+     * @return 'true', wenn das Aktualisieren erfolgreich war. 'false', wenn nicht.
      */
     public boolean updateCustomerData(Customer customer){
        try{
@@ -340,8 +340,9 @@ public class ProdBase extends Database {
     }
 
     /**
-     * @param id
-     * @return
+     * Löscht Person mit der übergebenen ID
+     * @param id ID von der Person, die gelöscht werden soll
+     * @return 'true', wenn das Löschen erfolgreich war. 'false', wenn nicht.
      */
     public boolean deletePerson(int id){
         try{
@@ -361,9 +362,9 @@ public class ProdBase extends Database {
     }
 
     /**
-     * Hier Text einfügen
-     * @param id
-     * @return
+     * Löscht Konto mit der übergebenen ID
+     * @param id ID des Kontos, das gelöscht werden soll
+     * @return 'true', wenn das Löschen erfolgreich war. 'false', wenn nicht.
      */
     public boolean deleteAccount(int id){
         try{
@@ -377,9 +378,9 @@ public class ProdBase extends Database {
     }
 
     /**
-     * Hier Text einfügen
-     * @param id
-     * @return
+     * Löscht den Freigabeauftrag mit der Übergebenen ID
+     * @param id ID des Freigabeauftrages, der gelöscht werden soll
+     * @return 'true', wenn das Löschen erfolgreich war. 'false', wenn nicht.
      */
     public boolean deleteRequest(int id){
         try{
@@ -393,9 +394,9 @@ public class ProdBase extends Database {
     }
 
     /**
-     * Hier Text einfügen
-     * @param rows
-     * @return
+     * Funktion, die Anzahl an Reihen anhand eines übergebenen Integers analysiert
+     * @param rows Anzahl der Reihen
+     * @return Falls mehr als Null Reihen übergeben werden, wird <code>true</code> zurückgegeben, ansonsten <code>false</code>
      */
     boolean returnFunction(int rows){
         if(rows >= 1){

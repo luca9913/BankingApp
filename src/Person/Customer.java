@@ -64,7 +64,7 @@ public class Customer extends Person{
     }
 
     /**
-     * ToDo: Hier Text einfügen
+     * Fragt alle Freigabeaufträge erneut ab und initalisiert die Konten neu
      */
     public void update(){
         this.allrequests = data.getAllRequests(id);
@@ -118,7 +118,7 @@ public class Customer extends Person{
     }
 
     /**
-     * ToDo: Hier Text einfügen
+     * Aktualisiert die Freigabeaufträge
      */
     public void updateRequests(){
         for(Object[] arr : allrequests){

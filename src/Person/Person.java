@@ -63,10 +63,9 @@ public abstract class Person {
         ArrayList<Object[]> data;
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param colnames
-         * @param data
-         * @return
+         * Konstruktor der Klasse <code>TableData</code>: Weißt den Variablen in der Klasse Werte zu, die als Parameter übergeben werden
+         * @param colnames String Array mit den Spalten der späteren Tabelle
+         * @param data ArrayList, die die Daten der jeweiligen Spalten beinhaltet
          */
         TableData(String[] colnames, ArrayList<Object[]> data) {
             this.colnames = colnames;
@@ -92,9 +91,9 @@ public abstract class Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param column
-         * @return
+         * Gibt den Namen einer Spalte in der Tabelle zurück
+         * @param column Nummer der Spalte in der Tabelle
+         * @return Name der Spalte
          */
         @Override
         public String getColumnName(int column) {
@@ -102,10 +101,10 @@ public abstract class Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param rowIndex
-         * @param columnIndex
-         * @return
+         * Gibt den Wert in einer bestimmten Zelle in der Tabelle zurück
+         * @param rowIndex Reihe der abgefragten Zelle
+         * @param columnIndex Spalte der abgefragten Zelle
+         * @return Inhalt der Zelle als Object
          */
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
@@ -113,10 +112,10 @@ public abstract class Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param value
-         * @param row
-         * @param col
+         * Setzt den Wert in einer bestimmten Zelle einer Tabelle
+         * @param value Zu setztender Wert
+         * @param row Reihe der Zelle, in der der Wert gesetzt werden soll
+         * @param col Spalte der Zelle, in der der Wert gesetzt werden soll
          */
         @Override
         public void setValueAt(Object value, int row, int col) {
@@ -125,15 +124,15 @@ public abstract class Person {
         }
 
         /**
-         * ToDo: Hier Text einfügen
+         * Entfernt alle Elemente
          */
         public void clear(){
             data.clear();
         }
 
         /**
-         * ToDo: Hier Text einfügen
-         * @param newdata
+         * Aktualisiert die Daten, die unter <code>data</code> gespeichert sind
+         * @param newdata Neue Daten Als ArrayList von Object Arrays
          */
         public void update(ArrayList<Object[]> newdata) {
             this.data = newdata;
