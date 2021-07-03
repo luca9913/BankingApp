@@ -191,14 +191,14 @@ public class Banker extends Person {
                 for (Object[] arr : data.getAllTransfers(id)) {
                     if ((Integer) arr[2] == id) {
                         if (data.getData((Integer) arr[3], "account").size() == 0) {
-                            name = "Gelöscht";
+                            name = "Extern";
                         } else {
                             name = getName((Integer) data.getData((Integer) arr[3], "account").get(0)[5]);
                         }
                         transfers.add(new Object[]{arr[0].toString(), arr[3].toString() + " - " + name, arr[1], arr[4], arr[5], "out"});
                     } else if ((Integer) arr[3] == id) {
                         if ((Integer) data.getData((Integer) arr[3], "account").size() == 0) {
-                            name = "Gelöscht";
+                            name = "Extern";
                         } else {
                             name = getName((Integer) data.getData((Integer) arr[2], "account").get(0)[5]);
                         }
