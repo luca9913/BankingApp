@@ -96,7 +96,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Button-Listener, der zum Ablehnen von Freigabeaufträgen dient. Wird beim Klicken auf dem Button augerufen.
+         * Button-Listener, der zum Ablehnen von Freigabeaufträgen dient. Wird beim Klicken auf den Button aufgerufen.
          */
         btnDeclineAccount.addActionListener(new ActionListener() {
             @Override
@@ -106,7 +106,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Button-Listener, der zum Akzeptieren von Freigabeaufträgen dient. Wird beim Klicken auf dem Button augerufen.
+         * Button-Listener, der zum Akzeptieren von Freigabeaufträgen dient. Wird beim Klicken auf den Button aufgerufen.
          */
         btnApproveAccount.addActionListener(new ActionListener() {
             @Override
@@ -116,7 +116,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * ComboBox-Listener, der zum Auswählen von Kunden für die Kundenübersicht dient. Wird beim Klicken auf dem Button augerufen.
+         * ComboBox-Listener, der zum Auswählen von Kunden für die Kundenübersicht dient. Wird beim Klicken auf den Button aufgerufen.
          */
         cbbCurrentCustomer.addActionListener(new ActionListener() {
             @Override
@@ -163,7 +163,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Button-Listener, der zum Aktualisieren des ausgewählen Accounts dient. Wird beim Klicken auf dem Button augerufen.
+         * Button-Listener, der zum Aktualisieren des ausgewählen Accounts dient. Wird beim Klicken auf den Button aufgerufen.
          */
         btnRefreshAccount.addActionListener(new ActionListener() {
             @Override
@@ -173,8 +173,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Mouse-Listener, der bei Klick auf die Umsatztabelle getriggert wird.
          */
         tblTurnovers.addMouseListener(new MouseAdapter() {
             @Override
@@ -185,8 +184,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Button-Listener, der zum Blockieren eines ausgewählen Accounts dient. Wird beim Klicken auf den Button aufgerufen.
          */
         btnBlockAccount.addActionListener(new ActionListener() {
             @Override
@@ -206,8 +204,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Button-Listener, der zum Löschen eines Accounts dient. Wird beim Klicken auf den entsprechenden Button aufgerufen
          */
         btnDeleteAccount.addActionListener(new ActionListener() {
             @Override
@@ -225,8 +222,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * List-Listener, der beim Anklicken eines Elements in der Tabelle mit den Accounts aus der Kontenübersicht, das Dispo übernimmt, sodass es geändert werden kann.
          */
         dispoList.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -240,8 +236,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Button-Listener, der dazu dient ein neues Dispo zu genehmigen. Wird beim Kicken auf den Button aufgerufen.
          */
         btnApproveDispo.addActionListener(new ActionListener() {
             @Override
@@ -261,8 +256,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Button-Listener, der dazu dient die geänderten Kundendaten zu speichern. Wird beim Klicken auf den Button aufgerufen.
          */
         btnSaveCustomerData.addActionListener(new ActionListener() {
             @Override
@@ -284,8 +278,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Button-Listener, der dazu dient mit den eingetragenen Daten einen neuen Kunden zu erzeugen. Wird beim Klicken auf den Button aufgerufen.
          */
         btnCreateNewCustomer.addActionListener(new ActionListener() {
             @Override
@@ -295,8 +288,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Button-Listener, der dazu dient, die Erstellung eines neuen Kunden abzubrechen. Wird beim Klicken auf den Button aufgerufen.
          */
         btnNewCustomerCancel.addActionListener(new ActionListener() {
             @Override
@@ -306,8 +298,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Button-Listener, der dazu dient, den aktuellen Benutzer auszuloggen. Wird beim Klicken auf den Button aufgerufen.
          */
         btnLogout.addActionListener(new ActionListener() {
             @Override
@@ -318,8 +309,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Button-Listener, der dazu dient, das Programm zu beenden. Wird beim Klicken auf den Button aufgerufen.
          */
         btnExit.addActionListener(new ActionListener() {
             @Override
@@ -330,7 +320,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Schließt die Verbindung zur Datenbank, schließt das aktuelle GUI-Fenster und öffnet die Login-GUI.
      */
     private void closeAndOpenLogin() {
         admin.closeConnections();
@@ -340,7 +330,8 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Initialisiert das User Interface.
+     * GUI Elemente werden auf ihren Ausgangswert gesetzt und je nachdem mit Text gefüllt.
      */
     private void initialize() {
         defaultBorder = txtNewCustomerName.getBorder();
@@ -420,7 +411,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Wenn ein Freigabeauftrag ausgewählt wurde, wird dieser genehmigt.
      */
     private void tblAccountApprovalClicked(){
         if((Integer)tblAccountApproval.getModel().getValueAt(tblAccountApproval.getSelectedRow(), 5) == 0){
@@ -430,7 +421,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Initialisiert die GUI-Elemente nach dem Auswählen eines Kunden in der Kundenübersicht.
      */
     void customerSelected(){
         ListData tmp = (ListData)cbbCurrentCustomer.getModel();
@@ -474,8 +465,8 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
-     * @param newstatus
+     * Setzt den Status eines Freigabeauftrages (genehmigt/abgelehnt)
+     * @param newstatus Übergibt den Status des Freigabeauftrages als Integer
      */
     void updateRequestStatus(int newstatus){
         int row = tblAccountApproval.getSelectedRow();
@@ -487,7 +478,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Fügt alle Umsatztransfers in die Kundenübersichts-Tabelle ein
      */
     void insertAllTransfers(){
         ListData tmp = (ListData)listAccountOverview.getModel();
@@ -508,7 +499,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Berechnet den aktuellen Kontostand und zeigt diesen im dazugehörigen Textfeld an.
      */
     void insertBalance(){
         ListData tmp = (ListData)listAccountOverview.getModel();
@@ -521,7 +512,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Gibt die genauen Details zu der angeklickten Transaktion in den dafür vorgesehenen Textfeldern der GUI an
      */
     void tblTurnoversClicked(){
         TableData tmp = (TableData)tblTurnovers.getModel();
@@ -576,7 +567,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Verwaltet die Farben der Tabellenzeilen von den Freigabeaufträgen, je nach Genehmigungszustand.
      */
     class RequestRenderer extends DefaultTableCellRenderer {
 
@@ -598,7 +589,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Verwaltet die Farben der Tabellenzeilen der Umsatztabelle
      */
     class TransferRenderer extends DefaultTableCellRenderer {
 
@@ -623,7 +614,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Verwaltet die Farben der Tabellenzeilen in der Kontoübersichtstabelle. Konten im Dispo werden rot gefärbt.
      */
     class AccountRenderer extends DefaultListCellRenderer {
 
@@ -643,7 +634,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Überprüft die in den Textfeldern eingegebenen Daten und erstellen einen neuen Kunden
      */
     private void createNewCustomer(){
         HelpMethods h = new HelpMethods();
@@ -733,7 +724,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Setzt die GUI zum Erstellen eines neuen Kunden auf ihre Standardwerte zurück
      */
     private void resetNewCustomerView() {
         txtNewCustomerName.setBorder(defaultBorder);
@@ -747,7 +738,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
     }
 
     /**
-     * Hier Text einfügen
+     * Setzt die GUI zum Erstellen eines neuen Kunden auf ihre Standardwerte zurück
      */
     private void resetNewCustomer() {
         resetNewCustomerView();
