@@ -204,7 +204,7 @@ public class Customer extends Person{
             if ((Integer)transfer[2] == accid) {
                 ArrayList<Object[]> otheracc = data.getData((Integer) transfer[3], "account");
                 if (otheracc.size() == 0) {
-                    name = "Gelöscht";
+                    name = "Extern";
                     transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstiger", "", transfer[5]});
                 } else {
                     name = getName((Integer)otheracc.get(0)[5]);
@@ -213,7 +213,7 @@ public class Customer extends Person{
             } else if ((Integer)transfer[3] == accid) {
                 ArrayList<Object[]> otheracc = data.getData((Integer) transfer[2], "account");
                 if (otheracc.size() == 0) {
-                    name = "Gelöscht";
+                    name = "Extern";
                     transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Absender", "", transfer[5]});
                 } else {
                     name = getName((Integer) data.getData((Integer) transfer[2], "account").get(0)[5]);

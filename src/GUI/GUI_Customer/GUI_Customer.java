@@ -486,7 +486,6 @@ public class GUI_Customer extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Turing Banking App");
         setSize(550, 385);
-        setResizable(false);
         lblHello.setText("Herzlich Willkommen " + GUI_Customer_Connector.kunde.preName + " in der Banking-App der");
         btnTransfer.setEnabled(false);
 

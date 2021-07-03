@@ -57,7 +57,5 @@ public class Login {
         } catch (Exception e) {
             return false;
         }
-
-
     }
 }
