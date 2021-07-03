@@ -1,6 +1,7 @@
 package Main;
 
 import GUI.GUI_Login.GUI_Login;
+import GUI.HelpMethods;
 import Login.Login;
 
 /**
