@@ -62,9 +62,9 @@ public class AuthBase extends Database {
 
 
     /**
-     * Hier Text einfügen
-     * @param sql SQLite Statement, welches in der Datenbank ausgeführt werden soll
-     * @return Es wird zwischen zwei Szenarien unterschieden: 1.
+     * Implementierung der abstrakten Klasse zur Abfrage beliebiger SQLite-Statements.
+     * @param sql Ein gültiges <a href="https://sqlite.org/index.html">SQLite</a>-Statement
+     * @return Eine Array-Liste mit einem Eintrag pro gefundener Zeile. Die Elemente der Array-Liste sind Object-Arrays mit einem Wert für jede Spalte der Tabelle. Im Falle eines Datenbank UPDATEs wird eine ArrayListe mit einem Eintrag zurückgegeben. Dieser Eintrag enthält die Anzahl der aktualisierten Zeilen.
      */
 
     ArrayList<Object[]> executeCustomQuery(String sql){
