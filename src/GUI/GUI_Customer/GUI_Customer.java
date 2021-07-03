@@ -436,7 +436,7 @@ public class GUI_Customer extends JFrame {
                 int row = tableTurnover.getSelectedRow();
                 txtAccNr.setText(tmp.getValueAt(row, 2).toString());
                 txtReceiver.setText(tmp.getValueAt(row, 3).toString());
-                txtUsage.setText(tmp.getValueAt(row, 5).toString());
+                txtUsage.setText(tmp.getValueAt(row, 4).toString());
                 txtDate.setText(tmp.getValueAt(row, 6).toString());
             }
         });
