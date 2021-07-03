@@ -167,8 +167,8 @@ public class Customer extends Person{
                             }
                         }
                     }
-                    data.deleteRequest((Integer)arr[0]);
                     data.updateCustomerData(this);
+                    data.deleteRequest((Integer)arr[0]);
                 }else{
                     int index = 0;
                     do{
@@ -205,7 +205,7 @@ public class Customer extends Person{
                 ArrayList<Object[]> otheracc = data.getData((Integer) transfer[3], "account");
                 if (otheracc.size() == 0) {
                     name = "Gelöscht";
-                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstiger", "-", transfer[5]});
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstiger", "", transfer[5]});
                 } else {
                     name = getName((Integer)otheracc.get(0)[5]);
                     transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Begünstiger", transfer[3], transfer[5]});
@@ -214,14 +214,14 @@ public class Customer extends Person{
                 ArrayList<Object[]> otheracc = data.getData((Integer) transfer[2], "account");
                 if (otheracc.size() == 0) {
                     name = "Gelöscht";
-                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Absender", "-", transfer[5]});
+                    transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Absender", "", transfer[5]});
                 } else {
                     name = getName((Integer) data.getData((Integer) transfer[2], "account").get(0)[5]);
                     transfers.set(i, new Object[]{transfer[0].toString(), name, transfer[1], transfer[4], "Absender", transfer[2], transfer[5]});
                 }
             }
         }
-        return new TableData(new String[]{"ID", "Name", "Betrag", "Verwendungszweck"}, transfers);
+        return new TableData(new String[]{"ID", "Begünstigter", "Betrag", "Verwendungszweck"}, transfers);
     }
 
     /**
@@ -309,26 +309,26 @@ public class Customer extends Person{
      */
     public void changeUserData(String name, String prename, int zip, String city, String address, String email, String telephone){
 
-        if(name != this.name){
-            data.createRequest("Name", name, 0, id, mainBanker);
+        if(!name.equals(this.name)){
+            data.createRequest("name", name, 0, id, mainBanker);
         }
-        if(prename != this.preName){
-            data.createRequest("Prename", prename, 0, id, mainBanker);
+        if(!prename.equals(this.preName)){
+            data.createRequest("prename", prename, 0, id, mainBanker);
         }
         if(zip != this.zip){
-            data.createRequest("Zip", Integer.toString(zip) , 0, id, mainBanker);
+            data.createRequest("zip", Integer.toString(zip) , 0, id, mainBanker);
         }
-        if(city != this.city){
-            data.createRequest("City", city, 0, id, mainBanker);
+        if(!city.equals(this.city)){
+            data.createRequest("city", city, 0, id, mainBanker);
         }
-        if(address != this.address){
-            data.createRequest("Address", address, 0, id, mainBanker);
+        if(!address.equals(this.address)){
+            data.createRequest("address", address, 0, id, mainBanker);
         }
-        if(email != this.email){
-            data.createRequest("Email", email, 0, id, mainBanker);
+        if(!email.equals(this.email)){
+            data.createRequest("email", email, 0, id, mainBanker);
         }
-        if(telephone != this.tel){
-            data.createRequest("Telephone", telephone, 0, id, mainBanker);
+        if(!telephone.equals(this.tel)){
+            data.createRequest("telephone", telephone, 0, id, mainBanker);
         }
     }
 

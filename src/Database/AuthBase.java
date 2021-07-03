@@ -49,7 +49,7 @@ public class AuthBase extends Database {
     }
 
     /**
-     * Schließt die Datenbank, indem die Verbindung getrennt/geschlossen wird.
+     * Schließt die Datenbank, indem die Verbindung getrennt wird.
      */
     public void close(){
         try{
@@ -63,8 +63,8 @@ public class AuthBase extends Database {
 
     /**
      * Hier Text einfügen
-     * @param sql
-     * @return
+     * @param sql SQLite Statement, welches in der Datenbank ausgeführt werden soll
+     * @return Es wird zwischen zwei Szenarien unterschieden: 1.
      */
 
     ArrayList<Object[]> executeCustomQuery(String sql){
