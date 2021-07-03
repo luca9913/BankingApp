@@ -514,6 +514,7 @@ public class GUI_Customer extends JFrame {
     void updateAccountLists(){
         DefaultListModel dlm = new DefaultListModel();
         int i = 0;
+        GUI_Customer_Connector.kunde.initialiseAccounts();
         for(Konto acc : GUI_Customer_Connector.kunde.allaccounts){
             if(acc.getStatus() == 0) {
                 dlm.add(i, acc.getId().toString() + "  |  " + acc.getType() + "  |  " + acc.getBalance().toString());
