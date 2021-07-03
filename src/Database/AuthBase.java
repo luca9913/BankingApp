@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
  */
 public class AuthBase extends Database {
 
-    static Path path = Paths.get("");
+
+    String path = dir.getAbsolutePath().substring(0, dir.getAbsolutePath().length()- 1) + "src/data/auth.db";
     /**Datenbank-Verbindung aus dem Paket java.sql
      * Link: java.sql.Connection */
     Connection conn;
@@ -28,7 +29,6 @@ public class AuthBase extends Database {
      */
     //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
     private AuthBase(){
-        path = Paths.get(FOLDER + "auth.db");
         try{
             this.conn = DriverManager.getConnection(DRIVER + path);
             this.state = conn.createStatement();

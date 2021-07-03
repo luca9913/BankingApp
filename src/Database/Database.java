@@ -1,5 +1,6 @@
 package Database;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import org.apache.commons.lang3.ArrayUtils;
@@ -12,7 +13,7 @@ public abstract class Database {
     /**Enthält den Namen des Treibers, mit dem der Datenbankzugriff gesteuert wird.*/
     final String DRIVER = "jdbc:sqlite:";
     /**Enthält den Pfad der Datenbank-Dateien - auth.db and production.db.*/
-    final String FOLDER = "src/data/";
+    File dir = new File(".");
 
     /**Ausführen von beliebigen SQL(ite)-Statements
      * @param sql Ein gültiges <a href="https://sqlite.org/index.html">SQLite</a>-Statement
