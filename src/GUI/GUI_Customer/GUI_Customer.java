@@ -346,6 +346,8 @@ public class GUI_Customer extends JFrame {
                     txtAddress.setEditable(false);
                     txtPhone.setEditable(false);
                     txtMail.setEditable(false);
+                    changeUserData = 0;
+                    btnCustomerDataChanges.setText("Persönliche Daten ändern");
                 }else if(!hm.onlyString(txtName.getText(), false, 2) ||
                         !hm.onlyString(txtPrename.getText(), false, 2) ||
                         !hm.onlyInt(txtZip.getText()) || txtZip.getText().length() < 2 ||
