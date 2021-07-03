@@ -17,7 +17,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * Hier Text einfügen
+ * Verwaltet das Userinterface des Bankers
  */
 public class GUI_Banker extends JFrame implements KeyListener{
 
@@ -75,16 +75,17 @@ public class GUI_Banker extends JFrame implements KeyListener{
     private Customer customer;
 
     /**
-     * Hier Text einfügen
-     * @param banker
+     * Konstruktor von GUI_Banker speichert die übergebene Instanz des Bankers, ruft <code>initalize()</code>
+     * Zum Initialisieren des Userinterface auf und erstellt Listener für Buttons oder Textfelder.
+     *
+     * @param banker Instanz des erfolgreich eingeloggten Bankers, dessen Profil gangezeigt werden soll.
      */
     public GUI_Banker(Banker banker) {
         this.admin = banker;
         initialize();
 
         /**
-         * Hier Text einfügen//Table-Listener Kontenfreigabe
-         * @param e
+         * Table-Listener für Tabelle mit Kontenfreigabeaufträgen. Wird aufgerufen, wenn ein Objekt in der Tabelle angeklickt wird.
          */
         tblAccountApproval.addMouseListener(new MouseAdapter() {
             @Override
@@ -95,8 +96,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen //Freigabe ablehnen (Listener)
-         * @param e
+         * Button-Listener, der zum Ablehnen von Freigabeaufträgen dient. Wird beim Klicken auf dem Button augerufen.
          */
         btnDeclineAccount.addActionListener(new ActionListener() {
             @Override
@@ -106,8 +106,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen//Freigabe akzeptieren (Listener)
-         * @param e
+         * Button-Listener, der zum Akzeptieren von Freigabeaufträgen dient. Wird beim Klicken auf dem Button augerufen.
          */
         btnApproveAccount.addActionListener(new ActionListener() {
             @Override
@@ -117,8 +116,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen //Kunden-ComboBox Listener
-         * @param e
+         * ComboBox-Listener, der zum Auswählen von Kunden für die Kundenübersicht dient. Wird beim Klicken auf dem Button augerufen.
          */
         cbbCurrentCustomer.addActionListener(new ActionListener() {
             @Override
@@ -128,8 +126,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen//Listener Auswahl in Kontenliste
-         * @param e
+         * List-Listener, der beim Anklicken von Elementen in der Kontenübersicht aufgerufen wird und die Daten des Kontos abruft und anzeigt.
          */
         listAccountOverview.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -166,8 +163,7 @@ public class GUI_Banker extends JFrame implements KeyListener{
         });
 
         /**
-         * Hier Text einfügen
-         * @param e
+         * Button-Listener, der zum Aktualisieren des ausgewählen Accounts dient. Wird beim Klicken auf dem Button augerufen.
          */
         btnRefreshAccount.addActionListener(new ActionListener() {
             @Override

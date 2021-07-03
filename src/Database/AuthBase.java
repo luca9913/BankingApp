@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
- * Hier Text einfügen
+ * Ermöglicht den Zugriff auf die Authentifizierungs-Datenbank und stellt Funktionen zum Abrufen und Einfügen von neuen Daten bereit
  */
 public class AuthBase extends Database {
 
@@ -23,8 +23,10 @@ public class AuthBase extends Database {
     ResultSet result;
 
     /**
-     * Hier Text einfügen //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
+     * Konstruktor der Authentifizierungs-Datenbank. Es wird eine direkte Verbindung zur Datenbank hergestellt.
+     * Der Konstruktor ist private, damit sichergestellt ist, dass nur eine Instanz erzeugt werden kann.
      */
+    //Konstruktor auf private setzen, damit nur eine Instanz erzeugt werden kann
     private AuthBase(){
         path = Paths.get(FOLDER + "auth.db");
         try{
@@ -39,7 +41,7 @@ public class AuthBase extends Database {
     }
 
     /**
-     * Hier Text einfügen
+     * Initialisiert die Datenbank, erstellt also eine Datenbank-Instanz, über die auf die Datenbank zugegriffen werden kann
      */
     public static AuthBase initialize(){
         AuthBase auth = new AuthBase();
@@ -47,7 +49,7 @@ public class AuthBase extends Database {
     }
 
     /**
-     * Hier Text einfügen
+     * Schließt die Datenbank, indem die Verbindung getrennt/geschlossen wird.
      */
     public void close(){
         try{
@@ -58,11 +60,14 @@ public class AuthBase extends Database {
         }
     }
 
+
+    // TODO: Javascript ausfüllen
     /**
      * Hier Text einfügen
      * @param sql
      * @return
      */
+
     ArrayList<Object[]> executeCustomQuery(String sql){
         try {
             //searches for the 'SELECT' string in the statement
@@ -86,9 +91,10 @@ public class AuthBase extends Database {
         }
     }
 
+
     /**
      * Hier Text einfügen //retrieving functions
-     * @param uid
+     * @param uid User-ID des des Nutzers
      * @return
      */
     public ArrayList<Object[]> getAuthSet(int uid){
