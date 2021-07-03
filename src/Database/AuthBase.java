@@ -66,7 +66,6 @@ public class AuthBase extends Database {
      * @param sql Ein gültiges <a href="https://sqlite.org/index.html">SQLite</a>-Statement
      * @return Eine Array-Liste mit einem Eintrag pro gefundener Zeile. Die Elemente der Array-Liste sind Object-Arrays mit einem Wert für jede Spalte der Tabelle. Im Falle eines Datenbank UPDATEs wird eine ArrayListe mit einem Eintrag zurückgegeben. Dieser Eintrag enthält die Anzahl der aktualisierten Zeilen.
      */
-
     ArrayList<Object[]> executeCustomQuery(String sql){
         try {
             //searches for the 'SELECT' string in the statement
@@ -92,9 +91,9 @@ public class AuthBase extends Database {
 
 
     /**
-     * Hier Text einfügen //retrieving functions
+     * Liest einen kompletten Datensatz aus der Authentifizierungs-Datenbank aus.
      * @param uid User-ID des des Nutzers
-     * @return
+     * @return Eine Array-List mit einem Object[]. Der Object-Array enthält für jede Spalte der Tabelle "user" einen Wert.
      */
     public ArrayList<Object[]> getAuthSet(int uid){
         try {
@@ -109,9 +108,9 @@ public class AuthBase extends Database {
     }
 
     /**
-     * Hier Text einfügen
-     * @param uid
-     * @return
+     * Liest den Passwort-Hashwert des entsprechenden Nutzers aus.
+     * @param uid User-ID
+     * @return Passwort-Hash
      */
      public int getHash(int uid){
         try{
@@ -130,33 +129,12 @@ public class AuthBase extends Database {
     }
 
     /**
-     * Hier Text einfügen
-     * @param uid
-     * @return
-     */
-    public Integer getIdentity(int uid){
-        try{
-            ResultSet rs = state.executeQuery("SELECT customer_id, banker_id FROM user WHERE user_id =" + uid);
-            int id = rs.getInt("customer_id");
-            if(id == 0){
-                id = rs.getInt("banker_id");
-            }
-            return id;
-        }catch(SQLException e){
-            System.err.println("Fehler beim Auslesen der Nutzer-Identität.");
-            System.err.print("Fehlermeldung: ");
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * Hier Text einfügen
-     * @param login_id
-     * @param pw
-     * @param user_id
-     * @param function
-     * @return
+     * Fügt einen neuen Datensatz in die Authentifizierungs-Datenbank ein.
+     * @param login_id User-ID (muss beim Login eingegeben werden)
+     * @param pw Passwort
+     * @param user_id Kunden- oder Bankernummer (interne Zuordnung)
+     * @param function Rolle des Nutzers (Customer oder Banker)
+     * @return 'true', falls das einfügen in die Datenbank erfolgreich ist. 'false', wenn nicht.
      */
     public boolean insertUser(int login_id, String pw, int user_id, String function){
         try {
@@ -179,50 +157,6 @@ public class AuthBase extends Database {
             }
         }catch(SQLException e){
             System.err.println("Fehler beim Einfügen des neuen Benutzers in die Datenbank.");
-            System.err.print("Fehlermeldung: ");
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * Hier Text einfügen//returns boolean because every id only has one account
-     * @param id
-     * @return
-     */
-    public boolean deleteUser(int id){
-        try{
-            int rows = state.executeUpdate("DELETE FROM user WHERE user_id ='" + id + "' OR customer_id ='" + id + "' OR banker_id ='" + id +"';");
-            if(rows == 0){
-                throw new SQLException("Kein User zur angegebenen ID gefunden.");
-            }else{
-                return true;
-            }
-        }catch(SQLException e){
-            System.err.println("Fehler beim Löschen eines Benutzers in der Datenbank.");
-            System.err.print("Fehlermeldung: ");
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * Hier Text einfügen
-     * @param id
-     * @param pw
-     * @return
-     */
-    public boolean updateHash(int id, String pw){ //returns boolean because every id only has one account
-        try{
-            int hash = pw.hashCode();
-            int rows = state.executeUpdate("UPDATE user SET pw_hash ='" + hash + "'WHERE user_id ='" + id + "' OR customer_id ='" + id + "' OR banker_id ='" + id +"';");
-            if(rows == 0){
-                throw new SQLException("Kein User zur angegebenen ID gefunden.");
-            }else{
-                return true;
-            }
-        }catch(SQLException e){
-            System.err.println("Fehler beim Setzen des neuen Benutzer-Passwortes in der Datenbank.");
             System.err.print("Fehlermeldung: ");
             e.printStackTrace();
             return false;
