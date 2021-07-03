@@ -46,7 +46,7 @@ public class Customer extends Person{
      */
     public Customer(String[] pdata){
         super(0);
-        if(pdata.length == 10) {
+        if(pdata.length == 9) {
             this.preName = pdata[0].toString();
             this.name = pdata[1].toString();
             this.birthDate = pdata[2].toString();
@@ -56,9 +56,9 @@ public class Customer extends Person{
             this.email = pdata[6];
             this.tel = pdata[7];
             this.mainBanker = Integer.parseInt(pdata[8].toString());
-        }else if(pdata.length > 10){
+        }else if(pdata.length > 9){
             System.err.println("Zu viele Daten angegeben.");
-        }else if(pdata.length < 10){
+        }else if(pdata.length < 9){
             System.err.println("Zu wenige Daten angegeben.");
         }
     }
@@ -293,7 +293,8 @@ public class Customer extends Person{
         }
         receiver.updateBalance(betrag);
         data.updateAccountData(receiver);
-        return konto.transfer(receiverid, betrag, usage, date);
+        konto.transfer(betrag);
+        return data.insertTransfer(betrag, konto.getId(), receiverid, usage, date);
     }
 
     /**

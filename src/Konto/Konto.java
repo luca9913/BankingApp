@@ -172,22 +172,18 @@ public abstract class Konto{
 
     /**
      * Diese Methode prüft, ob eine Überweisung getätigt werden kann, also ob das Konto gedeckt ist.
-     * @param id Dieser Parameter enthält die ID des Kontoobjektes, bei dem die Deckung geprüft werden soll.
      * @param amount Dieser Parameter enthält den Betrag der Überweisung.
-     * @param usage Dieser Parameter enthält den Überweisungszweck.
-     * @param date Dieser Parameter enthält das Datum der Überweisung.
      * @return Der Rückgabewert ist ein boolean. Ist er "true, dann war die überweisung erfolgreich, wird
      * "false" zurückgegeben, dann war die Überweisung fehlerhaft.
      */
-    public boolean transfer(int id, double amount, String usage, String date){
+    public boolean transfer(double amount){
         if(transferlimit < amount)
         {
             throw new IllegalArgumentException("Transfer limit ueberschritten");
         }else
         {
             updateBalance(amount * (-1));
-            data.updateAccountData(this);
-            return data.insertTransfer(amount, id, id, usage, date);
+            return data.updateAccountData(this);
         }
     }
 

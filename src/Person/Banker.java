@@ -107,8 +107,8 @@ public class Banker extends Person {
         for (int i = 0; i < allaccounts.size(); i++) {
             Object[] obj = allaccounts.get(i);
             Object[] owner = data.getData((Integer) obj[5], "customer").get(0);
-            if ((Double) (obj[2]) < (Double) obj[3]) { //if balance (index 2) is lower than the allowed dispo (index 3)
-                double over = (Double) obj[2] - (Double) obj[3];
+            if ((Double)(obj[2]) < 0 && ((Double)obj[2] + (Double)obj[3] < 0)){ //if balance (index 2) is lower than the allowed dispo (index 3)
+                double over = Math.abs((Double)obj[2] + (Double)obj[3]);
                 if (dispoaccounts.size() == 10) {
                     dispoaccounts.ensureCapacity(dispoaccounts.size() + 1);
                 }
