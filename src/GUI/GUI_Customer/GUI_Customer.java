@@ -434,9 +434,8 @@ public class GUI_Customer extends JFrame {
                 super.mouseClicked(e);
                 Person.TableData tmp = (Person.TableData) tableTurnover.getModel();
                 int row = tableTurnover.getSelectedRow();
-                txtAccNr.setText(tmp.getValueAt(row, 4).toString());
-                srlabel.setText(tmp.getValueAt(row, 3).toString());
-                txtReceiver.setText(tmp.getValueAt(row, 1).toString());
+                txtAccNr.setText(tmp.getValueAt(row, 2).toString());
+                txtReceiver.setText(tmp.getValueAt(row, 3).toString());
                 txtUsage.setText(tmp.getValueAt(row, 5).toString());
                 txtDate.setText(tmp.getValueAt(row, 6).toString());
             }
