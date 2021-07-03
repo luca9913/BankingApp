@@ -330,7 +330,7 @@ public class GUI_Customer extends JFrame {
                         hm.onlyInt(txtPhone.getText()) && txtPhone.getText().length() >= 5 &&
                         txtMail.getText().length() >= 5){
 
-                    GUI_Customer_Connector.kunde.changeUserData(txtName.getText(), txtPrename.getText(), Integer.parseInt(txtZip.getText()), txtCity.getText(), txtAddress.getText(), txtPhone.getText(), txtMail.getText());
+                    GUI_Customer_Connector.kunde.changeUserData(txtName.getText(), txtPrename.getText(), Integer.parseInt(txtZip.getText()), txtCity.getText(), txtAddress.getText(), txtMail.getText(), txtPhone.getText());
                     txtName.setBorder(defaultBorder);
                     txtPrename.setBorder(defaultBorder);
                     txtZip.setBorder(defaultBorder);
@@ -434,8 +434,9 @@ public class GUI_Customer extends JFrame {
                 super.mouseClicked(e);
                 Person.TableData tmp = (Person.TableData) tableTurnover.getModel();
                 int row = tableTurnover.getSelectedRow();
-                txtAccNr.setText(tmp.getValueAt(row, 2).toString());
-                txtReceiver.setText(tmp.getValueAt(row, 4).toString());
+                txtAccNr.setText(tmp.getValueAt(row, 5).toString());
+                srlabel.setText(tmp.getValueAt(row, 4).toString());
+                txtReceiver.setText(tmp.getValueAt(row, 1).toString());
                 txtUsage.setText(tmp.getValueAt(row, 3).toString());
                 txtDate.setText(tmp.getValueAt(row, 6).toString());
             }
