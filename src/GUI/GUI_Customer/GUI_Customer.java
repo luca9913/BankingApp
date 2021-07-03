@@ -114,7 +114,7 @@ public class GUI_Customer extends JFrame {
                 double restbetrag = GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getBalance();
                 double dispo = GUI_Customer_Connector.kunde.allaccounts.get(listAccounts2.getSelectedIndex()).getDispo();
                 double rahmen = restbetrag + dispo;
-                double transfer = Double.parseDouble(txtAmountTo.getText()) - rahmen;
+                double transfer = rahmen - Double.parseDouble(txtAmountTo.getText());
                 if(hm.onlyDouble(txtAmountTo.getText()) && hm.parseDouble(txtAmountTo.getText()) > 0 && transfer > 0 && maxUeberweisung > hm.parseDouble(txtAmountTo.getText())){
                     String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                     if(GUI_Customer_Connector.kunde.transfer(listAccounts2.getSelectedIndex(), hm.parseInt(txtIbanTo.getText()), hm.parseDouble(txtAmountTo.getText()), txtUsageTo.getText(), currentDate)){
