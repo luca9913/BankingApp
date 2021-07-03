@@ -163,20 +163,21 @@ public abstract class Konto{
     }
 
     /**
-     * //gibt Daten zu einem konkreten Umsatz zurück getData: 95
-     * @return
+     * Diese Methode gibt Daten zu einem konkreten Kontoumsatz zurück.
+     * @return Die Daten werden als Objektarray zurückgegeben.
      */
     public Object[] getData(){
         return data.getData(id, "transfer").get(1);
     }
 
     /**
-     * //Überweisen auf ein anderes Konto
-     * @param id
-     * @param amount
-     * @param usage
-     * @param date
-     * @return
+     * Diese Methode prüft, ob eine Überweisung getätigt werden kann, also ob das Konto gedeckt ist.
+     * @param id Dieser Parameter enthält die ID des Kontoobjektes, bei dem die Deckung geprüft werden soll.
+     * @param amount Dieser Parameter enthält den Betrag der Überweisung.
+     * @param usage Dieser Parameter enthält den Überweisungszweck.
+     * @param date Dieser Parameter enthält das Datum der Überweisung.
+     * @return Der Rückgabewert ist ein boolean. Ist er "true, dann war die überweisung erfolgreich, wird
+     * "false" zurückgegeben, dann war die Überweisung fehlerhaft.
      */
     public boolean transfer(int id, double amount, String usage, String date){
         if(transferlimit < amount)
@@ -191,8 +192,8 @@ public abstract class Konto{
     }
 
     /**
-     * Diese Methode ... //Funktion um einzuzahlen
-     * @param amount
+     * Diese Methode passt den Wert des Kontostandes an und wird zum einzahlen genutzt.
+     * @param amount Der Parameter gibt an, um wie viel der Kontostand des kontoobjektes steigen soll.
      */
     public void updateBalance(Double amount){
         balance += amount;
