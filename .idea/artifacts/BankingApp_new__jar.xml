@@ -2,12 +2,9 @@
   <artifact type="jar" name="BankingApp(new):jar">
     <output-path>$PROJECT_DIR$/out/artifacts/BankingApp_new__jar</output-path>
     <root id="archive" name="BankingApp(new).jar">
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$USER_HOME$/Downloads/META-INF/MANIFEST.MF" />
-      </element>
       <element id="module-output" name="BankingApp(new)" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/sqlite-jdbc.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-lang3-3.12.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/sqlite-jdbc.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

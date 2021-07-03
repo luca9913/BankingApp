@@ -30,7 +30,7 @@ public class ProdBase extends Database {
      * das für Abfragen verwendet werden kann. Der Konstruktor ist nicht von außen aufrufbar. Er kann nur einmal über die Methode initialize() aufgerufen werden.
      */
     private ProdBase(){
-        this.path = Paths.get(FOLDER + "production.db");
+        String path = dir.getAbsolutePath().substring(0, dir.getAbsolutePath().length()- 1) +  "src/data/production.db";
         try{
             this.conn = DriverManager.getConnection(DRIVER + path);
             this.state = conn.createStatement();

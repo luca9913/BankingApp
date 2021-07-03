@@ -263,36 +263,39 @@ public class Customer extends Person{
      */
     public boolean transfer(int selected, int receiverid, double betrag, String usage, String date){
         Konto konto = allaccounts.get(selected);
-        Object[] tmp = data.getData(receiverid, "account").get(0);
-        Konto receiver = null;
-        switch(tmp[1].toString()){
-            case "Girokonto":
-                receiver = new Girokonto((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
-                receiver.setDispo((Double)tmp[3]);
-                receiver.setLimit((Integer)tmp[4]);
-                receiver.setBalance((Double)tmp[2]);
-                break;
-            case "Festgeldkonto":
-                receiver = new Festgeldkonto((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
-                receiver.setDispo((Double)tmp[3]);
-                receiver.setLimit((Integer)tmp[4]);
-                receiver.setBalance((Double)tmp[2]);
-                break;
-            case "Depot":
-                receiver = new Depot((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
-                receiver.setDispo((Double)tmp[3]);
-                receiver.setLimit((Integer)tmp[4]);
-                receiver.setBalance((Double)tmp[2]);
-                break;
-            case "Kreditkarte":
-                receiver = new Kreditkarte((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
-                receiver.setDispo((Double)tmp[3]);
-                receiver.setLimit((Integer)tmp[4]);
-                receiver.setBalance((Double)tmp[2]);
-                break;
+        if(data.getData(receiverid, "account").size() > 0){
+            Object[] tmp = data.getData(receiverid, "account").get(0);
+            Konto receiver = null;
+            switch(tmp[1].toString()){
+                case "Girokonto":
+                    receiver = new Girokonto((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
+                    receiver.setDispo((Double)tmp[3]);
+                    receiver.setLimit((Integer)tmp[4]);
+                    receiver.setBalance((Double)tmp[2]);
+                    break;
+                case "Festgeldkonto":
+                    receiver = new Festgeldkonto((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
+                    receiver.setDispo((Double)tmp[3]);
+                    receiver.setLimit((Integer)tmp[4]);
+                    receiver.setBalance((Double)tmp[2]);
+                    break;
+                case "Depot":
+                    receiver = new Depot((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
+                    receiver.setDispo((Double)tmp[3]);
+                    receiver.setLimit((Integer)tmp[4]);
+                    receiver.setBalance((Double)tmp[2]);
+                    break;
+                case "Kreditkarte":
+                    receiver = new Kreditkarte((Integer)tmp[0], new Banker((Integer)tmp[6]), new Customer((Integer)tmp[5]), data);
+                    receiver.setDispo((Double)tmp[3]);
+                    receiver.setLimit((Integer)tmp[4]);
+                    receiver.setBalance((Double)tmp[2]);
+                    break;
+            }
+            receiver.updateBalance(betrag);
+            data.updateAccountData(receiver);
         }
-        receiver.updateBalance(betrag);
-        data.updateAccountData(receiver);
+
         konto.transfer(betrag);
         return data.insertTransfer(betrag, konto.getId(), receiverid, usage, date);
     }
