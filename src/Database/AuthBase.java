@@ -61,7 +61,6 @@ public class AuthBase extends Database {
     }
 
 
-    // TODO: Javascript ausfüllen
     /**
      * Hier Text einfügen
      * @param sql
