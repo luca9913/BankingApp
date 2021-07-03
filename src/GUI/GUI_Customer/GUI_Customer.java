@@ -128,7 +128,7 @@ public class GUI_Customer extends JFrame {
                 }else if(!hm.onlyDouble(txtAmountTo.getText()) || hm.parseDouble(txtAmountTo.getText()) < 0 || transfer < 0 || maxUeberweisung < hm.parseDouble(txtAmountTo.getText())){
                     if(transfer < 0){
                         JOptionPane.showMessageDialog(null,"Ihr ausgewähltes Konto ist nicht ausreichend gedeckt.\n" +
-                                "bitte wählen Sie ein anderes Konto aus oder passen\n" +
+                                "Bitte wählen Sie ein anderes Konto aus oder passen\n" +
                                 "Sie den Überweisungsbetrag an.","Konto nicht ausreichend gedeckt", JOptionPane.CANCEL_OPTION);
                         txtAmountTo.setBorder(failedBorder);
                         txtAmountTo.setText("");
