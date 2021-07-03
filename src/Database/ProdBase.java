@@ -298,7 +298,7 @@ public class ProdBase extends Database {
      */
    public boolean updateAccountData(Konto account){
         try {
-            return returnFunction(state.executeUpdate("UPDATE account SET dispo ='" + account.getDispo() + "', transferlimit ='" + account.getLimit() + "', owner ='" + account.getOwner().getId() + "', banker_id ='" + account.getBanker().getId() + "', locked ='" + account.getStatus() + "' WHERE account_id = " + account.getId()));
+            return returnFunction(state.executeUpdate("UPDATE account SET balance = " + account.getBalance() + ", dispo ='" + account.getDispo() + "', transferlimit ='" + account.getLimit() + "', owner ='" + account.getOwner().getId() + "', banker_id ='" + account.getBanker().getId() + "', locked ='" + account.getStatus() + "' WHERE account_id = " + account.getId()));
         }catch(SQLException e){
             System.err.println("Fehler beim Aktualisieren des Kontodaten in der Datenbank.");
             System.err.print("Fehlermeldung: ");

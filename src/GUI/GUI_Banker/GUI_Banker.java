@@ -646,7 +646,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         resetNewCustomerView();
 
         if(h.onlyString(txtNewCustomerName.getText(), true, 2)) {
-            System.out.println("Gültiger Vorname");
             newCustomer[0] = txtNewCustomerName.getText();
             txtNewCustomerName.setBorder(correctBorder);
         } else {
@@ -654,7 +653,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
 
         if(h.onlyString(txtNewCustomerSurname.getText(), true, 2)) {
-            System.out.println("Gültiger Nachname");
             newCustomer[1] = txtNewCustomerSurname.getText();
             txtNewCustomerSurname.setBorder(correctBorder);
         } else {
@@ -662,7 +660,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
 
         if(h.correctDateFormat(txtNewCustomerBirth.getText(), true)){
-            System.out.println("Gültiges Geburtsdatum");
             newCustomer[2] = h.convertStringIntoDateFormat(txtNewCustomerBirth.getText());
             txtNewCustomerBirth.setBorder(correctBorder);
         } else {
@@ -670,7 +667,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
 
         if(txtNewCustomerAdress.getText().length() > 5) {
-            System.out.println("Gültige Adresse");
             newCustomer[3] = txtNewCustomerAdress.getText();
             txtNewCustomerAdress.setBorder(correctBorder);
         } else {
@@ -678,7 +674,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
 
         if(h.onlyInt(txtNewCustomerZIP.getText())){
-            System.out.println("Correct ZIP");
             newCustomer[4] = txtNewCustomerZIP.getText();
             txtNewCustomerZIP.setBorder(correctBorder);
         } else {
@@ -686,7 +681,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
 
         if(h.onlyString(txtNewCustomerCity.getText(), true, 2)) {
-            System.out.println("Correct City");
             newCustomer[5] = txtNewCustomerCity.getText();
             txtNewCustomerCity.setBorder(correctBorder);
         } else {
@@ -694,7 +688,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
 
         if(txtNewCustomerEmail.getText().length() > 7){
-            System.out.println("Gültige E-Mail Adresse");
             newCustomer[6] = txtNewCustomerEmail.getText();
             txtNewCustomerEmail.setBorder(correctBorder);
         } else {
@@ -702,7 +695,6 @@ public class GUI_Banker extends JFrame implements KeyListener{
         }
 
         if(h.onlyInt(txtNewCustomerPhone.getText())) {
-            System.out.println("Correct Phone Number");
             newCustomer[7] = txtNewCustomerPhone.getText();
             txtNewCustomerPhone.setBorder(correctBorder);
         } else {
